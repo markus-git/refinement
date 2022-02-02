@@ -4,12 +4,8 @@ We show that $\hat M \enc \hat N \iff \hat M \approx \hat N$.
 
 \subsubsection{$\hat M \enc \hat N \implies \hat M \approx \hat N$:}
 
-Any $\delta \in \hat I^{+}$ give rise to two trajectories: $\tau \in \Traj(\hat M)(\delta)$ and $v \in \Traj(\hat N)(\delta)$. For index $0$, $\top \enc \top$ implies that $\out{\tau[0]} = \out{\top} \sqsubseteq \out{\top} = \out{v[0]}$. For index $1$, since $\delta[0] \in \hat I$, prop. (2) of $\top \enc \top$ implies that $\tau[1] = \hat M(\top \sqcap \hat \delta[0]) \enc \hat N(\top \sqcap \delta[0]) = v[1]$, from which (1) gives that $\out{\tau[1]} \sqsubseteq \out{v[1]}$. Etc.
-
-% we assume $\out{\tau_{0}, \ldots, \tau_{i-1}} \sqsubseteq \out{v_{0}, \ldots, v_{i-1}}$ and thus only need to show that $\out{\tau_{i}} \sqsubseteq \out{v_{i}}$.
+Consider an arbitrary $\delta \in \hat I^{+}$ and the two trajectories it induces, $\tau \in \Traj(\hat M)(\delta)$ and $v \in \Traj(\hat N)(\delta)$. For index $0$, $\top \enc \top$ implies that $\out{\tau[0]} = \out{\top} \sqsubseteq \out{\top} = \out{v[0]}$. For index $1$, since $\delta[0] \in \hat I$, prop. (2) of $\top \enc \top$ implies that $\tau[1] = \hat M(\top \sqcap \hat \delta[0]) \enc \hat N(\top \sqcap \delta[0]) = v[1]$, from which (1) gives that $\out{\tau[1]} \sqsubseteq \out{v[1]}$. Etc. for higher indices.
 
 \subsubsection{$\hat M \enc \hat N \Leftarrow \hat M \approx \hat N$:}
 
-Text.
-
-% That $\top \enc \top$ is obviously true since any projection could only yield $X$, so (1) $\out{\top} \sqsubseteq \out{\top}$ holds. For (2), we must show that ... \textcolor{red}{Should this argument not be built around $\approx$?}
+Prop. (1), $\out{\top} \sqsubseteq \out{\top}$, is obviously true. Prop. (2) requires that $\hat M(\top \sqcap \hat \iota_{0}) \enc \hat N(\top \sqcap \hat \iota_{0})$ for all $\hat \iota_{0} \in \hat I$. But $\hat \iota_{0} \in \hat I^{+}$, and by $\hat M \approx \hat N$ we have that $\out{\hat M(\top \sqcap \hat \iota_{0})} \sqsubseteq \out{\hat N(\top \sqcap \hat \iota_{0})}$. Etc. for longer input sequences.

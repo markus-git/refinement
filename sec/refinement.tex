@@ -14,7 +14,7 @@ A \textit{driver} of $\hat M$ and $\hat N$ is a nonempty sequence of inputs, $\d
 
 \noindent Intuitively, if every possible input sequence produces the same, or at least more specified, outputs, then every visible behaviour of $\hat M$ in covered by $\hat N$.
 
-Let $\enc \in \hat P \times \hat Q$ (``encodes'') be a simulation relation such that $\hat p \enc \hat q$ implies that (1) $\out{\hat p} \sqsubseteq \out{\hat q}$ and (2) $\hat M(\hat p \sqcap \hat \iota) \enc \hat N(\hat q \sqcap \hat \iota)$ for all inputs $\hat \iota \in \hat I$. The relation is extended to transformers such that $\hat M \enc \hat N$ iff the top element of $\hat P$ encodes that of $\hat Q$, $\top(\hat P) \enc \top(\hat Q)$. We then simplify refinement thus: $\hat M \enc \hat N \iff \hat M \approx \hat N$.
+Let $\enc \in \hat P \times \hat Q$ (``encodes'') be a simulation relation such that $\hat p \enc \hat q$ implies that (1) $\out{\hat p} \sqsubseteq \out{\hat q}$ and (2) $\hat M(\hat p \sqcap \hat \iota) \enc \hat N(\hat q \sqcap \hat \iota)$ for all inputs $\hat \iota \in \hat I$. The relation is extended to transformers such that $\hat M \enc \hat N$ iff the top element of $\hat P$ encodes that of $\hat Q$, $\top \enc \top$. We then simplify refinement thus: $\hat M \enc \hat N \iff \hat M \approx \hat N$.
 
 % the top element of $\hat P$ encodes that of $\hat Q$, $\top(\hat P) \enc \top(\hat Q)$
 
