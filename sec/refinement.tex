@@ -1,0 +1,27 @@
+\section{System refinement (WIP)}
+
+Consider another fixed, but arbitrary, circuit $N$ such that configurations of $M$ and $N$ have the same number of externally visible elements but can differ internally. Let $\hat N \in \hat Q \rightarrow \hat Q$ be an abstract predicate transformer of $N$, we then we say that $\hat M$ \textit{refines} $\hat N$ if every \textit{externally visible behaviour} allowed by $\hat M$ is also allowed by $\hat N$, regardless of any initial configurations.
+
+Let the \textit{externally visible} parts of an abstract predicate $\hat P$ be the subsets given by two projections, $\I$ and $\O$, identifying the ``inputs'' and ``outputs'' of $\hat P$, respectively. Further, let $\out{\cdot} \in \hat P \rightarrow \hat O$ be a mapping that takes each $\hat p \in \hat P$ to its visible outputs $\out{\hat p} \in \hat O$; $\out{\cdot}$ is extended to sequences component-wise. With a slight abuse of notation, we overload both projections and the mapping to also accept predicates from $\hat Q$ and note that $\I(\hat P) = \I(\hat Q) = \hat I$ and $\O(\hat P) = \O(\hat Q) = \hat O$.
+
+% , the kind used will be apparent from its context.
+
+A \textit{driver} of $\hat M$ and $\hat N$ is a nonempty sequence of inputs, $\delta \in \hat I^{+}$, and induces a trajectory $\tau$ in $\hat M$ (resp. $\hat N$) where $\tau[0] = \top$ and $\forall i \in \mathbb{N} : 0 < i < | \delta + 1 | \implies \tau[j] = \hat M(\tau[j-1] \sqcap \delta[j-1])$. The set of drivers is denoted by $\Driv$, and the trajectory induced by a driver $\delta$ in $\hat M$ is denoted by $\Traj(\hat M)(\delta)$. Finally, we say that $\hat M$ refines $\hat N$, denoted by $\hat M \approx \hat N$, iff:
+
+\begin{equation*}
+\forall \delta \in \hat I^{+} : \out{\Traj(\hat M)(\delta)} \sqsubseteq \out{\Traj(\hat N)(\delta)}
+\end{equation*}
+
+\noindent Intuitively, if every possible input sequence produces the same, or at least more specified, outputs, then every visible behaviour of $\hat M$ in covered by $\hat N$.
+
+Let $\enc \in \hat P \times \hat Q$ (``encodes'') be a simulation relation such that $\hat p \enc \hat q$ implies that (1) $\out{\hat p} \sqsubseteq \out{\hat q}$ and (2) $\out{\hat M(\hat p \sqcap \hat \iota)} \enc \out{\hat N(\hat q \sqcap \hat \iota)}$ for all inputs $\hat \iota \in \hat I$. The relation is extended to transformers such that $\hat M \enc \hat N$ iff the top element of $\hat P$ encodes that of $\hat Q$, $\top(\hat P) \enc \top(\hat Q)$. We then simplify refinement thus: $\hat M \enc \hat N \iff \hat M \approx \hat N$.
+
+% the top element of $\hat P$ encodes that of $\hat Q$, $\top(\hat P) \enc \top(\hat Q)$
+
+% $\hat \iota \enc \hat \iota$ for all inputs $\hat \iota \in \hat I$
+
+% That is to say, the outputs of $\hat M$ is as specified as those of $\hat N$ for any input sequence starting in the state where nothing else is assumed.
+
+% If there exists a $\hat q \in \hat Q$ for every $\hat p \in \hat P$ such that $\hat p \preceq \hat q$, then $M$ must ``cover'' the input-output behaviour of $N$.
+
+% LocalWords:  consequents
