@@ -4,8 +4,12 @@ We show that $\hat M \enc \hat N \iff \hat M \approx \hat N$.
 
 \subsubsection{$\hat M \enc \hat N \implies \hat M \approx \hat N$:}
 
-Any driver $\delta = \hat \iota_{0}, \hat \iota_{1}, \ldots \in \hat I^{+}$ give rise to two trajectories: $\tau_{0}, \tau_{1}, \ldots \in \Traj(\hat M)(\delta)$ and $v_{0}, v_{1}, \ldots \in \Traj(\hat N)(\delta)$. The first predicates match simply by definition, $\tau_{0} = \delta[0] = v_{0}$, hence $\out{\tau_{0}} \sqsubseteq \out{v_{0}}$. For index $i$, we assume $\out{\tau_{0}, \ldots, \tau_{i-1}} \sqsubseteq \out{v_{0}, \ldots, v_{i-1}}$ and thus only need to show that $\out{\tau_{i}} \sqsubseteq \out{v_{i}}$. \textcolor{red}{We can reach $\tau_{i-1}$ and $v_{i-1}$ from $\top \enc \top$}. Then, by (2) we have $\out{\tau_{i}} = \out{\hat M(\tau_{i-1} \sqcap \hat \iota_{i})} \sqsubseteq \out{\hat N(v_{i-1} \sqcap \hat \iota_{i})} = \out{v_{i}}$.
+Any $\delta \in \hat I^{+}$ give rise to two trajectories: $\tau \in \Traj(\hat M)(\delta)$ and $v \in \Traj(\hat N)(\delta)$. For index $0$, $\top \enc \top$ implies that $\out{\tau[0]} = \out{\top} \sqsubseteq \out{\top} = \out{v[0]}$. For index $1$, since $\delta[0] \in \hat I$, prop. (2) of $\top \enc \top$ implies that $\tau[1] = \hat M(\top \sqcap \hat \delta[0]) \enc \hat N(\top \sqcap \delta[0]) = v[1]$, from which (1) gives that $\out{\tau[1]} \sqsubseteq \out{v[1]}$. Etc.
+
+% we assume $\out{\tau_{0}, \ldots, \tau_{i-1}} \sqsubseteq \out{v_{0}, \ldots, v_{i-1}}$ and thus only need to show that $\out{\tau_{i}} \sqsubseteq \out{v_{i}}$.
 
 \subsubsection{$\hat M \enc \hat N \Leftarrow \hat M \approx \hat N$:}
 
-That $\top \enc \top$ is obviously true since any projection could only yield $X$, so (1) $\out{\top} \sqsubseteq \out{\top}$ holds. For (2), we must show that ... \textcolor{red}{Should this argument not be built around $\approx$?}
+Text.
+
+% That $\top \enc \top$ is obviously true since any projection could only yield $X$, so (1) $\out{\top} \sqsubseteq \out{\top}$ holds. For (2), we must show that ... \textcolor{red}{Should this argument not be built around $\approx$?}
