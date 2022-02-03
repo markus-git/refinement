@@ -1,11 +1,11 @@
 \section{Proofs (WIP)}
 
-We show that $\hat M \enc \hat N \iff \hat M \approx \hat N$.
+We show that $\hat M \enc \hat N \iff \hat M \leq \hat N$.
 
-\subsubsection{$\hat M \enc \hat N \implies \hat M \approx \hat N$:}
+\subsubsection{$\hat M \enc \hat N \implies \hat M \leq \hat N$:}
 
-Consider an arbitrary $\delta \in \hat I^{+}$ and the two trajectories it induces, $\tau \in \Traj(\hat M)(\delta)$ and $v \in \Traj(\hat N)(\delta)$. For index $0$, $\top \enc \top$ implies that $\out{\tau[0]} = \out{\top} \sqsubseteq \out{\top} = \out{v[0]}$. For index $1$, since $\delta[0] \in \hat I$, prop. (2) of $\top \enc \top$ implies that $\tau[1] = \hat M(\top \sqcap \hat \delta[0]) \enc \hat N(\top \sqcap \delta[0]) = v[1]$, from which (1) gives that $\out{\tau[1]} \sqsubseteq \out{v[1]}$. Etc. for higher indices.
+Consider an arbitrary $\delta \in \hat I^{+}$ and the two trajectories it induces, $\tau \in \Traj(\hat M)(\delta)$ and $v \in \Traj(\hat N)(\delta)$. For index $0$, $\hat M \enc \hat N$ implies that $\delta[0] \enc \delta[0]$, and thus by prop. (1) $\out{\tau[0]} = \out{\delta[0]} \sqsubseteq \out{\delta[0]} = \out{v[0]}$. For index $1$, since $\delta[0] \in \hat I$, prop. (2) of $\delta[0] \enc \delta[0]$ implies that $\tau[1] = \delta[1] \sqcap \hat M(\delta[0]) \enc \delta[1] \sqcap \hat N(\delta[0]) = v[1]$, from which prop. (1) states that $\out{\tau[1]} \sqsubseteq \out{v[1]}$. Etc. for higher indices. \textcolor{red}{Proof by contradiction seems easy?}
 
-\subsubsection{$\hat M \enc \hat N \Leftarrow \hat M \approx \hat N$:}
+\subsubsection{$\hat M \enc \hat N \Leftarrow \hat M \leq \hat N$:}
 
-Prop. (1), $\out{\top} \sqsubseteq \out{\top}$, is obviously true. Prop. (2) requires that $\hat M(\top \sqcap \hat \iota_{0}) \enc \hat N(\top \sqcap \hat \iota_{0})$ for all $\hat \iota_{0} \in \hat I$. But $\hat \iota_{0} \in \hat I^{+}$, and by $\hat M \approx \hat N$ we have that $\out{\hat M(\top \sqcap \hat \iota_{0})} \sqsubseteq \out{\hat N(\top \sqcap \hat \iota_{0})}$. Etc. for longer input sequences.
+Any $\hat \iota_{0} \in \hat I$ is also a valid 1-size driver, $\hat M \leq \hat N$ thus implies that prop. (1) $\out{\hat \iota_{0}} \sqsubseteq \out{\hat \iota_{0}}$ is true. Prop. (2) requires that $\hat \iota_{1} \sqcap \hat M(\hat \iota_{0}) \enc \hat \iota_{1} \sqcap \hat N(\hat \iota_{0})$ for all $\hat \iota_{1} \in \hat I$. But $\hat \iota_{0}, \hat \iota_{1} \in \hat I^{+}$ for any $\hat \iota_{1} \in \hat I$, so by $\hat M \approx \hat N$ we have that $\out{\hat \iota_{1} \sqcap \hat M(\hat \iota_{0})} \sqsubseteq \out{\hat \iota_{1} \sqcap \hat N(\hat \iota_{0})}$. Etc. for longer input sequences. \textcolor{red}{Prove that any encoding state can be reached by a trajectory?}
