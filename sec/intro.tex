@@ -71,19 +71,27 @@ A \textit{trajectory assertion} for $\hat M$ is a quintuple $\hat A = (S,s_{0},R
 
 Define $F \in S \rightarrow (\hat P \rightarrow \hat P)$ and $\mathcal{F} \in (S \rightarrow \hat P) \rightarrow (S \rightarrow \hat P)$ as follows:
 
-\begin{align*}
-F (s) (\hat p) &= \hat M (\pi_{a} (s) \sqcap \hat p)
-\\
-\mathcal{F} (\Phi) (s) &=
-\left\{
-  \begin{array}{ c l }
-    \top & \textrm{if } s = s_{0} \\
-    \sqcup \{ F (s') (\Phi(s')) \, | \, (s',s) \in R \} & \textrm{otherwise} 
-  \end{array}
-\right.
-\end{align*}
+\begin{align}
+F(s)(\hat p) &= \hat M(\pi_{a}(s) \sqcap \hat p) \\
+\mathcal{F}(\Phi)(s) &= \Stmt{if } (s = s_{0}) \Stmt{ then } \top \Stmt{ else } \sqcup \{ F(s')(\Phi(s')) \, | \, (s',s) \in R \}
+\end{align}
 
-\noindent $F$ preserves $\bot$ and both $F$ and $\mathcal{F}$ are monotonic, where $\Phi, \Phi' \in S \rightarrow \hat P$ are ordered as $\Phi \sqsubseteq \Phi' \iff \forall s \in S : \Phi (s) \sqsubseteq \Phi' (s)$. Let $\Phi_{*} \in S \rightarrow \hat P$ be the least fixpoint of the equation $\Phi = \mathcal{F}(\Phi)$~\cite{davey2002}. We then say that the abstract circuit $\hat M$ \textit{satisfies} a lattice-based, abstract trajectory assertion $\hat A$, denoted by $\hat M \models \hat A$, iff:
+%% \mathcal{F}(\Phi)(s) &=
+%% \left\{
+%%   \begin{array}{ c l }
+%%     \top & \textrm{if } s = s_{0} \\
+%%     \sqcup \{ F(s')(\Phi(s')) \, | \, (s',s) \in R \} & \textrm{otherwise} 
+%%   \end{array}
+%% \right.
+
+
+\noindent for all $\Phi \in S \rightarrow \mathcal{P}(C)$ and $s \in S$. $F$ preserves $\bot$ and both $F$ and $\mathcal{F}$ are monotonic, where two $\Phi, \Phi' \in S \rightarrow \hat P$ are ordered as $\Phi \sqsubseteq \Phi' \iff \forall s \in S : \Phi(s) \sqsubseteq \Phi'(s)$. Let $\Phi_{*} \in S \rightarrow \hat P$ be the least fixpoint of the equation $\Phi = \mathcal{F}(\Phi)$~\cite{davey2002}. Since both $S$ and $\hat P$ are finite, $\Phi_{*}$ is given by $\lim \, \Phi_{n}(s)$ where $\Phi_{n}$ is defined as follows:
+
+\begin{equation}
+\Phi_{n} = \Stmt{if } (n = 0) \Stmt{ then } (\lambda s \in S : \bot) \Stmt{ else } \mathcal{F}(\Phi_{n-1})
+\end{equation}
+
+We say that the abstract circuit $\hat M$ \textit{satisfies} a lattice-based, abstract trajectory assertion $\hat A$, denoted by $\hat M \models \hat A$, iff:
 
 \begin{equation}
 \forall s \in S : \Phi_{*}(s) \sqcap \pi_{\alpha}(s) \sqsubseteq \pi_{c}(s)

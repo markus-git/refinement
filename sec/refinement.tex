@@ -1,23 +1,29 @@
 \section{System refinement (WIP)}
 
-Consider another fixed, but arbitrary, circuit $N$ such that configurations of $M$ and $N$ have the same number of externally visible elements but can differ internally. Let $\hat N \in \hat Q \rightarrow \hat Q$ be an abstract predicate transformer of $N$, we then we say that $\hat M$ \textit{refines} $\hat N$ if every \textit{externally visible behaviour} allowed by $\hat M$ is also allowed by $\hat N$, regardless of any initial configurations.
+Consider another fixed, but arbitrary, circuit $N$ such that configurations of $M$ and $N$ have the same externally visible elements but can differ internally. Let $\hat N \in \hat Q \rightarrow \hat Q$ be an abstract predicate transformer of $N$, we then we say that $\hat M$ \textit{refines} $\hat N$ if every \textit{externally visible behaviour} allowed by $\hat M$ is also allowed by $\hat N$, regardless of any initial configurations.
 
-\textcolor{red}{M always sets it I to $\top$.}
+% \textcolor{red}{$M$ always sets it $\hat I$ to $\top$ and doesn't really work for zero-delay circuits.}
 
-Let the \textit{externally visible} parts of an abstract predicate $\hat P$ be the subsets given by two projections, $\I$ and $\O$, identifying the ``inputs'' and ``outputs'' of $\hat P$, respectively. Further, let $\out{\cdot} \in \hat P \rightarrow \hat O$ be a mapping that takes each $\hat p \in \hat P$ to its visible outputs $\out{\hat p} \in \hat O$; $\out{\cdot}$ is extended to sequences component-wise. With a slight abuse of notation, we overload both projections and the mapping to also accept predicates from $\hat Q$ and note that $\I(\hat P) = \I(\hat Q) = \hat I$ and $\O(\hat P) = \O(\hat Q) = \hat O$.
+\subsubsection{Drivers} Let the \textit{externally visible} parts of an abstract predicate $\hat P$ be the subsets given by two projections, $\I$ and $\O$, identifying the ``inputs'' and ``outputs'' of $\hat P$, respectively. Further, let $\out{\cdot} \in \hat P \rightarrow \hat O$ be a mapping that takes each $\hat p \in \hat P$ to its visible outputs $\out{\hat p} \in \hat O$; $\out{\cdot}$ is extended to sequences component-wise. With a slight abuse of notation, we overload both projections and the mapping to also accept predicates from $\hat Q$ and note that $\I(\hat P) = \I(\hat Q) = \hat I$ and $\O(\hat P) = \O(\hat Q) = \hat O$ since $M$ and $N$ share inputs and outputs.
 
-A \textit{driver} of $\hat M$ and $\hat N$ is a nonempty sequence of inputs, $\delta \in \hat I^{+}$, and induces a trajectory $\tau$ in $\hat M$ (resp. $\hat N$) where $\tau[0] = \delta[0]$ and $\forall i \in \mathbb{N} : 0 < i < | \delta | \implies \tau[j] = \delta[j] \sqcap \hat M(\tau[j-1])$. The set of drivers is denoted by $\Driv$, and the trajectory induced by a driver $\delta$ in $\hat M$ is denoted by $\Traj(\hat M)(\delta)$. Finally, we say that $\hat M$ refines $\hat N$, denoted by $\hat M \leq \hat N$, iff:
+A \textit{driver} of $\hat M$ and $\hat N$ is a nonempty sequence of inputs, $\delta \in \hat I^{+}$, and induces a trajectory $\tau$ in $\hat M$ (resp. $\hat N$) where $\tau[0] = \hat M(\delta[0])$ and $\forall i \in \mathbb{N} : 0 < i < | \delta | \implies \tau[j] = \hat M(\delta[j] \sqcap \tau[j-1])$; the trajectory induced by a driver $\delta$ in $\hat M$ is denoted by $\Traj(\hat M)(\delta)$. Intuitively, if $\hat M$ produces the same, or at least more specified, outputs than $\hat N$ for all possible drivers, then every visible behaviour of $\hat M$ is covered by $\hat N$. We thus say that $\hat M$ refines $\hat N$, denoted by $\hat M \leq \hat N$, iff:
 
 \begin{equation*}
 \forall \delta \in \hat I^{+} : \out{\Traj(\hat M)(\delta)} \sqsubseteq \out{\Traj(\hat N)(\delta)}
 \end{equation*}
 
-\noindent Intuitively, if every possible input sequence produces the same, or at least more specified, outputs, then every visible behaviour of $\hat M$ in covered by $\hat N$.
+\subsubsection{Simulation} Let $\enc \in \hat P \times \hat Q$ be a simulation relation such that $\hat p \enc \hat q$ implies (1) $\out{\hat p} \sqsubseteq \out{\hat q}$ and (2) $\hat M(\hat \iota \sqcap \hat p) \enc \hat N(\hat \iota \sqcap \hat q)$ for all inputs $\hat \iota \in \hat I$. We extend this relation to $\hat M$ and $\hat N$ such that $\hat M \enc \hat N$ iff their top elements are related, $\top \enc \top$. We then simplify refinement thus: $\hat M \leq \hat N \iff \hat M \enc \hat N$.
 
-Let $\enc \in \hat P \times \hat Q$ (``encodes'') be a simulation relation such that $\hat p \enc \hat q$ implies that (1) $\out{\hat p} \sqsubseteq \out{\hat q}$ and (2) $\hat \iota \sqcap \hat M(\hat p) \enc \hat \iota \sqcap \hat N(\hat q)$ for all inputs $\hat \iota \in \hat I$. The relation is extended to transformers such that $\hat M \enc \hat N$ iff all inputs $\hat \iota \in \hat I$ are encoded $\hat \iota \enc \hat \iota$. We then simplify refinement thus: $\hat M \leq \hat N \iff \hat M \enc \hat N$.
+% (read as $\hat p$ ``encodes'' $\hat q$)
+
+\subsubsection{Trajectory} A trajectory assertion $\hat A = (S,s_{0},R,\pi_{a},\pi_{c})$ for $\hat N$ where antecedents only mention inputs, $\pi_{a} \in S \rightarrow \hat I$, and consequents only mention outputs, $\pi_{c} \in S \rightarrow \hat O$, is referred to as an \textit{external trajectory assertion}. Intuitively, a satisfied external trajectory assertion is property of $N$ that must hold regardless of its internal state.
+
+Let $G \in S \rightarrow (\hat Q \rightarrow \hat Q)$ and $\mathcal{G} \in (S \rightarrow \hat Q) \rightarrow (S \rightarrow \hat Q)$ be the duals of $F$ and $\mathcal{F}$ in $\hat N$, respectively. Further, let $\Psi_{*}$ be the least fix point of $\Psi = \mathcal{G}(\Psi)$ and the dual of $\Phi_{*}$ in $\hat N$.
+
+If $\hat M \enc \hat N$, we claim that $\Phi_{*}(s) \sqsubseteq \Psi_{*}(s)$ for all $s \in S$. Since $\Phi_{*}(s) = \lim \, \Phi_{n}(s)$ and $\Psi_{*}(s) = \lim \, \Psi_{n}(s)$, it suffices to prove that $\Phi_{n}(s) \sqsubseteq \Psi_{n}(s)$ for all $s \in S$ and $n \in \mathbb{N}$. We do so by induction on $n$. The base case is trivially true ($\bot \sqsubseteq \bot$). For the inductive step, assume $\Phi_{n}(s) \sqsubseteq \Psi_{n}(s)$ for all $s \in S$. That $\Phi_{n+1}(s) \sqsubseteq \Psi_{n+1}(s)$ for $s_{0}$ is also trivially correct ($\top \sqsubseteq \top$). For any $s \neq s_{0} \in S$, we have $\Phi_{n+1}(s) = \sqcup \{ F(s')(\Phi_{n}(s')) \, | \, (s',s) \in R \} \sqsubseteq \sqcup \{ F(s')(\Psi_{n}(s')) \, | \, (s',s) \in R \}$. \textcolor{red}{I would like to claim that this is $\sqsubseteq \sqcup \{ G(s')(\Psi_{n}(s')) \, | \, (s',s) \in R \} = \Psi_{n+1}$. But I'm missing a relation between $F$ and $G$, which should come from $\enc$.}
 
 \begin{theorem}
-Given ...
+Given two abstract predicate transformers $\hat M$ and $\hat N$ such that $\hat M \preceq \hat N$, and a external trajectory assertion $\hat A$ for $\hat N$, then $\hat N \models \hat A \implies \hat M \models \hat A$.
 \end{theorem}
 
 % LocalWords:  consequents
