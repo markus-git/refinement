@@ -2,17 +2,25 @@
 
 Consider another fixed, but arbitrary, circuit $N$ such that configurations of $M$ and $N$ have the same externally visible elements but can differ internally. Let $\hat N \in \hat Q \rightarrow \hat Q$ be an abstract predicate transformer of $N$, we then we say that $\hat M$ \textit{refines} $\hat N$ if every \textit{externally visible behaviour} allowed by $\hat M$ is also allowed by $\hat N$, regardless of any initial configurations.
 
-% \textcolor{red}{$M$ always sets it $\hat I$ to $\top$ and doesn't really work for zero-delay circuits.}
+\textcolor{red}{$M$ always sets it $\hat I$ to $\top$ and doesn't really work for zero-delay circuits.}
 
-\subsubsection{Drivers} Let the \textit{externally visible} parts of an abstract predicate $\hat P$ be the subsets given by two projections, $\I$ and $\O$, identifying the ``inputs'' and ``outputs'' of $\hat P$, respectively. Further, let $\out{\cdot} \in \hat P \rightarrow \hat O$ be a mapping that takes each $\hat p \in \hat P$ to its visible outputs $\out{\hat p} \in \hat O$; $\out{\cdot}$ is extended to sequences component-wise. With a slight abuse of notation, we overload both projections and the mapping to also accept predicates from $\hat Q$ and note that $\I(\hat P) = \I(\hat Q) = \hat I$ and $\O(\hat P) = \O(\hat Q) = \hat O$ since $M$ and $N$ share inputs and outputs.
+\textcolor{red}{The value domain for inputs and outputs must be the same so they are comparable. Not just that they have the ``same'' inputs and output elements.}
 
-A \textit{driver} of $\hat M$ and $\hat N$ is a nonempty sequence of inputs, $\delta \in \hat I^{+}$, and induces a trajectory $\tau$ in $\hat M$ (resp. $\hat N$) where $\tau[0] = \hat M(\delta[0])$ and $\forall i \in \mathbb{N} : 0 < i < | \delta | \implies \tau[j] = \hat M(\delta[j] \sqcap \tau[j-1])$; the trajectory induced by a driver $\delta$ in $\hat M$ is denoted by $\Traj(\hat M)(\delta)$. Intuitively, if $\hat M$ produces the same, or at least more specified, outputs than $\hat N$ for all possible drivers, then every visible behaviour of $\hat M$ is covered by $\hat N$. We thus say that $\hat M$ refines $\hat N$, denoted by $\hat M \leq \hat N$, iff:
+\textcolor{red}{Example?}
+
+\subsubsection{Drivers} Let the \textit{externally visible} parts of an abstract predicate $\hat P$ be the subsets given by two projections, $\InProj$ and $\OutProj$, identifying the ``inputs'' and ``outputs'' of $\hat P$, respectively. Further, let $\out{\cdot} \in \hat P \rightarrow \hat O$ be a mapping that takes each $\hat p \in \hat P$ to its visible outputs $\out{\hat p} \in \hat O$; $\out{\cdot}$ is extended to sequences component-wise. With a slight abuse of notation, we overload both projections and the mapping to also accept predicates from $\hat Q$ and note that $\InProj(\hat P) = \InProj(\hat Q) = \hat I$ and $\OutProj(\hat P) = \OutProj(\hat Q) = \hat O$ since $M$ and $N$ share inputs and outputs.
+
+A \textit{driver} of $\hat M$ and $\hat N$ is a nonempty sequence of inputs, $\delta \in \hat I^{+}$, and induces a trajectory $\tau$ in $\hat M$ (resp. $\hat N$) where $\tau[0] = \top$ and $\forall i \in \mathbb{N} : 0 < i < | \delta + 1 | \implies \tau[j] = \hat M(\delta[j-1] \sqcap \tau[j-1])$; the trajectory induced by a driver $\delta$ in $\hat M$ is denoted by $\Driv(\hat M)(\delta)$. Intuitively, if $\hat M$ produces the same, or at least more specified, outputs than $\hat N$ for all possible drivers, then every visible behaviour of $\hat M$ is covered by $\hat N$. We thus say that $\hat M$ refines $\hat N$, denoted by $\hat M \leq \hat N$, iff:
 
 \begin{equation*}
-\forall \delta \in \hat I^{+} : \out{\Traj(\hat M)(\delta)} \sqsubseteq \out{\Traj(\hat N)(\delta)}
+\forall \delta \in \hat I^{+} : \out{\Driv(\hat M)(\delta)} \sqsubseteq \out{\Driv(\hat N)(\delta)}
 \end{equation*}
 
+\textcolor{red}{Example!}
+
 \subsubsection{Simulation} Let $\enc \in \hat P \times \hat Q$ be a simulation relation such that $\hat p \enc \hat q$ implies (1) $\out{\hat p} \sqsubseteq \out{\hat q}$ and (2) $\hat M(\hat \iota \sqcap \hat p) \enc \hat N(\hat \iota \sqcap \hat q)$ for all inputs $\hat \iota \in \hat I$. We extend this relation to $\hat M$ and $\hat N$ such that $\hat M \enc \hat N$ iff their top elements are related, $\top \enc \top$. We then simplify refinement thus: $\hat M \leq \hat N \iff \hat M \enc \hat N$.
+
+\textcolor{red}{Example!}
 
 % (read as $\hat p$ ``encodes'' $\hat q$)
 
@@ -24,7 +32,7 @@ For all below, assume $\hat M \enc \hat N$.
 
 (1): $\hat p \enc \hat q \implies \forall s \in S : F(s)(\hat p) \enc G(s)(\hat q)$. $F(s)(\hat p) = \hat M(\pi_{a}(s) \sqcap \hat p)$ and $G(s)(\hat q) = \hat N(\pi_{a}(s) \sqcap \hat q)$ where $\pi_{a}(s) \in \hat I$. By prop. 2 of $\hat p \enc \hat q$, we thus know that $F(s)(\hat p) \enc G(s)(\hat q)$.
 
-(2): $\Phi_{*}(s) \enc \Psi_{*}(s)$ for all $s \in S$. By induction on $n$, like below. Base case and case when $s = s_{0}$ are both trivial. For the inductive step, assume that $\Phi_{n}(s) \enc \Psi_{n}(s)$ for all $s \in S$. For any $s \neq s_{0}$, we have that $\Phi_{n+1} = \sqcup \{ F(s')(\Phi_{n}(s')) \mid (s',s) \in R \}$...
+(2): $\Phi_{*}(s) \enc \Psi_{*}(s)$ for all $s \in S$. By induction on $n$, like below. Base case and case when $s = s_{0}$ are both trivial. For the inductive step, assume that $\Phi_{n}(s) \enc \Psi_{n}(s)$ for all $s \in S$. For any $s \neq s_{0}$, we have that $\Phi_{n+1} = \sqcup \{ F(s')(\Phi_{n}(s')) \mid (s',s) \in R \}$. By (1) we know that ...
 
 If $\hat M \enc \hat N$, we claim that $\out{\Phi_{*}(s)} \sqsubseteq \out{\Psi_{*}(s)}$ for all $s \in S$. Since $\Phi_{*}(s) = \lim \, \Phi_{n}(s)$ and $\Psi_{*}(s) = \lim \, \Psi_{n}(s)$, it suffices to prove that $\out{\Phi_{n}(s)} \sqsubseteq \out{\Psi_{n}(s)}$ for all $s \in S$ and $n \in \mathbb{N}$. We do so by induction on $n$. The base case is trivially true ($\out{\bot} \sqsubseteq \out{\bot}$). For the inductive step, assume $\out{\Phi_{n}(s)} \sqsubseteq \out{\Psi_{n}(s)}$ for all $s \in S$. That $\out{\Phi_{n+1}(s)} \sqsubseteq \out{\Psi_{n+1}(s)}$ for $s_{0}$ is also trivially correct ($\out{\top} \sqsubseteq \out{\top}$). For any $s \neq s_{0} \in S$, we have $\out{\Phi_{n+1}(s)} = \out{\sqcup \{ F(s')(\Phi_{n}(s')) \mid (s',s) \in R \}} \sqsubseteq \out{\sqcup \{ F(s')(\Psi_{n}(s')) \mid (s',s) \in R \}}$. \textcolor{red}{I would like to claim that this is $\sqsubseteq \out{\sqcup \{ G(s')(\Psi_{n}(s')) \mid (s',s) \in R \}} = \out{\Psi_{n+1}}$. But I'm missing a relation between $F$ and $G$, which should come from $\enc$.}
 
