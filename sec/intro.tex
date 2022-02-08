@@ -31,7 +31,7 @@ A simple conceptual model of $M$ is a \textit{transition relation}, $M_{R} \subs
 $M_{R}$ induces a \textit{predicate transformer} $M_{F} \in \mathcal{P}(C) \rightarrow \mathcal{P}(C)$ using the relational image operation:
 
 \begin{equation*}
-M_{F}(p) = \{ c' \in C \, | \, \exists c \in p : (c,c') \in M_{R} \}
+M_{F}(p) = \{ c' \in C \mid \exists c \in p : (c,c') \in M_{R} \}
 \end{equation*}
 
 \noindent It is intuitively obvious that if $M$ is in one of the configurations in $p \in \mathcal{P}(C)$, then in one time step it must be in one of the configurations in $M_{F}(p)$, or in other words, $(c,c') \in M_{R} \iff c' \in M_{F}(\{ c \})$. We adopt this functional model of $M$ and drop its subscript.
@@ -57,7 +57,7 @@ Q \ll \hat Q \iff \cup Q \ll \sqcap \hat Q
 It is sometimes convenient to define a Galois connection in terms of an \textit{abstraction} $\alpha \in \mathcal{P}(C) \rightarrow \hat P$ and a \textit{concretisation} $\gamma \in \hat P \rightarrow \mathcal{P}(C)$ function, from which one can derive $\ll$ as follows: $p \ll \hat p \iff p \subseteq \gamma(\hat p)$ or $p \ll \hat p \iff \alpha (p) \sqsubseteq \hat p$. For example, a Galois connection from $\mathcal{P}(\mathbb{B}^{m})$ to $\mathbb{T}_{\bot}^{m}$ for any $m \in \mathbb{N}$ can be defined in a natural way by specifying its concretisation function $\Gamma \in \mathbb{T}_{\bot}^{m} \rightarrow \mathcal{P}(\mathbb{B}^{m})$:
 
 \begin{align*}
-\Gamma ( \langle t_{0},\dots,t_{m-1} \rangle ) &= \{ \langle b_{0},\dots,b_{m-1} \rangle \in \mathbb{B}^{m} \, | \, \forall i < m : t_{i} \neq X \Rightarrow b_{i} = t_{i} \} \\
+\Gamma ( \langle t_{0},\dots,t_{m-1} \rangle ) &= \{ \langle b_{0},\dots,b_{m-1} \rangle \in \mathbb{B}^{m} \mid \forall i < m : t_{i} \neq X \Rightarrow b_{i} = t_{i} \} \\
 \Gamma ( \bot ) &= \emptyset
 \end{align*}
 
@@ -73,14 +73,14 @@ Define $F \in S \rightarrow (\hat P \rightarrow \hat P)$ and $\mathcal{F} \in (S
 
 \begin{align}
 F(s)(\hat p) &= \hat M(\pi_{a}(s) \sqcap \hat p) \\
-\mathcal{F}(\Phi)(s) &= \Stmt{if } (s = s_{0}) \Stmt{ then } \top \Stmt{ else } \sqcup \{ F(s')(\Phi(s')) \, | \, (s',s) \in R \}
+\mathcal{F}(\Phi)(s) &= \Stmt{if } (s = s_{0}) \Stmt{ then } \top \Stmt{ else } \sqcup \{ F(s')(\Phi(s')) \mid (s',s) \in R \}
 \end{align}
 
 %% \mathcal{F}(\Phi)(s) &=
 %% \left\{
 %%   \begin{array}{ c l }
 %%     \top & \textrm{if } s = s_{0} \\
-%%     \sqcup \{ F(s')(\Phi(s')) \, | \, (s',s) \in R \} & \textrm{otherwise} 
+%%     \sqcup \{ F(s')(\Phi(s')) \mid (s',s) \in R \} & \textrm{otherwise} 
 %%   \end{array}
 %% \right.
 
