@@ -18,7 +18,13 @@ A \textit{driver} of $\hat M$ and $\hat N$ is a nonempty sequence of inputs, $\d
 
 \subsubsection{Trajectory} A trajectory assertion $\hat A = (S,s_{0},R,\pi_{a},\pi_{c})$ for $\hat N$ where antecedents only mention inputs, $\pi_{a} \in S \rightarrow \hat I$, and consequents only mention outputs, $\pi_{c} \in S \rightarrow \hat O$, is referred to as an \textit{external trajectory assertion}. Intuitively, a satisfied external trajectory assertion is property of $N$ that must hold regardless of its internal state.
 
-Let $G \in S \rightarrow (\hat Q \rightarrow \hat Q)$ and $\mathcal{G} \in (S \rightarrow \hat Q) \rightarrow (S \rightarrow \hat Q)$ be the duals of $F$ and $\mathcal{F}$ in $\hat N$, respectively. Further, let $\Psi_{*}$ be the least fix point of $\Psi = \mathcal{G}(\Psi)$ and the dual of $\Phi_{*}$ in $\hat N$. \textcolor{red}{Fix for red below.} If $\hat M \enc \hat N$, $\Phi_{*}(s) \enc \Psi_{*}(s)$ for all $s \in S$.
+Let $G \in S \rightarrow (\hat Q \rightarrow \hat Q)$ and $\mathcal{G} \in (S \rightarrow \hat Q) \rightarrow (S \rightarrow \hat Q)$ be the duals of $F$ and $\mathcal{F}$ in $\hat N$, respectively. Further, let $\Psi_{*}$ be the least fix point of $\Psi = \mathcal{G}(\Psi)$ and the dual of $\Phi_{*}$ in $\hat N$. \textcolor{red}{Fix for red below.}
+
+For all below, assume $\hat M \enc \hat N$.
+
+(1): $\hat p \enc \hat q \implies \forall s \in S : F(s)(\hat p) \enc G(s)(\hat q)$. $F(s)(\hat p) = \hat M(\pi_{a}(s) \sqcap \hat p)$ and $G(s)(\hat q) = \hat N(\pi_{a}(s) \sqcap \hat q)$ where $\pi_{a}(s) \in \hat I$. By prop. 2 of $\hat p \enc \hat q$, we thus know that $F(s)(\hat p) \enc G(s)(\hat q)$.
+
+(2): $\Phi_{*}(s) \enc \Psi_{*}(s)$ for all $s \in S$.
 
 If $\hat M \enc \hat N$, we claim that $\out{\Phi_{*}(s)} \sqsubseteq \out{\Psi_{*}(s)}$ for all $s \in S$. Since $\Phi_{*}(s) = \lim \, \Phi_{n}(s)$ and $\Psi_{*}(s) = \lim \, \Psi_{n}(s)$, it suffices to prove that $\out{\Phi_{n}(s)} \sqsubseteq \out{\Psi_{n}(s)}$ for all $s \in S$ and $n \in \mathbb{N}$. We do so by induction on $n$. The base case is trivially true ($\out{\bot} \sqsubseteq \out{\bot}$). For the inductive step, assume $\out{\Phi_{n}(s)} \sqsubseteq \out{\Psi_{n}(s)}$ for all $s \in S$. That $\out{\Phi_{n+1}(s)} \sqsubseteq \out{\Psi_{n+1}(s)}$ for $s_{0}$ is also trivially correct ($\out{\top} \sqsubseteq \out{\top}$). For any $s \neq s_{0} \in S$, we have $\out{\Phi_{n+1}(s)} = \out{\sqcup \{ F(s')(\Phi_{n}(s')) \, | \, (s',s) \in R \}} \sqsubseteq \out{\sqcup \{ F(s')(\Psi_{n}(s')) \, | \, (s',s) \in R \}}$. \textcolor{red}{I would like to claim that this is $\sqsubseteq \out{\sqcup \{ G(s')(\Psi_{n}(s')) \, | \, (s',s) \in R \}} = \out{\Psi_{n+1}}$. But I'm missing a relation between $F$ and $G$, which should come from $\enc$.}
 
