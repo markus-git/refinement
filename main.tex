@@ -25,7 +25,7 @@
 \renewcommand{\iff}{\Leftrightarrow} % preference.
 \renewcommand{\implies}{\Rightarrow} % preference. 
 \DeclareMathOperator{\nsqsubseteq}{\not\sqsubseteq} % not impl.
-\newcommand{\Traj}{\textit{Traj}} % set of trajectories
+\newcommand{\Traj}[1]{\textit{Traj}(#1)} % set of trajectories
 
 % STE orig. grammar.
 \DeclareMathOperator{\Next}{\textbf{N}} % Next-time.
@@ -35,8 +35,8 @@
 \newcommand{\InProj}{\mathit{i}} % input proj.
 \newcommand{\OutProj}{\mathit{o}} % output proj.
 \newcommand{\out}[1]{\llbracket#1\rrbracket} % output mapping.
-\DeclareMathOperator{\enc}{\preceq} % encodes.
-\newcommand{\Driv}{\textit{Traj}} % trajectory induced by driver.
+\DeclareMathOperator{\enc}{\mathrel{\preceq}} % encodes.
+\newcommand{\Driv}[2]{\Traj{#1}(#2)} % trajectory induced by driver.
 
 %% \DeclareMathOperator{\InProj}{\mathit{in}}
 %% \DeclareMathOperator{\OutProj}{\mathit{out}}
