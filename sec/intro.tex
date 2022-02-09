@@ -38,7 +38,7 @@ M_{F}(p) = \{ c' \in C \mid \exists c \in p : (c,c') \in M_{R} \}
 
 \noindent It is intuitively obvious that if $M$ is in one of the configurations in $p \in \mathcal{P}(C)$, then in one time step it must be in one of the configurations in $M_{F}(p)$, or in other words, $(c,c') \in M_{R} \iff c' \in M_{F}(\{ c \})$. We adopt this functional model of $M$ and drop its subscript.
 
-Since the value of input signals is controlled by the external environment, a circuits model itself does not impose any constraint on the value. Signals that do not correspond to inputs are further divided into state-holding signals and outputs. For such non-input signals, the model is a montonic function where imposed constraints are determined by the circuit topology and functionality. For instance, if assume the circuit is a two-input AND gate followed by an inverter, its model have the type $M \in \mathcal{P}(\mathbb{B}^{4}) \rightarrow \mathcal{P}(\mathbb{B}^{4})$ and can be defined as:
+Since the value of input signals is controlled by the external environment, a circuits model itself does not impose any constraint on them. Signals that do not correspond to inputs are further divided into state-holding signals and outputs. For such non-input signals, the model is a montonic function where imposed constraints are determined by the circuit topology and functionality. For instance, if assume the circuit is a two-input AND gate followed by an inverter, its model have the type $M \in \mathcal{P}(\mathbb{B}^{4}) \rightarrow \mathcal{P}(\mathbb{B}^{4})$ and can be defined as:
 
 \begin{equation*}
 M(p) = \{ \langle b_{1}, b_{2}, b_{3}, b_{4} \rangle \in \mathbb{B}^{4} \mid b_{3} = \cap p_{1} \wedge \cap p_{2}, b_{4} = \neg (\cap p_{3}) \}
