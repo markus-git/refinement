@@ -1,6 +1,8 @@
 \section{Proofs (WIP)}
 
-We show that $\hat M \enc \hat N \iff \hat M \leq \hat N$.
+\subsection{$\hat M \enc \hat N \iff \hat M \leq \hat N$}
+
+We prove the two directions of $\hat M \enc \hat N \iff \hat M \leq \hat N$ separately.
 
 \subsubsection{$\hat M \enc \hat N \implies \hat M \leq \hat N$:} For any $\delta \in \hat I^{+}$, let $\tau \in \hat P^{+}$ and $v \in \hat Q^{+}$ be the induced trajectories $\Driv{\hat M}{\delta}$ and $\Driv{\hat N}{\delta}$, respectively. We first prove that $\tau[k] \enc v[k]$ for each $\delta \in \hat I^{+}$ and $k \in \mathbb{N} : k < | \tau | = | v | = | \delta + 1 |$ by induction on $k$. The base case, $\tau[0] = (\top \in \hat P) \enc (\top \in \hat Q) = v[0]$, follows immediately from the definition of $\hat M \enc \hat N$. For the inductive step, assume that $\tau[k] \enc v[k]$. That also $\tau[k+1] = \hat M(\delta[k] \sqcap \tau[k]) \enc \hat N(\delta[k] \sqcap v[k]) = v[k+1]$ follows from the second property of $\tau[k] \enc v[k]$ since $\delta[k] \in \hat I$. Finally, for any $\delta \in \hat I^{+}$, that $\out{\tau[k]} \sqsubseteq \out{v[k]}$ for each $k$ follows from the first property of $\tau[k] \enc v[k]$.
 
