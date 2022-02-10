@@ -41,17 +41,13 @@ M_{F}(p) = \{ c' \in C \mid \exists c \in p : (c,c') \in M_{R} \}
 Since the value of input signals is controlled by the external environment, a circuits model itself does not impose any constraint on them. Signals that do not correspond to inputs are further divided into state-holding signals and outputs. For such non-input signals, the model is a montonic function where imposed constraints are determined by the circuit topology and functionality. For instance, if assume the circuit is a two-input AND gate followed by an inverter, its model have the type $M \in \mathcal{P}(\mathbb{B}^{4}) \rightarrow \mathcal{P}(\mathbb{B}^{4})$ and can be defined as:
 
 \begin{equation*}
-M(p) = \{ \langle b_{1}, b_{2}, b_{3}, b_{4} \rangle \in \mathbb{B}^{4} \mid b_{3} = \cap p_{1} \wedge \cap p_{2}, b_{4} = \neg (\cap p_{3}) \}
+M(p) = \{ \langle b_{1}, b_{2}, i_{1} \wedge i_{2}, \neg s \rangle \in \mathbb{B}^{4} \mid \langle i_{1}, i_{2}, s, o \rangle \in \cap p \}
 \end{equation*}
 
-\noindent Here $p_{k} = \{ b_{k} \in \mathbb{B} \mid \langle \ldots, b_{k}, \ldots \rangle \in p \}$, that is, the set of every $k$-th element in $p$.
+\noindent Here $i_{1}$ and $i_{2}$ refer to the two inputs of the AND gate, $s$ to the internal inverter, and $o$ is the ignored output; $b_{1}$ and $b_{2}$ are unconstrained in the new configuration.
 
-% \left\{
-%   \begin{array}{ c l }
-%     \langle \emptyset, \emptyset, \emptyset, 1 \rangle & \textrm{if } p = \langle 1, 1, 1, \emptyset \rangle \\
-%     \langle \emptyset, \emptyset, \emptyset, 0 \rangle & \textrm{otherwise}
-%   \end{array}
-% \right.
+% \noindent Here $p(k) = \{ b_{k} \in \mathbb{B} \mid \langle \ldots, b_{k}, \ldots \rangle \in p \}$, that is, the set of every $k$-th element in $p$.
+% \{ \langle b_{1}, b_{2}, b_{3}, b_{4} \rangle \in \mathbb{B}^{4} \mid b_{3} = \cap p_{1} \wedge \cap p_{2}, b_{4} = \neg (\cap p_{3}) \}
 
 Manipulating subsets of $\mathbb{B}^{m}$ is however impractical for even moderately large $m$, which leads us to one of the key insights of STE. Namely, instead of manipulating subsets of $\mathbb{B}^{m}$ directly, one can use sequences of ternary values $\mathbb{T} = \mathbb{B} \cup \{ X \} $ to approximate them, whose sizes are only linear in $m$. Here the $1$ and $0$ from $\mathbb{B}$ denotes specific, defined values whereas $X$ denotes an ``unknown'' value that could be either $1$ or $0$. This intuition induces a partial order $\sqsubseteq$ on $\mathbb{T}$, where $0 \sqsubseteq X$ and $1 \sqsubseteq X$\footnotemark. For any $m \in \mathbb{N}$, this ordering on $\mathbb{T}$ is lifted component-wise to $\mathbb{T}^{m}$.
 
