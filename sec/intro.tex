@@ -1,6 +1,6 @@
 \section{Introduction to STE}
 
-\subsection{Original STE (WIP)}
+\subsection{Original STE}
 
 \textit{Symbolic trajectory evaluation}~\cite{seger1995} (STE) is a high-performance model checking technique based on \textit{symbolic simulation} extended with a temporal \textit{next-time} operator to describe circuit behaviour over time. In its simplest form, STE tests the validity of an \textit{assertion} of the form $A \Rightarrow C$, where both the \textit{antecedent} $A$ and \textit{consequent} $C$ are formulas in the following logic:
 
@@ -20,9 +20,9 @@ While the truth semantics of an assertion in STE is defined as the satisfaction 
 
 % We adopt this reimagined STE as data flow analysis~\cite{chou1999}, in which trajectory assertions can have arbitrary state-transition graphs. The following sections give a short introduction to its mathematical foundation.
 
-\subsection{Lattice-theoretic STE (OK)}
+\subsection{Lattice-theoretic STE}
 
-\subsubsection{Circuits}
+\subsubsection{Circuit Models}
 
 Consider an arbitrary, but fixed, digital circuit $M$ operating in discrete time. A \textit{configuration} of $M$, denoted by $C$, is non-empty and finite set that represents a snapshot of $M$ at a discrete point in time. If the circuit $M$ has $m$ boolean signals, then its set of configurations is typically represented as a sequence $\mathbb{B}^{m}$, where $\mathbb{B} = \{ 0,1 \}$ is the set of boolean values.
 
@@ -46,14 +46,11 @@ M(p) = \{ \langle b_{1}, b_{2}, i_{1} \wedge i_{2}, \neg s \rangle \in \mathbb{B
 
 \noindent Here $i_{1}$ and $i_{2}$ refer to the two inputs of the AND gate, $s$ to the internal inverter, and $o$ is the ignored output; $b_{1}$ and $b_{2}$ are unconstrained in the new configuration.
 
-% \noindent Here $p(k) = \{ b_{k} \in \mathbb{B} \mid \langle \ldots, b_{k}, \ldots \rangle \in p \}$, that is, the set of every $k$-th element in $p$.
-% \{ \langle b_{1}, b_{2}, b_{3}, b_{4} \rangle \in \mathbb{B}^{4} \mid b_{3} = \cap p_{1} \wedge \cap p_{2}, b_{4} = \neg (\cap p_{3}) \}
-
 Manipulating subsets of $\mathbb{B}^{m}$ is however impractical for even moderately large $m$, which leads us to one of the key insights of STE. Namely, instead of manipulating subsets of $\mathbb{B}^{m}$ directly, one can use sequences of ternary values $\mathbb{T} = \mathbb{B} \cup \{ X \} $ to approximate them, whose sizes are only linear in $m$. Here the $1$ and $0$ from $\mathbb{B}$ denotes specific, defined values whereas $X$ denotes an ``unknown'' value that could be either $1$ or $0$. This intuition induces a partial order $\sqsubseteq$ on $\mathbb{T}$, where $0 \sqsubseteq X$ and $1 \sqsubseteq X$\footnotemark. For any $m \in \mathbb{N}$, this ordering on $\mathbb{T}$ is lifted component-wise to $\mathbb{T}^{m}$.
 
 \footnotetext{We use the reverse ordering of what is originally used in STE.}
 
-\subsubsection{Lattices}
+\subsubsection{Ternary lattices}
 
 Let $(\hat P,\sqsubseteq)$ be a finite, complete lattice of \textit{abstract predicates} in which the meet $\sqcap$ and join $\sqcup$ of any subset $Q \subseteq \hat P$ exists. Similar to the previous set operations for power sets, $\sqcap$, $\sqcup$ and $\sqsubseteq$ correspond to conjunction, disjunction and implication for abstract predicates, respectively. Furthermore, for any $Q \subseteq \hat P$, we denote by $\sqcap Q$ and $\sqcup Q$ the meet and join of all members of $Q$. 
 
@@ -74,13 +71,13 @@ It is sometimes convenient to define a Galois connection in terms of an \textit{
 \Gamma ( \bot ) &= \emptyset
 \end{align*}
 
-\noindent Listing each boolean sequence approximated by the given ternary sequence.
+\noindent Listing each boolean sequence approximated by the given ternary sequence. For example, $\langle 1,X,0 \rangle$ abstracts both the boolean sequence $\langle 1,1,0 \rangle$ and $\langle 1,0,0 \rangle$ since they all agree on their first and third element.
 
-% That is, a ternary sequence $\langle 1,X,0 \rangle$ abstracts both the boolean sequence $\langle 1,1,0 \rangle$ and $\langle 1,0,0 \rangle$ since they all agree on their first and third element.
+An \textit{abstract predicate transformer} $\hat M \in \hat P \rightarrow \hat P$ is an \textit{abstract interpretation}~\cite{cousot1996} of $M \in \mathcal{P}(C) \rightarrow \mathcal{P}(C)$ iff it preserves $\bot$, $\hat M(\bot) = \bot$; is monotonic, $\hat p \sqsubseteq \hat q \Rightarrow \hat M (\hat p) \sqsubseteq \hat M (\hat q)$ for all $\hat p, \hat q \in \hat P$; and $\ll$ is a \textit{simulation relation} from $\mathcal{P}(C)$ to $\hat P$, $p \ll \hat p \Rightarrow M (p) \ll \hat M (\hat p)$ for all $p \in \mathcal{P}(C)$ and $\hat p \in \hat P$.
 
-\subsubsection{Trajectories} An \textit{abstract predicate transformer} $\hat M \in \hat P \rightarrow \hat P$ is an \textit{abstract interpretation}~\cite{cousot1996} of $M \in \mathcal{P}(C) \rightarrow \mathcal{P}(C)$ iff it preserves $\bot$, $\hat M(\bot) = \bot$; is monotonic, $\hat p \sqsubseteq \hat q \Rightarrow \hat M (\hat p) \sqsubseteq \hat M (\hat q)$ for all $\hat p, \hat q \in \hat P$; and $\ll$ is a \textit{simulation relation} from $\mathcal{P}(C)$ to $\hat P$, $p \ll \hat p \Rightarrow M (p) \ll \hat M (\hat p)$ for all $p \in \mathcal{P}(C)$ and $\hat p \in \hat P$.
+\textcolor{red}{Example of how $\hat M$ and $M$ relate in practice.}
 
-A \textit{trajectory assertion} for $\hat M$ is a quintuple $\hat A = (S,s_{0},R,\pi_{a},\pi_{c})$, where $S$ is a finite set of \textit{states}, $s_{0} \in S$ is an \textit{initial state}, $R \subseteq S \times S$ is a \textit{transition relation}, $\pi_{a} \in S \rightarrow \hat P$ and $\pi_{c} \in S \rightarrow \hat P$ label each state $s$ with an \textit{antecedent} $\pi_{a}(s)$ and a \textit{consequent} $\pi_{c}(s)$. Furthermore, we assume that $(s,s_{0}) \notin S$ for all $s \in S$ without any loss of generality.
+\subsubsection{Assertions and satisfaction} A \textit{trajectory assertion} for $\hat M$ is a quintuple $\hat A = (S,s_{0},R,\pi_{a},\pi_{c})$, where $S$ is a finite set of \textit{states}, $s_{0} \in S$ is an \textit{initial state}, $R \subseteq S \times S$ is a \textit{transition relation}, $\pi_{a} \in S \rightarrow \hat P$ and $\pi_{c} \in S \rightarrow \hat P$ label each state $s$ with an \textit{antecedent} $\pi_{a}(s)$ and a \textit{consequent} $\pi_{c}(s)$. Furthermore, we assume that $(s,s_{0}) \notin S$ for all $s \in S$ without any loss of generality.
 
 Define $F \in S \rightarrow (\hat P \rightarrow \hat P)$ and $\mathcal{F} \in (S \rightarrow \hat P) \rightarrow (S \rightarrow \hat P)$ as follows:
 
@@ -98,7 +95,7 @@ F(s)(\hat p) &= \hat M(\pi_{a}(s) \sqcap \hat p) \\
 %% \right.
 
 
-\noindent for all $\Phi \in S \rightarrow \mathcal{P}(C)$ and $s \in S$. $F$ preserves $\bot$ and both $F$ and $\mathcal{F}$ are monotonic, where two $\Phi, \Phi' \in S \rightarrow \hat P$ are ordered as $\Phi \sqsubseteq \Phi' \iff \forall s \in S : \Phi(s) \sqsubseteq \Phi'(s)$. Let $\Phi_{*} \in S \rightarrow \hat P$ be the least fixpoint of the equation $\Phi = \mathcal{F}(\Phi)$~\cite{davey2002}. Since both $S$ and $\hat P$ are finite, $\Phi_{*}$ is given by $\lim \, \Phi_{n}(s)$ where $\Phi_{n}$ is defined as follows:
+\noindent for all $\Phi \in S \rightarrow \hat P$ and $s \in S$. $F$ preserves $\bot$ and both $F$ and $\mathcal{F}$ are monotonic, where two $\Phi, \Phi' \in S \rightarrow \hat P$ are ordered as $\Phi \sqsubseteq \Phi' \iff \forall s \in S : \Phi(s) \sqsubseteq \Phi'(s)$. Let $\Phi_{*} \in S \rightarrow \hat P$ be the least fixpoint of the equation $\Phi = \mathcal{F}(\Phi)$~\cite{davey2002}. Since both $S$ and $\hat P$ are finite, $\Phi_{*}$ is given by $\lim \, \Phi_{n}(s)$ where $\Phi_{n}$ is defined as follows:
 
 \begin{equation}
 \Phi_{n} = \Stmt{if } (n = 0) \Stmt{ then } (\lambda s \in S : \bot) \Stmt{ else } \mathcal{F}(\Phi_{n-1})
