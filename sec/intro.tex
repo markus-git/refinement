@@ -12,8 +12,6 @@ f ::= p \: | \: f \wedge f \: | \: P \rightarrow f \: | \: \Next f
 
 If the circuit contains Boolean signals, $p$ is typically drawn from the following two predicates: $n \Is 1$ and $n \Is 0$, where $n$ ranges over the signals (or nodes) in a circuit. For example, suppose we have a unit-delayed two-input AND-gate, then it is reasonable to assume that the assertion $(\mathit{in_{1}} \Is 1 \wedge \mathit{in_{2}} \Is 1) \Rightarrow \Next (\mathit{out} \Is 1)$ is true. Indeed, STE efficiently validates such statements for us.
 
-% \dots the assertion $(a \Is 1 \wedge b \Is 1 \wedge \Next \top) \Rightarrow \Next (c \Is 1)$ is true. Note that the antecedent includes a $\Next \top$ because STE demands that both antecedent and consequent have the same depth (maximum number of nested $\Next$ operations plus one).
-
 While the truth semantics of an assertion in STE is defined as the satisfaction of its ``defining'' trajectory (bounded sequence of states) relative to a model structure of the circuit, what the STE algorithm computes is exactly the solution of a data-flow equation~\cite{chou1999} in the classic format~\cite{muchnick1997}. \dots
 
 % translate an STE assertion into a linear, directed graph \dots introducing as many states as the assertion is deep \dots labelling each state with the antecedent and consequent at that depth. \dots
@@ -38,7 +36,7 @@ M_{F}(p) = \{ c' \in C \mid \exists c \in p : (c,c') \in M_{R} \}
 
 \noindent It is intuitively obvious that if $M$ is in one of the configurations in $p \in \mathcal{P}(C)$, then in one time step it must be in one of the configurations in $M_{F}(p)$, or in other words, $(c,c') \in M_{R} \iff c' \in M_{F}(\{ c \})$. We adopt this functional model of $M$ and drop its subscript.
 
-Since the value of input signals is controlled by the external environment, a circuits model itself does not impose any constraint on them. Signals that do not correspond to inputs are further divided into state-holding signals and outputs. For such non-input signals, the model is a montonic function where imposed constraints are determined by the circuit topology and functionality. For instance, if assume the circuit is a two-input AND gate followed by an inverter, its model have the type $M \in \mathcal{P}(\mathbb{B}^{4}) \rightarrow \mathcal{P}(\mathbb{B}^{4})$ and can be defined as:
+Since the value of input signals is controlled by the external environment, a circuits model itself does not impose any constraint on them. For such non-input signals, the model is a montonic function where imposed constraints are determined by the circuit topology and functionality. For instance, if assume the circuit is a two-input AND gate followed by an inverter, its model have the type $M \in \mathcal{P}(\mathbb{B}^{4}) \rightarrow \mathcal{P}(\mathbb{B}^{4})$ and can be defined as:
 
 \begin{equation*}
 M(p) = \{ \langle b_{1}, b_{2}, i_{1} \wedge i_{2}, \neg s \rangle \in \mathbb{B}^{4} \mid \langle i_{1}, i_{2}, s, o \rangle \in \cap p \}
@@ -79,7 +77,7 @@ An \textit{abstract predicate transformer} $\hat M \in \hat P \rightarrow \hat P
 
 \subsubsection{Assertions and satisfaction} A \textit{trajectory assertion} for $\hat M$ is a quintuple $\hat A = (S,s_{0},R,\pi_{a},\pi_{c})$, where $S$ is a finite set of \textit{states}, $s_{0} \in S$ is an \textit{initial state}, $R \subseteq S \times S$ is a \textit{transition relation}, $\pi_{a} \in S \rightarrow \hat P$ and $\pi_{c} \in S \rightarrow \hat P$ label each state $s$ with an \textit{antecedent} $\pi_{a}(s)$ and a \textit{consequent} $\pi_{c}(s)$. Furthermore, we assume that $(s,s_{0}) \notin S$ for all $s \in S$ without any loss of generality.
 
-Define $F \in S \rightarrow (\hat P \rightarrow \hat P)$ and $\mathcal{F} \in (S \rightarrow \hat P) \rightarrow (S \rightarrow \hat P)$ as follows:
+For all $\Phi \in S \rightarrow \hat P$ and $s \in S$, define $F \in S \rightarrow (\hat P \rightarrow \hat P)$ and $\mathcal{F} \in (S \rightarrow \hat P) \rightarrow (S \rightarrow \hat P)$ as follows:
 
 \begin{align}
 F(s)(\hat p) &= \hat M(\pi_{a}(s) \sqcap \hat p) \\
@@ -95,7 +93,7 @@ F(s)(\hat p) &= \hat M(\pi_{a}(s) \sqcap \hat p) \\
 %% \right.
 
 
-\noindent for all $\Phi \in S \rightarrow \hat P$ and $s \in S$. $F$ preserves $\bot$ and both $F$ and $\mathcal{F}$ are monotonic, where two $\Phi, \Phi' \in S \rightarrow \hat P$ are ordered as $\Phi \sqsubseteq \Phi' \iff \forall s \in S : \Phi(s) \sqsubseteq \Phi'(s)$. Let $\Phi_{*} \in S \rightarrow \hat P$ be the least fixpoint of the equation $\Phi = \mathcal{F}(\Phi)$~\cite{davey2002}. Since both $S$ and $\hat P$ are finite, $\Phi_{*}$ is given by $\lim \, \Phi_{n}(s)$ where $\Phi_{n}$ is defined as follows:
+\noindent $F$ preserves $\bot$ and both $F$ and $\mathcal{F}$ are monotonic, where two $\Phi, \Phi' \in S \rightarrow \hat P$ are ordered as $\Phi \sqsubseteq \Phi' \iff \forall s \in S : \Phi(s) \sqsubseteq \Phi'(s)$. Let $\Phi_{*} \in S \rightarrow \hat P$ be the least fixpoint of the equation $\Phi = \mathcal{F}(\Phi)$~\cite{davey2002}. Since both $S$ and $\hat P$ are finite, $\Phi_{*}$ is given by $\lim \, \Phi_{n}(s)$ where $\Phi_{n}$ is defined as follows:
 
 \begin{equation}
 \Phi_{n} = \Stmt{if } (n = 0) \Stmt{ then } (\lambda s \in S : \bot) \Stmt{ else } \mathcal{F}(\Phi_{n-1})
