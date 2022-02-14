@@ -16,15 +16,29 @@ We prove the two directions of $\hat M \enc \hat N \iff \hat M \leq \hat N$ sepa
 
 \subsection{$\hat M \enc \hat N \implies \forall s \in S : \Phi(s) \enc \Psi(s)$}
 
+Recall that $\hat p \enc \hat q$ implies (1) $\out{\hat p} \sqsubseteq \out{\hat q}$ and (2) $\forall \hat \iota \in \hat I : \hat M(\hat \iota \sqcap \hat p) \enc \hat N(\hat \iota \sqcap \hat q)$.
+
+\begin{align*}
+F(s)(\hat p) &= \hat M(\pi_{a}(s) \sqcap \hat p) \\
+\mathcal{F}(\Phi)(s) &= \Stmt{if } (s = s_{0}) \Stmt{ then } \top \Stmt{ else } \sqcup \{ F(s')(\Phi(s')) \mid (s',s) \in R \} \\
+\Phi_{n} &= \Stmt{if } (n = 0) \Stmt{ then } (\lambda s \in S : \bot) \Stmt{ else } \mathcal{F}(\Phi_{n-1})
+\end{align*}
+
 We first prove a few lemmas.
 
-\textbf{Lemma (1)}: $(\bot \in \hat P) \enc \, (\bot \in \hat Q)$. Firstly, $\out{\bot \in \hat P} \sqsubseteq \out{\bot \in \hat Q}$ since any subset (projection) of $\bot$ must be its $\bot$ as well. Secondly, $\hat M$ and $\hat N$ preserves their bottoms, so $\hat M(\hat \iota \sqcap \bot) = \bot = \hat N(\hat \iota \sqcap \bot)$ for all $\hat \iota \in \hat I$.
+\textbf{Lemma}: $(\bot \in \hat P) \enc \, (\bot \in \hat Q)$. Firstly, $\out{\bot \in \hat P} \sqsubseteq \out{\bot \in \hat Q}$ since any subset (projection) of $\bot$ must be its $\bot$ as well. Secondly, $\hat M$ and $\hat N$ preserves their bottoms, so $\hat M(\hat \iota \sqcap \bot) = \bot = \hat N(\hat \iota \sqcap \bot)$ for all $\hat \iota \in \hat I$.
 
-\textbf{Lemma (2)}: $\hat p \enc \hat q \implies \forall s \in S : F(s)(\hat p) \enc G(s)(\hat q)$. We have $F(s)(\hat p) = \hat M(\pi_{a} \sqcap \hat p)$ and $G(s)(\hat q) = \hat N(\pi_{a}(s) \sqcap \hat q)$, but $\pi_{a}(s) \in \hat I$ so the second property of $\hat p \enc \hat q$ implies that $\hat M(\pi_{a}(s) \sqcap \hat p) \enc \hat N(\pi_{a}(s) \sqcap \hat q)$.
+\textbf{Lemma}: $\hat p \enc \hat q \implies \forall s \in S : F(s)(\hat p) \enc G(s)(\hat q)$. We have $F(s)(\hat p) = \hat M(\pi_{a} \sqcap \hat p)$ and $G(s)(\hat q) = \hat N(\pi_{a}(s) \sqcap \hat q)$, but $\pi_{a}(s) \in \hat I$ so the second property of $\hat p \enc \hat q$ implies that $\hat M(\pi_{a}(s) \sqcap \hat p) \enc \hat N(\pi_{a}(s) \sqcap \hat q)$.
 
-\textbf{Lemma (3)}: $\hat p_{1} \enc \hat q_{1} \wedge \hat p_{2} \enc \hat q_{2} \implies (\hat p_{1} \sqcup \hat p_{2}) \enc \, (\hat q_{1} \sqcup \hat q_{2})$.
+% \textbf{Lemma (3.0.2)}: $\hat M(\hat \iota \sqcap \hat p) \enc \hat N(\hat \iota \sqcap \hat q) \implies \forall \hat p' \in \hat P : \hat p \sqsubseteq \hat p' \implies \hat M(\hat \iota \sqcap \hat p') \enc \hat N(\hat \iota \sqcap \hat q)$.
 
-\textbf{Lemma (4)}: $\hat p \enc \hat q \implies \sqcup \{ F(s)(\hat p) \mid s \in \: \subseteq S \} \enc \sqcup \{ G(s)(\hat q) \mid s \in \: \subseteq S \}$.
+% \textbf{Lemma}: $\hat p \sqsubseteq \hat p' \implies \out{\hat p} \sqsubseteq \out{\hat p'}$. Follows from the monotonicity of $\out{\cdot}$.
+
+% \textbf{Lemma}: $\hat p \enc \hat q \implies \forall \hat p' \in \hat P : \hat p \sqsubseteq \hat p' \implies \hat p' \enc \hat q$.
+
+\textbf{Lemma}: $(\hat p_{1} \enc \hat q_{1}) \wedge (\hat p_{2} \enc \hat q_{2}) \implies (\hat p_{1} \sqcup \hat p_{2}) \enc \, (\hat q_{1} \sqcup \hat q_{2})$. Let $\hat p = \hat p_{1} \sqcup \hat p_{2}$ such that $\hat p_{1} \sqsubseteq \hat p$, $\hat p_{2} \sqsubseteq \hat p$, and any $\hat x \in \hat P$, if $\hat p_{1} \sqsubseteq \hat x$ or $\hat p_{2} \sqsubseteq \hat x$, then $\hat p \sqsubseteq \hat x$. Similarly, let $\hat q = \hat q_{1} \sqcup \hat q_{2}$. That $\out{\hat p} \sqsubseteq \out{\hat q}$ follows from how $\out{\hat p_{1}} \sqsubseteq \out{\hat q_{1}}$, $\out{\hat p_{2}} \sqsubseteq \out{\hat q_{2}}$, and the definition (\textcolor{red}{elaborate?}) of $\hat p$ and $\hat q$. Lastly, that $\hat M(\hat \iota \sqcap \hat p) \enc \hat N(\hat \iota \sqcap \hat q)$ for all $\hat \iota \in \hat I$, hmm.
+
+\textbf{Lemma}: $\forall s \in S : \hat p(s) \enc \hat q(s) \implies \sqcup \{ F(s)(\hat p(s)) \mid s \in \: \subseteq S \} \enc \sqcup \{ G(s)(\hat q(s)) \mid s \in \: \subseteq S \}$.
 
 Since $\Phi_{*}(s) = \lim \, \Phi_{n}(s)$ and $\Psi_{*}(s) = \lim \, \Psi_{n}(s)$, it suffices to prove that $\Phi_{n}(s) \enc \Psi_{n}(s)$ for all $s \in S$ and $n \in \mathbb{N}$. We do so by induction on $n$. The base case, where $\Phi_{0}(s) = \bot \in \hat P$ and $\Psi_{0}(s) = \bot \in \hat Q$, follows from lemma X. For the inductive step, assme that $\Phi_{n}(s) \enc \Psi_{n}(s)$ for all $s \in S$. For $s = s_{0}$, we have that $\Phi_{n+1}(s_{0}) = \top \in \hat P$ and $\Psi_{n+1}(s_{0}) = \top \in \hat Q$, which follows from how $\hat M \enc \hat N$ implies that $(\top \in \hat P) \enc \, (\top \in \hat Q)$. For any $s \neq s_{0}$, we have that $\Phi_{n+1}(s) = \mathcal{F}(\Phi_{n})(s) = \sqcup \{ F(s')(\Phi_{n}(s')) \mid (s',s) \in R \}$.
 

@@ -84,15 +84,6 @@ F(s)(\hat p) &= \hat M(\pi_{a}(s) \sqcap \hat p) \\
 \mathcal{F}(\Phi)(s) &= \Stmt{if } (s = s_{0}) \Stmt{ then } \top \Stmt{ else } \sqcup \{ F(s')(\Phi(s')) \mid (s',s) \in R \}
 \end{align}
 
-%% \mathcal{F}(\Phi)(s) &=
-%% \left\{
-%%   \begin{array}{ c l }
-%%     \top & \textrm{if } s = s_{0} \\
-%%     \sqcup \{ F(s')(\Phi(s')) \mid (s',s) \in R \} & \textrm{otherwise} 
-%%   \end{array}
-%% \right.
-
-
 \noindent $F$ preserves $\bot$ and both $F$ and $\mathcal{F}$ are monotonic, where two $\Phi, \Phi' \in S \rightarrow \hat P$ are ordered as $\Phi \sqsubseteq \Phi' \iff \forall s \in S : \Phi(s) \sqsubseteq \Phi'(s)$. Let $\Phi_{*} \in S \rightarrow \hat P$ be the least fixpoint of the equation $\Phi = \mathcal{F}(\Phi)$~\cite{davey2002}. Since both $S$ and $\hat P$ are finite, $\Phi_{*}$ is given by $\lim \, \Phi_{n}(s)$ where $\Phi_{n}$ is defined as follows:
 
 \begin{equation}
