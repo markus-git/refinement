@@ -45,9 +45,4 @@ We first prove a few intermediate lemmas.
 
 % Wasn't sure if $\sqcup \emptyset$ was $\top$ or $\bot$, so I deferred to https://math.stackexchange.com/questions/370188/empty-intersection-and-empty-union.
 
-% $R \subseteq S$, $\forall s \in S : \hat p(s) \enc \hat q(s) \implies \sqcup \{ F(s)(\hat p(s)) \mid s \in \: R \} \enc \sqcup \{ G(s)(\hat q(s)) \mid s \in \: R \}$. Pair up the two sets, indexed by $s$. Apply lemma FG to each pair to see that they are encoded and then fold all pairs using lemma M to see that the ``big''-meet is also encoded.
-
 Since $\Phi_{*}(s) = \lim \, \Phi_{n}(s)$ and $\Psi_{*}(s) = \lim \, \Psi_{n}(s)$, it suffices to prove that $\Phi_{n}(s) \enc \Psi_{n}(s)$ for all $s \in S$ and $n \in \mathbb{N}$. We do so by induction on $n$. The base case, where $\Phi_{0}(s) = \bot \in \hat P$ and $\Psi_{0}(s) = \bot \in \hat Q$, follows from lemma X. For the inductive step, assme that $\Phi_{n}(s) \enc \Psi_{n}(s)$ for all $s \in S$. For $s = s_{0}$, we have that $\Phi_{n+1}(s_{0}) = \top \in \hat P$ and $\Psi_{n+1}(s_{0}) = \top \in \hat Q$, which follows from how $\hat M \enc \hat N$ implies that $(\top \in \hat P) \enc \, (\top \in \hat Q)$. For any $s \neq s_{0}$, we have that $\Phi_{n+1}(s) = \mathcal{F}(\Phi_{n})(s) = \sqcup \{ F(s')(\Phi_{n}(s')) \mid (s',s) \in R \} \enc \sqcup \{ F(s')(\Psi_{n}(s')) \mid (s',s) \in R \} \enc \sqcup \{ G(s')(\Psi_{n}(s')) \mid (s',s) \in R \} = \mathcal{G}(\Psi_{n})(s) = \Psi_{n+1}(s)$.
-
-Given that $\Phi_{*}(s) \enc \Psi_{*}(s)$, and thus $\out{\Phi_{*}(s)} \sqsubseteq \out{\Psi_{*}(s)}$, for all $s \in S$, it follows that $\Phi_{*}(s) \sqcap \pi_{a}(s) \sqsubseteq \pi_{c}(s) \implies \Psi_{*}(s) \sqcap \pi_{a}(s) \sqsubseteq \pi_{c}(s)$.
-

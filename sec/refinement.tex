@@ -38,6 +38,8 @@ $\forall s \in S : \Psi_{*}(s) \enc \Phi_{*}(s)$
 
 \subsubsection{Trajectory} A trajectory assertion $\hat A = (S,s_{0},R,\pi_{a},\pi_{c})$ for $\hat N$ where antecedents only mention inputs, $\pi_{a} \in S \rightarrow \hat I$, and consequents only mention outputs, $\pi_{c} \in S \rightarrow \hat O$, is referred to as an \textit{external trajectory assertion}. Intuitively, a satisfied external trajectory assertion is property of $N$ that must hold regardless of its internal state.
 
+Given that $\Phi_{*}(s) \enc \Psi_{*}(s)$, and thus $\out{\Phi_{*}(s)} \sqsubseteq \out{\Psi_{*}(s)}$, for all $s \in S$, it follows that $\Phi_{*}(s) \sqcap \pi_{a}(s) \sqsubseteq \pi_{c}(s) \implies \Psi_{*}(s) \sqcap \pi_{a}(s) \sqsubseteq \pi_{c}(s)$.
+
 \begin{theorem}
 Given two abstract predicate transformers, $\hat M$ and $\hat N$, and an external trajectory assertion $\hat A$ for $\hat N$. If $\hat M \preceq \hat N$, then $\hat N \models \hat A$ implies that $\hat M \models \hat A$.
 \end{theorem}

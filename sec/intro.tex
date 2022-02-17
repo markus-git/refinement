@@ -26,7 +26,7 @@ Consider an arbitrary, but fixed, digital circuit $M$ operating in discrete time
 
 A simple conceptual model of $M$ is a \textit{transition relation}, $M_{R} \subseteq C \times C$, where $(c,c') \in M_{R}$ means that $M$ can move from $c$ to $c'$ in one step\footnotemark. The power set of $C$, denoted by $\mathcal{P}(C)$, can be viewed as a the set of \textit{predicates} on configurations, where $\cap$, $\cup$, and $\subseteq$ correspond to conjunction, disjunction and implication, respectively. Furthermore, for any $Q \subseteq \mathcal{P}(C)$, we denote by $\cap Q$ and $\cup Q$ the intersection and union of all members of $Q$.
 
-\footnotetext{\textcolor{red}{Mention how this affects circuits with zero-delays?}}
+\footnotetext{\todo{Mention how this affects circuits with zero-delays?}}
 
 $M_{R}$ induces a \textit{predicate transformer} $M_{F} \in \mathcal{P}(C) \rightarrow \mathcal{P}(C)$ using the relational image operation:
 
@@ -36,10 +36,10 @@ M_{F}(p) = \{ c' \in C \mid \exists c \in p : (c,c') \in M_{R} \}
 
 \noindent It is intuitively obvious that if $M$ is in one of the configurations in $p \in \mathcal{P}(C)$, then in one time step it must be in one of the configurations in $M_{F}(p)$, or in other words, $(c,c') \in M_{R} \iff c' \in M_{F}(\{ c \})$. We adopt this functional model of $M$ and drop its subscript.
 
-Since the value of input signals is controlled by the external environment, a circuits model itself does not impose any constraint on them. For such non-input signals, the model is a montonic function where imposed constraints are determined by the circuit topology and functionality. For instance, if assume the circuit is a two-input AND gate followed by an inverter, its model have the type $M \in \mathcal{P}(\mathbb{B}^{4}) \rightarrow \mathcal{P}(\mathbb{B}^{4})$ and can be defined as:
+Since the value of input signals is controlled by the external environment, a circuits model itself does not impose any constraint on them. For non-input signals, the model is a montonic function where imposed constraints are determined by the circuit topology and functionality. For instance, if assume the circuit is a two-input AND gate followed by an inverter, its model could the type $M \in \mathcal{P}(\mathbb{B}^{4}) \rightarrow \mathcal{P}(\mathbb{B}^{4})$ and be defined as:
 
 \begin{equation*}
-M(p) = \{ \langle b_{1}, b_{2}, i_{1} \wedge i_{2}, \neg s \rangle \in \mathbb{B}^{4} \mid \langle i_{1}, i_{2}, s, o \rangle \in \cap p \}
+M(p) = \{ \langle b_{1}, b_{2}, i_{1} \wedge i_{2}, \neg s \rangle \in \mathbb{B}^{4} \mid \langle i_{1}, i_{2}, s, o \rangle \in p \}
 \end{equation*}
 
 \noindent Here $i_{1}$ and $i_{2}$ refer to the two inputs of the AND gate, $s$ to the internal inverter, and $o$ is the ignored output; $b_{1}$ and $b_{2}$ are unconstrained in the new configuration.
