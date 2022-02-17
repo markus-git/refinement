@@ -20,17 +20,23 @@
 % New commands
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% General preference
+% Editing stuff.
+\newcommand{\todo}[1]{\textcolor{red}{#1}}
+
+% General preference.
 \newcommand{\Stmt}[1]{\textrm{\textbf{#1}}}
 \renewcommand{\iff}{\Leftrightarrow} % preference.
 \renewcommand{\implies}{\Rightarrow} % preference. 
 \DeclareMathOperator{\nsqsubseteq}{\not\sqsubseteq} % not impl.
 \newcommand{\Traj}[1]{\textit{Traj}(#1)} % set of trajectories
-\newcommand{\todo}[1]{\textcolor{red}{#1}}
 
 % STE orig. grammar.
 \DeclareMathOperator{\Next}{\textbf{N}} % Next-time.
 \DeclareMathOperator{\Is}{\mathbin{\textbf{is}}} % comparison.
+
+% Short-hands.
+%\newcommand{\Q}{\hat Q}
+%\newcommand{\P}{\hat P}
 
 % Refinement ...
 \newcommand{\InProj}{\mathit{i}} % input proj.

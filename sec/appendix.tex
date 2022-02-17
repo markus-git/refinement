@@ -1,10 +1,14 @@
-\section{Proofs (WIP)}
+\section{Proofs}
 
-\subsection{$\hat M \enc \hat N \iff \hat M \leq \hat N$}
+\subsection{Lemma: $\hat M \enc \hat N \iff \hat M \leq \hat N$}
 
 We prove the two directions of $\hat M \enc \hat N \iff \hat M \leq \hat N$ separately.
 
-\subsubsection{$\hat M \enc \hat N \implies \hat M \leq \hat N$:} \todo{For any $\delta \in \hat I^{+}$, let $\tau \in \hat P^{+}$ and $v \in \hat Q^{+}$ be the induced trajectories $\Driv{\hat M}{\delta}$ and $\Driv{\hat N}{\delta}$, respectively. We first prove that $\tau[k] \enc v[k]$ for each $\delta \in \hat I^{+}$ and $k \in \mathbb{N} : k < | \tau | = | v | = | \delta + 1 |$ by induction on $k$. The base case, $\tau[0] = (\top \in \hat P) \enc \, (\top \in \hat Q) = v[0]$, follows immediately from the definition of $\hat M \enc \hat N$. For the inductive step, assume that $\tau[k] \enc v[k]$. That also $\tau[k+1] = \hat M(\delta[k] \sqcap \tau[k]) \enc \hat N(\delta[k] \sqcap v[k]) = v[k+1]$ follows from the second property of $\tau[k] \enc v[k]$ since $\delta[k] \in \hat I$. Finally, for any $\delta \in \hat I^{+}$, that $\out{\tau[k]} \sqsubseteq \out{v[k]}$ for each $k$ follows from the first property of $\tau[k] \enc v[k]$.}
+\subsubsection{$\hat M \enc \hat N \implies \hat M \leq \hat N$:} For any $\delta \in \hat I^{+}$, let $\tau = \langle \hat p_{0}, \hat p_{1}, \ldots \rangle \in \hat P^{+}$ and $v = \langle \hat q_{0}, \hat q_{1}, \dots \rangle \in \hat Q^{+}$ be the induced trajectories $\Driv{\hat M}{\delta}$ and $\Driv{\hat N}{\delta}$, respectively. We prove that $p_{n} \enc q_{n}$, and thus $\out{p_{n}} \sqsubseteq \out{q_{n}}$, for every $n \in \mathbb{N} : n < | \delta + 1 |$ and $\delta$ by induction on $n$. For the base case, we have $p_{0} = \bot \in \hat P$ and $q_{0} = \bot \in \hat Q$. That $p_{0} \enc q_{0}$, and thus $\out{\hat p_{0}} \sqsubseteq \out{\hat q_{0}}$, follows immediately from the definition of $\hat M \enc \hat N$. For the inductive step, assume that $\hat p_{n} \enc \hat q_{n}$. Following the definition of $\tau$ and $v$, we know that $\hat p_{n+1} = \hat M(\hat \iota \sqcap \hat p_{n})$ and $\hat q_{n+1} = \hat N(\hat \iota \sqcap \hat q_{n})$ for some $\hat \iota \in \hat I$. But property (2) of $\hat p_{n} \enc \hat q_{n}$ states that $\hat M(\hat \iota \sqcap \hat p_{n}) \enc \hat N(\hat \iota \sqcap \hat q_{n})$ for any $\hat \iota \in \hat I$, so we must have that $\hat p_{n+1} \enc \hat q_{n+1}$ and thus $\out{\hat p_{n+1}} \sqsubseteq \out{\hat q_{n+1}}$.
+
+%  for some $\delta_{n} \in \hat I^{n}$
+
+% \todo{For any $\delta \in \hat I^{+}$, let $\tau \in \hat P^{+}$ and $v \in \hat Q^{+}$ be the induced trajectories $\Driv{\hat M}{\delta}$ and $\Driv{\hat N}{\delta}$, respectively. We first prove that $\tau[k] \enc v[k]$ for each $\delta \in \hat I^{+}$ and $k \in \mathbb{N} : k < | \tau | = | v | = | \delta + 1 |$ by induction on $k$. The base case, $\tau[0] = (\top \in \hat P) \enc \, (\top \in \hat Q) = v[0]$, follows immediately from the definition of $\hat M \enc \hat N$. For the inductive step, assume that $\tau[k] \enc v[k]$. That also $\tau[k+1] = \hat M(\delta[k] \sqcap \tau[k]) \enc \hat N(\delta[k] \sqcap v[k]) = v[k+1]$ follows from the second property of $\tau[k] \enc v[k]$ since $\delta[k] \in \hat I$. Finally, for any $\delta \in \hat I^{+}$, that $\out{\tau[k]} \sqsubseteq \out{v[k]}$ for each $k$ follows from the first property of $\tau[k] \enc v[k]$.}
 
 \subsubsection{$\hat M \enc \hat N \Leftarrow \hat M \leq \hat N$:} Define $\enc \in \hat P \times \hat Q$ as follows:
 
