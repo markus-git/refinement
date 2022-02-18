@@ -56,13 +56,13 @@ Note that $\mathbb{T}^{m}$ does not quite form a complete lattice because it lac
 
 \subsubsection{Abstract model}
 
-Let there also be Galois connection $\ll \, \in \, \subseteq \mathcal{P}(C) \times \hat P$, relating concrete and abstract predicates such that for all $Q \subseteq \mathcal{P}(C)$ and $\hat Q \subseteq \hat P$:
+Let there be Galois connection $\ll \, \in \, \subseteq \mathcal{P}(C) \times \hat P$, relating concrete and abstract predicates such that for all $Q \subseteq \mathcal{P}(C)$ and $\hat Q \subseteq \hat P$:
 
 \begin{equation*}
 Q \ll \hat Q \iff \cup Q \ll \sqcap \hat Q
 \end{equation*}
 
-\noindent where $Q \ll \hat Q \iff \forall p \in Q : \forall \hat p \in \hat Q : p \ll \hat p$. In other words, $p \ll \hat p$ states that $p$ can be ``approximated'' as $\hat p$ and $\ll$ is thus an extension of the partial orders of $\mathcal{P}(C)$ and $\hat P$ to an ordering between $\mathcal{P}(C)$ and $\hat P$. As an illustration of this proprety, consider that $\{ \langle 1,1,0 \rangle, \langle 1,0,0 \rangle \} \in \mathbb{B}^{3} \ll \{ \langle 1,X,0  \rangle \} \in \mathbb{T}^{3}$.
+\noindent where $Q \ll \hat Q \iff \forall p \in Q : \forall \hat p \in \hat Q : p \ll \hat p$. In other words, $p \ll \hat p$ states that $p$ can be ``approximated'' as $\hat p$ and $\ll$ is thus an extension of the partial orders of $\mathcal{P}(C)$ and $\hat P$ to an ordering between $\mathcal{P}(C)$ and $\hat P$. As an illustration of this property, consider that $\{ \langle 1,1,0 \rangle, \langle 1,0,0 \rangle \} \in \mathbb{B}^{3} \ll \{ \langle 1,X,0  \rangle \} \in \mathbb{T}^{3}$ in the ternary abstraction of boolean values.
 
 It is sometimes convenient, or more intuitive, to define a Galois connection in terms of an \textit{abstraction} $\alpha \in \mathcal{P}(C) \rightarrow \hat P$ and a \textit{concretisation} $\gamma \in \hat P \rightarrow \mathcal{P}(C)$ function, from which one can derive $\ll$ as follows: $p \ll \hat p \iff p \subseteq \gamma(\hat p)$ or $p \ll \hat p \iff \alpha (p) \sqsubseteq \hat p$. For example, a Galois connection from $\mathcal{P}(\mathbb{B}^{m})$ to $\mathbb{T}_{\bot}^{m}$ for any $m \in \mathbb{N}$ can be defined in a natural way by specifying its concretisation function $\Gamma \in \mathbb{T}_{\bot}^{m} \rightarrow \mathcal{P}(\mathbb{B}^{m})$:
 
@@ -71,7 +71,7 @@ It is sometimes convenient, or more intuitive, to define a Galois connection in 
 \Gamma ( \bot ) &= \emptyset
 \end{align*}
 
-\noindent Listing each boolean sequence approximated by the given ternary sequence.
+\noindent Listing each boolean sequence approximated by the given ternary sequence $\langle 1,X,0  \rangle \in \mathbb{T}^{3}$ with $\Gamma$ we get $\{ \langle 1,1,0 \rangle, \langle 1,0,0 \rangle \} \in \mathbb{B}^{3}$, reaffirming the $\ll$ relation between these sequences.
 
 An \textit{abstract predicate transformer} $\hat M \in \hat P \rightarrow \hat P$ is an \textit{abstract interpretation}~\cite{cousot1996} of $M \in \mathcal{P}(C) \rightarrow \mathcal{P}(C)$ iff it preserves $\bot$, $\hat M(\bot) = \bot$; is monotonic, $\hat p \sqsubseteq \hat q \Rightarrow \hat M (\hat p) \sqsubseteq \hat M (\hat q)$ for all $\hat p, \hat q \in \hat P$; and $\ll$ is a \textit{simulation relation} from $\mathcal{P}(C)$ to $\hat P$, $p \ll \hat p \Rightarrow M (p) \ll \hat M (\hat p)$ for all $p \in \mathcal{P}(C)$ and $\hat p \in \hat P$.
 
