@@ -10,7 +10,7 @@ f ::= p \: | \: f \wedge f \: | \: P \rightarrow f \: | \: \Next f
 
 \noindent Here, $p$ is a simple predicate over ``values'' in a circuit and $P$ is a Boolean propositional formula, and the operators $\wedge$, $\rightarrow$ and $\Next$ are conjunction, domain restriction and the next-time operator, respectively.
 
-If the circuit contains Boolean signals, $p$ is typically drawn from the following two predicates: $n \Is 1$ and $n \Is 0$, where $n$ ranges over the signals (or nodes) in a circuit. For example, suppose we have a unit-delayed two-input AND-gate, then it is reasonable to assume that the assertion $(\mathit{in_{1}} \Is 1 \wedge \mathit{in_{2}} \Is 1) \Rightarrow \Next (\mathit{out} \Is 1)$ is true. Indeed, STE efficiently validates such statements for us.
+If the circuit contains Boolean signals, $p$ is typically drawn from the following two predicates: $n \Is 1$ and $n \Is 0$, where $n$ ranges over the signals (or nodes) in a circuit. For example, suppose we have a unit-delayed, two-input AND-gate, then it is reasonable to assume that the assertion $(\mathit{in_{1}} \Is 1 \wedge \mathit{in_{2}} \Is 1) \Rightarrow \Next (\mathit{out} \Is 1)$ is true. Indeed, STE efficiently validates such statements for us.
 
 While the truth semantics of an assertion in STE is defined as the satisfaction of its ``defining'' trajectory (bounded sequence of states) relative to a model structure of the circuit, what the STE algorithm computes is exactly the solution of a data-flow equation~\cite{chou1999} in the classic format~\cite{muchnick1997}. \dots
 
@@ -20,11 +20,9 @@ While the truth semantics of an assertion in STE is defined as the satisfaction 
 
 \subsection{Lattice-theoretic STE}
 
-\subsubsection{Circuit Models}
-
 Consider an arbitrary, but fixed, digital circuit $M$ operating in discrete time. A \textit{configuration} of $M$, denoted by $C$, is non-empty and finite set that represents a snapshot of $M$ at a discrete point in time. If the circuit $M$ has $m$ boolean signals, then its set of configurations is typically represented as a sequence $\mathbb{B}^{m}$, where $\mathbb{B} = \{ 0,1 \}$ is the set of boolean values.
 
-A simple conceptual model of $M$ is a \textit{transition relation}, $M_{R} \subseteq C \times C$, where $(c,c') \in M_{R}$ means that $M$ can move from $c$ to $c'$ in one step\footnotemark. The power set of $C$, denoted by $\mathcal{P}(C)$, can be viewed as a the set of \textit{predicates} on configurations, where $\cap$, $\cup$, and $\subseteq$ correspond to conjunction, disjunction and implication, respectively. Furthermore, for any $Q \subseteq \mathcal{P}(C)$, we denote by $\cap Q$ and $\cup Q$ the intersection and union of all members of $Q$.
+\subsubsection{Circuit Model} A simple conceptual model of $M$ is a \textit{transition relation}, $M_{R} \subseteq C \times C$, where $(c,c') \in M_{R}$ means that $M$ can move from $c$ to $c'$ in one step\footnotemark. The power set of $C$, denoted by $\mathcal{P}(C)$, can be viewed as a the set of \textit{predicates} on configurations, where $\cap$, $\cup$, and $\subseteq$ correspond to conjunction, disjunction and implication, respectively. Furthermore, for any $Q \subseteq \mathcal{P}(C)$, we denote by $\cap Q$ and $\cup Q$ the intersection and union of all members of $Q$.
 
 \footnotetext{\todo{Mention how this affects circuits with zero-delays?}}
 
@@ -36,23 +34,27 @@ M_{F}(p) = \{ c' \in C \mid \exists c \in p : (c,c') \in M_{R} \}
 
 \noindent It is intuitively obvious that if $M$ is in one of the configurations in $p \in \mathcal{P}(C)$, then in one time step it must be in one of the configurations in $M_{F}(p)$, or in other words, $(c,c') \in M_{R} \iff c' \in M_{F}(\{ c \})$. We adopt this functional model of $M$ and drop its subscript.
 
-Since the value of input signals is controlled by the external environment, a circuits model itself does not impose any constraint on them. For non-input signals, the model is a montonic function where imposed constraints are determined by the circuit topology and functionality. For instance, if assume the circuit is a two-input AND gate followed by an inverter, its model could the type $M \in \mathcal{P}(\mathbb{B}^{4}) \rightarrow \mathcal{P}(\mathbb{B}^{4})$ and be defined as:
+Since the value of input signals is controlled by the external environment, a circuits model itself does not impose any constraint on them. For non-input signals, the model is a montonic function where imposed constraints are determined by the circuit topology and functionality. For instance, if assume our circuit is the earlier example of a unit-delayed, two-input AND gate, we could give its model the type $M \in \mathcal{P}(\mathbb{B}^{3}) \rightarrow \mathcal{P}(\mathbb{B}^{3})$ and define it as:
 
 \begin{equation*}
-M(p) = \{ \langle b_{1}, b_{2}, i_{1} \wedge i_{2}, \neg s \rangle \in \mathbb{B}^{4} \mid \langle i_{1}, i_{2}, s, o \rangle \in p \}
+M(p) = \{ \langle b_{1}, b_{2}, i_{1} \wedge i_{2} \rangle \in \mathbb{B}^{3} \mid \langle i_{1}, i_{2}, o \rangle \in p \}
 \end{equation*}
 
-\noindent Here $i_{1}$ and $i_{2}$ refer to the two inputs of the AND gate, $s$ to the internal inverter, and $o$ is the ignored output; $b_{1}$ and $b_{2}$ are unconstrained in the new configuration.
-
-Manipulating subsets of $\mathbb{B}^{m}$ is however impractical for even moderately large $m$, which leads us to one of the key insights of STE. Namely, instead of manipulating subsets of $\mathbb{B}^{m}$ directly, one can use sequences of ternary values $\mathbb{T} = \mathbb{B} \cup \{ X \} $ to approximate them, whose sizes are only linear in $m$. Here the $1$ and $0$ from $\mathbb{B}$ denotes specific, defined values whereas $X$ denotes an ``unknown'' value that could be either $1$ or $0$. This intuition induces a partial order $\sqsubseteq$ on $\mathbb{T}$, where $0 \sqsubseteq X$ and $1 \sqsubseteq X$\footnotemark. For any $m \in \mathbb{N}$, this ordering on $\mathbb{T}$ is lifted component-wise to $\mathbb{T}^{m}$.
-
-\footnotetext{We use the reverse ordering of what is originally used in STE.}
+\noindent Here $i_{1}$ and $i_{2}$ refer to the two inputs of the AND gate and $o$ the ignored previous output; $b_{1}$ and $b_{2}$ are unconstrained inputs in the new configuration.
 
 \subsubsection{Ternary lattices}
+
+Manipulating subsets of $\mathbb{B}^{m}$ is however impractical for even moderately large $m$, which leads us to one of the key insights of STE. Namely, instead of manipulating subsets of $\mathbb{B}^{m}$ directly, one can use sequences of ternary values $\mathbb{T} = \mathbb{B} \cup \{ X \} $ to approximate them, whose sizes are only linear in $m$. Here the $1$ and $0$ from $\mathbb{B}$ denotes specific, defined values whereas $X$ denotes an ``unknown'' value that could be either $1$ or $0$. This intuition induces a partial order $\sqsubseteq$ on $\mathbb{T}$, where $0 \sqsubseteq X$ and $1 \sqsubseteq X$\footnotemark. For any $m \in \mathbb{N}$, this ordering on $\mathbb{T}$ is lifted component-wise to $\mathbb{T}^{m}$ and, as an example, we have that both $\langle 1,1,0 \rangle, \langle 1,0,0 \rangle \in \mathbb{T}^{3}$ are bounded by $\langle 1,X,0 \rangle$.
+
+% For example, both $\langle 1,1,0 \rangle$ and $\langle 1,0,0 \rangle$ .. $\sqsubseteq \langle 1,X,0 \rangle$ abstracts since they all agree on their first and third element.
+
+\footnotetext{We use the reverse ordering of what is originally used in STE.}
 
 Let $(\hat P,\sqsubseteq)$ be a finite, complete lattice of \textit{abstract predicates} in which the meet $\sqcap$ and join $\sqcup$ of any subset $Q \subseteq \hat P$ exists. Similar to the previous set operations for power sets, $\sqcap$, $\sqcup$ and $\sqsubseteq$ correspond to conjunction, disjunction and implication for abstract predicates, respectively. Furthermore, for any $Q \subseteq \hat P$, we denote by $\sqcap Q$ and $\sqcup Q$ the meet and join of all members of $Q$. 
 
 Note that $\mathbb{T}^{m}$ does not quite form a complete lattice because it lacks a bottom: both $0 \sqsubseteq X$ and $1 \sqsubseteq X$ but $0$ and $1$ are equally defined. A special bottom element $\bot$ is therefore introduced, such that $\bot \sqsubseteq t$ and $\bot \neq t$ for all $t \in \mathbb{T}^{m}$. The extended $\mathbb{T}_{\bot}^{m} = \mathbb{T}^{m} \cup \{ \bot \}$ then becomes a complete lattice. We denote its top element $\langle X, \dots, X \rangle$ by $\top$.
+
+\subsubsection{Abstract model}
 
 Let there also be Galois connection $\ll \, \in \, \subseteq \mathcal{P}(C) \times \hat P$, relating concrete and abstract predicates such that for all $Q \subseteq \mathcal{P}(C)$ and $\hat Q \subseteq \hat P$:
 
@@ -60,22 +62,24 @@ Let there also be Galois connection $\ll \, \in \, \subseteq \mathcal{P}(C) \tim
 Q \ll \hat Q \iff \cup Q \ll \sqcap \hat Q
 \end{equation*}
 
-\noindent where $Q \ll \hat Q \iff \forall p \in Q : \forall \hat p \in \hat Q : p \ll \hat p$. Intuitively, $p \ll \hat p$ states that $p$ can be ``approximated'' as $\hat p$, and we note that $\ll$ is an extension of the partial orders of $\mathcal{P}(C)$ and $\hat P$ to an ordering between $\mathcal{P}(C)$ and $\hat P$.
+\noindent where $Q \ll \hat Q \iff \forall p \in Q : \forall \hat p \in \hat Q : p \ll \hat p$. In other words, $p \ll \hat p$ states that $p$ can be ``approximated'' as $\hat p$ and $\ll$ is thus an extension of the partial orders of $\mathcal{P}(C)$ and $\hat P$ to an ordering between $\mathcal{P}(C)$ and $\hat P$. As an illustration of this proprety, consider that $\{ \langle 1,1,0 \rangle, \langle 1,0,0 \rangle \} \in \mathbb{B}^{3} \ll \{ \langle 1,X,0  \rangle \} \in \mathbb{T}^{3}$.
 
-It is sometimes convenient to define a Galois connection in terms of an \textit{abstraction} $\alpha \in \mathcal{P}(C) \rightarrow \hat P$ and a \textit{concretisation} $\gamma \in \hat P \rightarrow \mathcal{P}(C)$ function, from which one can derive $\ll$ as follows: $p \ll \hat p \iff p \subseteq \gamma(\hat p)$ or $p \ll \hat p \iff \alpha (p) \sqsubseteq \hat p$. For example, a Galois connection from $\mathcal{P}(\mathbb{B}^{m})$ to $\mathbb{T}_{\bot}^{m}$ for any $m \in \mathbb{N}$ can be defined in a natural way by specifying its concretisation function $\Gamma \in \mathbb{T}_{\bot}^{m} \rightarrow \mathcal{P}(\mathbb{B}^{m})$:
+It is sometimes convenient, or more intuitive, to define a Galois connection in terms of an \textit{abstraction} $\alpha \in \mathcal{P}(C) \rightarrow \hat P$ and a \textit{concretisation} $\gamma \in \hat P \rightarrow \mathcal{P}(C)$ function, from which one can derive $\ll$ as follows: $p \ll \hat p \iff p \subseteq \gamma(\hat p)$ or $p \ll \hat p \iff \alpha (p) \sqsubseteq \hat p$. For example, a Galois connection from $\mathcal{P}(\mathbb{B}^{m})$ to $\mathbb{T}_{\bot}^{m}$ for any $m \in \mathbb{N}$ can be defined in a natural way by specifying its concretisation function $\Gamma \in \mathbb{T}_{\bot}^{m} \rightarrow \mathcal{P}(\mathbb{B}^{m})$:
 
 \begin{align*}
 \Gamma ( \langle t_{0},\dots,t_{m-1} \rangle ) &= \{ \langle b_{0},\dots,b_{m-1} \rangle \in \mathbb{B}^{m} \mid \forall i < m : t_{i} \neq X \Rightarrow b_{i} = t_{i} \} \\
 \Gamma ( \bot ) &= \emptyset
 \end{align*}
 
-\noindent Listing each boolean sequence approximated by the given ternary sequence. For example, $\langle 1,X,0 \rangle$ abstracts both the boolean sequence $\langle 1,1,0 \rangle$ and $\langle 1,0,0 \rangle$ since they all agree on their first and third element.
+\noindent Listing each boolean sequence approximated by the given ternary sequence.
 
 An \textit{abstract predicate transformer} $\hat M \in \hat P \rightarrow \hat P$ is an \textit{abstract interpretation}~\cite{cousot1996} of $M \in \mathcal{P}(C) \rightarrow \mathcal{P}(C)$ iff it preserves $\bot$, $\hat M(\bot) = \bot$; is monotonic, $\hat p \sqsubseteq \hat q \Rightarrow \hat M (\hat p) \sqsubseteq \hat M (\hat q)$ for all $\hat p, \hat q \in \hat P$; and $\ll$ is a \textit{simulation relation} from $\mathcal{P}(C)$ to $\hat P$, $p \ll \hat p \Rightarrow M (p) \ll \hat M (\hat p)$ for all $p \in \mathcal{P}(C)$ and $\hat p \in \hat P$.
 
 \textcolor{red}{Example of how $\hat M$ and $M$ relate in practice.}
 
-\subsubsection{Assertions and satisfaction} A \textit{trajectory assertion} for $\hat M$ is a quintuple $\hat A = (S,s_{0},R,\pi_{a},\pi_{c})$, where $S$ is a finite set of \textit{states}, $s_{0} \in S$ is an \textit{initial state}, $R \subseteq S \times S$ is a \textit{transition relation}, $\pi_{a} \in S \rightarrow \hat P$ and $\pi_{c} \in S \rightarrow \hat P$ label each state $s$ with an \textit{antecedent} $\pi_{a}(s)$ and a \textit{consequent} $\pi_{c}(s)$. Furthermore, we assume that $(s,s_{0}) \notin S$ for all $s \in S$ without any loss of generality.
+\subsubsection{Assertions and satisfaction}
+
+A \textit{trajectory assertion} for $\hat M$ is a quintuple $\hat A = (S,s_{0},R,\pi_{a},\pi_{c})$, where $S$ is a finite set of \textit{states}, $s_{0} \in S$ is an \textit{initial state}, $R \subseteq S \times S$ is a \textit{transition relation}, $\pi_{a} \in S \rightarrow \hat P$ and $\pi_{c} \in S \rightarrow \hat P$ label each state $s$ with an \textit{antecedent} $\pi_{a}(s)$ and a \textit{consequent} $\pi_{c}(s)$. Furthermore, we assume that $(s,s_{0}) \notin S$ for all $s \in S$ without any loss of generality.
 
 For all $\Phi \in S \rightarrow \hat P$ and $s \in S$, define $F \in S \rightarrow (\hat P \rightarrow \hat P)$ and $\mathcal{F} \in (S \rightarrow \hat P) \rightarrow (S \rightarrow \hat P)$ as follows:
 
