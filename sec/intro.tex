@@ -32,48 +32,60 @@ $M_{R}$ induces a \textit{predicate transformer} $M_{F} \in \mathcal{P}(C) \righ
 M_{F}(p) = \{ c' \in C \mid \exists c \in p : (c,c') \in M_{R} \}
 \end{equation*}
 
-\noindent It is intuitively obvious that if $M$ is in one of the configurations in $p \in \mathcal{P}(C)$, then in one time step it must be in one of the configurations in $M_{F}(p)$, or in other words, $(c,c') \in M_{R} \iff c' \in M_{F}(\{ c \})$. We adopt this functional model of $M$ and drop its subscript.
-
-Since the value of input signals is controlled by the external environment, a circuits model itself does not impose any constraint on them. For non-input signals, the model is a montonic function where imposed constraints are determined by the circuit topology and functionality. For instance, if assume our circuit is the earlier example of a unit-delayed, two-input AND gate, we could give its model the type $M \in \mathcal{P}(\mathbb{B}^{3}) \rightarrow \mathcal{P}(\mathbb{B}^{3})$ and define it as:
+\noindent It is intuitively obvious that if $M$ is in one of the configurations in $p \in \mathcal{P}(C)$, then in one time step it must be in one of the configurations in $M_{F}(p)$. Furthermore, from its definition we see that $M_{F}$ distributes over arbitrary unions:
 
 \begin{equation*}
-M(p) = \{ \langle b_{1}, b_{2}, i_{1} \wedge i_{2} \rangle \in \mathbb{B}^{3} \mid \langle i_{1}, i_{2}, o \rangle \in p \}
+M_{F}(\cup Q) = \cup \{ M_{F}(q) \mid q \in Q \}
 \end{equation*}
 
-\noindent Here $i_{1}$ and $i_{2}$ refer to the two inputs of the AND gate and $o$ the ignored previous output; $b_{1}$ and $b_{2}$ are unconstrained inputs in the new configuration.
+\noindent for all $Q \subseteq \mathcal{P}(C)$. Any $M_{F}$ that satisfies this distributive property also defines a $M_{R}$ through the equivalence $(c,c') \in M_{R} \iff c' \in M_{F}(\{ c \})$, that is to say, there is no loss of information going from $M_{R}$ to $M_{F}$ or vice versa. We adopt this functional model of $M$ and drop its subscript. It follows its distributivity that $M$ also preserves the empty set of constraints, i.e. $M(\emptyset) = \emptyset$, and that $M$ is monotonic, i.e. $p \subseteq q \implies M(p) \subseteq M(q)$ for all $p, q \in \mathcal{P}(C)$.
+
+In practice, signals in $M$ are typically divided into ``input'' signals and ``output'' or ``internal'' signals. While an input signal is typically controlled by the external environment and thus unconstrained by $M$ itself, non-input signals in $M$ are determined by the circuit topology and functionality. If assume our circuit is the earlier unit-delayed two-input AND gate, for example, we could define its model $\mathcal{M} \in \mathcal{P}(\mathbb{B}^{3}) \rightarrow \mathcal{P}(\mathbb{B}^{3})$ as:
+
+% although not required here
+
+\begin{equation*}
+\mathcal{M}(p) = \{ \langle b_{1}, b_{2}, i_{1} \wedge i_{2} \rangle \in \mathbb{B}^{3} \mid \langle i_{1}, i_{2}, o \rangle \in p \}
+\end{equation*}
+
+\noindent Here $i_{1}$ and $i_{2}$ refer to the two inputs of the AND gate and $o$ the ignored output; $b_{1}$ and $b_{2}$ are unconstrained inputs in the new configuration.
 
 \subsubsection{Ternary lattices}
 
-Manipulating subsets of $\mathbb{B}^{m}$ is however impractical for even moderately large $m$, which leads us to one of the key insights of STE. Namely, instead of manipulating subsets of $\mathbb{B}^{m}$ directly, one can use sequences of ternary values $\mathbb{T} = \mathbb{B} \cup \{ X \} $ to approximate them, whose sizes are only linear in $m$. Here the $1$ and $0$ from $\mathbb{B}$ denotes specific, defined values whereas $X$ denotes an ``unknown'' value that could be either $1$ or $0$. This intuition induces a partial order $\sqsubseteq$ on $\mathbb{T}$, where $0 \sqsubseteq X$ and $1 \sqsubseteq X$\footnotemark. For any $m \in \mathbb{N}$, this ordering on $\mathbb{T}$ is lifted component-wise to $\mathbb{T}^{m}$ and, as an example, we have that both $\langle 1,1,0 \rangle, \langle 1,0,0 \rangle \in \mathbb{T}^{3}$ are bounded by $\langle 1,X,0 \rangle$.
+Manipulating subsets of $\mathbb{B}^{m}$ is however impractical for even moderately large $m$, which leads us to one of the key insights of STE. Namely, instead of manipulating subsets of $\mathbb{B}^{m}$ directly, one can use sequences of ternary values $\mathbb{T} = \mathbb{B} \cup \{ X \} $ to approximate them, whose sizes are only linear in $m$. Here the $1$ and $0$ from $\mathbb{B}$ denotes specific, defined values whereas $X$ denotes an ``unknown'' value that could be either $1$ or $0$. This intuition induces a partial order $\sqsubseteq$ on $\mathbb{T}$, where $0 \sqsubseteq X$ and $1 \sqsubseteq X$\footnotemark. For any $m \in \mathbb{N}$, this ordering on $\mathbb{T}$ is lifted component-wise to $\mathbb{T}^{m}$.
 
-% For example, both $\langle 1,1,0 \rangle$ and $\langle 1,0,0 \rangle$ .. $\sqsubseteq \langle 1,X,0 \rangle$ abstracts since they all agree on their first and third element.
+% As an example, we have that $\langle 1,1,0 \rangle$ and $\langle 1,0,0 \rangle$ are both $\sqsubseteq \langle 1,X,0 \rangle \in \mathbb{T}^{3}$ because they all agree on their first and third element and $X$ can be both $0$ and $1$.
 
 \footnotetext{We use the reverse ordering of what is originally used in STE.}
 
-Let $(\hat P,\sqsubseteq)$ be a finite, complete lattice of \textit{abstract predicates} in which the meet $\sqcap$ and join $\sqcup$ of any subset $Q \subseteq \hat P$ exists. Similar to the previous set operations for power sets, $\sqcap$, $\sqcup$ and $\sqsubseteq$ correspond to conjunction, disjunction and implication for abstract predicates, respectively. Furthermore, for any $Q \subseteq \hat P$, we denote by $\sqcap Q$ and $\sqcup Q$ the meet and join of all members of $Q$. 
-
 Note that $\mathbb{T}^{m}$ does not quite form a complete lattice because it lacks a bottom: both $0 \sqsubseteq X$ and $1 \sqsubseteq X$ but $0$ and $1$ are equally defined. A special bottom element $\bot$ is therefore introduced, such that $\bot \sqsubseteq t$ and $\bot \neq t$ for all $t \in \mathbb{T}^{m}$. The extended $\mathbb{T}_{\bot}^{m} = \mathbb{T}^{m} \cup \{ \bot \}$ then becomes a complete lattice. We denote its top element $\langle X, \dots, X \rangle$ by $\top$.
 
-\subsubsection{Abstract model}
+Generalising from any specific domain, let $(\hat P,\sqsubseteq)$ be a finite, complete lattice of \textit{abstract predicates} in which the meet $\sqcap$ and join $\sqcup$ of any subset $Q \subseteq \hat P$ exists. Similar to the previous set operations for power sets, $\sqcap$, $\sqcup$ and $\sqsubseteq$ correspond to conjunction, disjunction and implication for abstract predicates, respectively. Furthermore, for any $Q \subseteq \hat P$, we denote by $\sqcap Q$ and $\sqcup Q$ the meet and join of all members of $Q$.
 
-Let there be Galois connection $\ll \, \in \, \subseteq \mathcal{P}(C) \times \hat P$, relating concrete and abstract predicates such that for all $Q \subseteq \mathcal{P}(C)$ and $\hat Q \subseteq \hat P$:
+\subsubsection{Abstract cricuit model}
+
+Let there be Galois connection $\ll \in \left. \subseteq \mathcal{P}(C) \times \hat P \right.$ relating concrete and abstract predicates, where $p \ll \hat p$ reads as ``$p$ can be approximated as $\hat p$'' and for all $Q \subseteq \mathcal{P}(C)$ and $\hat Q \subseteq \hat P$:
 
 \begin{equation*}
 Q \ll \hat Q \iff \cup Q \ll \sqcap \hat Q
 \end{equation*}
 
-\noindent where $Q \ll \hat Q \iff \forall p \in Q : \forall \hat p \in \hat Q : p \ll \hat p$. In other words, $p \ll \hat p$ states that $p$ can be ``approximated'' as $\hat p$ and $\ll$ is thus an extension of the partial orders of $\mathcal{P}(C)$ and $\hat P$ to an ordering between $\mathcal{P}(C)$ and $\hat P$. As an illustration of this property, consider that $\{ \langle 1,1,0 \rangle, \langle 1,0,0 \rangle \} \in \mathbb{B}^{3} \ll \{ \langle 1,X,0  \rangle \} \in \mathbb{T}^{3}$ in the ternary abstraction of boolean values.
+\noindent where $Q \ll \hat Q \iff \forall p \in Q : \forall \hat p \in \hat Q : p \ll \hat p$. In other words, $\ll$ is an extension of the partial order $\subseteq$ of $\mathcal{P}(C)$ and $\sqsubseteq$ of $\hat P$ to an ordering between $\mathcal{P}(C)$ and $\hat P$. As an illustration of this property, consider that we must have $\{ \langle 1,1,0 \rangle, \langle 1,0,0 \rangle \} \in \mathbb{B}^{3} \ll \{ \langle 1,X,0  \rangle \} \in \mathbb{T}^{3}$ for the ternary abstraction of boolean values.
 
-It is sometimes convenient, or more intuitive, to define a Galois connection in terms of an \textit{abstraction} $\alpha \in \mathcal{P}(C) \rightarrow \hat P$ and a \textit{concretisation} $\gamma \in \hat P \rightarrow \mathcal{P}(C)$ function, from which one can derive $\ll$ as follows: $p \ll \hat p \iff p \subseteq \gamma(\hat p)$ or $p \ll \hat p \iff \alpha (p) \sqsubseteq \hat p$. For example, a Galois connection from $\mathcal{P}(\mathbb{B}^{m})$ to $\mathbb{T}_{\bot}^{m}$ for any $m \in \mathbb{N}$ can be defined in a natural way by specifying its concretisation function $\Gamma \in \mathbb{T}_{\bot}^{m} \rightarrow \mathcal{P}(\mathbb{B}^{m})$:
+It is sometimes convenient, or more intuitive, to define a Galois connection in terms of an \textit{abstraction} $\alpha \in \mathcal{P}(C) \rightarrow \hat P$ and a \textit{concretisation} $\gamma \in \hat P \rightarrow \mathcal{P}(C)$ function, from which we can derive $\ll$ as $p \ll \hat p \iff p \subseteq \gamma(\hat p)$ or $p \ll \hat p \iff \alpha (p) \sqsubseteq \hat p$. For example, a Galois connection from $\mathcal{P}(\mathbb{B}^{m})$ to $\mathbb{T}_{\bot}^{m}$ for any $m \in \mathbb{N}$ can be defined in a natural way by specifying its concretisation $\Gamma \in \mathbb{T}_{\bot}^{m} \rightarrow \mathcal{P}(\mathbb{B}^{m})$ as:
 
 \begin{align*}
 \Gamma ( \langle t_{0},\dots,t_{m-1} \rangle ) &= \{ \langle b_{0},\dots,b_{m-1} \rangle \in \mathbb{B}^{m} \mid \forall i < m : t_{i} \neq X \Rightarrow b_{i} = t_{i} \} \\
 \Gamma ( \bot ) &= \emptyset
 \end{align*}
 
-\noindent Listing each boolean sequence approximated by the given ternary sequence $\langle 1,X,0  \rangle \in \mathbb{T}^{3}$ with $\Gamma$ we get $\{ \langle 1,1,0 \rangle, \langle 1,0,0 \rangle \} \in \mathbb{B}^{3}$, reaffirming the $\ll$ relation between these sequences.
+\noindent Listing each boolean sequence approximated by, for example, $\langle 1,X,0  \rangle \in \mathbb{T}^{3}$ with $\Gamma$, we get the sequence $\{ \langle 1,1,0 \rangle, \langle 1,0,0 \rangle \} \in \mathbb{B}^{3}$ as desired.
 
-An \textit{abstract predicate transformer} $\hat M \in \hat P \rightarrow \hat P$ is an \textit{abstract interpretation}~\cite{cousot1996} of $M \in \mathcal{P}(C) \rightarrow \mathcal{P}(C)$ iff it preserves $\bot$, $\hat M(\bot) = \bot$; is monotonic, $\hat p \sqsubseteq \hat q \Rightarrow \hat M (\hat p) \sqsubseteq \hat M (\hat q)$ for all $\hat p, \hat q \in \hat P$; and $\ll$ is a \textit{simulation relation} from $\mathcal{P}(C)$ to $\hat P$, $p \ll \hat p \Rightarrow M (p) \ll \hat M (\hat p)$ for all $p \in \mathcal{P}(C)$ and $\hat p \in \hat P$.
+% , reaffirming the $\ll$ relation between these sequences.
+
+An \textit{abstract predicate transformer} $\hat M \in \hat P \rightarrow \hat P$ is an \textit{abstract interpretation}~\cite{cousot1996} of $M \in \mathcal{P}(C) \rightarrow \mathcal{P}(C)$ iff: (1) $\hat M$ preserves $\bot$, i.e. $\hat M(\bot) = \bot$; (2) $\hat M$ is monotonic, i.e. $\hat p \sqsubseteq \hat q \Rightarrow \hat M (\hat p) \sqsubseteq \hat M (\hat q)$ for all $\hat p, \hat q \in \hat P$; and (3) $\ll$ is a \textit{simulation relation} from $\mathcal{P}(C)$ to $\hat P$, i.e. $p \ll \hat p \Rightarrow M (p) \ll \hat M (\hat p)$ for all $p \in \mathcal{P}(C)$ and $\hat p \in \hat P$. Note that 
+
+% Unlike the functional abstractions of $M$, however, $\hat M$ is not required to be lossless 
 
 \textcolor{red}{Example of how $\hat M$ and $M$ relate in practice.}
 
