@@ -83,7 +83,11 @@ It is sometimes convenient, or more intuitive, to define a Galois connection in 
 
 % , reaffirming the $\ll$ relation between these sequences.
 
-An \textit{abstract predicate transformer} $\hat M \in \hat P \rightarrow \hat P$ is an \textit{abstract interpretation}~\cite{cousot1996} of $M \in \mathcal{P}(C) \rightarrow \mathcal{P}(C)$ iff: (1) $\hat M$ preserves $\bot$, i.e. $\hat M(\bot) = \bot$; (2) $\hat M$ is monotonic, i.e. $\hat p \sqsubseteq \hat q \Rightarrow \hat M (\hat p) \sqsubseteq \hat M (\hat q)$ for all $\hat p, \hat q \in \hat P$; and (3) $\ll$ is a \textit{simulation relation} from $\mathcal{P}(C)$ to $\hat P$, i.e. $p \ll \hat p \Rightarrow M (p) \ll \hat M (\hat p)$ for all $p \in \mathcal{P}(C)$ and $\hat p \in \hat P$. Note that $\hat M$ preserving bottom and being monotonic is explicitly required here instead of being derived from distributivity over arbitrary union because $\hat M$ does in general not satisfy it.
+An \textit{abstract predicate transformer} $\hat M \in \hat P \rightarrow \hat P$ is an \textit{abstract interpretation}~\cite{cousot1996} of $M \in \mathcal{P}(C) \rightarrow \mathcal{P}(C)$ iff: (1) $\hat M$ preserves $\bot$, i.e. $\hat M(\bot) = \bot$; (2) $\hat M$ is monotonic, i.e. $\hat p \sqsubseteq \hat q \Rightarrow \hat M (\hat p) \sqsubseteq \hat M (\hat q)$ for all $\hat p, \hat q \in \hat P$; and (3) $\ll$ is a \textit{simulation relation} from $\mathcal{P}(C)$ to $\hat P$, i.e. $p \ll \hat p \Rightarrow M (p) \ll \hat M (\hat p)$ for all $p \in \mathcal{P}(C)$ and $\hat p \in \hat P$.
+
+Note that $\hat M$ preserving bottom and being monotonic are explicitly required properties rather than derived from distributivity over arbitrary union because $\hat M$, in general, does not satisfy such a property. The following inequality does however hold: $\hat M(\sqcup \hat Q) \sqsubseteq \sqcup \{ \hat M(\hat q) \mid \hat q \in \hat Q \}$. For example, ...
+
+% because, in general, $\hat M$ does not satisfy distribution over arbitrary union: $\hat M(\sqcup \hat Q) \neq \sqcup \{ \hat M(\hat q) \mid \hat q \in \hat Q \}$. For example, supposed that $\hat M$ abstracts $\mathcal{M}$, 
 
 % Unlike the functional abstractions of $M$, however, $\hat M$ is not required to be lossless 
 
