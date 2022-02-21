@@ -40,7 +40,7 @@ M_{F}(\cup Q) = \cup \{ M_{F}(q) \mid q \in Q \}
 
 \noindent for all $Q \subseteq \mathcal{P}(C)$. Any $M_{F}$ that satisfies this distributive property also defines a $M_{R}$ through the equivalence $(c,c') \in M_{R} \iff c' \in M_{F}(\{ c \})$, that is to say, there is no loss of information going from $M_{R}$ to $M_{F}$ or vice versa. We adopt this functional model of $M$ and drop its subscript. It follows its distributivity that $M$ also preserves the empty set of constraints, i.e. $M(\emptyset) = \emptyset$, and that $M$ is monotonic, i.e. $p \subseteq q \implies M(p) \subseteq M(q)$ for all $p, q \in \mathcal{P}(C)$.
 
-In practice, signals in $M$ are typically divided into ``input'' signals and ``output'' or ``internal'' signals. While an input signal is typically controlled by the external environment and thus unconstrained by $M$ itself, non-input signals in $M$ are determined by the circuit topology and functionality. If assume our circuit is the earlier unit-delayed two-input AND gate, for example, we could define its model $\mathcal{M} \in \mathcal{P}(\mathbb{B}^{3}) \rightarrow \mathcal{P}(\mathbb{B}^{3})$ as:
+In practice, signals in $M$ are typically divided into ``input'' signals and ``output'' or ``internal'' signals. While an input signal is typically controlled by the external environment and thus unconstrained by $M$ itself, non-input signals in $M$ are determined by the circuit topology and functionality. For example, supposed $M$ is the earlier example of a unit-delayed two-input AND gate, we could then define its model $\mathcal{M} \in \mathcal{P}(\mathbb{B}^{3}) \rightarrow \mathcal{P}(\mathbb{B}^{3})$ as:
 
 % although not required here
 
@@ -62,7 +62,7 @@ Note that $\mathbb{T}^{m}$ does not quite form a complete lattice because it lac
 
 Generalising from any specific domain, let $(\hat P,\sqsubseteq)$ be a finite, complete lattice of \textit{abstract predicates} in which the meet $\sqcap$ and join $\sqcup$ of any subset $Q \subseteq \hat P$ exists. Similar to the previous set operations for power sets, $\sqcap$, $\sqcup$ and $\sqsubseteq$ correspond to conjunction, disjunction and implication for abstract predicates, respectively. Furthermore, for any $Q \subseteq \hat P$, we denote by $\sqcap Q$ and $\sqcup Q$ the meet and join of all members of $Q$.
 
-\subsubsection{Abstract cricuit model}
+\subsubsection{Abstract circuit model}
 
 Let there be Galois connection $\ll \in \left. \subseteq \mathcal{P}(C) \times \hat P \right.$ relating concrete and abstract predicates, where $p \ll \hat p$ reads as ``$p$ can be approximated as $\hat p$'' and for all $Q \subseteq \mathcal{P}(C)$ and $\hat Q \subseteq \hat P$:
 
@@ -83,7 +83,7 @@ It is sometimes convenient, or more intuitive, to define a Galois connection in 
 
 % , reaffirming the $\ll$ relation between these sequences.
 
-An \textit{abstract predicate transformer} $\hat M \in \hat P \rightarrow \hat P$ is an \textit{abstract interpretation}~\cite{cousot1996} of $M \in \mathcal{P}(C) \rightarrow \mathcal{P}(C)$ iff: (1) $\hat M$ preserves $\bot$, i.e. $\hat M(\bot) = \bot$; (2) $\hat M$ is monotonic, i.e. $\hat p \sqsubseteq \hat q \Rightarrow \hat M (\hat p) \sqsubseteq \hat M (\hat q)$ for all $\hat p, \hat q \in \hat P$; and (3) $\ll$ is a \textit{simulation relation} from $\mathcal{P}(C)$ to $\hat P$, i.e. $p \ll \hat p \Rightarrow M (p) \ll \hat M (\hat p)$ for all $p \in \mathcal{P}(C)$ and $\hat p \in \hat P$. Note that 
+An \textit{abstract predicate transformer} $\hat M \in \hat P \rightarrow \hat P$ is an \textit{abstract interpretation}~\cite{cousot1996} of $M \in \mathcal{P}(C) \rightarrow \mathcal{P}(C)$ iff: (1) $\hat M$ preserves $\bot$, i.e. $\hat M(\bot) = \bot$; (2) $\hat M$ is monotonic, i.e. $\hat p \sqsubseteq \hat q \Rightarrow \hat M (\hat p) \sqsubseteq \hat M (\hat q)$ for all $\hat p, \hat q \in \hat P$; and (3) $\ll$ is a \textit{simulation relation} from $\mathcal{P}(C)$ to $\hat P$, i.e. $p \ll \hat p \Rightarrow M (p) \ll \hat M (\hat p)$ for all $p \in \mathcal{P}(C)$ and $\hat p \in \hat P$. Note that $\hat M$ preserving bottom and being monotonic is explicitly required here instead of being derived from distributivity over arbitrary union because $\hat M$ does in general not satisfy it.
 
 % Unlike the functional abstractions of $M$, however, $\hat M$ is not required to be lossless 
 
