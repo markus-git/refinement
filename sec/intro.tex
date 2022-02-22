@@ -64,15 +64,7 @@ Generalising from any specific domain, let $(\hat P,\sqsubseteq)$ be a finite, c
 
 \subsubsection{Abstract circuit model}
 
-Let there be Galois connection $\ll \: \in \left. \subseteq \mathcal{P}(C) \times \hat P \right.$ relating concrete and abstract predicates, where $p \ll \hat p$ reads as ``$p$ can be approximated as $\hat p$'' and for all $Q \subseteq \mathcal{P}(C)$ and $\hat Q \subseteq \hat P$:
-
-\begin{equation*}
-Q \ll \hat Q \iff \cup Q \ll \sqcap \hat Q
-\end{equation*}
-
-\noindent where $Q \ll \hat Q \iff \forall p \in Q : \forall \hat p \in \hat Q : p \ll \hat p$. In other words, $\ll$ is an extension of the partial order $\subseteq$ of $\mathcal{P}(C)$ and $\sqsubseteq$ of $\hat P$ to an ordering between $\mathcal{P}(C)$ and $\hat P$. As an illustration of this property, consider how we must have that $\{ \langle 1,1,0 \rangle, \langle 1,0,0 \rangle \} \in \mathbb{B}^{3} \ll \{ \langle 1, \X, 0  \rangle \} \in \mathbb{T}_{\bot}^{3}$ for the ternary abstraction.
-
-It is sometimes convenient, or more intuitive, to define a Galois connection in terms of an \textit{abstraction} $\alpha \in \mathcal{P}(C) \rightarrow \hat P$ and a \textit{concretisation} $\gamma \in \hat P \rightarrow \mathcal{P}(C)$ function, from which we can derive $\ll$ as $p \ll \hat p \iff p \subseteq \gamma(\hat p)$ or $p \ll \hat p \iff \alpha (p) \sqsubseteq \hat p$. For example, a Galois connection from $\mathcal{P}(\mathbb{B}^{m})$ to $\mathbb{T}_{\bot}^{m}$ for any $m \in \mathbb{N}$ can be defined in a natural way by specifying its concretisation $\Gamma \in \mathbb{T}_{\bot}^{m} \rightarrow \mathcal{P}(\mathbb{B}^{m})$ as:
+Let there be a Galois connection relating ``concrete'' predicates $\mathcal{P}(C)$ and abstract predicates $\hat P$. The usual definition of A Galois connection is in terms of an \textit{abstraction} $\alpha \in \mathcal{P}(C) \rightarrow \hat P$ and a \textit{concretisation} $\gamma \in \hat P \rightarrow \mathcal{P}(C)$ function, such that $\alpha(p) \sqsubseteq \hat p \iff p \subseteq \gamma(\hat p)$ for all $p \in \mathcal{P}(C)$ and $\hat p \in \hat P$. For example, a Galois connection from $\mathcal{P}(\mathbb{B}^{m})$ to $\mathbb{T}_{\bot}^{m}$ for any $m \in \mathbb{N}$ can be defined in a natural way by its concretisation $\Gamma \in \mathbb{T}_{\bot}^{m} \rightarrow \mathcal{P}(\mathbb{B}^{m})$ function:
 
 \begin{align*}
 \Gamma ( \langle t_{0},\dots,t_{m-1} \rangle ) &= \{ \langle b_{0},\dots,b_{m-1} \rangle \in \mathbb{B}^{m} \mid \forall i < m : t_{i} \neq \X \Rightarrow b_{i} = t_{i} \} \\
@@ -80,6 +72,22 @@ It is sometimes convenient, or more intuitive, to define a Galois connection in 
 \end{align*}
 
 \noindent Listing each boolean sequence approximated by $\langle 1, \X, 0 \rangle \in \mathbb{T}_{\bot}^{3}$, we get the sequence $\{ \langle 1, 1, 0 \rangle, \langle 1, 0, 0 \rangle \} \in \mathbb{B}^{3}$ as desired.
+
+We instead adopt a definition of Galois connections as a binary relation $\ll \, \subseteq \mathcal{P}(C) \times \hat P$, where $p \ll \hat p$ reads as ``$p$ can be approximated as $\hat p$'', such that for all $Q \subseteq \mathcal{P}(C)$ and $\hat Q \subseteq \hat P$:
+
+% Let there be Galois connection $\ll \, \subseteq \mathcal{P}(C) \times \hat P$ relating concrete and abstract predicates, where $p \ll \hat p$ reads as ``$p$ can be approximated as $\hat p$'' and for all $Q \subseteq \mathcal{P}(C)$ and $\hat Q \subseteq \hat P$:
+
+\begin{equation*}
+\forall p \in Q : \forall \hat p \in \hat Q : p \ll \hat p \iff \cup Q \ll \sqcap \hat Q
+\end{equation*}
+
+% from which we can derive $\ll$ as $p \ll \hat p \iff p \subseteq \gamma(\hat p)$ or $p \ll \hat p \iff \alpha (p) \sqsubseteq \hat p$. 
+
+% Q \ll \hat Q
+
+\noindent Intuitively, $\ll$ is an extension of the partial order $\subseteq$ of $\mathcal{P}(C)$ and $\sqsubseteq$ of $\hat P$ to an ordering between $\mathcal{P}(C)$ and $\hat P$. The standard, functional definition of a Galois connection can be derived from $\ll$ as $\gamma(\hat p) \iff \sqcup \{ p \in \mathcal{P}(C) \mid p \ll \hat p \}$, and vice versa as $p \ll \hat p \iff p \subseteq \gamma(\hat p)$.
+
+% As an illustration of this property, consider how we must have that $\{ \langle 1,1,0 \rangle, \langle 1,0,0 \rangle \} \in \mathbb{B}^{3} \ll \{ \langle 1, \X, 0  \rangle \} \in \mathbb{T}_{\bot}^{3}$ for the ternary abstraction.
 
 % , reaffirming the $\ll$ relation between these sequences.
 
