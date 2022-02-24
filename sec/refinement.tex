@@ -1,24 +1,41 @@
 \section{System refinement}
 
-Consider another fixed, but arbitrary, circuit model $N \in \mathcal{P}(C_{q}) \rightarrow \mathcal{P}(C_{q})$. Let the abstract predicate transformer $\hat N \in \hat Q \rightarrow \hat Q$ be an abstract interpretation of $N$, where $(\hat Q, \sqsubseteq_{q})$ forms a finite, complete lattice such that there is a Galois connection $\ll_{q} \: \in \left. \subseteq \mathcal{P}(C_{q}) \times \hat Q \right.$. In the previous sections, exactly what abstract predicates like $\hat Q$ are, were not important. In order to reason about refinement, however, we need to make a distinction between the \textit{externally visible} and internal elements of an abstract predicate.
-
 % we then we say that $\hat M$ \textit{refines} $\hat N$ if every \textit{externally visible behaviour} allowed by $\hat M$ is also allowed by $\hat N$, regardless of any initial configurations.
 
-% \todo{Example?}
+Consider another fixed, but arbitrary, circuit model $N \in \mathcal{P}(C') \rightarrow \mathcal{P}(C')$ such that $M$ and $N$ have the same number of inputs and outputs but can differ internally. Let the abstract predicate transformer $\hat N \in \hat Q \rightarrow \hat Q$ be an abstract interpretation of $N$, where $\hat Q$ is an abstact predicate for $\mathcal{P}(C)$. In the previous sections, exactly what abstract predicates like $\hat Q$ are, were not important. In order to reason about refinement, however, we  make a distinction between their \textit{external} and \textit{internal} elements.
 
-Specifically, let the \textit{externally visible} parts of an abstract predicate $\hat Q$ be the subsets given by two projections, $\InProj$ and $\OutProj$, identifying the ``inputs'' and ``outputs'' of $\hat Q$, respectively. Further, let $\out{\cdot} \in \hat Q \rightarrow \OutProj(\hat Q) = \hat O$ be a mapping that takes each $\hat q \in \hat Q$ to its visible outputs $\out{\hat Q} \in \hat O$. We extend $\out{\cdot}$ to sequences component-wise and, with a slight abuse of notation, overload both projections and the mapping to accept predicates from $\hat P$.
+Specifically, let the \textit{externally visible} parts of an abstract predicate $\hat Q$ be the subsets given by two projections, $\InProj{\cdot}$ and $\OutProj{\cdot}$, identifying the ``inputs'' and ``outputs'' of $\hat Q$, respectively. Further, let $\Out \in \hat Q \rightarrow \OutProj{\hat Q}$ be a mapping that takes each $\hat q \in \hat Q$ to its visible outputs, and let $\In \in \InProj{\hat Q} \rightarrow \hat Q$ be another mapping that lifts each $\hat \iota \in \InProj{\hat Q}$ into $\hat Q$ such that $\Out(\hat q) \sqsubseteq \hat \iota \iff \hat q \sqsubseteq \In(\hat \iota)$ for all $\hat q \in \hat Q$. With a slight abuse of notation, overload both projections and mappings to accept predicates from $\hat P$ and note that $| \OutProj{\hat P} | = | \OutProj{\hat Q} |$ and $| \InProj{\hat P} | = | \InProj{\hat Q} |$.
 
-Let there be an order isomorphism $\cc \: \in \left. \subseteq \hat P \times \hat Q \right.$.
+\todo{This $\In$ and $\Out$ business reminds me of Galois connection.}
 
-\todo{Order isomorphism over $\hat Q$ and $\hat P$.}
+Let $\cc \, \subseteq \hat P \times \hat Q$ be a Galois connection such that for all $\hat Q' \subseteq \hat Q$ and $\hat P' \subseteq \hat P$:
 
-% Further, in order to compare inputs and outputs, we assume that $\InProj(\hat P) = \InProj(\hat Q) = \hat I$ and $\OutProj(\hat P) = \OutProj(\hat Q) = \hat O$.
+\begin{equation*}
+\forall \hat q \in \hat Q' : \forall \hat p \in \hat P' : \hat q \cc \hat p \iff \sqcup \hat Q' \cc \sqcap \hat P'
+\end{equation*}
 
-A \textit{driver} of $\hat M$ and $\hat N$ is a nonempty sequence of inputs, $\delta \in \hat I^{+}$, and induces a trajectory $\tau$ in $\hat M$ (resp. $\hat N$) where $\tau[0] = \top$ and $\forall i \in \mathbb{N} : i < | \delta | \implies \tau[i+1] = \hat M(\delta[i] \sqcap \tau[i])$; the trajectory induced by a driver $\delta$ in $\hat M$ is denoted by $\Driv{\hat M}{\delta}$. Intuitively, if $\hat M$ produces the same, or at least more specified, outputs than $\hat N$ for all possible drivers, then every visible behaviour of $\hat M$ is covered by $\hat N$. We thus say that $\hat M$ refines $\hat N$, denoted by $\hat M \leq \hat N$, iff:
+\noindent Like the earlier Galois connections, the relation $\cc$ can intuitively be thought of as an extension of the internal orderings of $\hat P$ and $\hat Q$ to an ordering between the two abstract predicates. \todo{Text.}
 
-\todo{Footnote that ``Traj'' comes from trajectories in prev. papers?}
+A \textit{driver} $\langle \hat \iota_{0}, \ldots \rangle \in \InProj{\hat Q}^{+}$ for $\hat N$ is a nonempty sequence of inputs which induces a \textit{trajectory} $\langle \tau_{0}, \ldots, \tau_{| \delta | + 1} \rangle \in \hat Q^{+}$, where $\tau_{0} = \top$ and $\tau_{i+1} = \hat N(\In(\hat \iota_{i}) \sqcap \tau_{i})$ for all $i \in \mathbb{N} : i < | \delta |$; the trajectory induced in $\hat N$ by a driver $\delta$ is denoted by $\Driv{\hat N}{\delta}$.
 
-\todo{We have to use $=$ for our trajectories since $\sqsubseteq$ allows one to pick bad states for unconstrained wires.}
+We view circuits as transducers and say that $\hat M$ refines $\hat N$ if:
+
+\begin{equation*}
+\forall \delta \in ?^{+} : \out{\Driv{\hat M}{\delta}} \sqsubseteq \out{\Driv{\hat N}{?(\delta)}}
+\end{equation*}
+
+% ... to its visible outputs $\Out(\hat Q) \in \OutProj{\hat Q}$.
+% We extend $\out{\cdot}$ to sequences component-wise and, ...
+
+\subsection{Old stuff, trying to make it more formal}
+
+A \textit{driver} of $\hat M$ and $\hat N$ is a nonempty sequence of inputs, $\delta \in \hat I^{+}$, and induces a trajectory $\tau$ in $\hat M$ (resp. $\hat N$) where $\tau[0] = \top$ and $\forall i \in \mathbb{N} : i < | \delta | \implies \tau[i+1] = \hat M(\delta[i] \sqcap \tau[i])$; the trajectory induced by a driver $\delta$ in $\hat M$ is denoted by $\Driv{\hat M}{\delta}$.
+
+Intuitively, if $\hat M$ produces the same, or at least more specified, outputs than $\hat N$ for all possible drivers, then every visible behaviour of $\hat M$ is covered by $\hat N$. We thus say that $\hat M$ refines $\hat N$, denoted by $\hat M \leq \hat N$, iff:
+
+% \todo{Footnote that ``Traj'' comes from trajectories in prev. papers?}
+
+% \todo{We have to use $=$ for our trajectories since $\sqsubseteq$ allows one to pick bad states for unconstrained wires.}
 
 \begin{equation*}
 \forall \delta \in \hat I^{+} : \out{\Driv{\hat M}{\delta}} \sqsubseteq \out{\Driv{\hat N}{\delta}}
