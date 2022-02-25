@@ -67,21 +67,19 @@ Generalising from any specific domain, let $(\hat P,\sqsubseteq)$ be a finite, c
 Let there be a Galois connection relating ``concrete'' predicates $\mathcal{P}(C)$ and abstract predicates $\hat P$. The usual definition of A Galois connection is in terms of an \textit{abstraction} $\alpha \in \mathcal{P}(C) \rightarrow \hat P$ and a \textit{concretisation} $\gamma \in \hat P \rightarrow \mathcal{P}(C)$ function, such that $\alpha(p) \sqsubseteq \hat p \iff p \subseteq \gamma(\hat p)$ for all $p \in \mathcal{P}(C)$ and $\hat p \in \hat P$. For example, a Galois connection from $\mathcal{P}(\mathbb{B}^{m})$ to $\mathbb{T}_{\bot}^{m}$ for any $m \in \mathbb{N}$ can be defined in a natural way by its concretisation $\Gamma \in \mathbb{T}_{\bot}^{m} \rightarrow \mathcal{P}(\mathbb{B}^{m})$ function:
 
 \begin{align*}
-\Gamma ( \langle t_{0},\dots,t_{m-1} \rangle \in \mathbb{T}^{m}) &= \{ \langle b_{0},\dots,b_{m-1} \rangle \in \mathbb{B}^{m} \mid \forall i < m : t_{i} \neq \X \Rightarrow b_{i} = t_{i} \} \\
+\Gamma ( \langle t_{0},\dots,t_{m-1} \rangle) &= \{ \langle b_{0},\dots,b_{m-1} \rangle \in \mathbb{B}^{m} \mid \forall i < m : t_{i} \neq \X \Rightarrow b_{i} = t_{i} \} \\
 \Gamma ( \bot ) &= \emptyset
 \end{align*}
 
-% Note: remove inner T^m? Added it to make things clearer, but am not sure it actually helps.
-
 \noindent Listing each $\mathbb{B}^{3}$ approximated by $\langle 1, \X, 0 \rangle \in \mathbb{T}_{\bot}^{3}$, we get the set $\{ \langle 1, 1, 0 \rangle, \langle 1, 0, 0 \rangle \}$ as desired.
 
-We adopt an alternative view of Galois connection from $\mathcal{P}(C)$ to $\hat P$ as binary relations, and define $\ll \, \subseteq \mathcal{P}(C) \times \hat P$, such that for all $Q \subseteq \mathcal{P}(C)$ and $\hat Q \subseteq \hat P$:
+We view a Galois connection from $\mathcal{P}(C)$ to $\hat P$ instead as binary relation, and define $\ll \, \subseteq \mathcal{P}(C) \times \hat P$, such that for all $Q \subseteq \mathcal{P}(C)$ and $\hat Q \subseteq \hat P$:
 
 \begin{equation*}
 \forall p \in Q : \forall \hat p \in \hat Q : p \ll \hat p \iff \cup Q \ll \sqcap \hat Q
 \end{equation*}
 
-\noindent Where $p \ll \hat p$ reads as ``$p$ can be approximated as $\hat p$''\footnotemark. Intuitively, $\ll$ is an extension of the partial order $\subseteq$ of $\mathcal{P}(C)$ and $\sqsubseteq$ of $\hat P$ to an ordering between $\mathcal{P}(C)$ and $\hat P$. The standard, functional definition of a Galois connection can be derived from $\ll$ as $\gamma(\hat p) \iff \sqcup \{ p \in \mathcal{P}(C) \mid p \ll \hat p \}$, and vice versa as $p \ll \hat p \iff p \subseteq \gamma(\hat p)$. Similar derivations can be made to and from the abstraction function $\alpha$.
+\noindent Where $p \ll \hat p$ reads as ``$p$ can be approximated as $\hat p$''\footnotemark. The standard abstraction and concretisation functions can be derived from $\ll$ as $\gamma(\hat p) \iff \cup \{ p \in \mathcal{P}(C) \mid p \ll \hat p \}$, and vice versa as $p \ll \hat p \iff p \subseteq \gamma(\hat p)$; similar derivations can be made to and from $\alpha$. Intuitively, $\ll$ is an extension of the partial order $\subseteq$ of $\mathcal{P}(C)$ and $\sqsubseteq$ of $\hat P$ to an ordering between $\mathcal{P}(C)$ and $\hat P$.
 
 \footnotetext{\todo{Used to prove thesis in~\cite{chou1999}, included here since we use one for refinment later on.}}
 

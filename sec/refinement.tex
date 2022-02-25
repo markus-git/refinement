@@ -2,30 +2,54 @@
 
 % we then we say that $\hat M$ \textit{refines} $\hat N$ if every \textit{externally visible behaviour} allowed by $\hat M$ is also allowed by $\hat N$, regardless of any initial configurations.
 
-Consider another fixed, but arbitrary, circuit model $N \in \mathcal{P}(C') \rightarrow \mathcal{P}(C')$ such that $M$ and $N$ have the same number of inputs and outputs but can differ internally. Let the abstract predicate transformer $\hat N \in \hat Q \rightarrow \hat Q$ be an abstract interpretation of $N$, where $\hat Q$ is an abstact predicate for $\mathcal{P}(C)$. In the previous sections, exactly what abstract predicates like $\hat Q$ are, were not important. In order to reason about refinement, however, we  make a distinction between their \textit{external} and \textit{internal} elements.
+Consider another fixed, but arbitrary, circuit model $N \in \mathcal{P}(C') \rightarrow \mathcal{P}(C')$ such that $M$ and $N$ have the same number of inputs and outputs but can differ internally. Let the abstract predicate transformer $\hat N \in \hat Q \rightarrow \hat Q$ be an abstract interpretation of $N$, where $\hat Q$ is an abstract predicate for $\mathcal{P}(C')$. In the previous sections, exactly what abstract predicates like $\hat Q$ are, were not important. In order to reason about refinement, however, we  make a distinction between their \textit{external} and \textit{internal} elements.
 
-Specifically, let the \textit{externally visible} parts of an abstract predicate $\hat Q$ be the subsets given by two projections, $\InProj{\cdot}$ and $\OutProj{\cdot}$, identifying the ``inputs'' and ``outputs'' of $\hat Q$, respectively. Further, let $\Out \in \hat Q \rightarrow \OutProj{\hat Q}$ be a mapping that takes each $\hat q \in \hat Q$ to its visible outputs, and let $\In \in \InProj{\hat Q} \rightarrow \hat Q$ be another mapping that lifts each $\hat \iota \in \InProj{\hat Q}$ into $\hat Q$ such that $\Out(\hat q) \sqsubseteq \hat \iota \iff \hat q \sqsubseteq \In(\hat \iota)$ for all $\hat q \in \hat Q$. With a slight abuse of notation, overload both projections and mappings to accept predicates from $\hat P$ and note that $| \OutProj{\hat P} | = | \OutProj{\hat Q} |$ and $| \InProj{\hat P} | = | \InProj{\hat Q} |$.
+Specifically, let the \textit{externally visible} parts of an abstract predicate $\hat P$ be identified by two idempotent mappings, $\In \in \hat P \rightarrow \hat P$ and $\Out \in \hat P \rightarrow \hat P$, 
 
-\todo{This $\In$ and $\Out$ business reminds me of Galois connection.}
+% Specifically, let the \textit{externally visible} parts of an abstract predicate $\hat P$ be the subsets given by two projections, $\In(\cdot)$ and $\Out(\cdot)$, identifying the subsets of $\hat P$ that contain its ``inputs'' and ``outputs'', respectively. Further, let $\Out \in \hat P \rightarrow \OutProj{\hat P}$ and $\In \in \hat P \rightarrow \InProj{\hat P}$ be the projections viewed as idempotent mappings, and 
 
-Let $\cc \, \subseteq \hat P \times \hat Q$ be a Galois connection such that for all $\hat Q' \subseteq \hat Q$ and $\hat P' \subseteq \hat P$:
+% With a slight abuse of notation, we overload both projections to accept predicates from $\hat Q$ and note that $| \OutProj{\hat P} | = | \OutProj{\hat Q} |$ and $| \InProj{\hat P} | = | \InProj{\hat Q} |$.
 
-\begin{equation*}
-\forall \hat q \in \hat Q' : \forall \hat p \in \hat P' : \hat q \cc \hat p \iff \sqcup \hat Q' \cc \sqcap \hat P'
-\end{equation*}
+% Further, let $\Out \in \hat P \rightarrow \OutProj{\hat P}$ and $\In \in \hat P \rightarrow \InProj{\hat P}$ be invertible mappings that takes each $\hat p \in \hat P$ to its visible outputs and inputs, respectively, such that $\In^{-1}(\hat p) \sqsubseteq \hat \iota \iff \hat p \sqsubseteq \In(\hat \iota)$ for all $\hat p\in \hat P$. With a slight abuse of notation, we overload these projections and mappings to accept predicates from $\hat Q$
 
-\noindent Like the earlier Galois connections, the relation $\cc$ can intuitively be thought of as an extension of the internal orderings of $\hat P$ and $\hat Q$ to an ordering between the two abstract predicates. \todo{Text.}
-
-A \textit{driver} $\langle \hat \iota_{0}, \ldots \rangle \in \InProj{\hat Q}^{+}$ for $\hat N$ is a nonempty sequence of inputs which induces a \textit{trajectory} $\langle \tau_{0}, \ldots, \tau_{| \delta | + 1} \rangle \in \hat Q^{+}$, where $\tau_{0} = \top$ and $\tau_{i+1} = \hat N(\In(\hat \iota_{i}) \sqcap \tau_{i})$ for all $i \in \mathbb{N} : i < | \delta |$; the trajectory induced in $\hat N$ by a driver $\delta$ is denoted by $\Driv{\hat N}{\delta}$.
-
-We view circuits as transducers and say that $\hat M$ refines $\hat N$ if:
-
-\begin{equation*}
-\forall \delta \in ?^{+} : \out{\Driv{\hat M}{\delta}} \cc \out{\Driv{\hat N}{?(\delta)}}
-\end{equation*}
+% ... note that $| \OutProj{\hat P} | = | \OutProj{\hat Q} |$ and $| \InProj{\hat P} | = | \InProj{\hat Q} |$.
 
 % ... to its visible outputs $\Out(\hat Q) \in \OutProj{\hat Q}$.
+
 % We extend $\out{\cdot}$ to sequences component-wise and, ...
+
+Let $\cc \, \subseteq \hat P \times \hat Q$ be a Galois connection such that for all $\hat P' \subseteq \hat P$ and $\hat Q' \subseteq \hat Q$:
+
+\begin{equation*}
+\forall \hat p \in \hat P' : \forall \hat q \in \hat Q' : \hat p \cc \hat q \iff \sqcup \hat P' \cc \sqcap \hat Q'
+\end{equation*}
+
+\noindent Like the earlier Galois connections, the relation $\cc$ can intuitively be thought of as an extension of the internal orderings of $\hat P$ and $\hat Q$ to an ordering between the two abstract predicates. The usual two monotone functions connecting $\hat P$ and $\hat Q$, here called $\PQ \in \hat P \rightarrow \hat Q$ and $\QP \in \hat Q \rightarrow \hat P$, are derived from $\cc$ as before:
+
+\begin{equation*}
+\PQ(\hat p) = \sqcap \{ \hat q \in \hat Q \mid \hat q \cc \hat p \} \quad \quad \quad \QP(\hat q) = \sqcup \{ \hat p \in \hat P \mid \hat q \cc \hat p \}
+\end{equation*}
+
+\noindent We note that $\QP$ also preserves top and distributes over arbitrary meet, i.e. $\QP(\sqcap \hat Q) = \sqcap \{ \QP(\hat q) \in \hat P \mid \hat q \in \hat Q\}$. Similarly, $\PQ$ also preserves bottom and distributes over arbitrary join.
+
+A \textit{driver} $\delta \in \hat P^{+}$ for $\hat M$ is a nonempty sequence of abstract predicates $\langle \hat \iota_{0}, \ldots \rangle$ such that $\hat \iota_{i} = \In(\hat \iota_{i})$ for all $i \in \mathcal{N} : i < | \delta |$. Every driver $\delta$ induces a \textit{trajectory} $\langle \tau_{0}, \ldots, \tau_{| \delta | + 1} \rangle \in \hat P^{+}$ in $\hat M$, where $\tau_{0} = \top$ and $\tau_{i+1} = \hat N(\hat \iota_{i} \sqcap \tau_{i})$ for all $i \in \mathbb{N} : i < | \delta |$; the trajectory induced in $\hat M$ by a driver $\delta$ is denoted by $\Driv{\hat N}{\delta}$.
+
+Intuitively, $\hat M$ refines $\hat N$ if the outputs of their induced trajectories are ordered for all possible input sequences:
+
+% We view circuits as transducers and say that $\hat M$ refines $\hat N$ if:
+
+\begin{equation*}
+\forall \delta \in \hat P^{+} : \Out(\Driv{\hat M}{\delta}) \sqsubseteq \QP(\Out(\Driv{\hat N}{\PQ(\delta)}))
+\end{equation*}
+
+Let $\enc \in \hat P \times \hat Q$ be a simulation relation such that $\hat p \enc \hat q$ implies:
+
+\begin{enumerate}
+\item $\Out(\hat p) \sqsubseteq \gamma(\Out(\hat q))$ and
+\item $\hat M(\hat \iota \sqcap \hat p) \enc \hat N(\PQ(\hat \iota) \sqcap \hat q)$ for all $\hat \iota \in \hat P$ such that $\hat \iota = \In(\hat \iota)$.
+\end{enumerate}
+
+\noindent We extend this relation to $\hat M$ and $\hat N$ and say that $\hat M \enc \hat N \iff (\top \in \hat P) \enc \, (\top \in \hat Q)$.
 
 \subsection{Old stuff, trying to make it more formal}
 
