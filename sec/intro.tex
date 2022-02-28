@@ -64,14 +64,21 @@ Generalising from any specific domain, let $(\hat P,\sqsubseteq)$ be a finite, c
 
 \subsubsection{Abstract circuit model}
 
-Let there be a Galois connection relating ``concrete'' predicates $\mathcal{P}(C)$ and abstract predicates $\hat P$. The usual definition of A Galois connection is in terms of an \textit{abstraction} $\alpha \in \mathcal{P}(C) \rightarrow \hat P$ and a \textit{concretisation} $\gamma \in \hat P \rightarrow \mathcal{P}(C)$ function, such that $\alpha(p) \sqsubseteq \hat p \iff p \subseteq \gamma(\hat p)$ for all $p \in \mathcal{P}(C)$ and $\hat p \in \hat P$. For example, a Galois connection from $\mathcal{P}(\mathbb{B}^{m})$ to $\mathbb{T}_{\bot}^{m}$ for any $m \in \mathbb{N}$ can be defined in a natural way by its concretisation $\Gamma \in \mathbb{T}_{\bot}^{m} \rightarrow \mathcal{P}(\mathbb{B}^{m})$ function:
+Let there be a Galois connection relating ``concrete'' predicates $\mathcal{P}(C)$ and abstract predicates $\hat P$. The usual definition of a Galois connection is in terms of an \textit{abstraction} $\alpha \in \mathcal{P}(C) \rightarrow \hat P$ and a \textit{concretisation} $\gamma \in \hat P \rightarrow \mathcal{P}(C)$ function, such that $\alpha(p) \sqsubseteq \hat p \iff p \subseteq \gamma(\hat p)$ for all $p \in \mathcal{P}(C)$ and $\hat p \in \hat P$. For example, a Galois connection from $\mathcal{P}(\mathbb{B}^{m})$ to $\mathbb{T}_{\bot}^{m}$ for any $m \in \mathbb{N}$ can be defined in a natural way by its concretisation function $\Gamma \in \mathbb{T}_{\bot}^{m} \rightarrow \mathcal{P}(\mathbb{B}^{m})$:
 
 \begin{align*}
-\Gamma ( \langle t_{0},\dots,t_{m-1} \rangle) &= \{ \langle b_{0},\dots,b_{m-1} \rangle \in \mathbb{B}^{m} \mid \forall i < m : t_{i} \neq \X \Rightarrow b_{i} = t_{i} \} \\
+\Gamma ( \langle t_{0}, \dots,t_{m-1} \rangle ) &= \{ \langle b_{0}, \dots,b_{m-1} \rangle \in \mathbb{B}^{m} \mid \forall i < m : t_{i} \neq \X \Rightarrow b_{i} = t_{i} \} \\
 \Gamma ( \bot ) &= \emptyset
 \end{align*}
 
-\noindent Listing each $\mathbb{B}^{3}$ approximated by $\langle 1, \X, 0 \rangle \in \mathbb{T}_{\bot}^{3}$, we get the set $\{ \langle 1, 1, 0 \rangle, \langle 1, 0, 0 \rangle \}$ as desired.
+\noindent Listing each concrete predicate approximated by $\langle 1, \X, 0 \rangle$ with $\Gamma$, we get the set $\{ \langle 1, 1, 0 \rangle,\allowbreak \langle 1, 0, 0 \rangle \}$ as desired. Conversely, we can define the abstraction function $\Alpha \in \mathcal{P}(\mathbb{B}^{m}) \rightarrow \mathbb{T}_{\bot}^{m}$ by finding the most precise abstraction:
+
+\begin{align*}
+\Alpha ( p ) &= \sqcup \{ \langle t_{0}, \ldots, t_{m-1} \rangle \in \mathbb{T}_{\bot}^{m} \mid \langle b_{0}, \ldots, b_{m-1} \rangle \in p, \forall i < m : t_{i} = b_{i} \} \\
+\Alpha ( \emptyset ) &= \bot
+\end{align*}
+
+\noindent Abstracting the concrete predicates $\{ \langle 1, 1, 0 \rangle, \langle 1, 0, 0 \rangle \}$ with $\Alpha$ indeed yields the original $\langle 1, \X, 0 \rangle$ abstraction.
 
 We view a Galois connection from $\mathcal{P}(C)$ to $\hat P$ instead as binary relation, and define $\ll \, \subseteq \mathcal{P}(C) \times \hat P$, such that for all $Q \subseteq \mathcal{P}(C)$ and $\hat Q \subseteq \hat P$:
 
