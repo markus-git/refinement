@@ -80,13 +80,29 @@ Let there be a Galois connection relating ``concrete'' predicates $\mathcal{P}(C
 
 \noindent Abstracting the concrete predicates $\{ \langle 1, 1, 0 \rangle, \langle 1, 0, 0 \rangle \}$ with $\Alpha$ indeed yields the original $\langle 1, \X, 0 \rangle$ abstraction.
 
-We view a Galois connection from $\mathcal{P}(C)$ to $\hat P$ instead as binary relation, and define $\ll \, \subseteq \mathcal{P}(C) \times \hat P$, such that for all $Q \subseteq \mathcal{P}(C)$ and $\hat Q \subseteq \hat P$:
+\todo{The def. used in~\cite{chou1999} is similar but different, as it view a Galois connection from $\mathcal{P}(C)$ to $\hat P$ instead as binary relation}. We define $\ll \, \subseteq \mathcal{P}(C) \times \hat P$ such that for all $Q \subseteq \mathcal{P}(C)$ and $\hat Q \subseteq \hat P$:
 
 \begin{equation*}
 \forall p \in Q : \forall \hat p \in \hat Q : p \ll \hat p \iff \cup Q \ll \sqcap \hat Q
 \end{equation*}
 
-\noindent Where $p \ll \hat p$ reads as ``$p$ can be approximated as $\hat p$''\footnotemark. The standard abstraction and concretisation functions can be derived from $\ll$ as $\gamma(\hat p) \iff \cup \{ p \in \mathcal{P}(C) \mid p \ll \hat p \}$, and vice versa as $p \ll \hat p \iff p \subseteq \gamma(\hat p)$; similar derivations can be made to and from $\alpha$. Intuitively, $\ll$ is an extension of the partial order $\subseteq$ of $\mathcal{P}(C)$ and $\sqsubseteq$ of $\hat P$ to an ordering between $\mathcal{P}(C)$ and $\hat P$.
+\noindent Where $p \ll \hat p$ reads as ``$p$ can be approximated as $\hat p$''\footnotemark. Intuitively, $\ll$ is an extension of the partial order $\subseteq$ of $\mathcal{P}(C)$ and $\sqsubseteq$ of $\hat P$ to an ordering between $\mathcal{P}(C)$ and $\hat P$.
+
+The abstraction and concretisation functions can be derived from $\ll$:
+
+\begin{equation*}
+\alpha(p) = \sqcap \{ \hat p \in \hat P \mid p \ll \hat p \} \quad \quad \gamma(\hat p) = \cup \{ p \in \mathcal{P}(C) \mid p \ll \hat p \}
+\end{equation*}
+
+\noindent \todo{Text:}
+
+\begin{equation*}
+p \ll \hat p \iff \alpha(p) \sqsubseteq \hat p \quad \quad p \ll \hat p \iff p \subseteq \gamma(\hat p)
+\end{equation*}
+
+\noindent \todo{Text.}
+
+% similar derivations can be made to and from $\alpha$.
 
 \footnotetext{\todo{Used to prove thesis in~\cite{chou1999}, included here since we use one for refinment later on.}}
 
