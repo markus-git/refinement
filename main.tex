@@ -22,11 +22,13 @@
 
 % Editing stuff.
 \newcommand{\todo}[1]{\textcolor{red}{#1}}
+\newcommand{\Stmt}[1]{\textrm{\textbf{#1}}}
 
 % General preference.
-\newcommand{\X}{\mathrm{X}}
 \newcommand{\Alpha}{\mathrm{A}}
-\newcommand{\Stmt}[1]{\textrm{\textbf{#1}}}
+\newcommand{\omicron}{\mathrm{o}}
+%
+\newcommand{\X}{\mathrm{X}}
 \renewcommand{\iff}{\Leftrightarrow} % preference.
 \renewcommand{\implies}{\Rightarrow} % preference. 
 \DeclareMathOperator{\nsqsubseteq}{\not\sqsubseteq} % not impl.
@@ -41,13 +43,13 @@
 %\newcommand{\P}{\hat P}
 
 % Refinement ...
-\newcommand{\InProj}[1]{\mathit{i}(#1)} % input proj.
-\newcommand{\OutProj}[1]{\mathit{o}(#1)} % output proj.
+% \newcommand{\InProj}[1]{\mathit{i}(#1)} % input proj.
+% \newcommand{\OutProj}[1]{\mathit{o}(#1)} % output proj.
 \DeclareMathOperator{\In}{in}
 \DeclareMathOperator{\Out}{out}
+\DeclareMathOperator{\Ext}{ext}
+%
 \DeclareMathOperator{\cc}{\lll} %{\prec\mkern-4mu\prec}
-\DeclareMathOperator{\PQ}{\alpha} % Galois connection P -> Q
-\DeclareMathOperator{\QP}{\gamma} % Galois connection Q -> P
 \DeclareMathOperator{\enc}{\mathrel{\preceq}} % encodes.
 \newcommand{\Driv}[2]{\Traj{#1}(#2)} % trajectory induced by driver.
 

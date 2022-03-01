@@ -1,14 +1,12 @@
 \section{System refinement}
 
-% we then we say that $\hat M$ \textit{refines} $\hat N$ if every \textit{externally visible behaviour} allowed by $\hat M$ is also allowed by $\hat N$, regardless of any initial configurations.
+Consider another fixed, but arbitrary, circuit model $N \in \mathcal{P}(C') \rightarrow \mathcal{P}(C')$ and let $\hat N \in \hat Q \rightarrow \hat Q$ be an abstract interpretation of it, where $\hat Q$ is thus an abstract predicate for its configurations $\mathcal{P}(C')$. In the previous sections, exactly what abstract predicates like $\hat Q$ are, were not important. In order to reason about refinement, however, we need to make a distinction between their \textit{external} elements. Specifically, we say that $\hat M$ refines $\hat N$ if every externally visible behaviour of $\hat M$ is allowed by $\hat N$, assuming nothing about their initial configurations.
 
-Consider another fixed, but arbitrary, circuit model $N \in \mathcal{P}(C') \rightarrow \mathcal{P}(C')$ such that $M$ and $N$ have the same number of inputs and outputs but can differ internally. Let the abstract predicate transformer $\hat N \in \hat Q \rightarrow \hat Q$ be an abstract interpretation of $N$, where $\hat Q$ is an abstract predicate for $\mathcal{P}(C')$. In the previous sections, exactly what abstract predicates like $\hat Q$ are, were not important. In order to reason about refinement, however, we  make a distinction between their \textit{external} and \textit{internal} elements.
+Let the \textit{externally visible} parts of an abstract predicate $\hat P$ be those given by two idempotent mappings, $\In \in \hat P \rightarrow \hat P$ and $\Out \in \hat P \rightarrow \hat P$, which identify the ``inputs'' and ``outputs'' of $\hat P$, respectively. An \textit{input} of $\hat P$ (resp. \textit{output}) is thus a predicate $\hat \iota \in \hat P$ such that $\hat \iota = \In(\hat \iota)$ (resp. $\hat \omicron = \Out(\hat \omicron) \in \hat P$), and the response of $\hat M$ in state $\hat p$ to $\hat \iota$ is given by $\hat M(\hat \iota \sqcap \hat p)$. With a slight abuse of notation, we overload both $\In(\cdot)$ and $\Out(\cdot)$ to also accept predicates from $\hat Q$.
 
-Specifically, let the \textit{externally visible} parts of an abstract predicate $\hat P$ be those given by two idempotent mappings, $\In \in \hat P \rightarrow \hat P$ and $\Out \in \hat P \rightarrow \hat P$, which identify the ``inputs'' and ``outputs'' of $\hat P$, respectively. An \textit{input} of $\hat P$ is thus a predicate $\hat \iota \in \hat P$ such that $\hat \iota = \In(\hat \iota)$; \textit{outputs} of $\hat P$ are defined similarily by $\Out(\cdot)$.
+% \textit{outputs} of $\hat P$ are defined similarly with $\Out(\cdot)$.
 
-\begin{align*}
-\In(\langle \hat p_{0}, \hat p_{1}, \hat p_{2} \rangle) = \langle \hat p_{0}, \hat p_{1}, \X \rangle && \Out(\langle \hat p_{0}, \hat p_{1}, \hat p_{2} \rangle) = \langle \X, \X, p_{2} \rangle
-\end{align*}
+% Together, $\In(\cdot)$ and $\Out(\cdot)$ identify the external part of $\hat P$: $\Ext(\hat p) = \In(\hat p) \sqcap \Out(\hat p)$ for all $\hat p \in \hat P$.
 
 % Specifically, let the \textit{externally visible} parts of an abstract predicate $\hat P$ be the subsets given by two projections, $\In(\cdot)$ and $\Out(\cdot)$, identifying the subsets of $\hat P$ that contain its ``inputs'' and ``outputs'', respectively. Further, let $\Out \in \hat P \rightarrow \OutProj{\hat P}$ and $\In \in \hat P \rightarrow \InProj{\hat P}$ be the projections viewed as idempotent mappings, and 
 
@@ -28,73 +26,33 @@ Let $\cc \, \subseteq \hat P \times \hat Q$ be a Galois connection such that for
 \forall \hat p \in \hat P' : \forall \hat q \in \hat Q' : \hat p \cc \hat q \iff \sqcup \hat P' \cc \sqcap \hat Q'
 \end{equation*}
 
-\noindent Like the earlier Galois connection, $\cc$ can intuitively be thought of as an extension of the orderings inside $\hat P$ and $\hat Q$ to an ordering between them.
+\noindent Like the earlier Galois connection, $\cc$ can intuitively be thought of as an extension of the orderings inside $\hat P$ and $\hat Q$ to an ordering between them. We say that 
 
 % The abstraction and concretisation functions, $\PQ \in \hat P \rightarrow \hat Q$ and $\QP \in \hat Q \rightarrow \hat P$, are derived from $\cc$. We note that $\QP$ is montone, preserves top and distributes over arbitrary meet, i.e. $\QP(\sqcap \hat Q) = \sqcap \{ \QP(\hat q) \in \hat P \mid \hat q \in \hat Q\}$. Similarly, $\PQ$ is also montone, preserves bottom and distributes over arbitrary join.
 
-A \textit{driver} $\delta \in \hat P^{+}$ for $\hat M$ is a nonempty sequence of abstract predicates $\langle \hat \iota_{0}, \ldots \rangle$ such that $\hat \iota_{i} = \In(\hat \iota_{i})$ for all $i \in \mathcal{N} : i < | \delta |$. Every driver $\delta$ induces a \textit{trajectory} $\langle \tau_{0}, \ldots, \tau_{| \delta | + 1} \rangle \in \hat P^{+}$ in $\hat M$, where $\tau_{0} = \top$ and $\tau_{i+1} = \hat N(\hat \iota_{i} \sqcap \tau_{i})$ for all $i \in \mathbb{N} : i < | \delta |$; the trajectory induced in $\hat M$ by a driver $\delta$ is denoted by $\Driv{\hat N}{\delta}$.
+% A \textit{driver} $\delta \in \hat P^{+}$ for $\hat M$ is a nonempty sequence of abstract predicates $\langle \hat \iota_{0}, \ldots \rangle$ such that $\hat \iota_{i} = \In(\hat \iota_{i})$ for all $i \in \mathcal{N} : i < | \delta |$. Every driver $\delta$ induces a \textit{trajectory} $\langle \tau_{0}, \ldots, \tau_{| \delta | + 1} \rangle \in \hat P^{+}$ in $\hat M$, where $\tau_{0} = \top$ and $\tau_{i+1} = \hat N(\hat \iota_{i} \sqcap \tau_{i})$ for all $i \in \mathbb{N} : i < | \delta |$; the trajectory induced in $\hat M$ by a driver $\delta$ is denoted by $\Driv{\hat N}{\delta}$.
 
-Intuitively, $\hat M$ refines $\hat N$ if the outputs of their induced trajectories are ordered for all possible input sequences:
+% Intuitively, $\hat M$ refines $\hat N$ if the outputs of their induced trajectories are ordered for all possible input sequences:
 
 % We view circuits as transducers and say that $\hat M$ refines $\hat N$ if:
 
-\begin{equation*}
-\forall \delta \in \hat P^{+} : \Out(\Driv{\hat M}{\delta}) \sqsubseteq \QP(\Out(\Driv{\hat N}{\PQ(\delta)}))
-\end{equation*}
+%% \begin{equation*}
+%% \forall \delta \in \hat P^{+} : \Out(\Driv{\hat M}{\delta}) \sqsubseteq \gamma(\Out(\Driv{\hat N}{\alpha(\delta)}))
+%% \end{equation*}
 
-Let $\enc \in \hat P \times \hat Q$ be a simulation relation such that $\hat p \enc \hat q$ implies:
+%% Let $\enc \in \hat P \times \hat Q$ be a simulation relation such that $\hat p \enc \hat q$ implies:
 
-\begin{enumerate}
-\item $\Out(\hat p) \sqsubseteq \gamma(\Out(\hat q))$ and
-\item $\hat M(\hat \iota \sqcap \hat p) \enc \hat N(\PQ(\hat \iota) \sqcap \hat q)$ for all $\hat \iota \in \hat P$ such that $\hat \iota = \In(\hat \iota)$.
-\end{enumerate}
+%% \begin{enumerate}
+%% \item $\Out(\hat p) \sqsubseteq \gamma(\Out(\hat q))$ and
+%% \item $\hat M(\hat \iota \sqcap \hat p) \enc \hat N(\alpha(\hat \iota) \sqcap \hat q)$ for all $\hat \iota \in \hat P$ such that $\hat \iota = \In(\hat \iota)$.
+%% \end{enumerate}
 
-\noindent We extend this relation to $\hat M$ and $\hat N$ and say that $\hat M \enc \hat N \iff (\top \in \hat P) \enc \, (\top \in \hat Q)$.
+%% \noindent We extend this relation to $\hat M$ and $\hat N$ and say that $\hat M \enc \hat N \iff (\top \in \hat P) \enc \, (\top \in \hat Q)$.
 
-\subsection{Old stuff, trying to make it more formal}
+\subsection{Examples}
 
-A \textit{driver} of $\hat M$ and $\hat N$ is a nonempty sequence of inputs, $\delta \in \hat I^{+}$, and induces a trajectory $\tau$ in $\hat M$ (resp. $\hat N$) where $\tau[0] = \top$ and $\forall i \in \mathbb{N} : i < | \delta | \implies \tau[i+1] = \hat M(\delta[i] \sqcap \tau[i])$; the trajectory induced by a driver $\delta$ in $\hat M$ is denoted by $\Driv{\hat M}{\delta}$.
-
-Intuitively, if $\hat M$ produces the same, or at least more specified, outputs than $\hat N$ for all possible drivers, then every visible behaviour of $\hat M$ is covered by $\hat N$. We thus say that $\hat M$ refines $\hat N$, denoted by $\hat M \leq \hat N$, iff:
-
-% \todo{Footnote that ``Traj'' comes from trajectories in prev. papers?}
-
-% \todo{We have to use $=$ for our trajectories since $\sqsubseteq$ allows one to pick bad states for unconstrained wires.}
-
-\begin{equation*}
-\forall \delta \in \hat I^{+} : \out{\Driv{\hat M}{\delta}} \sqsubseteq \out{\Driv{\hat N}{\delta}}
-\end{equation*}
-
-\todo{Example!}
-
-\subsubsection{Simulation} Let $\enc \in \hat P \times \hat Q$ be a simulation relation such that $\hat p \enc \hat q$ implies (1) $\out{\hat p} \sqsubseteq \out{\hat q}$ and (2) $\hat M(\hat \iota \sqcap \hat p) \enc \hat N(\hat \iota \sqcap \hat q)$ for all inputs $\hat \iota \in \hat I$. We extend this relation to $\hat M$ and $\hat N$ such that $\hat M \enc \hat N$ iff their top elements are related, $(\top \in \hat P) \enc \, (\top \in \hat Q)$.
-
-\todo{This relation is equivalent to the earlier notion of refinement: $\hat M \leq \hat N \iff \hat M \enc \hat N$.}
-
-\todo{We can have trajectories defined by the simulation relation as well.}
-
-% (read as $\hat p$ ``encodes'' $\hat q$)
-
-\todo{Reference proof in appendix.}
-
-\todo{Explain difference with Bryant's version?}
-
-Let $G \in S \rightarrow (\hat Q \rightarrow \hat Q)$ and $\mathcal{G} \in (S \rightarrow \hat Q) \rightarrow (S \rightarrow \hat Q)$ be the duals of $F$ and $\mathcal{F}$ in $\hat N$, respectively. Further, let $\Psi_{*}$ be the least fix point of $\Psi = \mathcal{G}(\Psi)$ and the dual of $\Phi_{*}$ in $\hat N$.
-
-\begin{lemma}
-$\forall s \in S : \Psi_{*}(s) \enc \Phi_{*}(s)$
-\end{lemma}
-
-\subsubsection{Trajectory} A trajectory assertion $\hat A = (S,s_{0},R,\pi_{a},\pi_{c})$ for $\hat N$ where antecedents only mention inputs, $\pi_{a} \in S \rightarrow \hat I$, and consequents only mention outputs, $\pi_{c} \in S \rightarrow \hat O$, is referred to as an \textit{external trajectory assertion}. Intuitively, a satisfied external trajectory assertion is property of $N$ that must hold regardless of its internal state.
-
-Given that $\Phi_{*}(s) \enc \Psi_{*}(s)$, and thus $\out{\Phi_{*}(s)} \sqsubseteq \out{\Psi_{*}(s)}$, for all $s \in S$, it follows that $\Phi_{*}(s) \sqcap \pi_{a}(s) \sqsubseteq \pi_{c}(s) \implies \Psi_{*}(s) \sqcap \pi_{a}(s) \sqsubseteq \pi_{c}(s)$.
-
-\begin{theorem}
-Given two abstract predicate transformers, $\hat M$ and $\hat N$, and an external trajectory assertion $\hat A$ for $\hat N$. If $\hat M \preceq \hat N$, then $\hat N \models \hat A$ implies that $\hat M \models \hat A$.
-\end{theorem}
-
-\begin{corollary}
-Given two abstract predicate transformer, $\hat M$ and $\hat N = \prod \hat n_{i}$, and a trajectory assertion $\hat A$ for $\hat N$. Let $\hat N[\hat n_{i} = \hat M]$ be $\hat N$ where $\hat n_{i}$ is replaced with $\hat M$. If $\hat M \enc \hat n_{i}$ for some index $i$, then $\hat N \models \hat A$ implies that $\hat N[\hat n_{i} = \hat M] \models \hat A$.
-\end{corollary}
+\begin{align*}
+\In(\langle \hat p_{0}, \hat p_{1}, \hat p_{2} \rangle) = \langle \hat p_{0}, \hat p_{1}, \X \rangle && \Out(\langle \hat p_{0}, \hat p_{1}, \hat p_{2} \rangle) = \langle \X, \X, p_{2} \rangle
+\end{align*}
 
 % LocalWords:  consequents
