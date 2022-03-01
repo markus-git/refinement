@@ -4,7 +4,11 @@
 
 Consider another fixed, but arbitrary, circuit model $N \in \mathcal{P}(C') \rightarrow \mathcal{P}(C')$ such that $M$ and $N$ have the same number of inputs and outputs but can differ internally. Let the abstract predicate transformer $\hat N \in \hat Q \rightarrow \hat Q$ be an abstract interpretation of $N$, where $\hat Q$ is an abstract predicate for $\mathcal{P}(C')$. In the previous sections, exactly what abstract predicates like $\hat Q$ are, were not important. In order to reason about refinement, however, we  make a distinction between their \textit{external} and \textit{internal} elements.
 
-Specifically, let the \textit{externally visible} parts of an abstract predicate $\hat P$ be identified by two idempotent mappings, $\In \in \hat P \rightarrow \hat P$ and $\Out \in \hat P \rightarrow \hat P$, 
+Specifically, let the \textit{externally visible} parts of an abstract predicate $\hat P$ be those given by two idempotent mappings, $\In \in \hat P \rightarrow \hat P$ and $\Out \in \hat P \rightarrow \hat P$, which identify the ``inputs'' and ``outputs'' of $\hat P$, respectively. An \textit{input} of $\hat P$ is thus a predicate $\hat \iota \in \hat P$ such that $\hat \iota = \In(\hat \iota)$; \textit{outputs} of $\hat P$ are defined similarily by $\Out(\cdot)$.
+
+\begin{align*}
+\In(\langle \hat p_{0}, \hat p_{1}, \hat p_{2} \rangle) = \langle \hat p_{0}, \hat p_{1}, \X \rangle && \Out(\langle \hat p_{0}, \hat p_{1}, \hat p_{2} \rangle) = \langle \X, \X, p_{2} \rangle
+\end{align*}
 
 % Specifically, let the \textit{externally visible} parts of an abstract predicate $\hat P$ be the subsets given by two projections, $\In(\cdot)$ and $\Out(\cdot)$, identifying the subsets of $\hat P$ that contain its ``inputs'' and ``outputs'', respectively. Further, let $\Out \in \hat P \rightarrow \OutProj{\hat P}$ and $\In \in \hat P \rightarrow \InProj{\hat P}$ be the projections viewed as idempotent mappings, and 
 
@@ -24,13 +28,9 @@ Let $\cc \, \subseteq \hat P \times \hat Q$ be a Galois connection such that for
 \forall \hat p \in \hat P' : \forall \hat q \in \hat Q' : \hat p \cc \hat q \iff \sqcup \hat P' \cc \sqcap \hat Q'
 \end{equation*}
 
-\noindent Like the earlier Galois connections, the relation $\cc$ can intuitively be thought of as an extension of the internal orderings of $\hat P$ and $\hat Q$ to an ordering between the two abstract predicates. The usual two monotone functions connecting $\hat P$ and $\hat Q$, here called $\PQ \in \hat P \rightarrow \hat Q$ and $\QP \in \hat Q \rightarrow \hat P$, are derived from $\cc$ as before:
+\noindent Like the earlier Galois connection, $\cc$ can intuitively be thought of as an extension of the orderings inside $\hat P$ and $\hat Q$ to an ordering between them.
 
-\begin{equation*}
-\PQ(\hat p) = \sqcap \{ \hat q \in \hat Q \mid \hat q \cc \hat p \} \quad \quad \quad \QP(\hat q) = \sqcup \{ \hat p \in \hat P \mid \hat q \cc \hat p \}
-\end{equation*}
-
-\noindent We note that $\QP$ also preserves top and distributes over arbitrary meet, i.e. $\QP(\sqcap \hat Q) = \sqcap \{ \QP(\hat q) \in \hat P \mid \hat q \in \hat Q\}$. Similarly, $\PQ$ also preserves bottom and distributes over arbitrary join.
+% The abstraction and concretisation functions, $\PQ \in \hat P \rightarrow \hat Q$ and $\QP \in \hat Q \rightarrow \hat P$, are derived from $\cc$. We note that $\QP$ is montone, preserves top and distributes over arbitrary meet, i.e. $\QP(\sqcap \hat Q) = \sqcap \{ \QP(\hat q) \in \hat P \mid \hat q \in \hat Q\}$. Similarly, $\PQ$ is also montone, preserves bottom and distributes over arbitrary join.
 
 A \textit{driver} $\delta \in \hat P^{+}$ for $\hat M$ is a nonempty sequence of abstract predicates $\langle \hat \iota_{0}, \ldots \rangle$ such that $\hat \iota_{i} = \In(\hat \iota_{i})$ for all $i \in \mathcal{N} : i < | \delta |$. Every driver $\delta$ induces a \textit{trajectory} $\langle \tau_{0}, \ldots, \tau_{| \delta | + 1} \rangle \in \hat P^{+}$ in $\hat M$, where $\tau_{0} = \top$ and $\tau_{i+1} = \hat N(\hat \iota_{i} \sqcap \tau_{i})$ for all $i \in \mathbb{N} : i < | \delta |$; the trajectory induced in $\hat M$ by a driver $\delta$ is denoted by $\Driv{\hat N}{\delta}$.
 

@@ -64,56 +64,42 @@ Generalising from any specific domain, let $(\hat P,\sqsubseteq)$ be a finite, c
 
 \subsubsection{Abstract circuit model}
 
-Let there be a Galois connection relating ``concrete'' predicates $\mathcal{P}(C)$ and abstract predicates $\hat P$. The usual definition of a Galois connection is in terms of an \textit{abstraction} $\alpha \in \mathcal{P}(C) \rightarrow \hat P$ and a \textit{concretisation} $\gamma \in \hat P \rightarrow \mathcal{P}(C)$ function, such that $\alpha(p) \sqsubseteq \hat p \iff p \subseteq \gamma(\hat p)$ for all $p \in \mathcal{P}(C)$ and $\hat p \in \hat P$. For example, a Galois connection from $\mathcal{P}(\mathbb{B}^{m})$ to $\mathbb{T}_{\bot}^{m}$ for any $m \in \mathbb{N}$ can be defined in a natural way by its concretisation function $\Gamma \in \mathbb{T}_{\bot}^{m} \rightarrow \mathcal{P}(\mathbb{B}^{m})$:
+Let there be a Galois connection relating ``concrete'' predicates $\mathcal{P}(C)$ and abstract predicates $\hat P$. The usual definition of a Galois connection is in terms of an \textit{abstraction} $\alpha \in \mathcal{P}(C) \rightarrow \hat P$ and a \textit{concretisation} $\gamma \in \hat P \rightarrow \mathcal{P}(C)$ function, such that $\alpha(p) \sqsubseteq \hat p \iff p \subseteq \gamma(\hat p)$ for all $p \in \mathcal{P}(C)$ and $\hat p \in \hat P$. For example, a Galois connection from $\mathcal{P}(\mathbb{B}^{m})$ to $\mathbb{T}_{\bot}^{m}$ for any $m \in \mathbb{N}$ can be defined in a natural way by its concretisation function $\gamma \in \mathbb{T}_{\bot}^{m} \rightarrow \mathcal{P}(\mathbb{B}^{m})$:
 
 \begin{align*}
-\Gamma ( \langle t_{0}, \dots,t_{m-1} \rangle ) &= \{ \langle b_{0}, \dots,b_{m-1} \rangle \in \mathbb{B}^{m} \mid \forall i < m : t_{i} \neq \X \Rightarrow b_{i} = t_{i} \} \\
-\Gamma ( \bot ) &= \emptyset
+\gamma ( \langle t_{0}, \dots,t_{m-1} \rangle ) &= \{ \langle b_{0}, \dots,b_{m-1} \rangle \in \mathbb{B}^{m} \mid \forall i < m : t_{i} \neq \X \Rightarrow b_{i} = t_{i} \} \\
+\gamma ( \bot ) &= \emptyset
 \end{align*}
 
-\noindent Listing each concrete predicate approximated by $\langle 1, \X, 0 \rangle$ with $\Gamma$, we get the set $\{ \langle 1, 1, 0 \rangle,\allowbreak \langle 1, 0, 0 \rangle \}$ as desired. Conversely, we can define the abstraction function $\Alpha \in \mathcal{P}(\mathbb{B}^{m}) \rightarrow \mathbb{T}_{\bot}^{m}$ by finding the most precise abstraction:
+\noindent Listing each concrete predicate approximated by a given abstract predicate. The abstraction function $\alpha \in \mathcal{P}(\mathbb{B}^{m}) \rightarrow \mathbb{T}_{\bot}^{m}$ instead finds the most precise abstract predicate for a set of concrete predicates:
 
 \begin{align*}
-\Alpha ( p ) &= \sqcup \{ \langle t_{0}, \ldots, t_{m-1} \rangle \in \mathbb{T}_{\bot}^{m} \mid \langle b_{0}, \ldots, b_{m-1} \rangle \in p, \forall i < m : t_{i} = b_{i} \} \\
-\Alpha ( \emptyset ) &= \bot
+\alpha ( p ) &= \sqcup \{ \langle t_{0}, \ldots, t_{m-1} \rangle \in \mathbb{T}_{\bot}^{m} \mid \langle b_{0}, \ldots, b_{m-1} \rangle \in p, \forall i < m : b_{i} = t_{i} \} \\
+\alpha ( \emptyset ) &= \bot
 \end{align*}
 
-\noindent Abstracting the concrete predicates $\{ \langle 1, 1, 0 \rangle, \langle 1, 0, 0 \rangle \}$ with $\Alpha$ indeed yields the original $\langle 1, \X, 0 \rangle$ abstraction.
+% Listing each concrete predicate approximated by $\langle 1, \X, 0 \rangle$ with $\gamma$, we get the set $\{ \langle 1, 1, 0 \rangle,\allowbreak \langle 1, 0, 0 \rangle \}$ as desired.
 
-\todo{The def. used in~\cite{chou1999} is similar but different, as it view a Galois connection from $\mathcal{P}(C)$ to $\hat P$ instead as binary relation}. We define $\ll \, \subseteq \mathcal{P}(C) \times \hat P$ such that for all $Q \subseteq \mathcal{P}(C)$ and $\hat Q \subseteq \hat P$:
+% Abstracting the concrete predicates $\{ \langle 1, 1, 0 \rangle, \langle 1, 0, 0 \rangle \}$ with $\alpha$ indeed yields the original $\langle 1, \X, 0 \rangle$ abstraction.
+
+\todo{The def. used in~\cite{chou1999} is similar but different, as it view a Galois connection from $\mathcal{P}(C)$ to $\hat P$ instead as binary relation}\footnotemark. Specifically, let $\ll \, \subseteq \mathcal{P}(C) \times \hat P$ be a binary relation, where $p \ll \hat p$ reads as ``$p$ can be approximated as $\hat p$'', such that for all $Q \subseteq \mathcal{P}(C)$ and $\hat Q \subseteq \hat P$:
+
+\footnotetext{\todo{Used mainly to prove thesis in~\cite{chou1999}, included here since we use one for refinement later on. The relational view, I think, is used so that it can be made into a sim. relation.}}
 
 \begin{equation*}
 \forall p \in Q : \forall \hat p \in \hat Q : p \ll \hat p \iff \cup Q \ll \sqcap \hat Q
 \end{equation*}
 
-\noindent Where $p \ll \hat p$ reads as ``$p$ can be approximated as $\hat p$''\footnotemark. Intuitively, $\ll$ is an extension of the partial order $\subseteq$ of $\mathcal{P}(C)$ and $\sqsubseteq$ of $\hat P$ to an ordering between $\mathcal{P}(C)$ and $\hat P$.
-
-The abstraction and concretisation functions can be derived from $\ll$:
-
-\begin{equation*}
-\alpha(p) = \sqcap \{ \hat p \in \hat P \mid p \ll \hat p \} \quad \quad \gamma(\hat p) = \cup \{ p \in \mathcal{P}(C) \mid p \ll \hat p \}
-\end{equation*}
-
-\noindent \todo{Text:}
-
-\begin{equation*}
-p \ll \hat p \iff \alpha(p) \sqsubseteq \hat p \quad \quad p \ll \hat p \iff p \subseteq \gamma(\hat p)
-\end{equation*}
-
-\noindent \todo{Text.}
-
-% similar derivations can be made to and from $\alpha$.
-
-\footnotetext{\todo{Used to prove thesis in~\cite{chou1999}, included here since we use one for refinment later on.}}
+\noindent Intuitively, $\ll$ is an extension of the partial order $\subseteq$ of $\mathcal{P}(C)$ and $\sqsubseteq$ of $\hat P$ to an ordering between $\mathcal{P}(C)$ and $\hat P$. \todo{The original abstraction and concretisation functions can be derived from $\ll$ as: $\alpha(p) = \sqcap \{ \hat p \in \hat P \mid p \ll \hat p \}$ and $\gamma(\hat p) = \cup \{ p \in \mathcal{P}(C) \mid p \ll \hat p \}$. Conversely, the relation $\ll$ can be derived from $\alpha$ and $\gamma$ as: $p \ll \hat p \iff \alpha(p) \sqsubseteq \hat p$ and $p \ll \hat p \iff p \subseteq \gamma(\hat p)$.}
 
 An \textit{abstract predicate transformer} $\hat M \in \hat P \rightarrow \hat P$ is an \textit{abstract interpretation}~\cite{cousot1996} of $M \in \mathcal{P}(C) \rightarrow \mathcal{P}(C)$ iff: (1) $\hat M$ preserves $\bot$, i.e. $\hat M(\bot) = \bot$; (2) $\hat M$ is monotonic, i.e. $\hat p \sqsubseteq \hat q \Rightarrow \hat M (\hat p) \sqsubseteq \hat M (\hat q)$ for all $\hat p, \hat q \in \hat P$; and (3) $\ll$ is a \textit{simulation relation} from $\mathcal{P}(C)$ to $\hat P$, i.e. $p \ll \hat p \Rightarrow M (p) \ll \hat M (\hat p)$ for all $p \in \mathcal{P}(C)$ and $\hat p \in \hat P$. That $\ll$ is a simulation relation can also be stated in terms of its abstraction $\alpha$ and concretisation $\gamma$ functions: $\alpha(M(p)) \sqsubseteq \hat M(\alpha(p))$ for all $p \in \mathcal{P}(C)$, and $M(\gamma(\hat p)) \subseteq \gamma(\hat M(\hat p))$ for all $\hat p \in \hat P$.
 
-Note that $\hat M$ does not distribute over arbitrary join in general because information is potentially discarded when joining two lattices. As an example, we define $\hat{\mathcal{M}}$ as an abstract interpretation for the earlier $\mathcal{M}$:
+Note that $\hat M$ does not distribute over arbitrary join in general because information is potentially discarded when joining two lattices. As an example, let the following $\hat M$ abstract the earlier $M$ for an unit-delayed AND gate:
 
 % , that would have been kept by union in the original model $M$
 
 \begin{align*}
-\hat{\mathcal{M}}(\langle p_{1}, p_{2}, p_{3} \rangle) &=
+\hat M(\langle p_{1}, p_{2}, p_{3} \rangle) &=
 \left\{
   \begin{array}{ll}
     \langle \X, \X, 1 \rangle, & \textrm{if } p_{1} = 1 \textrm{ and } p_{2} = 1 \\
@@ -121,17 +107,17 @@ Note that $\hat M$ does not distribute over arbitrary join in general because in
     \langle \X, \X, \X \rangle, & \textrm{otherwise}
   \end{array}
 \right. \\
-\hat{\mathcal{M}}(\bot) &= \bot
+\hat M(\bot) &= \bot
 \end{align*}
 
 % Note: Can we shorten the def. of funny M somehow? Or use a simpler gate.
 
-\noindent If we apply $\hat{\mathcal{M}}$ to the join of $\langle 0, 1, \X \rangle$ and $\langle 1, 0, \X \rangle$, or if we apply $\hat{\mathcal{M}}$ to them individually and then join the results, we get two different results:
+\noindent If we apply $\hat M$ to the join of $\langle 0, 1, \X \rangle$ and $\langle 1, 0, \X \rangle$, or if we apply $\hat M$ to them individually and then join the results, we get two different results:
 
 \begin{equation*}
 \begin{array}{lll}
-  \hat{\mathcal{M}}(\langle 0, 1, \X \rangle \sqcup \langle 1, 0, \X \rangle) &= \hat{\mathcal{M}}(\langle \X, \X, \X \rangle) &= \langle \X, \X, \X \rangle \\
-  \hat{\mathcal{M}}(\langle 0, 1, \X \rangle) \sqcup \hat{\mathcal{M}}(\langle 1, 0, \X \rangle) &= \langle \X, \X, 0 \rangle \sqcup \langle \X, \X, 0 \rangle &= \langle \X, \X, 0 \rangle
+  \hat M(\langle 0, 1, \X \rangle \sqcup \langle 1, 0, \X \rangle) &= \hat M(\langle \X, \X, \X \rangle) &= \langle \X, \X, \X \rangle \\
+  \hat M(\langle 0, 1, \X \rangle) \sqcup \hat M(\langle 1, 0, \X \rangle) &= \langle \X, \X, 0 \rangle \sqcup \langle \X, \X, 0 \rangle &= \langle \X, \X, 0 \rangle
 \end{array}
 \end{equation*}
 
