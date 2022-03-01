@@ -1,8 +1,8 @@
 \section{System refinement}
 
-Consider another fixed, but arbitrary, circuit model $N \in \mathcal{P}(C') \rightarrow \mathcal{P}(C')$ and let $\hat N \in \hat Q \rightarrow \hat Q$ be an abstract interpretation of it; $\hat Q$ is an abstract predicate such that there is a Galois connection between $\mathcal{P}(C')$ and itself. In the previous sections, exactly what abstract predicates like $\hat Q$ are, were not important. In order to reason about refinement, however, we need to make a distinction between their \textit{external} elements. Specifically, we say that $\hat M$ refines $\hat N$ if every externally visible behaviour of $\hat M$ is allowed by $\hat N$ while assuming nothing about their initial configurations.
+Consider another fixed, but arbitrary, circuit model $N \in \mathcal{P}(C') \rightarrow \mathcal{P}(C')$ and let $\hat N \in \hat Q \rightarrow \hat Q$ be an abstract interpretation of it; $\hat Q$ is an abstract predicate such that there is a Galois connection between $\mathcal{P}(C')$ and itself. In the previous sections, exactly what abstract predicates like $\hat Q$ are, were not important. In order to reason about refinement, however, we need to make a distinction between their \textit{visible}, external elements and their internal ones. Specifically, we say that $\hat M$ refines $\hat N$ if every visible behaviour of $\hat M$ is allowed by $\hat N$ while assuming nothing about their initial configurations.
 
-Let the \textit{externally visible} parts of an abstract predicate $\hat P$ be those given by two idempotent mappings, $\In \in \hat P \rightarrow \hat P$ and $\Out \in \hat P \rightarrow \hat P$, which identify the ``inputs'' and ``outputs'' of $\hat P$, respectively. An \textit{input} of $\hat P$ (resp. \textit{output}) is thus a predicate $\hat \iota \in \hat P$ such that $\hat \iota = \In(\hat \iota)$ (resp. $\hat \omicron = \Out(\hat \omicron) \in \hat P$), and the response of $\hat M$ in state $\hat p$ to an input $\hat \iota$ is given by $\hat M(\hat \iota \sqcap \hat p)$. With a slight abuse of notation, we overload both $\In(\cdot)$ and $\Out(\cdot)$ to also accept predicates from $\hat Q$.
+Let the visible parts of an abstract predicate $\hat P$ be those given by two idempotent mappings, $\In \in \hat P \rightarrow \hat P$ and $\Out \in \hat P \rightarrow \hat P$, which identify the ``inputs'' and ``outputs'' of $\hat P$, respectively. An \textit{input} of $\hat P$ (resp. \textit{output}) is thus a predicate $\hat \iota \in \hat P$ such that $\hat \iota = \In(\hat \iota)$ (resp. $\hat \omicron = \Out(\hat \omicron) \in \hat P$), and the response of $\hat M$ in state $\hat p$ to an input $\hat \iota$ is given by $\hat M(\hat \iota \sqcap \hat p)$. With a slight abuse of notation, we overload both $\In(\cdot)$ and $\Out(\cdot)$ to accept predicates from $\hat Q$.
 
 % \textit{outputs} of $\hat P$ are defined similarly with $\Out(\cdot)$.
 
@@ -26,30 +26,15 @@ Let $\cc \, \subseteq \hat P \times \hat Q$ be a Galois connection such that for
 \forall \hat p \in \hat P' : \forall \hat q \in \hat Q' : \hat p \cc \hat q \iff \sqcup \hat P' \cc \sqcap \hat Q'
 \end{equation*}
 
-\noindent Like the earlier Galois connection, $\cc$ can intuitively be thought of as an extension of the orderings inside $\hat P$ and $\hat Q$ to an ordering between them. \todo{The abstraction and concretisation functions, $\alpha \in \hat P \rightarrow \hat Q$ and $\gamma \in \hat Q \rightarrow \hat P$, are derived from $\cc$ as before. We note that $\gamma$ is monotone, preserves top and distributes over arbitrary meet, i.e. $\gamma(\sqcap \hat Q) = \sqcap \{ \gamma(\hat q) \in \hat P \mid \hat q \in \hat Q\}$. Similarly, $\alpha$ is monotone, preserves bottom and distributes over arbitrary join}.
+\noindent Like the earlier Galois connection, $\cc$ can intuitively be thought of as an extension of the orderings inside $\hat P$ and $\hat Q$ to an ordering between them. The abstraction and concretisation functions, $\alpha \in \hat P \rightarrow \hat Q$ and $\gamma \in \hat Q \rightarrow \hat P$, can also be derived from $\cc$ as before: $\alpha(p) = \sqcap \{ \hat p \in \hat P \mid \hat q \cc \hat p \}$ and $\gamma(\hat p) = \sqcup \{ \hat q \in \hat Q \mid \hat q \cc \hat p \}$. We note that $\gamma$ is monotone, preserves top and distributes over arbitrary meet, i.e. $\gamma(\sqcap \hat Q) = \sqcap \{ \gamma(\hat q) \in \hat P \mid \hat q \in \hat Q\}$. Similarly, $\alpha$ is monotone, preserves bottom and distributes over arbitrary join.
 
-The binary relation $\cc$ is a \textit{visible simulation} between $\hat P$ and $\hat Q$ if $\hat p \cc \hat q$ implies (1) $\Out(\hat p) \sqsubseteq \gamma(\Out(\hat q))$ and (2) $\hat M(\hat \iota \sqcap \hat p) \cc \hat N(\alpha(\hat \iota) \sqcap \hat q)$ for all inputs $\hat \iota \in \hat P$. The abstract model $\hat M$ then refines $\hat N$ if the top element of $\hat P$ visibly simulates the top of $\hat Q$, i.e. $(\top \in \hat P) \cc \, (\top \in \hat Q)$.
-
-% The abstraction and concretisation functions, $\PQ \in \hat P \rightarrow \hat Q$ and $\QP \in \hat Q \rightarrow \hat P$, are derived from $\cc$. We note that $\QP$ is montone, preserves top and distributes over arbitrary meet, i.e. $\QP(\sqcap \hat Q) = \sqcap \{ \QP(\hat q) \in \hat P \mid \hat q \in \hat Q\}$. Similarly, $\PQ$ is also montone, preserves bottom and distributes over arbitrary join.
+The binary relation $\cc$ is a \textit{visible simulation} between $\hat P$ and $\hat Q$ if $\hat p \cc \hat q$ implies (1) $\Out(\hat p) \sqsubseteq \gamma(\Out(\hat q))$ and (2) $\hat M(\hat \iota \sqcap \hat p) \cc \hat N(\alpha(\hat \iota) \sqcap \hat q)$ for all inputs $\hat \iota \in \hat P$. The abstract model $\hat M$ then refines $\hat N$, denoted by $\hat M \cc \hat N$, if the top element of $\hat P$ visibly simulates the top of $\hat Q$, i.e. $(\top \in \hat P) \cc \, (\top \in \hat Q)$. Because $\top$ represents every possible state in its predicate type, that $\hat M \cc \hat N$ thus implies that every state in $\hat M$ is simulated by every state in $\hat N$. \todo{However, using $\top$ also means we simply demand that their outputs are ordered, since both will output X until the inputs have flushed trough them.}
 
 % A \textit{driver} $\delta \in \hat P^{+}$ for $\hat M$ is a nonempty sequence of abstract predicates $\langle \hat \iota_{0}, \ldots \rangle$ such that $\hat \iota_{i} = \In(\hat \iota_{i})$ for all $i \in \mathcal{N} : i < | \delta |$. Every driver $\delta$ induces a \textit{trajectory} $\langle \tau_{0}, \ldots, \tau_{| \delta | + 1} \rangle \in \hat P^{+}$ in $\hat M$, where $\tau_{0} = \top$ and $\tau_{i+1} = \hat N(\hat \iota_{i} \sqcap \tau_{i})$ for all $i \in \mathbb{N} : i < | \delta |$; the trajectory induced in $\hat M$ by a driver $\delta$ is denoted by $\Driv{\hat N}{\delta}$.
-
-% Intuitively, $\hat M$ refines $\hat N$ if the outputs of their induced trajectories are ordered for all possible input sequences:
-
-% We view circuits as transducers and say that $\hat M$ refines $\hat N$ if:
 
 %% \begin{equation*}
 %% \forall \delta \in \hat P^{+} : \Out(\Driv{\hat M}{\delta}) \sqsubseteq \gamma(\Out(\Driv{\hat N}{\alpha(\delta)}))
 %% \end{equation*}
-
-%% Let $\enc \in \hat P \times \hat Q$ be a simulation relation such that $\hat p \enc \hat q$ implies:
-
-%% \begin{enumerate}
-%% \item $\Out(\hat p) \sqsubseteq \gamma(\Out(\hat q))$ and
-%% \item $\hat M(\hat \iota \sqcap \hat p) \enc \hat N(\alpha(\hat \iota) \sqcap \hat q)$ for all $\hat \iota \in \hat P$ such that $\hat \iota = \In(\hat \iota)$.
-%% \end{enumerate}
-
-%% \noindent We extend this relation to $\hat M$ and $\hat N$ and say that $\hat M \enc \hat N \iff (\top \in \hat P) \enc \, (\top \in \hat Q)$.
 
 \subsection{Examples}
 
