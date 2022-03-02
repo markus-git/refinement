@@ -1,5 +1,7 @@
 \subsection{Old stuff, trying to make it more formal}
 
+Specifically, let the \textit{externally visible} parts of an abstract predicate $\hat P$ be the subsets given by two projections, $\In(\cdot)$ and $\Out(\cdot)$, identifying the subsets of $\hat P$ that contain its ``inputs'' and ``outputs'', respectively. Further, let $\Out \in \hat P \rightarrow \OutProj{\hat P}$ and $\In \in \hat P \rightarrow \InProj{\hat P}$ be the projections viewed as idempotent mappings, ... We extend $\out{\cdot}$ to sequences component-wise, ...
+
 A \textit{driver} of $\hat M$ and $\hat N$ is a nonempty sequence of inputs, $\delta \in \hat I^{+}$, and induces a trajectory $\tau$ in $\hat M$ (resp. $\hat N$) where $\tau[0] = \top$ and $\forall i \in \mathbb{N} : i < | \delta | \implies \tau[i+1] = \hat M(\delta[i] \sqcap \tau[i])$; the trajectory induced by a driver $\delta$ in $\hat M$ is denoted by $\Driv{\hat M}{\delta}$.
 
 Intuitively, if $\hat M$ produces the same, or at least more specified, outputs than $\hat N$ for all possible drivers, then every visible behaviour of $\hat M$ is covered by $\hat N$. We thus say that $\hat M$ refines $\hat N$, denoted by $\hat M \leq \hat N$, iff:

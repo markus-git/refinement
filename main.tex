@@ -20,45 +20,44 @@
 % New commands
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Editing stuff.
+%% Editing stuff.
 \newcommand{\todo}[1]{\textcolor{red}{#1}}
 \newcommand{\Stmt}[1]{\textrm{\textbf{#1}}}
 
-% General preference.
+%% General preference.
 \newcommand{\Alpha}{\mathrm{A}}
 \newcommand{\omicron}{\mathrm{o}}
 %
-\newcommand{\X}{\mathrm{X}}
-\renewcommand{\iff}{\Leftrightarrow} % preference.
-\renewcommand{\implies}{\Rightarrow} % preference. 
+\renewcommand{\iff}{\Leftrightarrow}
+\renewcommand{\implies}{\Rightarrow}
+\newcommand{\meet}{\sqcap}
+\newcommand{\join}{\sqcup}
+%
 \DeclareMathOperator{\nsqsubseteq}{\not\sqsubseteq} % not impl.
-\newcommand{\Traj}[1]{\textit{Traj}(#1)} % set of trajectories
 
 % STE orig. grammar.
 \DeclareMathOperator{\Next}{\textbf{N}} % Next-time.
 \DeclareMathOperator{\Is}{\mathbin{\textbf{is}}} % comparison.
-
-% Short-hands.
-%\newcommand{\Q}{\hat Q}
-%\newcommand{\P}{\hat P}
+\newcommand{\X}{\mathrm{X}}
+\newcommand{\Traj}[1]{\textit{Traj}(#1)} % set of trajectories
 
 % Refinement ...
-% \newcommand{\InProj}[1]{\mathit{i}(#1)} % input proj.
-% \newcommand{\OutProj}[1]{\mathit{o}(#1)} % output proj.
 \DeclareMathOperator{\In}{in}
 \DeclareMathOperator{\Out}{out}
-\DeclareMathOperator{\Ext}{ext}
+\DeclareMathOperator{\Vis}{vis}
 %
 \DeclareMathOperator{\cc}{\lll} %{\leq} %{\prec\mkern-4mu\prec}
-\DeclareMathOperator{\enc}{\mathrel{\preceq}} % encodes.
-\newcommand{\Driv}[2]{\Traj{#1}(#2)} % trajectory induced by driver.
 
-% Old.
-%% \DeclareMathOperator{\InProj}{\mathit{in}}
-%% \DeclareMathOperator{\OutProj}{\mathit{out}}
-%% \DeclareMathOperator{\V}{\mathit{v}}
-\newcommand{\inp}[1]{\llbracket#1\rrbracket} % input mapping
-\newcommand{\out}[1]{\llbracket#1\rrbracket} % output mapping.
+%% Old.
+% \newcommand{\InProj}[1]{\mathit{i}(#1)} % input proj.
+% \newcommand{\OutProj}[1]{\mathit{o}(#1)} % output proj.
+% \DeclareMathOperator{\InProj}{\mathit{in}}
+% \DeclareMathOperator{\OutProj}{\mathit{out}}
+% \DeclareMathOperator{\V}{\mathit{v}}
+% \DeclareMathOperator{\enc}{\mathrel{\preceq}} % encodes.
+% \newcommand{\Driv}[2]{\Traj{#1}(#2)} % trajectory induced by driver.
+% \newcommand{\inp}[1]{\llbracket#1\rrbracket} % input mapping
+% \newcommand{\out}[1]{\llbracket#1\rrbracket} % output mapping.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Document

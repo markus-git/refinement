@@ -1,24 +1,17 @@
 \section{System refinement}
 
-Consider another fixed, but arbitrary, circuit model $N \in \mathcal{P}(C') \rightarrow \mathcal{P}(C')$ and let $\hat N \in \hat Q \rightarrow \hat Q$ be an abstract interpretation of it; $\hat Q$ is an abstract predicate with a Galois connection to $\mathcal{P}(C')$. In the previous sections, exactly what abstract predicates like $\hat Q$ are, were not important. In order to reason about refinement, however, we need to make a distinction between their \textit{visible} elements and internal ones. Specifically, we say that $\hat M$ refines $\hat N$ if every visible behaviour of $\hat M$ is allowed by $\hat N$ while assuming nothing about initial configurations.
+Consider another fixed, but arbitrary, circuit model $N \in \mathcal{P}(C') \rightarrow \mathcal{P}(C')$ and let $\hat N \in \hat Q \rightarrow \hat Q$ be an abstract interpretation of it; $\hat Q$ is an abstract predicate with a Galois connection to $\mathcal{P}(C')$. In the previous sections, exactly what abstract predicates like $\hat Q$ are, were not important. In order to reason about refinement, however, we need to make a distinction between their \textit{visible} and internal elements. Specifically, \todo{we wish to say} that $\hat M$ refines $\hat N$ if every visible behaviour of $\hat M$ is allowed by $\hat N$ while assuming nothing about initial configurations.
 
-Let the visible parts of an abstract predicate $\hat P$ be those given by two idempotent mappings, $\In \in \hat P \rightarrow \hat P$ and $\Out \in \hat P \rightarrow \hat P$, which identify the ``inputs'' and ``outputs'' of $\hat P$, respectively. An \textit{input} of $\hat P$ (resp. \textit{output}) is thus a predicate $\hat \iota \in \hat P$ such that $\hat \iota = \In(\hat \iota)$ (resp. $\hat \omicron = \Out(\hat \omicron) \in \hat P$), and the response of $\hat M$ in state $\hat p$ to an input $\hat \iota$ is given by $\hat M(\hat \iota \sqcap \hat p)$. With a slight abuse of notation, we overload both $\In(\cdot)$ and $\Out(\cdot)$ to accept predicates from $\hat Q$.
+Let the visible elements of an abstract predicate $\hat P$ be those given by two monotone, idempotent mappings, $\In \in \hat P \rightarrow \hat P$ and $\Out \in \hat P \rightarrow \hat P$, which identify its ``inputs'' and ``outputs'', respectively. That is, an \textit{input} of $\hat P$ is a predicate $\hat \iota \in \hat P$ such that $\hat \iota = \In(\hat \iota)$. Similarly, an \textit{output} is a $\hat \omicron \in \hat P$ such that $\hat \omicron = \Out(\hat \omicron)$. \todo{For example}:
 
-% \textit{outputs} of $\hat P$ are defined similarly with $\Out(\cdot)$.
+\begin{align*}
+\In(\langle \hat p_{0}, \hat p_{1}, \hat p_{2} \rangle) = \langle \hat p_{0}, \hat p_{1}, \X \rangle &&
+\Out(\langle \hat p_{0}, \hat p_{1}, \hat p_{2} \rangle) = \langle \X, \X, p_{2} \rangle
+\end{align*}
 
-% Together, $\In(\cdot)$ and $\Out(\cdot)$ identify the external part of $\hat P$: $\Ext(\hat p) = \In(\hat p) \sqcap \Out(\hat p)$ for all $\hat p \in \hat P$.
+%% The response of $\hat M$ in state $\hat p$ to an input $\hat \iota$ is given by $\hat M(\hat \iota \sqcap \hat p)$.
 
-% Specifically, let the \textit{externally visible} parts of an abstract predicate $\hat P$ be the subsets given by two projections, $\In(\cdot)$ and $\Out(\cdot)$, identifying the subsets of $\hat P$ that contain its ``inputs'' and ``outputs'', respectively. Further, let $\Out \in \hat P \rightarrow \OutProj{\hat P}$ and $\In \in \hat P \rightarrow \InProj{\hat P}$ be the projections viewed as idempotent mappings, and 
-
-% With a slight abuse of notation, we overload both projections to accept predicates from $\hat Q$ and note that $| \OutProj{\hat P} | = | \OutProj{\hat Q} |$ and $| \InProj{\hat P} | = | \InProj{\hat Q} |$.
-
-% Further, let $\Out \in \hat P \rightarrow \OutProj{\hat P}$ and $\In \in \hat P \rightarrow \InProj{\hat P}$ be invertible mappings that takes each $\hat p \in \hat P$ to its visible outputs and inputs, respectively, such that $\In^{-1}(\hat p) \sqsubseteq \hat \iota \iff \hat p \sqsubseteq \In(\hat \iota)$ for all $\hat p\in \hat P$. With a slight abuse of notation, we overload these projections and mappings to accept predicates from $\hat Q$
-
-% ... note that $| \OutProj{\hat P} | = | \OutProj{\hat Q} |$ and $| \InProj{\hat P} | = | \InProj{\hat Q} |$.
-
-% ... to its visible outputs $\Out(\hat Q) \in \OutProj{\hat Q}$.
-
-% We extend $\out{\cdot}$ to sequences component-wise and, ...
+\noindent With a slight abuse of notation, we overload both $\In(\cdot)$ and $\Out(\cdot)$ to accept predicates from $\hat Q$.
 
 Let $\cc \, \subseteq \hat P \times \hat Q$ be a Galois connection such that for all $\hat P' \subseteq \hat P$ and $\hat Q' \subseteq \hat Q$:
 
@@ -28,18 +21,29 @@ Let $\cc \, \subseteq \hat P \times \hat Q$ be a Galois connection such that for
 
 \noindent Like the earlier Galois connection, $\cc$ can intuitively be thought of as an extension of the orderings inside $\hat P$ and $\hat Q$ to an ordering between them. The abstraction and concretisation functions, $\alpha \in \hat P \rightarrow \hat Q$ and $\gamma \in \hat Q \rightarrow \hat P$, can also be derived from $\cc$ as before: $\alpha(p) = \sqcap \{ \hat p \in \hat P \mid \hat q \cc \hat p \}$ and $\gamma(\hat p) = \sqcup \{ \hat q \in \hat Q \mid \hat q \cc \hat p \}$. We note that $\gamma$ is monotone, preserves top and distributes over arbitrary meet, i.e. $\gamma(\sqcap \hat Q) = \sqcap \{ \gamma(\hat q) \in \hat P \mid \hat q \in \hat Q\}$. Similarly, $\alpha$ is monotone, preserves bottom and distributes over arbitrary join.
 
-The binary relation $\cc$ is a \textit{visible simulation} between $\hat P$ and $\hat Q$ if $\hat p \cc \hat q$ implies (1) $\Out(\hat p) \sqsubseteq \gamma(\Out(\hat q))$ and (2) $\hat M(\hat \iota \sqcap \hat p) \cc \hat N(\alpha(\hat \iota) \sqcap \hat q)$ for all inputs $\hat \iota \in \hat P$. The abstract model $\hat M$ then refines $\hat N$, denoted by $\hat M \cc \hat N$, if the top element of $\hat P$ visibly simulates the top element of $\hat Q$, i.e. $(\top \in \hat P) \cc \, (\top \in \hat Q)$. Because $\top$ represents every possible state in its predicate type, that $\hat M \cc \hat N$ thus implies that every state in $\hat M$ is simulated by every state in $\hat N$. \todo{However, using $\top$ also means we simply demand that their outputs are ordered, since both will output X until the inputs have flushed trough them.}
+The binary relation $\cc$ is a \textit{visible simulation} between $\hat P$ and $\hat Q$ if $\hat p \cc \hat q$ implies (1) $\Out(\hat p) \sqsubseteq \gamma(\Out(\hat q))$ and (2) $\hat M(\hat \iota \sqcap \hat p) \cc \hat N(\alpha(\hat \iota) \sqcap \hat q)$ for all inputs $\hat \iota \in \hat P$. The abstract model $\hat M$ refines $\hat N$, denoted by $\hat M \cc \hat N$, if the top element of $\hat P$ visibly simulates the top element of $\hat Q$, i.e. $(\top \in \hat P) \cc \, (\top \in \hat Q)$.
 
-% A \textit{driver} $\delta \in \hat P^{+}$ for $\hat M$ is a nonempty sequence of abstract predicates $\langle \hat \iota_{0}, \ldots \rangle$ such that $\hat \iota_{i} = \In(\hat \iota_{i})$ for all $i \in \mathcal{N} : i < | \delta |$. Every driver $\delta$ induces a \textit{trajectory} $\langle \tau_{0}, \ldots, \tau_{| \delta | + 1} \rangle \in \hat P^{+}$ in $\hat M$, where $\tau_{0} = \top$ and $\tau_{i+1} = \hat N(\hat \iota_{i} \sqcap \tau_{i})$ for all $i \in \mathbb{N} : i < | \delta |$; the trajectory induced in $\hat M$ by a driver $\delta$ is denoted by $\Driv{\hat N}{\delta}$.
+A trajectory assertion $\hat A = (S,s_{0},R,\pi_{a},\pi_{c})$ for $\hat N$ where antecedents only mention inputs, $\pi_{a} \in S \rightarrow \In(\hat P)$, and consequents only mention outputs, $\pi_{c} \in S \rightarrow \Out(\hat P)$, is referred to as a \textit{visible trajectory assertion}.
+
+%% A satisfied external trajectory assertion is property of $N$ that must hold regardless of its internal state.}
+
+\todo{We state our first result:}
+
+\begin{theorem}
+If $\hat M$ and $\hat N$ are abstract interpretations such that $\hat M \cc \hat N$, and $\hat A_{vis}$ is a trajectory assertion restricted to visible elements of $\hat N$, then:
+
+\begin{equation*}
+\hat N \models \hat A_{vis} \implies \hat M \models \hat A_{vis}
+\end{equation*}
+\end{theorem}
+
+
+\todo{Because $\top$ represents every possible state in its predicate type, that $\hat M \cc \hat N$ thus implies that every state in $\hat M$ is simulated by every state in $\hat N$. However, using $\top$ also means we simply demand that their outputs are ordered, since both will output X until the inputs have flushed trough them.}
+
+% LocalWords:  consequents
+
+%% A \textit{driver} $\delta \in \hat P^{+}$ for $\hat M$ is a nonempty sequence of abstract predicates $\langle \hat \iota_{0}, \ldots \rangle$ such that $\hat \iota_{i} = \In(\hat \iota_{i})$ for all $i \in \mathcal{N} : i < | \delta |$. Every driver $\delta$ induces a \textit{trajectory} $\langle \tau_{0}, \ldots, \tau_{| \delta | + 1} \rangle \in \hat P^{+}$ in $\hat M$, where $\tau_{0} = \top$ and $\tau_{i+1} = \hat N(\hat \iota_{i} \sqcap \tau_{i})$ for all $i \in \mathbb{N} : i < | \delta |$; the trajectory induced in $\hat M$ by a driver $\delta$ is denoted by $\Driv{\hat N}{\delta}$.
 
 %% \begin{equation*}
 %% \forall \delta \in \hat P^{+} : \Out(\Driv{\hat M}{\delta}) \sqsubseteq \gamma(\Out(\Driv{\hat N}{\alpha(\delta)}))
 %% \end{equation*}
-
-\subsection{Examples}
-
-\begin{align*}
-\In(\langle \hat p_{0}, \hat p_{1}, \hat p_{2} \rangle) = \langle \hat p_{0}, \hat p_{1}, \X \rangle && \Out(\langle \hat p_{0}, \hat p_{1}, \hat p_{2} \rangle) = \langle \X, \X, p_{2} \rangle
-\end{align*}
-
-% LocalWords:  consequents
