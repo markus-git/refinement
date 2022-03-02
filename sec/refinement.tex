@@ -21,19 +21,20 @@ Let $\cc \, \subseteq \hat P \times \hat Q$ be a Galois connection such that for
 
 \noindent Like the earlier Galois connection, $\cc$ can intuitively be thought of as an extension of the orderings inside $\hat P$ and $\hat Q$ to an ordering between them. The abstraction and concretisation functions, $\alpha \in \hat P \rightarrow \hat Q$ and $\gamma \in \hat Q \rightarrow \hat P$, can also be derived from $\cc$ as before: $\alpha(p) = \sqcap \{ \hat p \in \hat P \mid \hat q \cc \hat p \}$ and $\gamma(\hat p) = \sqcup \{ \hat q \in \hat Q \mid \hat q \cc \hat p \}$. We note that $\gamma$ is monotone, preserves top and distributes over arbitrary meet, i.e. $\gamma(\sqcap \hat Q) = \sqcap \{ \gamma(\hat q) \in \hat P \mid \hat q \in \hat Q\}$. Similarly, $\alpha$ is monotone, preserves bottom and distributes over arbitrary join.
 
-The binary relation $\cc$ is a \textit{visible simulation} between $\hat P$ and $\hat Q$ if $\hat p \cc \hat q$ implies (1) $\Out(\hat p) \sqsubseteq \gamma(\Out(\hat q))$ and (2) $\hat M(\hat \iota \sqcap \hat p) \cc \hat N(\alpha(\hat \iota) \sqcap \hat q)$ for all inputs $\hat \iota \in \hat P$. The abstract model $\hat M$ refines $\hat N$, denoted by $\hat M \cc \hat N$, if the top element of $\hat P$ visibly simulates the top element of $\hat Q$, i.e. $(\top \in \hat P) \cc \, (\top \in \hat Q)$.
+Let the binary relation $\cc$ be a simulation between the visible parts of $\hat P$ and $\hat Q$, such that $\hat p \cc \hat q$ implies (1) $\Out(\hat p) \sqsubseteq \gamma(\Out(\hat q))$ and (2) $\hat M(\hat \iota \sqcap \hat p) \cc \hat N(\alpha(\hat \iota) \sqcap \hat q)$ for all inputs $\hat \iota \in \hat P$. The abstract model $\hat M$ refines $\hat N$, denoted by $\hat M \cc \hat N$, if the top element of $\hat P$ visibly simulates the top element of $\hat Q$, i.e. $(\top \in \hat P) \cc \, (\top \in \hat Q)$.
 
-A trajectory assertion $\hat A = (S,s_{0},R,\pi_{a},\pi_{c})$ for $\hat N$ where antecedents only mention inputs, $\pi_{a} \in S \rightarrow \In(\hat P)$, and consequents only mention outputs, $\pi_{c} \in S \rightarrow \Out(\hat P)$, is referred to as a \textit{visible trajectory assertion}.
+A trajectory assertion $\hat A = (S, s_{0}, R, \pi_{a}, \pi_{c})$ for $\hat N$ where antecedents only mention inputs, $\pi_{a} \in S \rightarrow \In(\hat P)$, and consequents only mention outputs, $\pi_{c} \in S \rightarrow \Out(\hat P)$, is referred to as a \textit{visible trajectory assertion}. Define $\alpha(\hat A) = (S, s_{0}, R, \alpha(\pi_{a}), \alpha(\pi_{c}))$, where $\alpha(\pi_{a}) = \lambda s \in S : \alpha(\pi_{a}(s))$ and $\alpha(\pi_{a}) = \lambda s \in S : \alpha(\pi_{a}(s))$. \todo{That is, $\alpha(\hat A)$ is a trajectory assertion for $\hat M$}.
 
 %% A satisfied external trajectory assertion is property of $N$ that must hold regardless of its internal state.}
 
 \todo{We state our first result:}
 
 \begin{theorem}
+\label{thm:refinement}
 If $\hat M$ and $\hat N$ are abstract interpretations such that $\hat M \cc \hat N$, and $\hat A_{vis}$ is a trajectory assertion restricted to visible elements of $\hat N$, then:
 
 \begin{equation*}
-\hat N \models \hat A_{vis} \implies \hat M \models \hat A_{vis}
+\hat N \models \hat A_{vis} \implies \hat M \models \alpha(\hat A_{vis})
 \end{equation*}
 \end{theorem}
 

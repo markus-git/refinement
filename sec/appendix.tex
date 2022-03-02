@@ -1,5 +1,33 @@
 \section{Appendices}
 
+\subsection{Theorem~\ref{thm:refinement}}
+
+In order to differentiate between the fixpoints and functions used to determine satisfaction of some trajectory assertion $\hat A_{vis}$ for $\hat M$ and $\hat N$, we duplicate some earlier definitions. Specifically, let $G$, $\mathcal{G}$ and $\Psi$ be equivalent to the earlier operations $F$, $\mathcal{F}$ and $\Phi$ for $\hat M$, respectively, but instead defined in terms of $\hat N$:
+
+\begin{align*}
+G(s)(\hat q) &= \hat N(\alpha(\pi_{a}(s)) \sqcap \hat q) \\
+\mathcal{G}(\Psi)(s) &= \Stmt{if } (s = s_{0}) \Stmt{ then } \top \Stmt{ else } \sqcup \{ G(s')(\Psi(s')) \mid (s',s) \in R \} \\
+\Psi_{n} &= \Stmt{if } (n = 0) \Stmt{ then } (\lambda s \in S : \bot) \Stmt{ else } \mathcal{G}(\Psi_{n-1}) \\
+\end{align*}
+
+%% \noindent To show that in satisfaction of $\hat A_{vis}$ in $\hat N$ carries over $\hat M$, it is enough to show that $\Psi_{*}(s) \cc \Phi_{*}(s)$ for all $s \in S$.
+
+%% \hat N \models \hat A &\implies \forall s \in S : \Psi_{*}(s) \sqcap \pi_{\alpha}(s) \sqsubseteq \pi_{c}(s)
+
+We first prove a few intermediate lemmas.
+
+\begin{lemma}
+$(\bot \in \hat P) \cc \, (\bot \in \hat Q)$
+\end{lemma}
+
+A Galois connection always relates the two bottoms and, because $\hat M$ and $\hat N$ preserves bottom, any path from bottom must stay in bottom, regardless of inputs. That is, $\cc$ is a proper simulation relation for the two bottom values.
+
+\begin{lemma}
+$\hat p \cc \hat q \implies F(s)(\hat p) \cc G(s)(\hat q)$ for all $s \in S$
+\end{lemma}
+
+Expanding definitions, we see that $F(s)(\hat p) = \hat M(\pi_{a}(s) \sqcap \hat p)$ and $G(s)(\hat q) = \hat N(\alpha(\pi_{a}(s)) \sqcap \hat q)$ for some $\pi_{a}(s) \in \In(\hat P)$. That $F(s)(\hat p) \cc G(s)(\hat q)$ then follows from the second property of $\hat p \cc \hat q$.
+
 %% \subsection{$\hat M \enc \hat N \implies \forall s \in S : \Phi(s) \enc \Psi(s)$}
 
 %% Recall that $\hat p \enc \hat q$ implies (1) $\out{\hat p} \sqsubseteq \out{\hat q}$ and (2) $\forall \hat \iota \in \hat I : \hat M(\hat \iota \sqcap \hat p) \enc \hat N(\hat \iota \sqcap \hat q)$. Further $\hat M \enc \hat N$ implies that $(\top \in \hat P) \enc \, (\top \in \hat Q)$.
@@ -10,8 +38,6 @@
 %% \Phi_{n} &= \Stmt{if } (n = 0) \Stmt{ then } (\lambda s \in S : \bot) \Stmt{ else } \mathcal{F}(\Phi_{n-1}) \\
 %% \hat M \models \hat A &\implies \forall s \in S : \Phi_{*}(s) \sqcap \pi_{\alpha}(s) \sqsubseteq \pi_{c}(s)
 %% \end{align*}
-
-%% We first prove a few intermediate lemmas.
 
 %% \textbf{Lemma (B)}: $(\bot \in \hat P) \enc \, (\bot \in \hat Q)$. Prop. (1) follows immediately as $\out{\bot \in \hat P} = \bot \in \hat O = \out{\bot \in \hat Q}$. Because $\hat M$ and $\hat N$ both preserve bottom, we have that $\hat M(\hat \iota \sqcap \bot) = \bot \in \hat P$ and $\hat N(\hat \iota \sqcap \bot) = \bot \in \hat Q$ for all $\hat \iota \in \hat I$. That is, any path that gets to $\bot$ must stay there, regardless of inputs. Prop. (2) then follows as well.
 
