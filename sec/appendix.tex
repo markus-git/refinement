@@ -17,10 +17,16 @@ G(s)(\hat q) &= \hat N(\alpha(\pi_{a}(s)) \sqcap \hat q) \\
 We prove a few intermediate lemmas.
 
 \begin{lemma}
-Let the trajectories $\tau = \langle \hat p_{0}, \ldots \rangle \in \hat P^{+}$ and $v = \langle \hat q_{0}, \ldots \rangle \in \hat Q^{+}$ be induced by some driver $\hat I \in \In(\hat P)$ and its abstraction $\alpha(\hat I)$, respectively. If $\hat p_{0} \cc \hat q_{0}$, then $\hat p_{n} \cc \hat q_{n}$ for all $n$.
+Let $\langle \hat p_{0}, \ldots \rangle \in \hat P^{+}$ and $\langle \hat q_{0}, \ldots \rangle \in \hat Q^{+}$ be the trajectories induced by some driver $\hat I \in \In(\hat P)$ and its abstraction $\alpha(\hat I)$, respectively. Then for all $\hat I$ and $n \in \mathbb{N} : n \leq | \hat I |$:
+\begin{enumerate}
+  \item $\Out(\hat p_{n}) \sqsubseteq \gamma(\Out(\hat q_{n})) \implies \hat p_{0} \cc \hat q_{0}$.
+  \item $\hat p_{0} \cc \hat q_{0} \implies \hat p_{n} \cc \hat q_{n}$.
+\end{enumerate}
 \end{lemma}
 
-For $n > 0$, we must have that $\hat p_{n} = \hat M(\hat \iota \sqcap \hat p_{n-1})$ and $q_{n} = \hat N(\alpha(\hat \iota) \sqcap \hat q_{n-1})$ for some $\hat p_{n-1}$ and $\hat q_{n-1}$ such that $\hat p_{n-1} \cc \hat q_{n-1}$. That $\hat p_{n} \cc \hat q_{n}$ then follows immediately from the simulation property of refinement $\cc$.
+We show the first lemma by \todo{\ldots co-induction?}
+
+The second lemma is show by induction on $n$. In the case when $n = 0$, the assumption directly states that $\hat p_{0} \cc \hat q_{0}$. For the inductive step $n > 0$, we must have that $\hat p_{n} = \hat M(\hat \iota \sqcap \hat p_{n-1})$ and $q_{n} = \hat N(\alpha(\hat \iota) \sqcap \hat q_{n-1})$ for some $\hat p_{n-1}$ and $\hat q_{n-1}$ such that $\hat p_{n-1} \cc \hat q_{n-1}$. That $\hat p_{n} \cc \hat q_{n}$ then follows immediately from the simulation property of refinement $\cc$.
 
 %% ToDo: Make sure drivers are discussed before this.
 
@@ -42,7 +48,9 @@ We argue that, for any sequences of inputs $\hat I = \langle \hat \iota_{0}, \ld
 
 Let $\tau = \langle \tau_{0}, \ldots \rangle$ and $v = \langle v_{0}, \ldots \rangle$ be the trajectories starting from $\tau_{0} = \hat p_{1}$ and $v_{0} = \hat q_{1}$, such that $\tau_{n+1} = \hat M(\hat \iota_{n} \sqcap \tau_{n})$ and $v_{n+1} = \hat N(\alpha(\hat \iota_{n}) \sqcap v_{n})$ for all $n \in \mathbb{N} : n < | \hat I |$. Similarly, let $\tau'$ and $v'$ be the trajectory starting from $\hat p_{2}$ and $\hat q_{2}$, respectively. By the original assumption and lemma \todo{?}, we have that $\tau_{n} \cc v_{n}$ and $\tau_{n}' \cc v_{n}'$ for all $n$. We show by induction on $n$ that, if $\tau_{n} \cc v_{n}$ and $\tau_{n}' \cc v_{n}'$, then $\Out(\tau_{n} \sqcup \tau_{n}') \sqsubseteq \gamma(\Out(v_{n} \sqcup v_{n}'))$ for all $n$ and $\hat I$.
 
-For the base case, we have that $\tau_{0} \cc v_{0}$ and $\tau_{0}' \cc v_{0}'$.
+For the base case, we have that $\tau_{0} \cc v_{0}$ and $\tau_{0}' \cc v_{0}'$. By the first simulation property of $\cc$, we know that $\Out(\tau_{0}) \sqsubseteq \gamma(\Out(v_{0}))$ and $\Out(\tau_{0}') \sqsubseteq \gamma(\Out(v_{0}'))$. By definition of $\sqcup$ and the montonicity of $\Out(\cdot)$ and $\gamma$, we have that $\Out(\tau_{0}) \sqsubseteq \gamma(\Out(v_{0} \sqcup v_{0}'))$, and therefore also that $\Out(\tau_{0} \sqcup \tau_{0}') \sqsubseteq \gamma(\Out(v_{0} \sqcup v_{0}'))$.
+
+%% ToDo: Can we show that in & out are montonic for their "most general" property, rather than demand it?
 
 %% For the base case, we have that $\hat p_{0} \enc \hat q_{0}$ and $\hat p_{0}' \enc \hat q_{0}$. By prop. (1) of $\enc$, we also have that $\out{\hat p_{0}} \sqsubseteq \out{\hat q_{0}}$ and $\out{\hat p_{1}} \sqsubseteq \out{\hat q_{1}}$. By definition of $\sqcup$ then, we must have that $\out{\hat p_{0}} \sqsubseteq \out{\hat q_{0} \sqcup \hat q_{0}'}$ and therefore also that $\out{\hat p_{0} \sqcup \hat p_{0}'} \sqsubseteq \out{\hat q_{0} \sqcup \hat q_{0}'}$.
 
