@@ -36,17 +36,37 @@ The second lemma is show by induction on $n$. In the case when $n = 0$, the assu
 Always $(\bot \in \hat P) \cc \, (\bot \in \hat Q)$.
 \end{lemma}
 
-A Galois connection always relates the two bottoms and because $\hat M$ and $\hat N$ preserves bottom, any path that touches bottom must also stay in bottom, regardless of inputs. Thus, $\bot \in \hat P$ refines $\bot \in \hat Q$.
+A Galois connection always relates the two bottoms. Because $\hat M$ and $\hat N$ preserves bottom, any path that touches bottom must also stay in bottom, regardless of inputs. Thus, $\bot \in \hat P$ refines $\bot \in \hat Q$.
 
 \begin{lemma}
 If $\hat p_{1} \cc \hat q_{1}$ and $\hat p_{2} \cc \hat q_{2}$, then $(\hat p_{1} \sqcup \hat p_{2}) \cc \: (\hat q_{1} \sqcup \hat q_{2})$.
 \end{lemma}
 
-We argue that, for any sequences of inputs $\hat I = \langle \hat \iota_{0}, \ldots \rangle \in \In(\hat P)^{+}$, the trajectories driven by $\hat I$ and starting from $\hat p_{1} \sqcup \hat p_{2}$ and $\hat q_{1} \sqcup \hat q_{2}$ will have ordered outputs. By lemma \todo{?}, then, we must have that $\hat p_{1} \sqcup \hat p_{2}$ refines $\hat q_{1} \sqcup \hat q_{2}$.
+We show that $\Out(\hat p_{1} \sqcup \hat p_{2}) \sqsubseteq \gamma(\Out(\hat q_{1} \sqcup \hat q_{2}))$ in two steps. First, we show that $\gamma(\Out(\hat q_{2})) \sqsubseteq \gamma(\Out(\hat q_{1} \sqcup \hat q_{2}))$ is an upper bound for $\gamma(\Out(\hat q_{1}))$ and $\gamma(\Out(\hat q_{2}))$. Secondly, that $\Out(\hat p_{1} \sqcup \hat p_{2})$ is less than or equal to any other output that is an upper bound on $\hat p_{1}$ and $\hat p_{2}$.
+
+\begin{enumerate}
+
+\item By definition of $\sqcup$, we know that $\hat q_{1} \sqsubseteq \hat q_{1} \sqcup \hat q_{2}$ and $\hat q_{1} \sqsubseteq \hat q_{1} \sqcup \hat q_{2}$. It then follows from the monotonicity of $\Out(\cdot)$ and $\gamma$ that $\gamma(\Out(\hat q_{1})) \sqsubseteq \gamma(\Out(\hat q_{1} \sqcup \hat q_{2}))$ and $\gamma(\Out(\hat q_{2})) \sqsubseteq \gamma(\Out(\hat q_{1} \sqcup \hat q_{2}))$.
+
+\item For any $\hat x$, if $\Out(\hat p_{1}) \sqsubseteq \Out(\hat x)$ and $\Out(\hat p_{2}) \sqsubseteq \Out(\hat x)$, then by property \todo{?} of $\Out(\cdot)$ we have that $\hat p_{1} \sqsubseteq \Out(\hat x)$ and $\hat p_{2} \sqsubseteq \Out(\hat x)$. It then follows by definition of $\sqcup$ that $\hat p_{1} \sqcup \hat p_{2} \sqsubseteq \Out(\hat x)$. Finally, using the reverse direction of property \todo{?} of $\Out(\cdot)$, we have that $\Out(\hat p_{1} \sqcup \hat p_{2}) \sqsubseteq \Out(\hat x)$.
+
+\end{enumerate}
+
+Finally, we know from the assumption that $\Out(\hat p_{1}) \sqsubseteq \gamma(\Out(\hat q_{1}))$ and $\Out(\hat p_{2}) \sqsubseteq \gamma(\Out(\hat q_{2}))$. That $\Out(\hat p_{1} \sqcup \hat p_{2}) \sqsubseteq \gamma(\Out(\hat q_{1} \sqcup \hat q_{2}))$ then follows directly from properties (1) and (2).
+
+%% ToDo: Show that refinement is implied as well for any further steps?
+
+% Join: $\hat p = \hat p_{1} \sqcup \hat p_{2}$: (1) $\hat p_{1} \sqsubseteq \hat p$ and $\hat p_{2} \sqsubseteq \hat p$, and (2) for all $\hat p'$, if $\hat p' \sqsubseteq \hat p_{1}$ and $\hat p' \sqsubseteq \hat p_{2}$, then $\hat p \sqsubseteq \hat p'$.
+
+% Out: $\Out(\hat p) \sqsubseteq \Out(\hat p') \iff \hat p \sqsubseteq \Out(\hat p')$ for all $\hat p, \hat p' \in \hat P$
+
+%%%%%%%%%%%%%%%%
+
+% We argue that, for any sequences of inputs $\hat I = \langle \hat \iota_{0}, \ldots \rangle \in \In(\hat P)^{+}$, the trajectories driven by $\hat I$ and starting from $\hat p_{1} \sqcup \hat p_{2}$ and $\hat q_{1} \sqcup \hat q_{2}$ will have ordered outputs. By lemma \todo{?}, then, we must have that $\hat p_{1} \sqcup \hat p_{2}$ refines $\hat q_{1} \sqcup \hat q_{2}$.
 
 %% ToDo: I feel this should be a proof by co-induction, but the reasoning is more or less the same when using induction.
 
-Let $\tau = \langle \tau_{0}, \ldots \rangle$ and $v = \langle v_{0}, \ldots \rangle$ be the trajectories starting from $\tau_{0} = \hat p_{1}$ and $v_{0} = \hat q_{1}$, such that $\tau_{n+1} = \hat M(\hat \iota_{n} \sqcap \tau_{n})$ and $v_{n+1} = \hat N(\alpha(\hat \iota_{n}) \sqcap v_{n})$ for all $n \in \mathbb{N} : n < | \hat I |$. Similarly, let $\tau'$ and $v'$ be the trajectory starting from $\hat p_{2}$ and $\hat q_{2}$, respectively. By the original assumption and lemma \todo{?}, we have that $\tau_{n} \cc v_{n}$ and $\tau_{n}' \cc v_{n}'$ for all $n$. By the first simulation property of $\cc$, we in turn know that $\Out(\tau_{0}) \sqsubseteq \gamma(\Out(v_{0}))$ and $\Out(\tau_{0}') \sqsubseteq \gamma(\Out(v_{0}'))$. It then follows by the definition of $\sqcup$ and the monotonicity of $\Out(\cdot)$ and $\gamma$, that $\Out(\tau_{n}) \sqsubseteq \gamma(\Out(v_{n} \sqcup v_{n}'))$ and therefore $\Out(\tau_{n} \sqcup \tau_{n}') \sqsubseteq \gamma(\Out(v_{n} \sqcup v_{n}'))$.
+% Let $\tau = \langle \tau_{0}, \ldots \rangle$ and $v = \langle v_{0}, \ldots \rangle$ be the trajectories starting from $\tau_{0} = \hat p_{1}$ and $v_{0} = \hat q_{1}$, such that $\tau_{n+1} = \hat M(\hat \iota_{n} \sqcap \tau_{n})$ and $v_{n+1} = \hat N(\alpha(\hat \iota_{n}) \sqcap v_{n})$ for all $n \in \mathbb{N} : n < | \hat I |$. Similarly, let $\tau'$ and $v'$ be the trajectory starting from $\hat p_{2}$ and $\hat q_{2}$, respectively. By the original assumption and lemma \todo{?}, we have that $\tau_{n} \cc v_{n}$ and $\tau_{n}' \cc v_{n}'$ for all $n$. By the first simulation property of $\cc$, we in turn know that $\Out(\tau_{0}) \sqsubseteq \gamma(\Out(v_{0}))$ and $\Out(\tau_{0}') \sqsubseteq \gamma(\Out(v_{0}'))$. It then follows by the definition of $\sqcup$ and the monotonicity of $\Out(\cdot)$ and $\gamma$, that $\Out(\tau_{n}) \sqsubseteq \gamma(\Out(v_{n} \sqcup v_{n}'))$ and therefore $\Out(\tau_{n} \sqcup \tau_{n}') \sqsubseteq \gamma(\Out(v_{n} \sqcup v_{n}'))$.
 
 %% We show by induction on $n$ that, if $\tau_{n} \cc v_{n}$ and $\tau_{n}' \cc v_{n}'$, then $\Out(\tau_{n} \sqcup \tau_{n}') \sqsubseteq \gamma(\Out(v_{n} \sqcup v_{n}'))$ for all $n$ and $\hat I$.
 
