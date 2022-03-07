@@ -33,7 +33,7 @@ The second lemma is show by induction on $n$. In the case when $n = 0$, the assu
 %% ToDo: Make sure trajectories are discussed before this.
 
 \begin{lemma}
-Always $(\bot \in \hat P) \cc \, (\bot \in \hat Q)$.
+$(\bot \in \hat P) \cc \, (\bot \in \hat Q)$.
 \end{lemma}
 
 A Galois connection always relates the two bottoms. Because $\hat M$ and $\hat N$ preserves bottom, any path that touches bottom must also stay in bottom, regardless of inputs. Thus, $\bot \in \hat P$ refines $\bot \in \hat Q$.
@@ -73,20 +73,18 @@ Finally, we know from the assumption that $\Out(\hat p_{1}) \sqsubseteq \gamma(\
 %% For the base case $n = 0$, we have that $\tau_{0} \cc v_{0}$ and $\tau_{0}' \cc v_{0}'$. By the first simulation property of $\cc$, we know that $\Out(\tau_{0}) \sqsubseteq \gamma(\Out(v_{0}))$ and $\Out(\tau_{0}') \sqsubseteq \gamma(\Out(v_{0}'))$. By definition of $\sqcup$ and the monotonicity of $\Out(\cdot)$ and $\gamma$, we have that $\Out(\tau_{0}) \sqsubseteq \gamma(\Out(v_{0} \sqcup v_{0}'))$ and therefore $\Out(\tau_{0} \sqcup \tau_{0}') \sqsubseteq \gamma(\Out(v_{0} \sqcup v_{0}'))$.
 
 \begin{lemma}
-$\hat p \cc \hat q \implies F(s)(\hat p) \cc G(s)(\hat q)$ for all $s \in S$
+If $\hat p \cc \hat q$, then $F(s)(\hat p) \cc G(s)(\hat q)$ for all $s \in S$
 \end{lemma}
 
 Expanding definitions, we see that $F(s)(\hat p) = \hat M(\pi_{a}(s) \sqcap \hat p)$ and $G(s)(\hat q) = \hat N(\alpha(\pi_{a}(s)) \sqcap \hat q)$ for some $\pi_{a}(s) \in \In(\hat P)$. That $F(s)(\hat p) \cc G(s)(\hat q)$ then follows from the second property of $\hat p \cc \hat q$.
 
 \begin{lemma}
-Let $S' \subseteq S$. If $\hat M \cc \hat N$ and $\hat p(s) \cc \hat q(s)$ for all $s \in R$, then it must be that $\sqcup \{ F(s)(\hat p(s)) \mid s \in S' \} \cc \sqcup \{ G(s)(\hat q(s)) \mid s \in S' \}$.
+If $\hat M \cc \hat N$ and $\hat p(s) \cc \hat q(s)$ for all $s \in S' \subseteq S$, then $\sqcup \{ F(s)(\hat p(s)) \mid s \in S' \} \cc \sqcup \{ G(s)(\hat q(s)) \mid s \in S' \}$.
 \end{lemma}
 
 %% By lemma \todo{?}, and the assumption that $\hat p(s) \cc \hat q(s)$, we know that $F(s)(\hat p(s)) \enc G(s)(\hat q(s))$ for all $s \in R$.
 
-Using induction on the size of $S'$, we show that the join of sets with such pairwise refined predicates also produces two predicates that also refine each other. In the base case, $| S' | = 0$, that $(\top \in \hat P) \cc (\top \in \hat Q)$ follows from the assumption that $\hat M \cc \hat N$. For the inductive step, $| R | = n$, let $\hat p' = \sqcup \{ F(s)(\hat p(s)) \mid s \in \: S' \}$ and $\hat q' = \sqcup \{ G(s)(\hat q(s)) \mid s \in \: S' \}$. Assume that $\hat p' \cc \hat q'$. We extend $S'$ with $s$. From lemma \todo{?} and our assumption $\forall s \in S' : \hat p(s) \cc \hat q(s)$, we know that $F(s)(\hat p(s)) \cc G(s)(\hat q(s))$. That $\hat p' \sqcup F(s)(\hat p(s)) \cc \hat q' \sqcup G(s)(\hat q(s))$ then follows from lemma \todo{?}.
-
-%% \textbf{Lemma (UM)}: Let $R \subseteq S$ then $\hat M \enc \hat N \wedge \forall s \in R : \hat p(s) \enc \hat q(s) \implies \sqcup \{ F(s)(\hat p(s)) \mid s \in \: R \} \enc \sqcup \{ G(s)(\hat q(s)) \mid s \in \: R \}$. By the assumption and lemma (FG) we know that $F(s)(\hat p(s) \enc G(s)(\hat q(s))$ for each $s \in R$. Using induction on the size of $R$, we show that the join of such sets pairwise encoded predicates also produces an encoded predicate. In the base case, $| R | = 0$, we have that $(\top \in \hat P) \enc \, (\top \in \hat Q)$ by the assumption that $\hat M \enc \hat N$. For the inductive step, $| R | = n$, let $\hat p' = \sqcup \{ F(s)(\hat p(s)) \mid s \in \: R \}$ and $\hat q' = \sqcup \{ G(s)(\hat q(s)) \mid s \in \: R \}$, we assume that $\hat p' \enc \hat q'$. We extend $R$ with $s$ and know from our assumption $\forall s \in R : \hat p(s) \enc \hat q(s)$ and lemma (FG) that $F(s)(\hat p(s)) \enc G(s)(\hat q(s))$. That $\hat p' \sqcup F(s)(\hat p(s)) \enc \hat q' \sqcup G(s)(\hat q(s))$ then follows from lemma (M).
+Using induction on the size of $S'$, we show that the join of sets with such pairwise refined predicates also produces two predicates that refine each other. In the base case, $| S' | = 0$, that $(\top \in \hat P) \cc \, (\top \in \hat Q)$ (union of $\emptyset$ is $\top$) follows from the assumption that $\hat M \cc \hat N$. For the inductive step, $| S' | = n$, let $\hat f = \sqcup \{ F(s)(\hat p(s)) \mid s \in \: S' \}$, let $\hat g = \sqcup \{ G(s)(\hat q(s)) \mid s \in \: S' \}$, and assume that $\hat f \cc \hat g$. We extend $S'$ with $s$, and show that $F(s)(\hat p(s)) \sqcup \hat f \cc G(s)(\hat q(s)) \sqcup \hat g$. From the assumption and lemma \todo{?}, it follows that $F(s)(\hat p(s) \cc G(s)(\hat q(s))$. Lemma \todo{?} then states that the union of two such refining pairs also refine each other.
 
 %% % Wasn't sure if $\sqcup \emptyset$ was $\top$ or $\bot$, so I deferred to https://math.stackexchange.com/questions/370188/empty-intersection-and-empty-union.
 
