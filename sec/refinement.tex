@@ -1,12 +1,18 @@
 \section{System refinement}
 
-Consider another fixed, but arbitrary, circuit model $N \in \mathcal{P}(C') \rightarrow \mathcal{P}(C')$ and let $\hat N \in \hat Q \rightarrow \hat Q$ be an abstract interpretation of it; $\hat Q$ is an abstract predicate with a Galois connection to $\mathcal{P}(C')$. In the previous sections, exactly what abstract predicates like $\hat Q$ are, were not important. In order to reason about refinement, however, we need to make a distinction between their \textit{visible} and internal elements. Specifically, \todo{we wish to say that} $\hat M$ refines $\hat N$ if every visible behaviour of $\hat M$ is allowed by $\hat N$ while assuming nothing about initial configurations.
+Consider another fixed, but arbitrary, circuit model $N \in \mathcal{P}(C') \rightarrow \mathcal{P}(C')$ and let $\hat N \in \hat Q \rightarrow \hat Q$ be an abstract interpretation of it; $\hat Q$ is an abstract predicate with a Galois connection to $\mathcal{P}(C')$. In the previous sections, exactly what abstract predicates like $\hat Q$ are, were not important. In order to reason about refinement, however, we need to make a distinction between their external and internal elements. Specifically, \todo{we wish to say that $\hat M$ refines $\hat N$ if every visible behaviour of $\hat M$ is allowed by $\hat N$ while assuming nothing about initial configurations}.
 
-Let the visible elements of an abstract predicate $\hat P$ be those given by two monotone and idempotent mappings, $\In \in \hat P \rightarrow \hat P$ and $\Out \in \hat P \rightarrow \hat P$, which identify the ``inputs'' and ``outputs'' of $\hat P$, respectively. Further, let $\In(\cdot)$ and $\Out(\cdot)$ identify the most general state that satisfy their constraints: $\In(\hat p) \sqsubseteq \In(\hat p') \iff \hat p \sqsubseteq \In(\hat p')$ and $\Out(\hat p) \sqsubseteq \Out(\hat p') \iff \hat p \sqsubseteq \Out(\hat p')$ for all $\hat p, \hat p' \in \hat P$. An \textit{input} of $\hat P$ is thus the greatest predicate $\hat \iota \in \hat P = \In(\hat \iota)$ for some input constraints; the set of all possible inputs is defined as $\In(\hat P) = \{ \In(\hat p) \mid \hat p \in \hat P \}$. In the case of $\mathbb{T}_{\bot}^{3}$, for example, $\In(\cdot)$ and $\Out(\cdot)$ could be defined as:
+Let the visible elements of an abstract predicate $\hat P$ be those given by two mappings, $\In \in \hat P \rightarrow \hat P$ and $\Out \in \hat P \rightarrow \hat P$, such that both are idempotent, i.e. $\Out(\Out(\hat p)) = \Out(\hat p)$; are montonic, i.e. $\hat p \sqsubseteq \hat q \implies \Out(\hat p) \sqsubseteq \Out(\hat q)$; and produce the greatest bound for an input and output, i.e. $\Out(\hat p) \sqsubseteq \Out(\hat q) \iff \hat p \sqsubseteq \Out(\hat q)$. An \textit{input} or \textit{output} of $\hat P$ are thus predicates $\hat \iota, \hat \omicron \in \hat P$ such that $\hat \iota = \In(\hat \iota)$ and $\hat \omicron = \Out(\hat \omicron)$; the set of all possible inputs is defined as $\In(\hat P) = \{ \In(\hat p) \mid \hat p \in \hat P \}$. In the case of $\mathbb{T}_{\bot}^{3}$, for example, $\In(\cdot)$ and $\Out(\cdot)$ could be defined as:
 
-%% ToDo: Can we show that in & out are montonic for their "most general" property, rather than demand it?
+%% ... which identify the ``inputs'' and ``outputs'' of $\hat P$, respectively.
 
-%% Similarly, an \textit{output} is the greatest $\hat \omicron \in \hat P$ for some output constraints.
+%% All visible elements of a predicate is identified thus: $\Vis(\hat p) = \In(\hat p) \sqcap \Out(\hat p)$.
+
+%% The response of $\hat M$ in state $\hat p$ to an input $\hat \iota$ is given by $\hat M(\hat \iota \sqcap \hat p)$.
+
+%% ToDo: I actually don't use the fact that In & Out are idempotent?
+
+%% ToDo: Can we show some properties entail others?
 
 \begin{equation*}
 \begin{aligned}[t]
@@ -19,10 +25,6 @@ Let the visible elements of an abstract predicate $\hat P$ be those given by two
 \Out(\bot) &= \bot
 \end{aligned}
 \end{equation*}
-
-%% All visible elements of a predicate is identified thus: $\Vis(\hat p) = \In(\hat p) \sqcap \Out(\hat p)$.
-
-%% The response of $\hat M$ in state $\hat p$ to an input $\hat \iota$ is given by $\hat M(\hat \iota \sqcap \hat p)$.
 
 \noindent With a slight abuse of notation, we overload both $\In(\cdot)$ and $\Out(\cdot)$ to accept predicates from $\hat Q$.
 

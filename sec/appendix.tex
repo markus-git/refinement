@@ -80,8 +80,6 @@ If $\hat M \cc \hat N$, then $\Phi_{*}(s) \cc \Psi_{*}(s)$ for all $s \in S$
 
 Since $\Phi_{*}(s) = \lim \, \Phi_{n}(s)$ and $\Psi_{*}(s) = \lim \, \Psi_{n}(s)$, it suffices to prove that $\Phi_{n}(s) \cc \Psi_{n}(s)$ for all $s \in S$ and $n \in \mathbb{N}$. We do so by induction on $n$. The base case, where $\Phi_{0}(s) = \bot \in \hat P$ and $\Psi_{0}(s) = \bot \in \hat Q$, follows from lemma~\ref{lem:bot-refine-bot}. For the inductive step, assume that $\Phi_{n}(s) \cc \Psi_{n}(s)$ for all $s \in S$. For $s = s_{0}$, we have that $\Phi_{n+1}(s_{0}) = \top \in \hat P$ and $\Psi_{n+1}(s_{0}) = \top \in \hat Q$, which follows from the assumption $\hat M \cc \hat N$. For any $s \neq s_{0}$, we have that $\Phi_{n+1}(s) = \mathcal{F}(\Phi_{n})(s) = \sqcup \{ F(s')(\Phi_{n}(s')) \mid (s',s) \in R \}$ and $\Psi_{n+1}(s) = \mathcal{G}(\Psi_{n})(s) = \sqcup \{ G(s')(\Psi_{n}(s')) \mid (s',s) \in R \}$. By the induction hypothesis and lemma~\ref{lem:uF-refine-uG}, $\Phi_{n+1}(s) \cc \Psi_{n+1}(s)$ for all $s \in S$. $\qedb$
 
-% ... \cc \sqcup \{ F(s')(\Psi_{n}(s')) \mid (s',s) \in R \} \cc \sqcup \{ G(s')(\Psi_{n}(s')) \mid (s',s) \in R \} = \mathcal{G}(\Psi_{n})(s) = \Psi_{n+1}(s)$.
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Old proofs.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
