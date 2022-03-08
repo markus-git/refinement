@@ -40,12 +40,12 @@ M_{F}(\cup Q) = \cup \{ M_{F}(q) \mid q \in Q \}
 
 \noindent for all $Q \subseteq \mathcal{P}(C)$. Any $M_{F}$ that satisfies this distributive property also defines a $M_{R}$ through the equivalence $(c,c') \in M_{R} \iff c' \in M_{F}(\{ c \})$, that is to say, there is no loss of information going from $M_{R}$ to $M_{F}$ or vice versa. We adopt this functional model of $M$ and drop its subscript. It follows its distributivity that $M$ also preserves the empty set of constraints, i.e. $M(\emptyset) = \emptyset$, and that $M$ is monotonic, i.e. $p \subseteq q \implies M(p) \subseteq M(q)$ for all $p, q \in \mathcal{P}(C)$.
 
-In practice, signals in $M$ are typically divided into ``input'' signals and ``output'' or ``internal'' signals. While an input signal is typically controlled by the external environment, and thus unconstrained by $M$ itself, non-input signals are determined by the circuit topology and functionality. For example, supposed $M$ is the earlier example of a unit-delayed two-input AND gate, we could then define its model $\mathcal{M} \in \mathcal{P}(\mathbb{B}^{3}) \rightarrow \mathcal{P}(\mathbb{B}^{3})$ as:
+In practice, signals in $M$ are typically divided into ``input'' signals and ``output'' or ``internal'' signals. While an input signal is typically controlled by the external environment, and thus unconstrained by $M$ itself, non-input signals are determined by the circuit topology and functionality. For example, supposed $M$ is the earlier example of a unit-delayed two-input AND gate, we could then define its model $M \in \mathcal{P}(\mathbb{B}^{3}) \rightarrow \mathcal{P}(\mathbb{B}^{3})$ as:
 
 % although not required here
 
 \begin{equation*}
-\mathcal{M}(p) = \{ \langle b_{1}, b_{2}, i_{1} \wedge i_{2} \rangle \in \mathbb{B}^{3} \mid \langle i_{1}, i_{2}, o \rangle \in p \}
+M(p) = \{ \langle b_{1}, b_{2}, i_{1} \wedge i_{2} \rangle \in \mathbb{B}^{3} \mid \langle i_{1}, i_{2}, o \rangle \in p \}
 \end{equation*}
 
 \noindent Here $i_{1}$ and $i_{2}$ refer to the two inputs of the AND gate and $o$ the ignored output; $b_{1}$ and $b_{2}$ are unconstrained inputs in the new configuration.
