@@ -32,7 +32,9 @@ A Galois connection always relates the two bottoms. Because $\hat M$ and $\hat N
 If $\hat p_{1} \cc \hat q_{1}$ and $\hat p_{2} \cc \hat q_{2}$, then $(\hat p_{1} \sqcup \hat p_{2}) \cc \: (\hat q_{1} \sqcup \hat q_{2})$.
 \end{lemma}
 
-We show the first simulation property of $(\hat p_{1} \sqcup p_{2}) \cc \, (q_{1} \sqcup q_{2})$, that $\Out(\hat p_{1} \sqcup \hat p_{2}) \sqsubseteq \gamma(\Out(\hat q_{1} \sqcup \hat q_{2}))$, in two steps. First, we show that $\gamma(\Out(\hat q_{2})) \sqsubseteq \gamma(\Out(\hat q_{1} \sqcup \hat q_{2}))$ is an upper bound for $\gamma(\Out(\hat q_{1}))$ and $\gamma(\Out(\hat q_{2}))$. Secondly, that $\Out(\hat p_{1} \sqcup \hat p_{2})$ is less than or equal to any other output that is an upper bound on $\hat p_{1}$ and $\hat p_{2}$.
+Using the definition of $\cc$, we see that the assumption $\hat p_{1} \cc \hat q_{1}$ implies that $\sqcup \{ \hat p_{1} \} \cc \sqcap \{ \hat q_{1} \}$. As $\hat q_{1} \sqcap (\hat q_{1} \sqcup \hat q_{2}) = \hat q_{1}$, we also have $\sqcup \{ \hat p_{1} \} \cc \sqcap \{ \hat q_{1}, \hat q_{1} \sqcup \hat q_{2} \}$ and thus $\hat p_{1} \cc \hat q_{1} \sqcup \hat q_{2}$. A similar argument can be used to show $\hat p_{2} \cc \hat q_{1} \sqcup \hat q_{2}$. Since both $\hat p_{1}$ and $\hat p_{2}$ are refined by $\hat q_{1} \sqcup \hat q_{2}$, we must have that $\sqcup \{ \hat p_{1}, \hat p_{2} \} \cc \sqcap \{ \hat q_{1} \sqcup \hat q_{2} \}$ and thus $(\hat p_{1} \sqcup \hat p_{2}) \cc \, (\hat q_{1} \sqcup \hat q_{2})$. The joins of two pairs that refine each other are thus a valid refinement as well. We next show that \todo{it is visibly} a valid simulation relation as well.
+
+The first simulation property of $(\hat p_{1} \sqcup p_{2}) \cc \, (q_{1} \sqcup q_{2})$, that $\Out(\hat p_{1} \sqcup \hat p_{2}) \sqsubseteq \gamma(\Out(\hat q_{1} \sqcup \hat q_{2}))$, is shown in two steps. First, we show that $\gamma(\Out(\hat q_{2})) \sqsubseteq \gamma(\Out(\hat q_{1} \sqcup \hat q_{2}))$ is an upper bound for $\gamma(\Out(\hat q_{1}))$ and $\gamma(\Out(\hat q_{2}))$. Secondly, that $\Out(\hat p_{1} \sqcup \hat p_{2})$ is less than or equal to any other output that is an upper bound on $\hat p_{1}$ and $\hat p_{2}$.
 
 \begin{enumerate}
 
@@ -44,9 +46,17 @@ We show the first simulation property of $(\hat p_{1} \sqcup p_{2}) \cc \, (q_{1
 
 %% ToDo: What's the name of the property?
 
-The assumption states that $\Out(\hat p_{1}) \sqsubseteq \gamma(\Out(\hat q_{1}))$ and $\Out(\hat p_{2}) \sqsubseteq \gamma(\Out(\hat q_{2}))$. It then follows from (1) and (2) that $\Out(\hat p_{1} \sqcup \hat p_{2}) \sqsubseteq \gamma(\Out(\hat q_{1} \sqcup \hat q_{2}))$.
+\noindent Combining (1) and (2) with the assumption that $\Out(\hat p_{1}) \sqsubseteq \gamma(\Out(\hat q_{1}))$, it follows immediately that $\Out(\hat p_{1} \sqcup \hat p_{2}) \sqsubseteq \gamma(\Out(\hat q_{1} \sqcup \hat q_{2}))$.
 
-The second simulation property of $(\hat p_{1} \sqcup p_{2}) \cc \, (q_{1} \sqcup q_{2})$, that $\hat M(\hat \iota \sqcap (\hat p_{1} \sqcup \hat p_{2})) \cc \hat N(\alpha(\hat \iota) \sqcap (\hat q_{1} \sqcup \hat q_{2}))$ for all inputs $\hat \iota \in \In(\hat P)$, $\ldots$ From the assumption we know that $\hat M(\hat \iota \sqcap \hat p_{1}) \cc \hat N(\alpha(\hat \iota) \sqcap \hat q_{1})$ and $\hat M(\hat \iota \sqcap \hat p_{2}) \cc \hat N(\alpha(\hat \iota) \sqcap \hat q_{2})$ for all inputs $\hat \iota \in \In(\hat P)$
+The second simulation property of $(\hat p_{1} \sqcup p_{2}) \cc \, (q_{1} \sqcup q_{2})$, that $\hat M(\hat \iota \sqcap (\hat p_{1} \sqcup \hat p_{2})) \cc \hat N(\alpha(\hat \iota) \sqcap (\hat q_{1} \sqcup \hat q_{2}))$ for all inputs $\hat \iota \in \In(\hat P)$, $\ldots$ From the assumption we know that $\hat M(\hat \iota \sqcap \hat p_{1}) \cc \hat N(\alpha(\hat \iota) \sqcap \hat q_{1})$ and $\hat M(\hat \iota \sqcap \hat p_{2}) \cc \hat N(\alpha(\hat \iota) \sqcap \hat q_{2})$ for all inputs $\hat \iota \in \In(\hat P)$.
+
+.
+
+\todo{Let $\cc \, \subseteq \hat P \times \hat Q$, such that for all $\hat P' \subseteq \hat P$ and $\hat Q' \subseteq \hat Q$}:
+
+\begin{equation*}
+\forall \hat p \in \hat P' : \forall \hat q \in \hat Q' : \hat p \cc \hat q \iff \sqcup \hat P' \cc \sqcap \hat Q'
+\end{equation*}
 
 .
 
