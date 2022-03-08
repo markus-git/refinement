@@ -32,21 +32,23 @@ A Galois connection always relates the two bottoms. Because $\hat M$ and $\hat N
 If $\hat p_{1} \cc \hat q_{1}$ and $\hat p_{2} \cc \hat q_{2}$, then $(\hat p_{1} \sqcup \hat p_{2}) \cc \: (\hat q_{1} \sqcup \hat q_{2})$.
 \end{lemma}
 
-We show that $\Out(\hat p_{1} \sqcup \hat p_{2}) \sqsubseteq \gamma(\Out(\hat q_{1} \sqcup \hat q_{2}))$ in two steps. First, we show that $\gamma(\Out(\hat q_{2})) \sqsubseteq \gamma(\Out(\hat q_{1} \sqcup \hat q_{2}))$ is an upper bound for $\gamma(\Out(\hat q_{1}))$ and $\gamma(\Out(\hat q_{2}))$. Secondly, that $\Out(\hat p_{1} \sqcup \hat p_{2})$ is less than or equal to any other output that is an upper bound on $\hat p_{1}$ and $\hat p_{2}$.
+We show the first simulation property of $(\hat p_{1} \sqcup p_{2}) \cc \, (q_{1} \sqcup q_{2})$, that $\Out(\hat p_{1} \sqcup \hat p_{2}) \sqsubseteq \gamma(\Out(\hat q_{1} \sqcup \hat q_{2}))$, in two steps. First, we show that $\gamma(\Out(\hat q_{2})) \sqsubseteq \gamma(\Out(\hat q_{1} \sqcup \hat q_{2}))$ is an upper bound for $\gamma(\Out(\hat q_{1}))$ and $\gamma(\Out(\hat q_{2}))$. Secondly, that $\Out(\hat p_{1} \sqcup \hat p_{2})$ is less than or equal to any other output that is an upper bound on $\hat p_{1}$ and $\hat p_{2}$.
 
 \begin{enumerate}
 
 \item By definition of $\sqcup$, we know that $\hat q_{1} \sqsubseteq \hat q_{1} \sqcup \hat q_{2}$ and $\hat q_{1} \sqsubseteq \hat q_{1} \sqcup \hat q_{2}$. It then follows from the monotonicity of $\Out(\cdot)$ and $\gamma$ that $\gamma(\Out(\hat q_{1})) \sqsubseteq \gamma(\Out(\hat q_{1} \sqcup \hat q_{2}))$ and $\gamma(\Out(\hat q_{2})) \sqsubseteq \gamma(\Out(\hat q_{1} \sqcup \hat q_{2}))$.
 
-\item For any $\hat x$, if $\Out(\hat p_{1}) \sqsubseteq \Out(\hat x)$ and $\Out(\hat p_{2}) \sqsubseteq \Out(\hat x)$, then by \todo{property ?} of $\Out(\cdot)$ we have that $\hat p_{1} \sqsubseteq \Out(\hat x)$ and $\hat p_{2} \sqsubseteq \Out(\hat x)$. It then follows by definition of $\sqcup$ that $\hat p_{1} \sqcup \hat p_{2} \sqsubseteq \Out(\hat x)$. Using \todo{property ?} of $\Out(\cdot)$ once more, we have that $\Out(\hat p_{1} \sqcup \hat p_{2}) \sqsubseteq \Out(\hat x)$.
+\item For any $\hat x$, if $\Out(\hat p_{1}) \sqsubseteq \Out(\hat x)$ and $\Out(\hat p_{2}) \sqsubseteq \Out(\hat x)$, then by \todo{property 3} of $\Out(\cdot)$ we have that $\hat p_{1} \sqsubseteq \Out(\hat x)$ and $\hat p_{2} \sqsubseteq \Out(\hat x)$. It then follows by definition of $\sqcup$ that $\hat p_{1} \sqcup \hat p_{2} \sqsubseteq \Out(\hat x)$. Using the other direction of \todo{property 3} for $\Out(\cdot)$, we have that $\Out(\hat p_{1} \sqcup \hat p_{2}) \sqsubseteq \Out(\hat x)$.
 
 \end{enumerate}
 
 %% ToDo: What's the name of the property?
 
-The assumption states that $\Out(\hat p_{1}) \sqsubseteq \gamma(\Out(\hat q_{1}))$ and $\Out(\hat p_{2}) \sqsubseteq \gamma(\Out(\hat q_{2}))$. It then follows from (1) and (2) that $\Out(\hat p_{1} \sqcup \hat p_{2}) \sqsubseteq \gamma(\Out(\hat q_{1} \sqcup \hat q_{2}))$. $\qedb$
+The assumption states that $\Out(\hat p_{1}) \sqsubseteq \gamma(\Out(\hat q_{1}))$ and $\Out(\hat p_{2}) \sqsubseteq \gamma(\Out(\hat q_{2}))$. It then follows from (1) and (2) that $\Out(\hat p_{1} \sqcup \hat p_{2}) \sqsubseteq \gamma(\Out(\hat q_{1} \sqcup \hat q_{2}))$.
 
-%% ToDo: Show that refinement is implied as well for any further steps?
+The second simulation property of $(\hat p_{1} \sqcup p_{2}) \cc \, (q_{1} \sqcup q_{2})$, that $\hat M(\hat \iota \sqcap (\hat p_{1} \sqcup \hat p_{2})) \cc \hat N(\alpha(\hat \iota) \sqcap (\hat q_{1} \sqcup \hat q_{2}))$ for all inputs $\hat \iota \in \In(\hat P)$, $\ldots$ From the assumption we know that $\hat M(\hat \iota \sqcap \hat p_{1}) \cc \hat N(\alpha(\hat \iota) \sqcap \hat q_{1})$ and $\hat M(\hat \iota \sqcap \hat p_{2}) \cc \hat N(\alpha(\hat \iota) \sqcap \hat q_{2})$ for all inputs $\hat \iota \in \In(\hat P)$
+
+.
 
 We duplicate some of the earlier definitions in order to differentiate between the fixpoints and functions used to determine satisfaction for $\hat M$ and $\hat N$. Specifically, let $G$, $\mathcal{G}$ and $\Psi$ be equivalent to the earlier operations $F$, $\mathcal{F}$ and $\Phi$ for $\hat M$, respectively, but defined in terms of $\hat N$:
 
