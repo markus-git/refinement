@@ -4,17 +4,17 @@
 
 We first prove a few intermediate lemmas.
 
-\begin{lemma}
-Let $\langle \hat p_{0}, \ldots \rangle \in \hat P^{+}$ and $\langle \hat q_{0}, \ldots \rangle \in \hat Q^{+}$ be the trajectories induced by some driver $\hat I \in \In(\hat P)$ and its abstraction $\alpha(\hat I)$, respectively. Then for all $\hat I$ and $n \in \mathbb{N} : n \leq | \hat I |$:
-\begin{enumerate}
-  \item $\Out(\hat p_{n}) \sqsubseteq \gamma(\Out(\hat q_{n})) \implies \hat p_{0} \cc \hat q_{0}$.
-  \item $\hat p_{0} \cc \hat q_{0} \implies \hat p_{n} \cc \hat q_{n}$.
-\end{enumerate}
-\end{lemma}
+%% \begin{lemma}
+%% Let $\langle \hat p_{0}, \ldots \rangle \in \hat P^{+}$ and $\langle \hat q_{0}, \ldots \rangle \in \hat Q^{+}$ be the trajectories induced by some driver $\hat I \in \In(\hat P)$ and its abstraction $\alpha(\hat I)$, respectively. Then for all $\hat I$ and $n \in \mathbb{N} : n \leq | \hat I |$:
+%% \begin{enumerate}
+%%   \item $\Out(\hat p_{n}) \sqsubseteq \gamma(\Out(\hat q_{n})) \implies \hat p_{0} \cc \hat q_{0}$.
+%%   \item $\hat p_{0} \cc \hat q_{0} \implies \hat p_{n} \cc \hat q_{n}$.
+%% \end{enumerate}
+%% \end{lemma}
 
-\todo{We show the first item by \ldots co-induction?}
+%% \todo{We show the first item by \ldots co-induction?}
 
-\todo{The second item follows from \ldots the simulation realionship for $\hat p_{0}$ and $\hat q_{0}$.}
+%% \todo{The second item follows from \ldots the simulation realionship for $\hat p_{0}$ and $\hat q_{0}$.}
 
 % The second lemma is show by induction on $n$. In the case when $n = 0$, the assumption directly states that $\hat p_{0} \cc \hat q_{0}$. For the inductive step $n > 0$, we must have that $\hat p_{n} = \hat M(\hat \iota \sqcap \hat p_{n-1})$ and $q_{n} = \hat N(\alpha(\hat \iota) \sqcap \hat q_{n-1})$ for some $\hat p_{n-1}$ and $\hat q_{n-1}$ such that $\hat p_{n-1} \cc \hat q_{n-1}$. That $\hat p_{n} \cc \hat q_{n}$ then follows immediately from the simulation property of refinement $\cc$.
 
@@ -32,9 +32,15 @@ A Galois connection always relates the two bottoms. Because $\hat M$ and $\hat N
 If $\hat p_{1} \cc \hat q_{1}$ and $\hat p_{2} \cc \hat q_{2}$, then $(\hat p_{1} \sqcup \hat p_{2}) \cc \: (\hat q_{1} \sqcup \hat q_{2})$.
 \end{lemma}
 
-Using the definition of $\cc$, we see that the assumption $\hat p_{1} \cc \hat q_{1}$ implies that $\sqcup \{ \hat p_{1} \} \cc \sqcap \{ \hat q_{1} \}$. As $\hat q_{1} \sqcap (\hat q_{1} \sqcup \hat q_{2}) = \hat q_{1}$, we also have $\sqcup \{ \hat p_{1} \} \cc \sqcap \{ \hat q_{1}, \hat q_{1} \sqcup \hat q_{2} \}$ and thus $\hat p_{1} \cc \hat q_{1} \sqcup \hat q_{2}$. A similar argument can be used to show $\hat p_{2} \cc \hat q_{1} \sqcup \hat q_{2}$. Since both $\hat p_{1}$ and $\hat p_{2}$ are refined by $\hat q_{1} \sqcup \hat q_{2}$, we must have that $\sqcup \{ \hat p_{1}, \hat p_{2} \} \cc \sqcap \{ \hat q_{1} \sqcup \hat q_{2} \}$ and thus $(\hat p_{1} \sqcup \hat p_{2}) \cc \, (\hat q_{1} \sqcup \hat q_{2})$. The joins of two pairs that refine each other are thus a valid refinement as well. We next show that \todo{it is visibly} a valid simulation relation as well.
+To prove our lemma, we must show that three properties are fulfilled: $\hat p_{1} \sqcup \hat p_{2}$ must be a valid refinment for $\hat q_{1} \sqcup \hat q_{2}$, the output of $\hat p_{1} \sqcup \hat p_{2}$ must be more specific than that of $\hat q_{1} \sqcup \hat q_{2}$, and that each next step for $\hat p_{1} \sqcup \hat p_{2}$ is refined by the corresponding step in $\hat q_{1} \sqcup \hat q_{2}$. We prove these properties in order.
 
-The first simulation property of $(\hat p_{1} \sqcup p_{2}) \cc \, (q_{1} \sqcup q_{2})$, that $\Out(\hat p_{1} \sqcup \hat p_{2}) \sqsubseteq \gamma(\Out(\hat q_{1} \sqcup \hat q_{2}))$, is shown in two steps. First, we show that $\gamma(\Out(\hat q_{2})) \sqsubseteq \gamma(\Out(\hat q_{1} \sqcup \hat q_{2}))$ is an upper bound for $\gamma(\Out(\hat q_{1}))$ and $\gamma(\Out(\hat q_{2}))$. Secondly, that $\Out(\hat p_{1} \sqcup \hat p_{2})$ is less than or equal to any other output that is an upper bound on $\hat p_{1}$ and $\hat p_{2}$.
+Using the definition of $\cc$, we see that the assumption $\hat p_{1} \cc \hat q_{1}$ implies that $\sqcup \{ \hat p_{1} \} \cc \sqcap \{ \hat q_{1} \}$. As $\hat q_{1} \sqcap (\hat q_{1} \sqcup \hat q_{2}) = \hat q_{1}$, we also have $\sqcup \{ \hat p_{1} \} \cc \sqcap \{ \hat q_{1}, \hat q_{1} \sqcup \hat q_{2} \}$ and thus $\hat p_{1} \cc \hat q_{1} \sqcup \hat q_{2}$. A similar argument can be used to show $\hat p_{2} \cc \hat q_{1} \sqcup \hat q_{2}$. Since both $\hat p_{1}$ and $\hat p_{2}$ are refined by $\hat q_{1} \sqcup \hat q_{2}$, we must have that $\sqcup \{ \hat p_{1}, \hat p_{2} \} \cc \sqcap \{ \hat q_{1} \sqcup \hat q_{2} \}$ and thus $(\hat p_{1} \sqcup \hat p_{2}) \cc \, (\hat q_{1} \sqcup \hat q_{2})$.
+
+%% The joins of two pairs that refine each other are thus a valid refinement as well. We next show that \todo{it is visibly} a valid simulation relation as well.
+
+We show that the output of $\hat p_{1} \sqcup \hat p_{2}$ is more specific than that of $\hat q_{1} \sqcup \hat q_{2}$ in two steps: First, we show that $\gamma(\Out(\hat q_{2})) \sqsubseteq \gamma(\Out(\hat q_{1} \sqcup \hat q_{2}))$ is an upper bound for $\gamma(\Out(\hat q_{1}))$ and $\gamma(\Out(\hat q_{2}))$. Secondly, that $\Out(\hat p_{1} \sqcup \hat p_{2})$ is less than or equal to any other upper bound on the output of $\hat p_{1}$ and $\hat p_{2}$.
+
+%% The first simulation property of $(\hat p_{1} \sqcup p_{2}) \cc \, (q_{1} \sqcup q_{2})$, that $\Out(\hat p_{1} \sqcup \hat p_{2}) \sqsubseteq \gamma(\Out(\hat q_{1} \sqcup \hat q_{2}))$, is shown in two steps.
 
 \begin{enumerate}
 
@@ -46,21 +52,17 @@ The first simulation property of $(\hat p_{1} \sqcup p_{2}) \cc \, (q_{1} \sqcup
 
 %% ToDo: What's the name of the property?
 
-\noindent Combining (1) and (2) with the assumption that $\Out(\hat p_{1}) \sqsubseteq \gamma(\Out(\hat q_{1}))$, it follows immediately that $\Out(\hat p_{1} \sqcup \hat p_{2}) \sqsubseteq \gamma(\Out(\hat q_{1} \sqcup \hat q_{2}))$.
+\noindent Combining these two steps with the assumptions that $\Out(\hat p_{1}) \sqsubseteq \gamma(\Out(\hat q_{1}))$ and $\Out(\hat p_{2}) \sqsubseteq \gamma(\Out(\hat q_{2}))$, it follows immediately that $\Out(\hat p_{1} \sqcup \hat p_{2}) \sqsubseteq \gamma(\Out(\hat q_{1} \sqcup \hat q_{2}))$.
 
-The second simulation property of $(\hat p_{1} \sqcup p_{2}) \cc \, (q_{1} \sqcup q_{2})$, that $\hat M(\hat \iota \sqcap (\hat p_{1} \sqcup \hat p_{2})) \cc \hat N(\alpha(\hat \iota) \sqcap (\hat q_{1} \sqcup \hat q_{2}))$ for all inputs $\hat \iota \in \In(\hat P)$, $\ldots$ From the assumption we know that $\hat M(\hat \iota \sqcap \hat p_{1}) \cc \hat N(\alpha(\hat \iota) \sqcap \hat q_{1})$ and $\hat M(\hat \iota \sqcap \hat p_{2}) \cc \hat N(\alpha(\hat \iota) \sqcap \hat q_{2})$ for all inputs $\hat \iota \in \In(\hat P)$.
+Lastly, we show that any step taken from $\hat p_{1} \sqcup \hat p_{2}$ in response to some input $\hat \iota \in \In(\hat P)$ is refined by the corresponding step taken from $\hat q_{1} \sqcup \hat q_{2}$. More specifically, we show that $\hat M(\hat \iota \sqcap (\hat p_{1} \sqcup \hat p_{2})) \cc \hat N(\alpha(\hat \iota) \sqcap (\hat q_{1} \sqcup \hat q_{2}))$ for all inputs $\hat \iota \in \In(\hat P)$. However, the reasoning we use to prove this last property is quite similar to the first one. Consider an arbitrary $\hat \iota \in \In(\hat P)$ and note that $\hat N(\alpha(\hat \iota) \sqcap \hat q)$ is a monotone transformation for any $\hat q \in \hat Q$. $\hat N(\alpha(\hat \iota) \sqcap \hat q_{1})$ must therefore be the meet of $\hat N(\alpha(\hat \iota) \sqcap \hat q_{1})$ and $\hat N(\alpha(\hat \iota) \sqcap (\hat q_{1} \sqcup \hat q_{2}))$, thus $\hat M(\hat \iota \sqcap \hat p_{1}) \cc \hat N(\alpha(\hat \iota) \sqcap (\hat q_{1} \sqcup \hat q_{2}))$. A similar argument can be used to show that $\hat M(\hat \iota \sqcap \hat p_{2}) \cc \hat N(\alpha(\hat \iota) \sqcap (\hat q_{1} \sqcup \hat q_{2}))$. As $\hat M(\hat \iota \sqcap \hat p)$ is also a monotone transformation for any $\hat p \in \hat P$, we must have that $\hat M(\hat \iota \sqcap (\hat p_{1} \sqcup \hat p_{2})) \cc \hat N(\alpha(\hat \iota) \sqcap (\hat q_{1} \sqcup \hat q_{2}))$ for any $\hat \iota \in \In(\hat P)$. $\qedb$
 
-.
+% Considering an arbitrary $\hat \iota$ and letting $f(\hat x) = \hat N(\alpha(\hat \iota) \sqcap \hat x)$ we note that $f$ is monotone .
 
-\todo{Let $\cc \, \subseteq \hat P \times \hat Q$, such that for all $\hat P' \subseteq \hat P$ and $\hat Q' \subseteq \hat Q$}:
+%% The second simulation property of $(\hat p_{1} \sqcup p_{2}) \cc \, (q_{1} \sqcup q_{2})$, that $\hat M(\hat \iota \sqcap (\hat p_{1} \sqcup \hat p_{2})) \cc \hat N(\alpha(\hat \iota) \sqcap (\hat q_{1} \sqcup \hat q_{2}))$ for all inputs $\hat \iota \in \In(\hat P)$, $\ldots$ From the assumption we know that $\hat M(\hat \iota \sqcap \hat p_{1}) \cc \hat N(\alpha(\hat \iota) \sqcap \hat q_{1})$ and $\hat M(\hat \iota \sqcap \hat p_{2}) \cc \hat N(\alpha(\hat \iota) \sqcap \hat q_{2})$ for all inputs $\hat \iota \in \In(\hat P)$.
 
-\begin{equation*}
-\forall \hat p \in \hat P' : \forall \hat q \in \hat Q' : \hat p \cc \hat q \iff \sqcup \hat P' \cc \sqcap \hat Q'
-\end{equation*}
+The following lemmas regard the fix-points and functions used to determine satisfaction of a trajectory assertion in $\hat M$ and $\hat N$. To clarify which definitions are used with $\hat N$ and which are used with $\hat N$, we first duplicate some of these definitions. Specifically, let $G$, $\mathcal{G}$ and $\Psi$ be equivalent to the earlier operations $F$, $\mathcal{F}$ and $\Phi$ for $\hat M$, respectively, but defined in terms of $\hat N$:
 
-.
-
-We duplicate some of the earlier definitions in order to differentiate between the fixpoints and functions used to determine satisfaction for $\hat M$ and $\hat N$. Specifically, let $G$, $\mathcal{G}$ and $\Psi$ be equivalent to the earlier operations $F$, $\mathcal{F}$ and $\Phi$ for $\hat M$, respectively, but defined in terms of $\hat N$:
+%% in order to differentiate between the fix-points and functions used to determine satisfaction for $\hat M$ and $\hat N$.
 
 \begin{align*}
 G(s)(\hat q) &= \hat N(\alpha(\pi_{a}(s)) \sqcap \hat q) \\
@@ -79,7 +81,7 @@ If $\hat p \cc \hat q$, then $F(s)(\hat p) \cc G(s)(\hat q)$ for all $s \in S$
 Expanding definitions, we see that $F(s)(\hat p) = \hat M(\pi_{a}(s) \sqcap \hat p)$ and $G(s)(\hat q) = \hat N(\alpha(\pi_{a}(s)) \sqcap \hat q)$ for some $\pi_{a}(s) \in \In(\hat P)$. That $F(s)(\hat p) \cc G(s)(\hat q)$ then follows from the second property of $\hat p \cc \hat q$.
 
 \begin{lemma} \label{lem:uF-refine-uG}
-If $\hat M \cc \hat N$ and $\hat p(s) \cc \hat q(s)$ for all $s \in S' \subseteq S$, then $\sqcup \{ F(s)(\hat p(s)) \mid s \in S' \} \cc \sqcup \{ G(s)(\hat q(s)) \mid s \in S' \}$.
+If $\hat M \cc \hat N$ and $\hat p(s) \cc \hat q(s)$ for all $s \in S' \subseteq S$, then it must be that $\sqcup \{ F(s)(\hat p(s)) \mid s \in S' \} \cc \sqcup \{ G(s)(\hat q(s)) \mid s \in S' \}$.
 \end{lemma}
 
 Using induction on the size of $S'$, we show that the join of sets with such pairwise refined predicates also produces two predicates that refine each other. In the base case, $| S' | = 0$, that $(\top \in \hat P) \cc \, (\top \in \hat Q)$ (union of $\emptyset$ is $\top$) follows from the assumption that $\hat M \cc \hat N$. For the inductive step, $| S' | = n$, let $\hat f = \sqcup \{ F(s)(\hat p(s)) \mid s \in \: S' \}$, let $\hat g = \sqcup \{ G(s)(\hat q(s)) \mid s \in \: S' \}$, and assume that $\hat f \cc \hat g$. We extend $S'$ with $s$, and show that $F(s)(\hat p(s)) \sqcup \hat f \cc G(s)(\hat q(s)) \sqcup \hat g$. From the assumption, and lemma~\ref{lem:F-refine-G}, it follows that $F(s)(\hat p(s) \cc G(s)(\hat q(s))$. Lemma~\ref{lem:join-refine} then states that the union of two such refining pairs also refine each other. $\qedb$
@@ -90,7 +92,7 @@ Using induction on the size of $S'$, we show that the join of sets with such pai
 If $\hat M \cc \hat N$, then $\Phi_{*}(s) \cc \Psi_{*}(s)$ for all $s \in S$
 \end{lemma}
 
-Since $\Phi_{*}(s) = \lim \, \Phi_{n}(s)$ and $\Psi_{*}(s) = \lim \, \Psi_{n}(s)$, it suffices to prove that $\Phi_{n}(s) \cc \Psi_{n}(s)$ for all $s \in S$ and $n \in \mathbb{N}$. We do so by induction on $n$. The base case, where $\Phi_{0}(s) = \bot \in \hat P$ and $\Psi_{0}(s) = \bot \in \hat Q$, follows from lemma~\ref{lem:bot-refine-bot}. For the inductive step, assume that $\Phi_{n}(s) \cc \Psi_{n}(s)$ for all $s \in S$. For $s = s_{0}$, we have that $\Phi_{n+1}(s_{0}) = \top \in \hat P$ and $\Psi_{n+1}(s_{0}) = \top \in \hat Q$, which follows from the assumption $\hat M \cc \hat N$. For any $s \neq s_{0}$, we have that $\Phi_{n+1}(s) = \mathcal{F}(\Phi_{n})(s) = \sqcup \{ F(s')(\Phi_{n}(s')) \mid (s',s) \in R \}$ and $\Psi_{n+1}(s) = \mathcal{G}(\Psi_{n})(s) = \sqcup \{ G(s')(\Psi_{n}(s')) \mid (s',s) \in R \}$. By the induction hypothesis and lemma~\ref{lem:uF-refine-uG}, $\Phi_{n+1}(s) \cc \Psi_{n+1}(s)$ for all $s \in S$. $\qedb$
+Since $\Phi_{*}(s) = \lim \, \Phi_{n}(s)$ and $\Psi_{*}(s) = \lim \, \Psi_{n}(s)$, it suffices to prove that $\Phi_{n}(s) \cc \Psi_{n}(s)$ for all $s \in S$ and $n \in \mathbb{N}$. We do so by induction on $n$. The base case, where $\Phi_{0}(s) = \bot \in \hat P$ and $\Psi_{0}(s) = \bot \in \hat Q$, follows from lemma~\ref{lem:bot-refine-bot}. For the inductive step, assume that $\Phi_{n}(s) \cc \Psi_{n}(s)$ for all $s \in S$. For $s = s_{0}$, we have that $\Phi_{n+1}(s_{0}) = \top \in \hat P$ and $\Psi_{n+1}(s_{0}) = \top \in \hat Q$, which follows from the assumption $\hat M \cc \hat N$. For any $s \neq s_{0}$, we have that $\Phi_{n+1}(s) = \mathcal{F}(\Phi_{n})(s) = \sqcup \{ F(s')(\Phi_{n}(s')) \mid (s',s) \in R \}$ and $\Psi_{n+1}(s) = \mathcal{G}(\Psi_{n})(s) = \sqcup \{ G(s')(\Psi_{n}(s')) \mid (s',s) \in R \}$. By the induction hypothesis and lemma~\ref{lem:uF-refine-uG}: $\Phi_{n+1}(s) \cc \Psi_{n+1}(s)$ for all $s \in S$. $\qedb$
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Old proofs.
