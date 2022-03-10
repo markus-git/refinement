@@ -4,7 +4,7 @@ Consider another fixed, but arbitrary, circuit model $N \in \mathcal{P}(C') \rig
 
 \subsection{Refinement through visible simulation}
 
-\subsubsection{Externally visible elements} Let the output of an abstract predicate $\hat P$ be identified by the mapping $\Out \in \hat P \rightarrow \hat P$, such that $\Out(\cdot)$ is monotonic, i.e. $\hat p \sqsubseteq \hat q \implies \Out(\hat p) \sqsubseteq \Out(\hat q)$; and produces the greatest bound for an output, i.e. $\Out(\hat p) \sqsubseteq \Out(\hat q) \iff \hat p \sqsubseteq \Out(\hat q)$. In a similar vein, let the inputs of an abstract predicate $\hat P$ be identified by another mapping, $\In \in \hat P \rightarrow \hat P$; the set of all possible inputs for $\hat P$ is defined as $\In(\hat P) = \{ \In(\hat p) \mid \hat p \in \hat P \}$. With a slight abuse of notation, we overload $\Out(\cdot)$ to accept predicates from $\hat Q$.
+\subsubsection{Externally visible elements} Let the output of an abstract predicate $\hat P$ be identified by the mapping $\Out \in \hat P \rightarrow \hat P$, such that $\Out(\cdot)$ is monotonic, i.e. $\hat p \sqsubseteq \hat q \implies \Out(\hat p) \sqsubseteq \Out(\hat q)$; and produces the greatest bound for an output, i.e. $\Out(\hat p) \sqsubseteq \Out(\hat q) \iff \hat p \sqsubseteq \Out(\hat q)$. In a similar vein, let the inputs of an abstract predicate $\hat P$ be identified by another mapping, $\In \in \hat P \rightarrow \hat P$. The sets of all possible inputs and outputs for $\hat P$ are defined as $\In(\hat P) = \{ \In(\hat p) \mid \hat p \in \hat P \}$ and $\Out(\hat P) = \{ \Out(\hat p) \mid \hat p \in \hat P \}$, respectively. With a slight abuse of notation, we overload $\Out(\cdot)$ to accept predicates from $\hat Q$.
 
 In the case of an unit-delayed AND gate and its predicates $\langle p_{0}, p_{1}, p_{2} \rangle \in \mathbb{T}_{\bot}^{3}$, for example, $\In(\cdot)$ and $\Out(\cdot)$ can be defined as projections which maps each non-input and non-output element to $\X$, respectively:
 
@@ -32,7 +32,7 @@ In the case of an unit-delayed AND gate and its predicates $\langle p_{0}, p_{1}
 
 \subsubsection{Visible simulation as a Galois connection}
 
-Let $\cc \, \subseteq \hat P \times \hat Q$, where $\hat p \cc \hat q$ reads as ``$\hat p$ refines $\hat q$'', be a Galois connection such that for all $\hat P' \subseteq \hat P$ and $\hat Q' \subseteq \hat Q$:
+Let $\cc \, \subseteq \hat P \times \hat Q$ be a Galois connection, where $\hat p \cc \hat q$ reads as ``$\hat p$ refines $\hat q$'', such that for all $\hat P' \subseteq \hat P$ and $\hat Q' \subseteq \hat Q$:
 
 \begin{equation*}
 \forall \hat p \in \hat P' : \forall \hat q \in \hat Q' : \hat p \cc \hat q \iff \sqcup \hat P' \cc \sqcap \hat Q'
@@ -46,7 +46,7 @@ Let the binary relation $\cc$ be a simulation between the visible parts of $\hat
 
 \subsubsection{External trajectory assertions and satisfaction}
 
-A trajectory assertion $\hat A = (S, s_{0}, R, \pi_{a}, \pi_{c})$ for $\hat N$ where antecedents only mention inputs, $\pi_{a} \in S \rightarrow \In(\hat P)$, and consequents only mention outputs, $\pi_{c} \in S \rightarrow \Out(\hat P)$, is referred to as a \textit{visible trajectory assertion} and denoted by $\hat A_{vis}$. Define $\alpha(\hat A) = (S, s_{0}, R, \alpha(\pi_{a}), \alpha(\pi_{c}))$, where $\alpha(\pi_{a}) = \lambda s \in S : \alpha(\pi_{a}(s))$ and $\alpha(\pi_{a}) = \lambda s \in S : \alpha(\pi_{a}(s))$.
+Recall that a trajectory assertion for $\hat N$ is a quintuple $\hat A = (S, s_{0}, R, \pi_{a}, \pi_{c})$, where $\pi_{a} \in S \rightarrow \hat Q$ and $\pi_{c} \in S \rightarrow \hat Q$ label each state $s \in S$ with an antecedent $\pi_{a}(s)$ and a consequent $\pi_{c}(s)$. If these antecedents only mention inputs, i.e. $\pi_{a} \in S \rightarrow \In(\hat P)$, and consequents only mention outputs, i.e. $\pi_{c} \in S \rightarrow \Out(\hat P)$, then $\hat A$ is referred to as a \textit{visible trajectory assertion} for $\hat N$, which we denote by $\hat A_{vis}$. Define $\alpha(\hat A) = (S, s_{0}, R, \alpha(\pi_{a}), \alpha(\pi_{c}))$, where $\alpha(\pi_{a}) = \lambda s \in S : \alpha(\pi_{a}(s))$ and $\alpha(\pi_{a}) = \lambda s \in S : \alpha(\pi_{a}(s))$. Note that, if $\hat A_{vis}$ is an assertion for $\hat N$, then $\alpha(\hat A_{vis})$ is an assertion for $\hat M$.
 
 %% \todo{That is, $\alpha(\hat A)$ is a trajectory assertion for $\hat M$}.
 
@@ -54,16 +54,18 @@ A trajectory assertion $\hat A = (S, s_{0}, R, \pi_{a}, \pi_{c})$ for $\hat N$ w
 
 \begin{theorem}
 \label{thm:refinement}
-If $\hat M$ and $\hat N$ are abstract predicate transformers such that $\hat M \cc \hat N$, and $\hat A_{vis}$ is a trajectory assertion restricted to visible elements of $\hat N$, then:
+If $\hat M$ and $\hat N$ are abstract predicate transformers such that $\hat M \cc \hat N$, and $\hat A_{vis}$ is a visible trajectory assertion for $\hat N$, then:
 
 \begin{equation*}
 \hat N \models \hat A_{vis} \implies \hat M \models \alpha(\hat A_{vis})
 \end{equation*}
 \end{theorem}
 
+A common use of refinement is safe substitution of sub-circuits in a larger system, as refinement between the swapped components implies that any assertions satisfied by the original system would also be satisfied by the new one. We define the abstract interpretation of such composite systems as the product of its individual interpretations $\hat M_{c} = \hat M_{1} \times \ldots \times \hat M_{n}$.
+
 \begin{corollary}
 \label{thm:refinement-product}
-If $\hat N = \hat N_{1} \times \hat N_{2}$ is an abstract predicate transformer defined as the product of two transformers $\hat N_{1}$ and $\hat N_{2}$, and $\hat M$ is another transformer such that $\hat M \cc \hat N_{0}$, then for any trajectory assertion $\hat A_{vis}$ restricted to visible elements of $\hat N$ we must have that:
+If $\hat N_{1} \times \hat N_{2}$ and $\hat M$ are abstract predicate transformer such that $\hat M \cc \hat N_{1}$, and $\hat A$ is a trajectory assertion for $\hat N$, then:
 
 \begin{equation*}
 \hat N_{1} \times \hat N_{2} \models \hat A_{vis} \implies \hat M \times \hat N_{2} \models \hat A_{vis}
