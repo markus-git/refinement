@@ -1,30 +1,24 @@
 \section{System refinement}
 
-Consider another fixed, but arbitrary, circuit model $N \in \mathcal{P}(C') \rightarrow \mathcal{P}(C')$ and let $\hat N \in \hat Q \rightarrow \hat Q$ be an abstract interpretation of it; $\hat Q$ is an abstract predicate with a Galois connection to $\mathcal{P}(C')$. In the previous sections, exactly what abstract predicates like $\hat Q$ are, were not important. In order to reason about refinement, however, we need to make a distinction between their external and internal elements. Specifically, \todo{we wish to say that $\hat M$ refines $\hat N$ if every visible behaviour of $\hat M$ is allowed by $\hat N$ while assuming nothing about initial configurations}.
+Consider another fixed, but arbitrary, circuit model $N \in \mathcal{P}(C') \rightarrow \mathcal{P}(C')$ and let $\hat N \in \hat Q \rightarrow \hat Q$ be an abstract interpretation of it; $\hat Q$ is an abstract predicate with a Galois connection to $\mathcal{P}(C')$. In the previous sections, exactly what abstract predicates like $\hat Q$ are, were not important. In order to reason about refinement, however, we need to make a distinction between their \textit{external} and \textit{internal} elements of $\hat P$ and $\hat Q$. Specifically, we will argue that $\hat M$ \textit{refines} $\hat N$ if every visible behaviour of $\hat M$ can be matched by $\hat N$ while assuming nothing about initial configurations.
 
-Let the visible outputs of an abstract predicate $\hat P$ be those given by the mapping $\Out \in \hat P \rightarrow \hat P$, such that $\Out(\cdot)$ is idempotent, i.e. $\Out(\Out(\hat p)) = \Out(\hat p)$; is monotonic, i.e. $\hat p \sqsubseteq \hat q \implies \Out(\hat p) \sqsubseteq \Out(\hat q)$; and it produces the greatest bound for a output constraint, i.e. $\Out(\hat p) \sqsubseteq \Out(\hat q) \iff \hat p \sqsubseteq \Out(\hat q)$. With a slight abuse of notation, we overload $\Out(\cdot)$ to accept predicates from $\hat Q$. In the case of $\mathbb{T}_{\bot}^{3}$ and the unit-delayed AND gate, for example, $\Out(\cdot)$ can be defined naturally as a projection which maps each non-output element to $\X$:
+\subsection{Visible simulation as refinement}
 
-%% In the case of $\mathbb{T}_{\bot}^{3}$ and the unit-delayed AND gate, for example, $\Out(\cdot)$ could be defined as a regular projection ...
+Let the visible output of an abstract predicate $\hat P$ be identified by the mapping $\Out \in \hat P \rightarrow \hat P$, such that $\Out(\cdot)$ is monotonic, i.e. $\hat p \sqsubseteq \hat q \implies \Out(\hat p) \sqsubseteq \Out(\hat q)$; and produces the greatest bound for an output, i.e. $\Out(\hat p) \sqsubseteq \Out(\hat q) \iff \hat p \sqsubseteq \Out(\hat q)$. In the case of $\mathbb{T}_{\bot}^{3}$, for example, $\Out(\cdot)$ can be defined naturally as a projection which maps each non-output element to $\X$:
+
+%% ... is idempotent, i.e. $\Out(\Out(\hat p)) = \Out(\hat p)$;
+
+%% ... which identify the ``inputs'' and ``outputs'' of $\hat P$, respectively.
 
 \begin{align*}
 \Out(\langle \hat p_{0}, \hat p_{1}, \hat p_{2} \rangle) = \langle \X, \X, p_{2} \rangle && \Out(\bot) = \bot
 \end{align*}
 
-\noindent It is easy to see that this definition is idempotent and monotonic. Further, because $\X$ is the greatest element of $\mathbb{T}$, it must also produce the greatest bound for elements with equal or more specific outputs.
-
-% As $\Out(\cdot)$ is not limited to projections, however, one could also define other interesting mappings. For instance, 
+\noindent It is easy to see that this definition is idempotent and monotonic, and that it produces the greatest bound for any $\mathbb{T}^{3}$ with an output $\sqsubseteq \hat p_{2}$. With a slight abuse of notation, we overload $\Out(\cdot)$ to accept predicates from $\hat Q$.
 
 %% An \textit{input} and \textit{output} of $\hat P$ are thus predicates $\hat \iota, \hat \omicron \in \hat P$ such that $\hat \iota = \In(\hat \iota)$ and $\hat \omicron = \Out(\hat \omicron)$; the set of all possible inputs is defined as $\In(\hat P) = \{ \In(\hat p) \mid \hat p \in \hat P \}$.
 
-%% ... which identify the ``inputs'' and ``outputs'' of $\hat P$, respectively.
-
-%% All visible elements of a predicate is identified thus: $\Vis(\hat p) = \In(\hat p) \sqcap \Out(\hat p)$.
-
 %% The response of $\hat M$ in state $\hat p$ to an input $\hat \iota$ is given by $\hat M(\hat \iota \sqcap \hat p)$.
-
-%% ToDo: I actually don't use the fact that In & Out are idempotent?
-
-%% ToDo: Can we show some properties entail others?
 
 %% \begin{equation*}
 %% \begin{aligned}[t]
@@ -37,8 +31,6 @@ Let the visible outputs of an abstract predicate $\hat P$ be those given by the 
 %% \Out(\bot) &= \bot
 %% \end{aligned}
 %% \end{equation*}
-
-% $\In \in \hat P \rightarrow \hat P$
 
 Let $\cc \, \subseteq \hat P \times \hat Q$, where $\hat p \cc \hat q$ reads as ``$\hat p$ refines $\hat q$'', be a Galois connection such that for all $\hat P' \subseteq \hat P$ and $\hat Q' \subseteq \hat Q$:
 
