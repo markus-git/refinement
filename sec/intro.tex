@@ -71,7 +71,7 @@ Let there be a Galois connection relating ``concrete'' predicates $\mathcal{P}(C
 \gamma ( \bot ) &= \emptyset
 \end{align*}
 
-\noindent Listing each concrete predicate approximated by a given abstract predicate. The abstraction function $\alpha \in \mathcal{P}(\mathbb{B}^{m}) \rightarrow \mathbb{T}_{\bot}^{m}$ instead finds the most precise abstract predicate for a set of concrete predicates:
+\noindent Listing each concrete predicate approximated by a given abstract predicate. Its abstraction function $\alpha \in \mathcal{P}(\mathbb{B}^{m}) \rightarrow \mathbb{T}_{\bot}^{m}$ instead finds the most precise abstract predicate for a set of concrete predicates:
 
 \begin{align*}
 \alpha ( p ) &= \sqcup \{ \langle t_{0}, \ldots, t_{m-1} \rangle \in \mathbb{T}_{\bot}^{m} \mid \langle b_{0}, \ldots, b_{m-1} \rangle \in p, \forall i < m : b_{i} = t_{i} \} \\
@@ -90,7 +90,7 @@ We adopt a different interpretation of Galois connections that is given by means
 \forall p \in Q : \forall \hat p \in \hat Q : p \ll \hat p \iff \cup Q \ll \sqcap \hat Q
 \end{equation*}
 
-\noindent Intuitively, $\ll$ is an extension of the partial order $\subseteq$ of $\mathcal{P}(C)$ and $\sqsubseteq$ of $\hat P$ to an ordering between $\mathcal{P}(C)$ and $\hat P$. The original abstraction and concretisation functions can be derived from $\ll$ as: $\alpha(p) = \sqcap \{ \hat p \in \hat P \mid p \ll \hat p \}$ and $\gamma(\hat p) = \cup \{ p \in \mathcal{P}(C) \mid p \ll \hat p \}$. Conversely, the relation $\ll$ can be derived from $\alpha$ and $\gamma$ as: $p \ll \hat p \iff \alpha(p) \sqsubseteq \hat p$ and $p \ll \hat p \iff p \subseteq \gamma(\hat p)$.
+\noindent Intuitively, this relation is an extension of the partial order $\subseteq$ of $\mathcal{P}(C)$ and $\sqsubseteq$ of $\hat P$ to an ordering between $\mathcal{P}(C)$ and $\hat P$. The original abstraction and concretisation functions can be derived from the relation by: $\alpha(p) = \sqcap \{ \hat p \in \hat P \mid p \ll \hat p \}$ and $\gamma(\hat p) = \cup \{ p \in \mathcal{P}(C) \mid p \ll \hat p \}$. Conversely, the relation can be derived from $\alpha$ and $\gamma$ as: $p \ll \hat p \iff \alpha(p) \sqsubseteq \hat p$ and $p \ll \hat p \iff p \subseteq \gamma(\hat p)$.
 
 An \textit{abstract predicate transformer} $\hat M \in \hat P \rightarrow \hat P$ is an \textit{abstract interpretation}~\cite{cousot1996} of $M \in \mathcal{P}(C) \rightarrow \mathcal{P}(C)$ iff: (1) $\hat M$ preserves $\bot$, i.e. $\hat M(\bot) = \bot$; (2) $\hat M$ is monotonic, i.e. $\hat p \sqsubseteq \hat q \Rightarrow \hat M (\hat p) \sqsubseteq \hat M (\hat q)$ for all $\hat p, \hat q \in \hat P$; and (3) $\ll$ is a \textit{simulation relation} from $\mathcal{P}(C)$ to $\hat P$, i.e. $p \ll \hat p \Rightarrow M (p) \ll \hat M (\hat p)$ for all $p \in \mathcal{P}(C)$ and $\hat p \in \hat P$. That $\ll$ is a simulation relation can also be stated in terms of its abstraction $\alpha$ and concretisation $\gamma$ functions: $\alpha(M(p)) \sqsubseteq \hat M(\alpha(p))$ for all $p \in \mathcal{P}(C)$, and $M(\gamma(\hat p)) \subseteq \gamma(\hat M(\hat p))$ for all $\hat p \in \hat P$.
 
