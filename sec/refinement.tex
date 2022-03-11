@@ -1,10 +1,12 @@
 \section{System refinement}
 
-Consider another fixed, but arbitrary, circuit model $N \in \mathcal{P}(C') \rightarrow \mathcal{P}(C')$ and let $\hat N \in \hat Q \rightarrow \hat Q$ be an abstract interpretation of it; $\hat Q$ is an abstract predicate with a Galois connection to $\mathcal{P}(C')$. In the previous sections, exactly what abstract predicates like $\hat Q$ are, were not important. In order to reason about refinement, however, we need to make a distinction between their \textit{external} and \textit{internal} elements of $\hat P$ and $\hat Q$. Specifically, we will argue that $\hat M$ \textit{refines} $\hat N$ if every visible behaviour of $\hat M$ can be matched by $\hat N$ while assuming nothing about initial configurations.
+Consider another fixed, but arbitrary, circuit model $N \in \mathcal{P}(C') \rightarrow \mathcal{P}(C')$ and let $\hat N \in \hat Q \rightarrow \hat Q$ be an abstract interpretation of it; $\hat Q$ is an abstract predicate with a Galois connection to $\mathcal{P}(C')$. In the previous sections, exactly what abstract predicates like $\hat Q$ are, were not important. In order to reason about refinement, however, we need to make a distinction between their \textit{external} and \textit{internal} elements of $\hat P$ and $\hat Q$. Specifically, we will argue that $\hat M$ \textit{refines} $\hat N$ if every \textit{visible behaviour} of $\hat M$ can be matched by $\hat N$ while assuming nothing about initial configurations.
 
 \subsection{Refinement through visible simulation}
 
-\subsubsection{Externally visible elements} Let the output of an abstract predicate $\hat P$ be identified by the mapping $\Out \in \hat P \rightarrow \hat P$, such that $\Out(\cdot)$ is monotonic, i.e. $\hat p \sqsubseteq \hat q \implies \Out(\hat p) \sqsubseteq \Out(\hat q)$; and produces the greatest bound for an output, i.e. $\Out(\hat p) \sqsubseteq \Out(\hat q) \iff \hat p \sqsubseteq \Out(\hat q)$. In a similar vein, let the inputs of an abstract predicate $\hat P$ be identified by another mapping, $\In \in \hat P \rightarrow \hat P$. The sets of all possible inputs and outputs for $\hat P$ are defined as $\In(\hat P) = \{ \In(\hat p) \mid \hat p \in \hat P \}$ and $\Out(\hat P) = \{ \Out(\hat p) \mid \hat p \in \hat P \}$, respectively. With a slight abuse of notation, we overload $\Out(\cdot)$ to accept predicates from $\hat Q$.
+%% \subsubsection{Externally visible elements}
+
+Let the output of an abstract predicate $\hat P$ be identified by the idempotent mapping $\Out \in \hat P \rightarrow \hat P$, such that $\Out(\cdot)$ is monotonic, i.e. $\hat p \sqsubseteq \hat q \implies \Out(\hat p) \sqsubseteq \Out(\hat q)$; and the greatest bound for an output, i.e. $\Out(\hat p) \sqsubseteq \Out(\hat q) \iff \hat p \sqsubseteq \Out(\hat q)$. In a similar vein, let the inputs of an abstract predicate $\hat P$ be identified by another mapping, $\In \in \hat P \rightarrow \hat P$. The sets of all possible inputs and outputs for $\hat P$ are defined as $\In(\hat P) = \{ \In(\hat p) \mid \hat p \in \hat P \}$ and $\Out(\hat P) = \{ \Out(\hat p) \mid \hat p \in \hat P \}$. With a slight abuse of notation, we overload $\Out(\cdot)$ to accept predicates from $\hat Q$.
 
 In the case of an unit-delayed AND gate and its predicates $\langle p_{0}, p_{1}, p_{2} \rangle \in \mathbb{T}_{\bot}^{3}$, for example, $\In(\cdot)$ and $\Out(\cdot)$ can be defined as projections which maps each non-input and non-output element to $\X$, respectively:
 
@@ -24,7 +26,7 @@ In the case of an unit-delayed AND gate and its predicates $\langle p_{0}, p_{1}
 \end{aligned}
 \end{equation*}
 
-\noindent It is easy to see that $\Out(\cdot)$ is both idempotent and monotonic, and that it produces the greatest bound for any $\mathbb{T}^{3}$ with an output $\sqsubseteq \hat p_{2}$.
+\noindent It is easy to see that $\Out(\cdot)$ is monotonic, and that it produces the greatest bound for any $\mathbb{T}^{3}$ with an output $\sqsubseteq \hat p_{2}$.
 
 \todo{The response of $\hat M$ in state $\hat p$ to an input $\hat \iota \in \In(\hat P)$ is determined by $\hat M(\hat \iota \sqcap \hat p)$}. \todo{Intuitively, if the output of $\hat M$ and $\hat N$ is ordered in each possible state reached by a sequence of inputs when starting from $\top$, then $\hat M$ visually refines $\hat N$. Their internal states could differ at times, but externally they behave the same}.
 
@@ -32,17 +34,25 @@ In the case of an unit-delayed AND gate and its predicates $\langle p_{0}, p_{1}
 
 \subsubsection{Visible simulation as a Galois connection}
 
-Let $\cc \, \subseteq \hat P \times \hat Q$ be a Galois connection, where $\hat p \cc \hat q$ reads as ``$\hat p$ refines $\hat q$'', such that for all $\hat P' \subseteq \hat P$ and $\hat Q' \subseteq \hat Q$:
+Let $\cc \, \subseteq \hat P \times \hat Q$ be a Galois connection, where $\hat p \cc \hat q$ reads as ``$\hat p$ refines $\hat q$'', such that:
 
 \begin{equation*}
-\forall \hat p \in \hat P' : \forall \hat q \in \hat Q' : \hat p \cc \hat q \iff \sqcup \hat P' \cc \sqcap \hat Q'
+\forall \hat p \in \hat P^{*} : \forall \hat q \in \hat Q^{*} : \hat p \cc \hat q \iff \sqcup \hat P^{*} \cc \sqcap \hat Q^{*}
 \end{equation*}
 
-\noindent Like the earlier Galois connection, $\cc$ can intuitively be thought of as an extension of the orderings inside $\hat P$ and $\hat Q$ to an ordering between them. The abstraction and concretisation functions, $\alpha \in \hat P \rightarrow \hat Q$ and $\gamma \in \hat Q \rightarrow \hat P$, can also be derived from $\cc$ as before: $\alpha(p) = \sqcap \{ \hat p \in \hat P \mid \hat q \cc \hat p \}$ and $\gamma(\hat p) = \sqcup \{ \hat q \in \hat Q \mid \hat q \cc \hat p \}$. We note that $\gamma$ is monotone, preserves top and distributes over arbitrary meet, i.e. $\gamma(\sqcap \hat Q) = \sqcap \{ \gamma(\hat q) \in \hat P \mid \hat q \in \hat Q\}$. Similarly, $\alpha$ is monotone, preserves bottom and distributes over arbitrary join.
+\noindent for all subsets $\hat P^{*} \subseteq \hat P$ and $\hat Q^{*} \subseteq \hat Q$. The usual abstraction $\alpha \in \hat P \rightarrow \hat Q$ and concretisation $\gamma \in \hat Q \rightarrow \hat P$ functions are derived from $\cc$ as follows:
 
-Let the binary relation $\cc$ be a simulation between the visible parts of $\hat P$ and $\hat Q$, such that $\hat p \cc \hat q$ implies (1) $\Out(\hat p) \sqsubseteq \gamma(\Out(\hat q))$ and (2) $\hat M(\hat \iota \sqcap \hat p) \cc \hat N(\alpha(\hat \iota) \sqcap \hat q)$ for all inputs $\hat \iota \in \In(\hat P)$. We extend this simulation relation to abstract model transformers, and say that $\hat M$ refines $\hat N$, denoted $\hat M \cc \hat N$, if the top element of $\hat P$ refines the top element of $\hat Q$, i.e. $(\top \in \hat P) \cc \, (\top \in \hat Q)$.
+\begin{align*}
+\alpha(p) = \sqcap \{ \hat p \in \hat P \mid \hat q \cc \hat p \} && \gamma(\hat p) = \sqcup \{ \hat q \in \hat Q \mid \hat q \cc \hat p \}
+\end{align*}
 
-%% Because $\top$ represents every possible state in its predicate type, that $\hat M \cc \hat N$ thus implies that every state in $\hat M$ is simulated by every state in $\hat N$. However, using $\top$ also means we simply demand that their outputs are ordered, since both will output X until the inputs have flushed trough them.}
+\noindent We note that $\gamma$ is monotone, preserves top and distributes over arbitrary meet, i.e. $\gamma(\sqcap \hat Q) = \sqcap \{ \gamma(\hat q) \in \hat P \mid \hat q \in \hat Q\}$. Similarly, $\alpha$ is monotone, preserves bottom and distributes over arbitrary join.
+
+Like the earlier Galois connection, the relation $\cc$ can also be thought of as an extension of the orderings inside $\hat P$ and $\hat Q$ to an ordering between them. A relation $\cc \, \subseteq \hat P \times \hat Q$ is a \textit{visible simulation relation} between $\hat M$ and $\hat N$ iff the top of $\hat P$ refines the top of $\hat Q$, i.e. $(\top \in \hat P) \cc \, (\top \in \hat Q)$, and $\hat p \cc \hat q$ implies (1) $\Out(\hat p) \sqsubseteq \gamma(\Out(\hat q))$ and (2) $\hat M(\hat \iota \sqcap \hat p) \cc \hat N(\alpha(\hat \iota) \sqcap \hat q)$ for all inputs $\hat \iota \in \In(\hat P)$.
+
+%% Let the binary relation $\cc$ be a simulation between the visible parts of $\hat P$ and $\hat Q$, such that $\hat p \cc \hat q$ implies (1) $\Out(\hat p) \sqsubseteq \gamma(\Out(\hat q))$ and (2) $\hat M(\hat \iota \sqcap \hat p) \cc \hat N(\alpha(\hat \iota) \sqcap \hat q)$ for all inputs $\hat \iota \in \In(\hat P)$. We extend this simulation relation to abstract model transformers, and say that $\hat M$ refines $\hat N$, denoted $\hat M \cc \hat N$, if the top element of $\hat P$ refines the top element of $\hat Q$, i.e. $(\top \in \hat P) \cc \, (\top \in \hat Q)$.
+
+\todo{Because $\top$ represents every possible state in its predicate type, that $\hat M \cc \hat N$ thus implies that every state in $\hat M$ is simulated by every state in $\hat N$}. \todo{However, using $\top$ also means we simply demand that their outputs are ordered, since both will output X until the inputs have flushed trough them}.
 
 \subsubsection{External trajectory assertions and satisfaction}
 
