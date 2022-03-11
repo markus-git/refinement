@@ -82,9 +82,9 @@ Let there be a Galois connection relating ``concrete'' predicates $\mathcal{P}(C
 
 % Abstracting the concrete predicates $\{ \langle 1, 1, 0 \rangle, \langle 1, 0, 0 \rangle \}$ with $\alpha$ indeed yields the original $\langle 1, \X, 0 \rangle$ abstraction.
 
-\todo{The def. used in~\cite{chou1999} is similar but different, as it view a Galois connection from $\mathcal{P}(C)$ to $\hat P$ instead as binary relation}\footnotemark. Specifically, let $\ll \, \subseteq \mathcal{P}(C) \times \hat P$ be a binary relation, where $p \ll \hat p$ reads as ``$p$ can be approximated as $\hat p$'', such that for all $Q \subseteq \mathcal{P}(C)$ and $\hat Q \subseteq \hat P$:
+We adopt a different interpretation of Galois connections that is given by means of a binary relation between $\mathcal{P}(C)$ and $\hat P$. Specifically, let $\ll \, \subseteq \mathcal{P}(C) \times \hat P$ be a binary relation, where $p \ll \hat p$ reads as ``$p$ can be approximated as $\hat p$'', such that for all $Q \subseteq \mathcal{P}(C)$ and $\hat Q \subseteq \hat P$:
 
-\footnotetext{\todo{Used mainly to prove thesis in~\cite{chou1999}, included here since we use one for refinement later on. The relational view, I think, is used so that it can be made into a sim. relation.}}
+%% ToDo: Used mainly to prove thesis in~\cite{chou1999}, included here since we use one for refinement later on. The relational view, I think, is used so that it can be made into a sim. relation.
 
 \begin{equation*}
 \forall p \in Q : \forall \hat p \in \hat Q : p \ll \hat p \iff \cup Q \ll \sqcap \hat Q
@@ -133,7 +133,7 @@ Note that $\hat M$ does not distribute over arbitrary join in general because in
 
 \subsubsection{Assertions and satisfaction}
 
-A \textit{trajectory assertion} for $\hat M$ is a quintuple $\hat A = (S,s_{0},R,\pi_{a},\pi_{c})$, where $S$ is a finite set of \textit{states}, $s_{0} \in S$ is an \textit{initial state}, $R \subseteq S \times S$ is a \textit{transition relation}, $\pi_{a} \in S \rightarrow \hat P$ and $\pi_{c} \in S \rightarrow \hat P$ label each state $s$ with an \textit{antecedent} $\pi_{a}(s)$ and a \textit{consequent} $\pi_{c}(s)$. Furthermore, we assume that $(s,s_{0}) \notin S$ for all $s \in S$ without any loss of generality.
+A \textit{trajectory assertion} for an abstact model $\hat M$ is a quintuple $\hat A = (S,s_{0},R,\pi_{a},\pi_{c})$, where $S$ is a finite set of \textit{states}, $s_{0} \in S$ is an \textit{initial state}, $R \subseteq S \times S$ is a \textit{transition relation}, $\pi_{a} \in S \rightarrow \hat P$ and $\pi_{c} \in S \rightarrow \hat P$ label each state $s$ with an \textit{antecedent} $\pi_{a}(s)$ and a \textit{consequent} $\pi_{c}(s)$. Furthermore, we assume that $(s,s_{0}) \notin S$ for all $s \in S$ without any loss of generality.
 
 For all functions $\Phi \in S \rightarrow \hat P$ and states $s \in S$, define $F \in S \rightarrow (\hat P \rightarrow \hat P)$ and $\mathcal{F} \in (S \rightarrow \hat P) \rightarrow (S \rightarrow \hat P)$ as follows:
 
