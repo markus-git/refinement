@@ -22,7 +22,7 @@ While the truth semantics of an assertion in STE is defined as the satisfaction 
 
 Consider an arbitrary, but fixed, digital circuit $M$ operating in discrete time. A \textit{configuration} of $M$, denoted by $C$, is non-empty and finite set that represents a snapshot of $M$ at a discrete point in time. If the circuit $M$ has $m$ boolean signals, then its set of configurations is typically represented as a sequence $\mathbb{B}^{m}$, where $\mathbb{B} = \{ 0,1 \}$ is the set of boolean values.
 
-\subsubsection{Circuit Model} A simple conceptual model of $M$ is a \textit{transition relation}, $M_{R} \subseteq C \times C$, where $(c,c') \in M_{R}$ means that $M$ can move from $c$ to $c'$ in one step\footnotemark. The power set of $C$, denoted by $\mathcal{P}(C)$, can be viewed as a the set of \textit{predicates} on configurations, where $\cap$, $\cup$, and $\subseteq$ correspond to conjunction, disjunction and implication, respectively. Furthermore, for any $Q \subseteq \mathcal{P}(C)$, we denote by $\cap Q$ and $\cup Q$ the intersection and union of all members of $Q$.
+\subsubsection{Circuit Model} A simple conceptual model of $M$ is a \textit{transition relation}, $M_{R} \subseteq C \times C$, where $(c,c') \in M_{R}$ means that $M$ can move from $c$ to $c'$ in one step\footnotemark. The power set of $C$, denoted by $\mathcal{P}(C)$, can be viewed as a the set of \textit{predicates} on configurations, where $\cap$, $\cup$, and $\subseteq$ correspond to conjunction, disjunction and implication, respectively. We denote by $\cap Q$ and $\cup Q$ the intersection and union of all members of any $Q \subseteq \mathcal{P}(C)$.
 
 \footnotetext{\todo{Mention how this affects circuits with zero-delays?}}
 
@@ -32,15 +32,15 @@ $M_{R}$ induces a \textit{predicate transformer} $M_{F} \in \mathcal{P}(C) \righ
 M_{F}(p) = \{ c' \in C \mid \exists c \in p : (c,c') \in M_{R} \}
 \end{equation*}
 
-\noindent It is intuitively obvious that if $M$ is in one of the configurations in $p \in \mathcal{P}(C)$, then in one time step it must be in one of the configurations in $M_{F}(p)$. Furthermore, from its definition we see that $M_{F}$ distributes over arbitrary unions:
+\noindent It is intuitively obvious that if $M$ is in one of the configurations in $p \in \mathcal{P}(C)$, then in one time step it must be in one of the configurations in $M_{F}(p)$. We also see that $M_{F}$ distributes over arbitrary unions:
 
 \begin{equation*}
 M_{F}(\cup Q) = \cup \{ M_{F}(q) \mid q \in Q \}
 \end{equation*}
 
-\noindent for all $Q \subseteq \mathcal{P}(C)$. Any $M_{F}$ that satisfies this distributive property also defines a $M_{R}$ through the equivalence $(c,c') \in M_{R} \iff c' \in M_{F}(\{ c \})$, that is to say, there is no loss of information going from $M_{R}$ to $M_{F}$ or vice versa. We adopt this functional model of $M$ and drop its subscript. It follows its distributivity that $M$ also preserves the empty set of constraints, i.e. $M(\emptyset) = \emptyset$, and that $M$ is monotonic, i.e. $p \subseteq q \implies M(p) \subseteq M(q)$ for all $p, q \in \mathcal{P}(C)$.
+\noindent for all $Q \subseteq \mathcal{P}(C)$. Any $M_{F}$ that satisfies this distributive property also defines a $M_{R}$ through the equivalence $(c,c') \in M_{R} \iff c' \in M_{F}(\{ c \})$, that is to say, there is no loss of information going from $M_{R}$ to $M_{F}$ or vice versa. It follows that $M_{F}$ preserves the empty set of constraints, i.e. $M_{F}(\emptyset) = \emptyset$, and is monotonic, i.e. $p \subseteq q \implies M_{F}(p) \subseteq M_{F}(q)$ for all $p, q \in \mathcal{P}(C)$. We adopt this functional model of $M$ and drop its subscript.
 
-In practice, signals in $M$ are typically divided into ``input'' signals and ``output'' or ``internal'' signals. While an input signal is typically controlled by the external environment, and thus unconstrained by $M$ itself, non-input signals are determined by the circuit topology and functionality. For example, supposed $M$ is the earlier example of a unit-delayed two-input AND gate, we could then define its model $M \in \mathcal{P}(\mathbb{B}^{3}) \rightarrow \mathcal{P}(\mathbb{B}^{3})$ as:
+In practice, the predicates of $C$ correspond to signals in $M$ and divided into external, or ``input'' and ``output'', and internal signals. While an input signal is typically controlled by the external environment, and thus unconstrained by $M$ itself, non-input signals are determined by the circuit topology and functionality. For example, supposed $M$ is the earlier example of a unit-delayed two-input AND gate, we could then define its model $M \in \mathcal{P}(\mathbb{B}^{3}) \rightarrow \mathcal{P}(\mathbb{B}^{3})$ as:
 
 % although not required here
 
