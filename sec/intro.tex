@@ -120,7 +120,7 @@ Note that $\hat M$ does not distribute over arbitrary join in general because in
 
 % Note: Can we shorten the def. of funny M somehow? Or use a simpler gate.
 
-\noindent Where the last, most general matching is overlapped by the more concrete ones. If we apply $\hat M$ to the join of $\langle 0, 1, \X \rangle$ and $\langle 1, 0, \X \rangle$, or if we apply $\hat M$ to them individually and then join the results, we get two different results:
+\noindent Where the last, most general matching is overlapped by the concrete ones. If we apply $\hat M$ to the join of $\langle 0, 1, \X \rangle$ and $\langle 1, 0, \X \rangle$, or if we apply $\hat M$ to them individually and then join, we get two different results:
 
 \begin{equation*}
 \begin{array}{lll}
@@ -135,20 +135,20 @@ Note that $\hat M$ does not distribute over arbitrary join in general because in
 
 A \textit{trajectory assertion} for $\hat M$ is a quintuple $\hat A = (S,s_{0},R,\pi_{a},\pi_{c})$, where $S$ is a finite set of \textit{states}, $s_{0} \in S$ is an \textit{initial state}, $R \subseteq S \times S$ is a \textit{transition relation}, $\pi_{a} \in S \rightarrow \hat P$ and $\pi_{c} \in S \rightarrow \hat P$ label each state $s$ with an \textit{antecedent} $\pi_{a}(s)$ and a \textit{consequent} $\pi_{c}(s)$. Furthermore, we assume that $(s,s_{0}) \notin S$ for all $s \in S$ without any loss of generality.
 
-For all $\Phi \in S \rightarrow \hat P$ and $s \in S$, define $F \in S \rightarrow (\hat P \rightarrow \hat P)$ and $\mathcal{F} \in (S \rightarrow \hat P) \rightarrow (S \rightarrow \hat P)$ as follows:
+For all functions $\Phi \in S \rightarrow \hat P$ and states $s \in S$, define $F \in S \rightarrow (\hat P \rightarrow \hat P)$ and $\mathcal{F} \in (S \rightarrow \hat P) \rightarrow (S \rightarrow \hat P)$ as follows:
 
 \begin{align}
 F(s)(\hat p) &= \hat M(\pi_{a}(s) \sqcap \hat p) \\
 \mathcal{F}(\Phi)(s) &= \Stmt{if } (s = s_{0}) \Stmt{ then } \top \Stmt{ else } \sqcup \{ F(s')(\Phi(s')) \mid (s',s) \in R \}
 \end{align}
 
-\noindent $F$ preserves $\bot$ and both $F$ and $\mathcal{F}$ are monotonic, where two $\Phi, \Phi' \in S \rightarrow \hat P$ are ordered as $\Phi \sqsubseteq \Phi' \iff \forall s \in S : \Phi(s) \sqsubseteq \Phi'(s)$. Let $\Phi_{*} \in S \rightarrow \hat P$ be the least fixpoint of the equation $\Phi = \mathcal{F}(\Phi)$~\cite{davey2002}. Since both $S$ and $\hat P$ are finite, $\Phi_{*}$ is given by $\lim \, \Phi_{n}(s)$ where $\Phi_{n}$ is defined as follows:
+\noindent $F$ preserves $\bot$, both $F$ and $\mathcal{F}$ are monotonic, and two $\Phi, \Phi' \in S \rightarrow \hat P$ are ordered as $\Phi \sqsubseteq \Phi' \iff \forall s \in S : \Phi(s) \sqsubseteq \Phi'(s)$. Let $\Phi_{*} \in S \rightarrow \hat P$ be the least fixpoint of the equation $\Phi = \mathcal{F}(\Phi)$~\cite{davey2002}. Since both $S$ and $\hat P$ are finite, $\Phi_{*}$ is given by $\lim \, \Phi_{n}(s)$ where $\Phi_{n}$ is defined as follows:
 
 \begin{equation}
 \Phi_{n} = \Stmt{if } (n = 0) \Stmt{ then } (\lambda s \in S : \bot) \Stmt{ else } \mathcal{F}(\Phi_{n-1})
 \end{equation}
 
-We say that the abstract circuit $\hat M$ \textit{satisfies} a lattice-based, abstract trajectory assertion $\hat A$, denoted by $\hat M \models \hat A$, iff:
+$\hat M$ \textit{satisfies} a trajectory assertion $\hat A$, denoted by $\hat M \models \hat A$, iff:
 
 \begin{equation}
 \forall s \in S : \Phi_{*}(s) \sqcap \pi_{\alpha}(s) \sqsubseteq \pi_{c}(s)
