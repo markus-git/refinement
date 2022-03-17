@@ -71,7 +71,7 @@ If $\hat M$ and $\hat N$ are abstract predicate transformers such that $\hat M \
 \end{equation*}
 \end{theorem}
 
-A common use of refinement is safe substitution of sub-circuits in a larger system, as refinement between the swapped components implies that any assertions satisfied by the original system would also be satisfied by the new one. We define the abstract interpretation of such composite systems as the product of its individual interpretations $\hat M_{c} = \hat M_{1} \times \ldots \times \hat M_{n}$.
+A common use of refinement is safe substitution of sub-circuits in a larger system, as refinement between the swapped components implies that any assertions satisfied by the original system would also be satisfied by the new one. We define the abstract interpretation of such composite systems as the product of its individual interpretations $\hat M_{c} \subseteq \hat M_{1} \times \ldots \times \hat M_{n}$.
 
 \begin{corollary}
 \label{thm:refinement-product}
