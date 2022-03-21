@@ -24,41 +24,38 @@
 \newcommand{\todo}[1]{\textcolor{red}{#1}}
 \newcommand{\Stmt}[1]{\textrm{\textbf{#1}}}
 
-%% General preference.
+%% Math preferences & missing stuff.
 \newcommand{\Alpha}{\mathrm{A}}
 \newcommand{\omicron}{\mathrm{o}}
-%
 \newcommand{\pow}[1]{\mathcal{P}#1}
+\DeclareMathOperator{\nsqsubseteq}{\not\sqsubseteq}
+\DeclareMathOperator{\meet}{\sqcap}
+\DeclareMathOperator{\join}{\sqcup}
+
+%% General preference.
 \renewcommand{\iff}{\Leftrightarrow}
 \renewcommand{\implies}{\Rightarrow}
-\newcommand{\meet}{\sqcap}
-\newcommand{\join}{\sqcup}
 \newcommand{\comp}{\mkern -2mu \circ}
-%
-\DeclareMathOperator{\nsqsubseteq}{\not\sqsubseteq} % not impl.
-%
 \newcommand{\qedb}{\hfill\blacksquare}
-\newcommand{\qedw}{\hfill \ensuremath{\Box}}
+\newcommand{\qedw}{\hfill\ensuremath{\Box}}
 
 % STE orig. grammar.
 \DeclareMathOperator{\Next}{\textbf{N}} % Next-time.
 \DeclareMathOperator{\Is}{\mathbin{\textbf{is}}} % comparison.
 \newcommand{\X}{\mathrm{X}}
-\newcommand{\Traj}[1]{\textit{Traj}(#1)} % set of trajectories
+% \newcommand{\Traj}[1]{\textit{Traj}(#1)} % set of trajectories
 
 % Refinement ...
-\DeclareMathOperator{\In}{in}
-\DeclareMathOperator{\Out}{out}
-\DeclareMathOperator{\Vis}{vis}
+\DeclareMathOperator{\In}{\dot{\iota}}
+\DeclareMathOperator{\Out}{\omicron}
+% \DeclareMathOperator{\Vis}{vis}
+\DeclareMathOperator{\Inn}{\hat{\iota}}
+\DeclareMathOperator{\Outt}{\hat{\omicron}}
 %
+\DeclareMathOperator{\srefine}{\leq_{\textrm{set}}}
 \DeclareMathOperator{\cc}{\lll} %{\leq} %{\prec\mkern-4mu\prec}
 
 %% Old.
-% \newcommand{\InProj}[1]{\mathit{i}(#1)} % input proj.
-% \newcommand{\OutProj}[1]{\mathit{o}(#1)} % output proj.
-% \DeclareMathOperator{\InProj}{\mathit{in}}
-% \DeclareMathOperator{\OutProj}{\mathit{out}}
-% \DeclareMathOperator{\V}{\mathit{v}}
 % \DeclareMathOperator{\enc}{\mathrel{\preceq}} % encodes.
 % \newcommand{\Driv}[2]{\Traj{#1}(#2)} % trajectory induced by driver.
 % \newcommand{\inp}[1]{\llbracket#1\rrbracket} % input mapping

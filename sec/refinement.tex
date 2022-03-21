@@ -20,7 +20,7 @@ A \textit{trajectory} of $N$ is a non-empty sequence of configurations, $\tau \i
 
 % The trajectory of $N$ induced by a $\delta$ is denoted by $N_{\delta}$ and is prefix-closed.
 
-With a slight abuse of notation, we extend $\Out(\cdot)$ to sequences component-wise and overload it to accept configurations $D$. \todo{Furthermore}, we assume that both inputs and outputs of $M$ are contained by $N$, i.e. $\In[\pow(C)] \subseteq \In[\pow(D)]$ and $\Out[\pow(C)] \subseteq \Out[\pow(D)]$. \todo{Finally}, we say the circuit $M$ refines the circuit $N$, denoted by $M \leq N$, iff:
+With a slight abuse of notation, we extend $\Out(\cdot)$ to sequences component-wise and overload it to accept configurations $D$. \todo{Furthermore}, we assume that both inputs and outputs of $M$ are contained by $N$, i.e. $\In[\pow(C)] \subseteq \In[\pow(D)]$ and $\Out[\pow(C)] \subseteq \Out[\pow(D)]$. \todo{Finally}, we say the circuit $M$ refines the circuit $N$, denoted by $M \srefine N$, iff:
 
 \begin{equation*}
 \forall \delta \in I^{+} : \Out(M_{\delta}) \subseteq \Out(N_{\delta})
@@ -28,4 +28,55 @@ With a slight abuse of notation, we extend $\Out(\cdot)$ to sequences component-
 
 \subsection{Lattice-Theoretic refinement}
 
-Text.
+Let $\hat N \in \hat Q \rightarrow \hat Q$ be an abstract interpretation of $N$, where $\hat Q$ is an abstract predicate for which there is a Galois connection to $\pow(D)$.
+
+Let the output of an abstract predicate $\hat Q$ be identified by the idempotent mapping $\Outt \in \hat Q \rightarrow \hat Q$, such that $\Outt(\cdot)$ is monotonic, i.e. $\hat p \sqsubseteq \hat q \implies \Outt(\hat p) \sqsubseteq \Outt(\hat q)$; and the greatest bound for an output, i.e. $\Outt(\hat p) \sqsubseteq \Outt(\hat q) \iff \hat p \sqsubseteq \Outt(\hat q)$. \todo{In a similar vein, let the inputs of an abstract predicate $\hat Q$ be identified by the mapping $\Inn \in \hat Q \rightarrow \hat Q$.}
+
+% As before, we overload $\Outt(\cdot)$ to accept predicates from $\hat Q$
+
+% The sets of all possible inputs and outputs for $\hat P$ are defined as $\In(\hat P) = \{ \In(\hat p) \mid \hat p \in \hat P \}$ and $\Out(\hat P) = \{ \Out(\hat p) \mid \hat p \in \hat P \}$. 
+
+In the case of an unit-delayed AND gate and its predicates $\langle p_{0}, p_{1}, p_{2} \rangle \in \mathbb{T}_{\bot}^{3}$, for example, $\Inn(\cdot)$ and $\Outt(\cdot)$ can be defined naturally as projections which maps each non-input and non-output element to $\X$, respectively:
+
+\begin{equation*}
+\begin{aligned}[t]
+\Inn(\langle \hat p_{0}, \hat p_{1}, \hat p_{2} \rangle) &= \langle \hat p_{0}, \hat p_{1}, \X \rangle \\
+\Inn(\bot) &= \bot
+\end{aligned}
+\qquad
+\begin{aligned}[t]
+\Outt(\langle \hat p_{0}, \hat p_{1}, \hat p_{2} \rangle) &= \langle \X, \X, p_{2} \rangle \\
+\Outt(\bot) &= \bot
+\end{aligned}
+\end{equation*}
+
+\noindent It is easy to see that $\Outt(\cdot)$ is monotonic, and that it produces the greatest bound for any $\mathbb{T}^{3}$ with an output $\sqsubseteq \hat p_{2}$.
+
+Let $\cc \, \subseteq \hat P \times \hat Q$ be a Galois connection, such that elements of subsets $\hat P^{*} \subseteq \hat P$ and $\hat Q^{*} \subseteq \hat Q$ are related iff their join and meet are related:
+
+\begin{equation*}
+\forall \hat p \in \hat P^{*} : \forall \hat q \in \hat Q^{*} : \hat p \cc \hat q \iff \sqcup \hat P^{*} \cc \sqcap \hat Q^{*}
+\end{equation*}
+
+\noindent where $\hat p \cc \hat q$ reads as ``$\hat p$ refines $\hat q$''. Like the earlier Galois connection, this relation can also be thought of as an extension of the orderings inside $\hat P$ and $\hat Q$ to an ordering between them.
+
+The usual abstraction $\alpha \in \hat P \rightarrow \hat Q$ and concretisation $\gamma \in \hat Q \rightarrow \hat P$ functions are derived from $\cc$ as follows:
+
+\begin{align*}
+\alpha(p) = \sqcap \{ \hat p \in \hat P \mid \hat q \cc \hat p \} && \gamma(\hat p) = \sqcup \{ \hat q \in \hat Q \mid \hat q \cc \hat p \}
+\end{align*}
+
+\noindent We note that $\gamma$ is monotone, preserves top and distributes over arbitrary meet, i.e. $\gamma(\sqcap \hat Q) = \sqcap \{ \gamma(\hat q) \in \hat P \mid \hat q \in \hat Q\}$. Similarly, $\alpha$ is monotone, preserves bottom and distributes over arbitrary join.
+
+We say that a relation $\cc \, \subseteq \hat P \times \hat Q$ is a \textit{visible simulation relation} between $\hat M$ and $\hat N$ iff the top of $\hat P$ refines the top of $\hat Q$, i.e. $(\top \in \hat P) \cc \, (\top \in \hat Q)$, and $\hat p \cc \hat q$ implies (1) $\Outt(\hat p) \sqsubseteq \gamma(\Outt(\hat q))$ and (2) $\hat M(\hat \iota \sqcap \hat p) \cc \hat N(\alpha(\hat \iota) \sqcap \hat q)$ for all inputs $\hat \iota \in \Inn(\hat P)$.
+
+Recall that a trajectory assertion for $\hat N$ is a quintuple $\hat A = (S, s_{0}, R, \pi_{a}, \pi_{c})$, where $\pi_{a} \in S \rightarrow \hat Q$ and $\pi_{c} \in S \rightarrow \hat Q$ label each state $s \in S$ with an antecedent $\pi_{a}(s)$ and a consequent $\pi_{c}(s)$. If these antecedents only mention inputs, i.e. $\pi_{a} \in S \rightarrow \Inn(\hat P)$, and consequents only mention outputs, i.e. $\pi_{c} \in S \rightarrow \Outt(\hat P)$, then $\hat A$ is referred to as a \textit{visible trajectory assertion} for $\hat N$, which we denote by $\hat A_{vis}$. Define $\alpha(\hat A) = (S, s_{0}, R, \alpha(\pi_{a}), \alpha(\pi_{c}))$, where $\alpha(\pi_{a}) = \lambda s \in S : \alpha(\pi_{a}(s))$ and $\alpha(\pi_{a}) = \lambda s \in S : \alpha(\pi_{a}(s))$. Note that, if $\hat A_{vis}$ is an assertion for $\hat N$, then $\alpha(\hat A_{vis})$ is an assertion for $\hat M$.
+
+\begin{theorem}
+\label{thm:refinement}
+If $\hat M$ and $\hat N$ are abstract predicate transformers such that $\hat M \cc \hat N$, and $\hat A_{vis}$ is a visible trajectory assertion for $\hat N$, then:
+
+\begin{equation*}
+\hat N \models \hat A_{vis} \implies \hat M \models \alpha(\hat A_{vis})
+\end{equation*}
+\end{theorem}
