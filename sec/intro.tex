@@ -18,7 +18,7 @@ While the truth semantics of an assertion in STE is defined as the satisfaction 
 
 % We adopt this reimagined STE as data flow analysis~\cite{chou1999}, in which trajectory assertions can have arbitrary state-transition graphs. The following sections give a short introduction to its mathematical foundation.
 
-\subsection{Lattice-theoretic STE}
+\subsection{Set-theoretic STE}
 
 Consider an arbitrary, but fixed, digital circuit $M$ operating in discrete time. A \textit{configuration} of $M$, denoted by $C$, is non-empty and finite set that represents a snapshot of $M$ at a discrete point in time. If the circuit $M$ has $m$ boolean signals, then its set of configurations is typically represented as a sequence $\mathbb{B}^{m}$, where $\mathbb{B} = \{ 0,1 \}$ is the set of boolean values.
 
@@ -40,7 +40,7 @@ M_{F}(\cup Q) = \cup \{ M_{F}(q) \mid q \in Q \}
 
 \noindent for all $Q \subseteq \pow(C)$. Any $M_{F}$ that satisfies this distributive property also defines a $M_{R}$ through the equivalence $(c,c') \in M_{R} \iff c' \in M_{F}(\{ c \})$, that is to say, there is no loss of information going from $M_{R}$ to $M_{F}$ or vice versa. It follows that $M_{F}$ preserves the empty set of constraints, i.e. $M_{F}(\emptyset) = \emptyset$, and is monotonic, i.e. $p \subseteq q \implies M_{F}(p) \subseteq M_{F}(q)$ for all $p, q \in \pow(C)$. We adopt this functional model of $M$ and drop its subscript.
 
-In practice, the predicates of $C$ correspond to signals in $M$ and divided into external, or ``input'' and ``output'', and internal signals. While an input signal is typically controlled by the external environment, and thus unconstrained by $M$ itself, non-input signals are determined by the circuit topology and functionality. For example, supposed $M$ is the earlier example of a unit-delayed two-input AND gate, we could then define its model $M \in \pow(\mathbb{B}^{3}) \rightarrow \pow(\mathbb{B}^{3})$ as:
+Exactly what the signals of $C$ are, is not important in this section. In practice, however, $C$ is typically divided into external, i.e. ``input'' and ``output'', and internal signals. While an input signal is generally controlled by the external environment, and thus unconstrained by $M$ itself, non-input signals are determined by the circuit topology and functionality. For example, supposed $M$ is the earlier example of a unit-delayed two-input AND gate, we could then define its model $M \in \pow(\mathbb{B}^{3}) \rightarrow \pow(\mathbb{B}^{3})$ as follows:
 
 % although not required here
 
@@ -50,9 +50,9 @@ M(p) = \{ \langle b_{1}, b_{2}, i_{1} \wedge i_{2} \rangle \in \mathbb{B}^{3} \m
 
 \noindent Here $i_{1}$ and $i_{2}$ refer to the two inputs of the AND gate and $o$ the ignored output; $b_{1}$ and $b_{2}$ are unconstrained inputs in the new configuration.
 
-\subsubsection{Ternary lattices}
+\subsection{Lattice-theoretic STE}
 
-Manipulating subsets of $\mathbb{B}^{m}$ is however impractical for even moderately large $m$, which leads us to one of the key insights of STE. Namely, instead of manipulating subsets of $\mathbb{B}^{m}$ directly, one can use sequences of ternary values $\mathbb{T} = \mathbb{B} \cup \{ \X \} $ to approximate them, whose sizes are only linear in $m$. Here the $1$ and $0$ from $\mathbb{B}$ denotes specific, defined values whereas $\X$ denotes an ``unknown'' value that could be either $1$ or $0$. This intuition induces a partial order $\sqsubseteq$ on $\mathbb{T}$, where $0 \sqsubseteq \X$ and $1 \sqsubseteq \X$\footnotemark. For any $m \in \mathbb{N}$, this ordering on $\mathbb{T}$ is lifted component-wise to $\mathbb{T}^{m}$.
+Manipulating subsets of $\mathbb{B}^{m}$ is impractical for even moderately large $m$, which leads us to one of the key insights of STE. Namely, instead of manipulating subsets of $\mathbb{B}^{m}$ directly, one can use sequences of ternary values $\mathbb{T} = \mathbb{B} \cup \{ \X \} $ to approximate them, whose sizes are only linear in $m$. Here the $1$ and $0$ from $\mathbb{B}$ denotes specific, defined values whereas $\X$ denotes an ``unknown'' value that could be either $1$ or $0$. This intuition induces a partial order $\sqsubseteq$ on $\mathbb{T}$, where $0 \sqsubseteq \X$ and $1 \sqsubseteq \X$\footnotemark. For any $m \in \mathbb{N}$, this ordering on $\mathbb{T}$ is lifted component-wise to $\mathbb{T}^{m}$.
 
 % As an example, we have that $\langle 1,1,0 \rangle$ and $\langle 1,0,0 \rangle$ are both $\sqsubseteq \langle 1,X,0 \rangle \in \mathbb{T}^{3}$ because they all agree on their first and third element and $X$ can be both $0$ and $1$.
 
@@ -60,9 +60,9 @@ Manipulating subsets of $\mathbb{B}^{m}$ is however impractical for even moderat
 
 Note that $\mathbb{T}^{m}$ does not quite form a complete lattice because it lacks a bottom: both $0 \sqsubseteq \X$ and $1 \sqsubseteq \X$ but $0$ and $1$ are equally defined. A special bottom element $\bot$ is therefore introduced, such that $\bot \sqsubseteq t$ and $\bot \neq t$ for all $t \in \mathbb{T}^{m}$. The extended $\mathbb{T}_{\bot}^{m} = \mathbb{T}^{m} \cup \{ \bot \}$ then becomes a complete lattice. We denote the top element $\langle \X, \dots, \X \rangle$ of $\mathbb{T}_{\bot}^{m}$ by $\top$.
 
-Generalising from any specific domain, let $(\hat P,\sqsubseteq)$ be a finite, complete lattice of \textit{abstract predicates} in which the meet $\sqcap$ and join $\sqcup$ of any subset $Q \subseteq \hat P$ exists. Similar to the previous set operations for power sets, $\sqcap$, $\sqcup$ and $\sqsubseteq$ correspond to conjunction, disjunction and implication for abstract predicates, respectively. Furthermore, for any $Q \subseteq \hat P$, we denote by $\sqcap Q$ and $\sqcup Q$ the meet and join of all members of $Q$.
+\subsubsection{Ternary lattices}
 
-\subsubsection{Abstract circuit model}
+Generalising from any specific domain, let $(\hat P,\sqsubseteq)$ be a finite, complete lattice of \textit{abstract predicates} in which the meet $\sqcap$ and join $\sqcup$ of any subset $Q \subseteq \hat P$ exists. Similar to the previous set operations for power sets, $\sqcap$, $\sqcup$ and $\sqsubseteq$ correspond to conjunction, disjunction and implication for abstract predicates, respectively. Furthermore, for any $Q \subseteq \hat P$, we denote by $\sqcap Q$ and $\sqcup Q$ the meet and join of all members of $Q$.
 
 Let there be a Galois connection relating ``concrete'' predicates $\pow(C)$ and abstract predicates $\hat P$. The usual definition of a Galois connection is in terms of an \textit{abstraction} $\alpha \in \pow(C) \rightarrow \hat P$ and a \textit{concretisation} $\gamma \in \hat P \rightarrow \pow(C)$ function, such that $\alpha(p) \sqsubseteq \hat p \iff p \subseteq \gamma(\hat p)$ for all $p \in \pow(C)$ and $\hat p \in \hat P$. For example, a Galois connection from $\pow(\mathbb{B}^{m})$ to $\mathbb{T}_{\bot}^{m}$ for any $m \in \mathbb{N}$ can be defined in a natural way by its concretisation function $\gamma \in \mathbb{T}_{\bot}^{m} \rightarrow \pow(\mathbb{B}^{m})$:
 
@@ -91,6 +91,8 @@ We adopt a different interpretation of Galois connections that is given by means
 \end{equation*}
 
 \noindent Intuitively, this relation is an extension of the partial order $\subseteq$ of $\pow(C)$ and $\sqsubseteq$ of $\hat P$ to an ordering between $\pow(C)$ and $\hat P$. The original abstraction and concretisation functions can be derived from the relation by: $\alpha(p) = \sqcap \{ \hat p \in \hat P \mid p \ll \hat p \}$ and $\gamma(\hat p) = \cup \{ p \in \pow(C) \mid p \ll \hat p \}$. Conversely, the relation can be derived from $\alpha$ and $\gamma$ as: $p \ll \hat p \iff \alpha(p) \sqsubseteq \hat p$ and $p \ll \hat p \iff p \subseteq \gamma(\hat p)$.
+
+\subsubsection{Abstract circuit model}
 
 An \textit{abstract predicate transformer} $\hat M \in \hat P \rightarrow \hat P$ is an \textit{abstract interpretation}~\cite{cousot1996} of $M \in \pow(C) \rightarrow \pow(C)$ iff: (1) $\hat M$ preserves $\bot$, i.e. $\hat M(\bot) = \bot$; (2) $\hat M$ is monotonic, i.e. $\hat p \sqsubseteq \hat q \Rightarrow \hat M (\hat p) \sqsubseteq \hat M (\hat q)$ for all $\hat p, \hat q \in \hat P$; and (3) $\ll$ is a \textit{simulation relation} from $\pow(C)$ to $\hat P$, i.e. $p \ll \hat p \Rightarrow M (p) \ll \hat M (\hat p)$ for all $p \in \pow(C)$ and $\hat p \in \hat P$. That $\ll$ is a simulation relation can also be stated in terms of its abstraction $\alpha$ and concretisation $\gamma$ functions: $\alpha(M(p)) \sqsubseteq \hat M(\alpha(p))$ for all $p \in \pow(C)$, and $M(\gamma(\hat p)) \subseteq \gamma(\hat M(\hat p))$ for all $\hat p \in \hat P$.
 
