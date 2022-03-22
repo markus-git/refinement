@@ -38,9 +38,9 @@ M_{F}(p) = \{ c' \in C \mid \exists c \in p : (c,c') \in M_{R} \}
 M_{F}(\cup Q) = \cup \{ M_{F}(q) \mid q \in Q \}
 \end{equation*}
 
-\noindent for all $Q \subseteq \pow(C)$. Any $M_{F}$ that satisfies this distributive property also defines a $M_{R}$ through the equivalence $(c,c') \in M_{R} \iff c' \in M_{F}(\{ c \})$, that is to say, there is no loss of information going from $M_{R}$ to $M_{F}$ or vice versa. It follows that $M_{F}$ preserves the empty set of constraints, i.e. $M_{F}(\emptyset) = \emptyset$, and is monotonic, i.e. $p \subseteq q \implies M_{F}(p) \subseteq M_{F}(q)$ for all $p, q \in \pow(C)$. We adopt this functional model of $M$ and drop its subscript.
+\noindent for all $Q \subseteq \pow(C)$. In general, any $M_{F}$ that satisfies this distributive property also defines a $M_{R}$ through the equivalence $(c,c') \in M_{R} \iff c' \in M_{F}(\{ c \})$, that is to say, there is no loss of information going from $M_{R}$ to $M_{F}$ or vice versa. \todo{It follows that $M_{F}$ preserves the empty set of constraints, i.e. $M_{F}(\emptyset) = \emptyset$, and is monotonic, i.e. $p \subseteq q \implies M_{F}(p) \subseteq M_{F}(q)$ for all $p, q \in \pow(C)$.} We adopt this functional model of $M$ and drop its subscript.
 
-Exactly what the signals of $C$ are, is not important in this section. In practice, however, $C$ is typically divided into external, i.e. ``input'' and ``output'', and internal signals. While an input signal is generally controlled by the external environment, and thus unconstrained by $M$ itself, non-input signals are determined by the circuit topology and functionality. For example, supposed $M$ is the earlier example of a unit-delayed two-input AND gate, we could then define its model $M \in \pow(\mathbb{B}^{3}) \rightarrow \pow(\mathbb{B}^{3})$ as follows:
+Exactly what $C$ and its signals are, is not important in this section. In practice, however, $C$ is typically divided into external, i.e. ``input'' and ``output'', and internal signals. While an input signal is generally controlled by the external environment, and thus unconstrained by $M$ itself, non-input signals are determined by the circuit topology and functionality. For example, supposed $M$ is the earlier example of a unit-delayed two-input AND gate, we could then define its model $M \in \pow(\mathbb{B}^{3}) \rightarrow \pow(\mathbb{B}^{3})$ as follows:
 
 % although not required here
 
@@ -49,6 +49,14 @@ M(p) = \{ \langle b_{1}, b_{2}, i_{1} \wedge i_{2} \rangle \in \mathbb{B}^{3} \m
 \end{equation*}
 
 \noindent Here $i_{1}$ and $i_{2}$ refer to the two inputs of the AND gate and $o$ the ignored output; $b_{1}$ and $b_{2}$ are unconstrained inputs in the new configuration.
+
+\subsubsection{Assertions and satisfaction}
+
+A \textit{trajectory assertion} for $M$ is quintuple $A = (S,s_{0},R,\pi_{a},\pi_{c})$, where $S$ is a finite set of \textit{states}, $s_{0} \in S$ is an \textit{initial state}, $R \subseteq S \times S$ is a \textit{transition relation}, $\pi_{a} \in S \rightarrow \hat P$ and $\pi_{c} \in S \rightarrow \hat P$ label each state $s$ with an \textit{antecedent} $\pi_{a}(s)$ and a \textit{consequent} $\pi_{c}(s)$. We assume that $(s,s_{0}) \notin S$ for all $s \in S$ without any loss of generality.
+
+A \textit{trajectory} of $M$ is a non-empty sequences of configurations, $\tau \in C^{+}$, such that $\tau_{n} \in M(\{ \tau_{n-1} \})$ for all $n \in \mathbb{N} : 0 < n < | \tau |$; the set of all trajectories of $M$ is denoted by $\Traj(M)$.
+
+A \textit{run} of $A$ is a non-empty sequence of states, $\rho \in S^{+}$, such that $\rho_{0} = s_{0}$ and $(\rho_{n-1}, \rho_{n}) \in R$ for all $n \in \mathbb{N} : 0 < n < | \rho |$; the set of all runs of $A$ is denoted by $\Runs(A)$.
 
 \subsection{Lattice-theoretic STE}
 
@@ -98,19 +106,7 @@ An \textit{abstract predicate transformer} $\hat M \in \hat P \rightarrow \hat P
 
 Note that $\hat M$ does not distribute over arbitrary join in general because information is potentially discarded when joining two lattices. As an example, let the following $\hat M$ abstract the earlier unit-delayed AND gate:
 
-% , that would have been kept by union in the original model $M$
-
-%% \begin{align*}
-%% \hat M(\langle p_{1}, p_{2}, p_{3} \rangle) &=
-%% \left\{
-%%   \begin{array}{ll}
-%%     \langle \X, \X, 1 \rangle, & \textrm{if } p_{1} = 1 \textrm{ and } p_{2} = 1 \\
-%%     \langle \X, \X, 0 \rangle, & \textrm{if } p_{1} = 0 \textrm{ or } p_{2} = 0 \\
-%%     \langle \X, \X, \X \rangle, & \textrm{otherwise}
-%%   \end{array}
-%% \right. \\
-%% \hat M(\bot) &= \bot
-%% \end{align*}
+% ..., that would have been kept by union in the original model $M$
 
 \begin{equation*}
 \begin{array}{llll}
@@ -135,7 +131,7 @@ Note that $\hat M$ does not distribute over arbitrary join in general because in
 
 \subsubsection{Assertions and satisfaction}
 
-A \textit{trajectory assertion} for an abstact model $\hat M$ is a quintuple $\hat A = (S,s_{0},R,\pi_{a},\pi_{c})$, where $S$ is a finite set of \textit{states}, $s_{0} \in S$ is an \textit{initial state}, $R \subseteq S \times S$ is a \textit{transition relation}, $\pi_{a} \in S \rightarrow \hat P$ and $\pi_{c} \in S \rightarrow \hat P$ label each state $s$ with an \textit{antecedent} $\pi_{a}(s)$ and a \textit{consequent} $\pi_{c}(s)$. Furthermore, we assume that $(s,s_{0}) \notin S$ for all $s \in S$ without any loss of generality.
+A \textit{trajectory assertion} for an abstract model $\hat M$ is a quintuple $\hat A = (S,s_{0},R,\pi_{a},\pi_{c})$, where $S$ is a finite set of \textit{states}, $s_{0} \in S$ is an \textit{initial state}, $R \subseteq S \times S$ is a \textit{transition relation}, $\pi_{a} \in S \rightarrow \hat P$ and $\pi_{c} \in S \rightarrow \hat P$ label each state $s$ with an \textit{antecedent} $\pi_{a}(s)$ and a \textit{consequent} $\pi_{c}(s)$. Furthermore, we assume that $(s,s_{0}) \notin S$ for all $s \in S$ without any loss of generality.
 
 For all functions $\Phi \in S \rightarrow \hat P$ and states $s \in S$, define $F \in S \rightarrow (\hat P \rightarrow \hat P)$ and $\mathcal{F} \in (S \rightarrow \hat P) \rightarrow (S \rightarrow \hat P)$ as follows:
 

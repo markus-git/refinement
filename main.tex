@@ -28,32 +28,32 @@
 \newcommand{\Alpha}{\mathrm{A}}
 \newcommand{\omicron}{\mathrm{o}}
 \newcommand{\pow}[1]{\mathcal{P}#1}
+\newcommand{\comp}{\mkern -2mu \circ}
+\newcommand{\qedb}{\hfill\blacksquare}
+\newcommand{\qedw}{\hfill\ensuremath{\Box}}
+\renewcommand{\iff}{\Leftrightarrow}
+\renewcommand{\implies}{\Rightarrow}
 \DeclareMathOperator{\nsqsubseteq}{\not\sqsubseteq}
 \DeclareMathOperator{\meet}{\sqcap}
 \DeclareMathOperator{\join}{\sqcup}
 
-%% General preference.
-\renewcommand{\iff}{\Leftrightarrow}
-\renewcommand{\implies}{\Rightarrow}
-\newcommand{\comp}{\mkern -2mu \circ}
-\newcommand{\qedb}{\hfill\blacksquare}
-\newcommand{\qedw}{\hfill\ensuremath{\Box}}
-
 % STE orig. grammar.
+\newcommand{\X}{\mathrm{X}}
 \DeclareMathOperator{\Next}{\textbf{N}} % Next-time.
 \DeclareMathOperator{\Is}{\mathbin{\textbf{is}}} % comparison.
-\newcommand{\X}{\mathrm{X}}
-% \newcommand{\Traj}[1]{\textit{Traj}(#1)} % set of trajectories
+\DeclareMathOperator{\Traj}{\textit{Traj}} % set of trajectories
+\DeclareMathOperator{\Runs}{\textit{Runs}} % set of runs
 
 % Refinement ...
 \DeclareMathOperator{\In}{\dot{\iota}}
 \DeclareMathOperator{\Out}{\omicron}
-% \DeclareMathOperator{\Vis}{vis}
+%
 \DeclareMathOperator{\Inn}{\hat{\iota}}
 \DeclareMathOperator{\Outt}{\hat{\omicron}}
 %
 \DeclareMathOperator{\srefine}{\leq_{\textrm{set}}}
 \DeclareMathOperator{\smodels}{\models_{\textrm{set}}}
+%
 \DeclareMathOperator{\cc}{\lll} %{\leq} %{\prec\mkern-4mu\prec}
 
 %% Old.
