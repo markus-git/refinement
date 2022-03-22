@@ -38,9 +38,11 @@ M_{F}(p) = \{ c' \in C \mid \exists c \in p : (c,c') \in M_{R} \}
 M_{F}(\cup Q) = \cup \{ M_{F}(q) \mid q \in Q \}
 \end{equation*}
 
-\noindent for all $Q \subseteq \pow(C)$. In general, any $M_{F}$ that satisfies this distributive property also defines a $M_{R}$ through the equivalence $(c,c') \in M_{R} \iff c' \in M_{F}(\{ c \})$, that is to say, there is no loss of information going from $M_{R}$ to $M_{F}$ or vice versa. \todo{It follows that $M_{F}$ preserves the empty set of constraints, i.e. $M_{F}(\emptyset) = \emptyset$, and is monotonic, i.e. $p \subseteq q \implies M_{F}(p) \subseteq M_{F}(q)$ for all $p, q \in \pow(C)$.} We adopt this functional model of $M$ and drop its subscript.
+\noindent for all $Q \subseteq \pow(C)$. In general, any $M_{F}$ that satisfies this distributive property also defines a $M_{R}$ through the equivalence $(c,c') \in M_{R} \iff c' \in M_{F}(\{ c \})$, that is to say, there is no loss of information going from $M_{R}$ to $M_{F}$ or vice versa. We adopt this functional model of $M$ and drop its subscript.
 
-Exactly what $C$ and its signals are, is not important in this section. In practice, however, $C$ is typically divided into external, i.e. ``input'' and ``output'', and internal signals. While an input signal is generally controlled by the external environment, and thus unconstrained by $M$ itself, non-input signals are determined by the circuit topology and functionality. For example, supposed $M$ is the earlier example of a unit-delayed two-input AND gate, we could then define its model $M \in \pow(\mathbb{B}^{3}) \rightarrow \pow(\mathbb{B}^{3})$ as follows:
+% It follows that $M_{F}$ preserves the empty set of constraints, i.e. $M_{F}(\emptyset) = \emptyset$, and is monotonic, i.e. $p \subseteq q \implies M_{F}(p) \subseteq M_{F}(q)$ for all $p, q \in \pow(C)$.
+
+Exactly what $C$ and its signals are, is not important in this section. In practice, however, signals are typically divided into external, i.e. ``input'' and ``output'', and internal parts. While an input signal is generally controlled by the external environment, and thus unconstrained by $M$ itself, non-input signals are determined by the circuit topology and functionality. For example, supposed $M$ is the earlier example of a unit-delayed two-input AND gate, we could then define its model $M \in \pow(\mathbb{B}^{3}) \rightarrow \pow(\mathbb{B}^{3})$ as follows:
 
 % although not required here
 
@@ -48,15 +50,34 @@ Exactly what $C$ and its signals are, is not important in this section. In pract
 M(p) = \{ \langle b_{1}, b_{2}, i_{1} \wedge i_{2} \rangle \in \mathbb{B}^{3} \mid \langle i_{1}, i_{2}, o \rangle \in p \}
 \end{equation*}
 
-\noindent Here $i_{1}$ and $i_{2}$ refer to the two inputs of the AND gate and $o$ the ignored output; $b_{1}$ and $b_{2}$ are unconstrained inputs in the new configuration.
+\noindent Here $i_{1}$ and $i_{2}$ refer to the two inputs of the AND gate, $o$ the ignored output, and $b_{1}$ and $b_{2}$ are unconstrained inputs for the new configurations.
 
-\subsubsection{Assertions and satisfaction}
+\subsubsection{Assertions and satisfaction} \label{sec:set-sat}
 
-A \textit{trajectory assertion} for $M$ is quintuple $A = (S,s_{0},R,\pi_{a},\pi_{c})$, where $S$ is a finite set of \textit{states}, $s_{0} \in S$ is an \textit{initial state}, $R \subseteq S \times S$ is a \textit{transition relation}, $\pi_{a} \in S \rightarrow \hat P$ and $\pi_{c} \in S \rightarrow \hat P$ label each state $s$ with an \textit{antecedent} $\pi_{a}(s)$ and a \textit{consequent} $\pi_{c}(s)$. We assume that $(s,s_{0}) \notin S$ for all $s \in S$ without any loss of generality.
+A \textit{trajectory assertion} for $M$ is quintuple $A = (S,s_{0},R,\pi_{a},\pi_{c})$, where $S$ is a finite set of \textit{states}, $s_{0} \in S$ is an \textit{initial state}, $R \subseteq S \times S$ is a \textit{transition relation}, $\pi_{a} \in S \rightarrow \pow(C)$ and $\pi_{c} \in S \rightarrow \pow(C)$ label each state $s$ with an \textit{antecedent} $\pi_{a}(s)$ and a \textit{consequent} $\pi_{c}(s)$. We assume that $(s,s_{0}) \notin S$ for all $s \in S$ without any loss of generality.
 
-A \textit{trajectory} of $M$ is a non-empty sequences of configurations, $\tau \in C^{+}$, such that $\tau_{n} \in M(\{ \tau_{n-1} \})$ for all $n \in \mathbb{N} : 0 < n < | \tau |$; the set of all trajectories of $M$ is denoted by $\Traj(M)$.
+% A \textit{trajectory} of $M$ is a non-empty sequences of configurations, $\tau \in C^{+}$, such that $\tau_{n} \in M(\{ \tau_{n-1} \})$ for all $n \in \mathbb{N} : 0 < n < | \tau |$; the set of all trajectories of $M$ is denoted by $\Traj(M)$.
 
-A \textit{run} of $A$ is a non-empty sequence of states, $\rho \in S^{+}$, such that $\rho_{0} = s_{0}$ and $(\rho_{n-1}, \rho_{n}) \in R$ for all $n \in \mathbb{N} : 0 < n < | \rho |$; the set of all runs of $A$ is denoted by $\Runs(A)$.
+% A \textit{run} of $A$ is a non-empty sequence of states, $\rho \in S^{+}$, such that $\rho_{0} = s_{0}$ and $(\rho_{n-1}, \rho_{n}) \in R$ for all $n \in \mathbb{N} : 0 < n < | \rho |$; the set of all runs of $A$ is denoted by $\Runs(A)$.
+
+For all functions $\Phi \in S \rightarrow \pow(C)$ and states $s \in S$, define $F \in S \rightarrow (\pow(C) \rightarrow \pow(C))$ as follows:
+
+\begin{align}
+F(s)(p) &= M(\pi_{a}(s) \cap p) \\
+\mathcal{F}(\Phi)(s) &= \Stmt{if } (s = s_{0}) \Stmt{ then } C \Stmt{ else } \cup \{ F(s')(\Phi(s')) \mid (s',s) \in R \}
+\end{align}
+
+\noindent $F$ preserves $\emptyset$, and both $F$ and $\mathcal{F}$ are montonic; two $\Phi, \Phi' \in S \rightarrow \pow(C)$ are ordered as $\Phi \subseteq \Phi' \iff \forall s \in S : \Phi(s) \subseteq \Phi'(s)$. Let $\Phi_{*} \in S \rightarrow \pow(C)$ be the least fixpoint of the equation $\Phi = \mathcal{F}(\Phi)$~\cite{davey2002}. Since both $S$ and $\pow(C)$ are finite, $\Phi_{*}$ is given by $\lim \, \Phi_{n}(s)$, where $\Phi_{n}$ is defined as follows:
+
+\begin{equation}
+\Phi_{n} = \Stmt{if } (n = 0) \Stmt{ then } (\lambda s \in S : \bot) \Stmt{ else } \mathcal{F}(\Phi_{n-1})
+\end{equation}
+
+\noindent Finally, $M$ \textit{satisfies} a trajectory assertion $A$, denoted by $M \smodels A$, iff:
+
+\begin{equation}
+\forall s \in S : \Phi_{*}(s) \cap \pi_{a}(s) \subseteq \pi_{c}(s)
+\end{equation}
 
 \subsection{Lattice-theoretic STE}
 
@@ -90,21 +111,15 @@ Let there be a Galois connection relating ``concrete'' predicates $\pow(C)$ and 
 
 % Abstracting the concrete predicates $\{ \langle 1, 1, 0 \rangle, \langle 1, 0, 0 \rangle \}$ with $\alpha$ indeed yields the original $\langle 1, \X, 0 \rangle$ abstraction.
 
-We adopt a different interpretation of Galois connections that is given by means of a binary relation between $\pow(C)$ and $\hat P$. Specifically, let $\ll \, \subseteq \pow(C) \times \hat P$ be a binary relation, where $p \ll \hat p$ reads as ``$p$ can be approximated as $\hat p$'', such that for all $Q \subseteq \pow(C)$ and $\hat Q \subseteq \hat P$:
-
-%% ToDo: Used mainly to prove thesis in~\cite{chou1999}, included here since we use one for refinement later on. The relational view, I think, is used so that it can be made into a sim. relation.
-
-\begin{equation*}
-\forall p \in Q : \forall \hat p \in \hat Q : p \ll \hat p \iff \cup Q \ll \sqcap \hat Q
-\end{equation*}
-
-\noindent Intuitively, this relation is an extension of the partial order $\subseteq$ of $\pow(C)$ and $\sqsubseteq$ of $\hat P$ to an ordering between $\pow(C)$ and $\hat P$. The original abstraction and concretisation functions can be derived from the relation by: $\alpha(p) = \sqcap \{ \hat p \in \hat P \mid p \ll \hat p \}$ and $\gamma(\hat p) = \cup \{ p \in \pow(C) \mid p \ll \hat p \}$. Conversely, the relation can be derived from $\alpha$ and $\gamma$ as: $p \ll \hat p \iff \alpha(p) \sqsubseteq \hat p$ and $p \ll \hat p \iff p \subseteq \gamma(\hat p)$.
-
 \subsubsection{Abstract circuit model}
 
-An \textit{abstract predicate transformer} $\hat M \in \hat P \rightarrow \hat P$ is an \textit{abstract interpretation}~\cite{cousot1996} of $M \in \pow(C) \rightarrow \pow(C)$ iff: (1) $\hat M$ preserves $\bot$, i.e. $\hat M(\bot) = \bot$; (2) $\hat M$ is monotonic, i.e. $\hat p \sqsubseteq \hat q \Rightarrow \hat M (\hat p) \sqsubseteq \hat M (\hat q)$ for all $\hat p, \hat q \in \hat P$; and (3) $\ll$ is a \textit{simulation relation} from $\pow(C)$ to $\hat P$, i.e. $p \ll \hat p \Rightarrow M (p) \ll \hat M (\hat p)$ for all $p \in \pow(C)$ and $\hat p \in \hat P$. That $\ll$ is a simulation relation can also be stated in terms of its abstraction $\alpha$ and concretisation $\gamma$ functions: $\alpha(M(p)) \sqsubseteq \hat M(\alpha(p))$ for all $p \in \pow(C)$, and $M(\gamma(\hat p)) \subseteq \gamma(\hat M(\hat p))$ for all $\hat p \in \hat P$.
+An \textit{abstract predicate transformer} $\hat M \in \hat P \rightarrow \hat P$ is an \textit{abstract interpretation}~\cite{cousot1996} of $M \in \pow(C) \rightarrow \pow(C)$ iff: $\hat M$ preserves $\bot$, i.e. $\hat M(\bot) = \bot$; $\hat M$ is monotonic, i.e. $\hat p \sqsubseteq \hat q \Rightarrow \hat M (\hat p) \sqsubseteq \hat M (\hat q)$ for all $\hat p, \hat q \in \hat P$; \todo{and its Galois connection between $\pow(C)$ and $\hat P$ is a \textit{simulation relation}}, i.e. $\alpha(M(p)) \sqsubseteq \hat M(\alpha(p))$ for all $p \in \pow(C)$, or $M(\gamma(\hat p)) \subseteq \gamma(\hat M(\hat p))$ for all $\hat p \in \hat P$.
 
-Note that $\hat M$ does not distribute over arbitrary join in general because information is potentially discarded when joining two lattices. As an example, let the following $\hat M$ abstract the earlier unit-delayed AND gate:
+% and $\ll$ is a \textit{simulation relation} from $\pow(C)$ to $\hat P$, i.e. $p \ll \hat p \Rightarrow M (p) \ll \hat M (\hat p)$ for all $p \in \pow(C)$ and $\hat p \in \hat P$.
+
+% That $\ll$ is a simulation relation can also be stated in terms of its abstraction $\alpha$ and concretisation $\gamma$ functions: $\alpha(M(p)) \sqsubseteq \hat M(\alpha(p))$ for all $p \in \pow(C)$, and $M(\gamma(\hat p)) \subseteq \gamma(\hat M(\hat p))$ for all $\hat p \in \hat P$.
+
+Note that $\hat M$ does not distribute over arbitrary join because information is potentially discarded by the ternary logic durin a join. As an example, let the following $\hat M$ abstract the earlier unit-delayed AND gate:
 
 % ..., that would have been kept by union in the original model $M$
 
@@ -118,7 +133,7 @@ Note that $\hat M$ does not distribute over arbitrary join in general because in
 
 % Note: Can we shorten the def. of funny M somehow? Or use a simpler gate.
 
-\noindent Where the last, most general matching is overlapped by the concrete ones. If we apply $\hat M$ to the join of $\langle 0, 1, \X \rangle$ and $\langle 1, 0, \X \rangle$, or if we apply $\hat M$ to them individually and then join, we get two different results:
+\noindent where the last, most general matching is overlapped by the more concrete ones. If we apply $\hat M$ to the join of $\langle 0, 1, \X \rangle$ and $\langle 1, 0, \X \rangle$, or if we apply $\hat M$ to them individually and then join, we get two different results:
 
 \begin{equation*}
 \begin{array}{lll}
@@ -131,25 +146,25 @@ Note that $\hat M$ does not distribute over arbitrary join in general because in
 
 \subsubsection{Assertions and satisfaction}
 
-A \textit{trajectory assertion} for an abstract model $\hat M$ is a quintuple $\hat A = (S,s_{0},R,\pi_{a},\pi_{c})$, where $S$ is a finite set of \textit{states}, $s_{0} \in S$ is an \textit{initial state}, $R \subseteq S \times S$ is a \textit{transition relation}, $\pi_{a} \in S \rightarrow \hat P$ and $\pi_{c} \in S \rightarrow \hat P$ label each state $s$ with an \textit{antecedent} $\pi_{a}(s)$ and a \textit{consequent} $\pi_{c}(s)$. Furthermore, we assume that $(s,s_{0}) \notin S$ for all $s \in S$ without any loss of generality.
+A trajectory assertion for an abstract model $\hat M$ is a quintuple $\hat A = (S, s_{0}, R, \hat{\pi}_{a}, \hat{\pi}_{c})$, where $S$, $s_{0}$, and $R$ are as in section~\ref{sec:set-sat} and $\hat{\pi}_{a} \in S \rightarrow \hat P$ and $\hat{\pi}_{c} \in S \rightarrow \hat P$ label each state $s$ with an abstract predicate for its antecedent and consequent, respectively.
 
-For all functions $\Phi \in S \rightarrow \hat P$ and states $s \in S$, define $F \in S \rightarrow (\hat P \rightarrow \hat P)$ and $\mathcal{F} \in (S \rightarrow \hat P) \rightarrow (S \rightarrow \hat P)$ as follows:
+For all functions $\hat \Phi \in S \rightarrow \hat P$ and states $s \in S$, define $\hat F \in S \rightarrow (\hat P \rightarrow \hat P)$ and $\hat{\mathcal{F}} \in (S \rightarrow \hat P) \rightarrow (S \rightarrow \hat P)$ as follows:
 
 \begin{align}
-F(s)(\hat p) &= \hat M(\pi_{a}(s) \sqcap \hat p) \\
-\mathcal{F}(\Phi)(s) &= \Stmt{if } (s = s_{0}) \Stmt{ then } \top \Stmt{ else } \sqcup \{ F(s')(\Phi(s')) \mid (s',s) \in R \}
+\hat F(s)(\hat p) &= \hat M(\pi_{a}(s) \sqcap \hat p) \\
+\hat{\mathcal{F}}(\Phi)(s) &= \Stmt{if } (s = s_{0}) \Stmt{ then } \top \Stmt{ else } \sqcup \{ \hat F(s')(\Phi(s')) \mid (s',s) \in R \}
 \end{align}
 
-\noindent $F$ preserves $\bot$, both $F$ and $\mathcal{F}$ are monotonic, and two $\Phi, \Phi' \in S \rightarrow \hat P$ are ordered as $\Phi \sqsubseteq \Phi' \iff \forall s \in S : \Phi(s) \sqsubseteq \Phi'(s)$. Let $\Phi_{*} \in S \rightarrow \hat P$ be the least fixpoint of the equation $\Phi = \mathcal{F}(\Phi)$~\cite{davey2002}. Since both $S$ and $\hat P$ are finite, $\Phi_{*}$ is given by $\lim \, \Phi_{n}(s)$ where $\Phi_{n}$ is defined as follows:
+\noindent $\hat F$ preserves $\bot$, and both $\hat F$ and $\hat{\mathcal{F}}$ are monotonic; two $\hat \Phi, \hat \Phi' \in S \rightarrow \hat P$ are ordered as $\hat \Phi \sqsubseteq \hat \Phi' \iff \forall s \in S : \hat \Phi(s) \sqsubseteq \hat \Phi'(s)$. Let $\hat \Phi_{*} \in S \rightarrow \hat P$ be the least fixpoint of the equation $\hat \Phi = \hat{\mathcal{F}}(\hat \Phi)$~\cite{davey2002}. Since both $S$ and $\hat P$ are finite, $\hat \Phi_{*}$ is given by $\lim \, \hat \Phi_{n}(s)$, where $\hat \Phi_{n}$ is defined as follows:
 
 \begin{equation}
-\Phi_{n} = \Stmt{if } (n = 0) \Stmt{ then } (\lambda s \in S : \bot) \Stmt{ else } \mathcal{F}(\Phi_{n-1})
+\hat \Phi_{n} = \Stmt{if } (n = 0) \Stmt{ then } (\lambda s \in S : \bot) \Stmt{ else } \hat{\mathcal{F}}(\hat \Phi_{n-1})
 \end{equation}
 
-$\hat M$ \textit{satisfies} a trajectory assertion $\hat A$, denoted by $\hat M \models \hat A$, iff:
+\noindent Finally, $\hat M$ \textit{satisfies} a trajectory assertion $\hat A$\footnotemark, denoted by $\hat M \models \hat A$, iff:
 
 \begin{equation}
-\forall s \in S : \Phi_{*}(s) \sqcap \pi_{\alpha}(s) \sqsubseteq \pi_{c}(s)
+\forall s \in S : \hat \Phi_{*}(s) \sqcap \pi_{\alpha}(s) \sqsubseteq \pi_{c}(s)
 \end{equation}
 
-\noindent $\hat M \models \hat A$ implies that a concretisation of $\hat A$ can also be satisfied by the original, set-based model $M$ \cite{chou1999}.
+\footnotetext{That $\hat M$ satisfies $\hat A$ implies that a concretisation of $\hat A$ can also be satisfied by the original, set-based model $M$ \cite{chou1999}.}

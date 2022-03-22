@@ -2,7 +2,7 @@
 
 \subsection{Set-Theoretic refinement}
 
-Consider another fixed, but arbitrary, circuit model $N \in \pow(D) \rightarrow \pow(D)$, where $D$ is a non-empty and finite set of configurations which intersects the earlier set $C$. Exactly what configurations such as $C$ and $D$ are, were not important previously. To reason about refinement, however, we need to make a distinction between their external and internal elements. The rationale is that refinement relates the visible behaviour of circuits. \todo{Unnecessary to assume that internal states can be aligned.}
+Consider another fixed, but arbitrary, circuit model $N \in \pow(D) \rightarrow \pow(D)$, where $D$ is a non-empty and finite set of configurations which intersects the earlier set $C$. Exactly what configurations such as $C$ and $D$ are, were not important previously. To reason about refinement, however, we need to make a distinction between their external and internal elements. The rationale is that refinement relates the visible behaviour of circuits. \todo{Unnecessary to assume that internal states can be related.}
 
 % ... intersects the earlier set C, i.e. we assume $C \cap D \neq \emptyset$.
 % ... internal states is of no real significance if their external behaviours match.
@@ -58,6 +58,14 @@ In the case of an unit-delayed AND gate and its predicates $\langle p_{0}, p_{1}
 \end{equation*}
 
 \noindent It is easy to see that $\Outt(\cdot)$ is monotonic, and that it produces the greatest bound for any $\mathbb{T}^{3}$ with an output $\sqsubseteq \hat p_{2}$.
+
+%% We adopt a different interpretation of Galois connections that is given by means of a binary relation between $\pow(C)$ and $\hat P$. Specifically, let $\ll \, \subseteq \pow(C) \times \hat P$ be a binary relation, where $p \ll \hat p$ reads as ``$p$ can be approximated as $\hat p$'', such that for all $Q \subseteq \pow(C)$ and $\hat Q \subseteq \hat P$:
+
+%% \begin{equation*}
+%% \forall p \in Q : \forall \hat p \in \hat Q : p \ll \hat p \iff \cup Q \ll \sqcap \hat Q
+%% \end{equation*}
+
+%% \noindent Intuitively, this relation is an extension of the partial order $\subseteq$ of $\pow(C)$ and $\sqsubseteq$ of $\hat P$ to an ordering between $\pow(C)$ and $\hat P$. The original abstraction and concretisation functions can be derived from the relation by: $\alpha(p) = \sqcap \{ \hat p \in \hat P \mid p \ll \hat p \}$ and $\gamma(\hat p) = \cup \{ p \in \pow(C) \mid p \ll \hat p \}$. Conversely, the relation can be derived from $\alpha$ and $\gamma$ as: $p \ll \hat p \iff \alpha(p) \sqsubseteq \hat p$ and $p \ll \hat p \iff p \subseteq \gamma(\hat p)$.
 
 Let $\cc \, \subseteq \hat P \times \hat Q$ be a Galois connection, such that elements of subsets $\hat P^{*} \subseteq \hat P$ and $\hat Q^{*} \subseteq \hat Q$ are related iff their join and meet are related:
 
