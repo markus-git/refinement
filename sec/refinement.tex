@@ -20,6 +20,19 @@ With a slight abuse of notation, we extend $\Out(\cdot)$ to sequences component-
 \forall \delta \in I^{+} : \Out(M_{\delta}) \subseteq \Out(N_{\delta})
 \end{equation*}
 
+Text.
+
+\begin{theorem}
+\label{thm:refinement}
+If $M$ and $N$ are ciruit models such that $M \srefine N$, and $A_{vis}$ is a visible trajectory assertion for $N$, then:
+
+\begin{equation*}
+N \smodels \, A_{vis} \implies M \smodels \, \alpha(A_{vis})
+\end{equation*}
+\end{theorem}
+
+\noindent Text.
+
 \subsection{Lattice-Theoretic refinement}
 
 Let $\hat N \in \hat Q \rightarrow \hat Q$ be an abstract interpretation of $N$, where $\hat Q$ is an abstract predicate for which there is a Galois connection to $\pow(D)$.
