@@ -14,17 +14,13 @@ A \textit{trajectory} of $N$ is a non-empty sequence of configurations, $\tau \i
 
 % ... Because $D$ is finite, we also see that the set of all possible trajectories of $N$ captures every behaviour for starting in the arbitrary initial state.
 
-With a slight abuse of notation, we extend $\Out(\cdot)$ to sequences component-wise and overload it to accept configurations $D$, and say the circuit $M$ refines the circuit $N$, denoted by $M \srefine N$, iff:
-
-\begin{equation*}
-\forall \delta \in I^{+} : \Out(M_{\delta}) \subseteq \Out(N_{\delta})
-\end{equation*}
+With a slight abuse of notation, we extend $\Out(\cdot)$ to sequences component-wise and overload it to accept configurations $D$, and say the circuit $M$ \textit{refines} the circuit $N$, denoted by $M \srefine N$, iff $\forall \delta \in \In[\pow(C)]^{+} : \Out(M_{\delta}) \subseteq \Out(N_{\delta})$.
 
 Recall that a trajectory assertion for $N$ is a quintuple $A = (S,s_{0},R,\pi_{a},\pi_{c})$. If $\pi_{a}$ only mention inputs and $\pi_{c}$ outputs, i.e. $\pi_{a}[S] \subseteq \In[\pow(D)]$ and $\pi_{c}[S] \subseteq \Out[\pow(D)]$, then we refer to $A$ as a \textit{visible trajectory assertion} which we denote by $A_{vis}$. Define $\alpha(A) = (S, s_{0}, R, \alpha(\pi_{a}), \alpha(\pi_{c}))$, where $\alpha(\pi_{a}) = \lambda s \in S : \alpha(\pi_{a}(s))$ and $\alpha(\pi_{a}) = \lambda s \in S : \alpha(\pi_{a}(s))$. Note that, if $A$ is an assertion for $N$, then $\alpha(A)$ is an assertion for $M$.
 
 \begin{theorem}
 \label{thm:refinement}
-If $M$ and $N$ are ciruit models such that $M \srefine N$, and $A_{vis}$ is a visible trajectory assertion for $N$, then:
+If $M$ and $N$ are circuit models such that $M \srefine N$, and $A_{vis}$ is a visible trajectory assertion for $N$, then:
 
 \begin{equation*}
 N \smodels \, A_{vis} \implies M \smodels \, \alpha(A_{vis})
@@ -35,7 +31,7 @@ N \smodels \, A_{vis} \implies M \smodels \, \alpha(A_{vis})
 
 Let $\hat N \in \hat Q \rightarrow \hat Q$ be an abstract interpretation of $N$, where $\hat Q$ is an abstract predicate for which there is a Galois connection to $\pow(D)$.
 
-Let the output of an abstract predicate $\hat Q$ be identified by the idempotent mapping $\Outt \in \hat Q \rightarrow \hat Q$, such that $\Outt(\cdot)$ is monotonic, i.e. $\hat p \sqsubseteq \hat q \implies \Outt(\hat p) \sqsubseteq \Outt(\hat q)$; and the greatest bound for an output, i.e. $\Outt(\hat p) \sqsubseteq \Outt(\hat q) \iff \hat p \sqsubseteq \Outt(\hat q)$. \todo{In a similar vein, let the inputs of an abstract predicate $\hat Q$ be identified by the mapping $\Inn \in \hat Q \rightarrow \hat Q$.}
+Let the output of an abstract predicate $\hat Q$ be identified by the idempotent mapping $\Outt \in \hat Q \rightarrow \hat Q$, such that $\Outt(\cdot)$ is monotonic, i.e. $\hat p \sqsubseteq \hat q \implies \Outt(\hat p) \sqsubseteq \Outt(\hat q)$; and the greatest bound for an output, i.e. $\Outt(\hat p) \sqsubseteq \Outt(\hat q) \iff \hat p \sqsubseteq \Outt(\hat q)$. In a similar vein, let the inputs of an abstract predicate $\hat Q$ be identified by the mapping $\Inn \in \hat Q \rightarrow \hat Q$.
 
 % As before, we overload $\Outt(\cdot)$ to accept predicates from $\hat Q$
 
@@ -71,7 +67,11 @@ Let $\cc \, \subseteq \hat P \times \hat Q$ be a Galois connection given by mean
 
 \noindent Conversely, the relation $\cc$ can be derived from $\alpha$ and $\gamma$ as: $p \ll \hat p \iff \alpha(p) \sqsubseteq \hat p$ and $p \ll \hat p \iff p \subseteq \gamma(\hat p)$. We note that $\gamma$ is monotone, preserves top and distributes over arbitrary meet, i.e. $\gamma(\sqcap \hat Q) = \sqcap \{ \gamma(\hat q) \in \hat P \mid \hat q \in \hat Q\}$. Similarly, $\alpha$ is monotone, preserves bottom and distributes over arbitrary join.
 
-We say that a relation $\cc \, \subseteq \hat P \times \hat Q$ is a \textit{visible simulation relation} between $\hat M$ and $\hat N$ iff the top of $\hat P$ refines the top of $\hat Q$, i.e. $(\top \in \hat P) \cc \, (\top \in \hat Q)$, and $\hat p \cc \hat q$ implies (1) $\Outt(\hat p) \sqsubseteq \gamma(\Outt(\hat q))$ and (2) $\hat M(\hat \iota \sqcap \hat p) \cc \hat N(\alpha(\hat \iota) \sqcap \hat q)$ for all inputs $\hat \iota \in \Inn(\hat P)$.
+We say that $\cc \, \subseteq \hat P \times \hat Q$ is a \textit{visible simulation relation} iff $\hat p \cc \hat q$ implies $\Outt(\hat p) \sqsubseteq \gamma(\Outt(\hat q))$ and $\hat M(\hat \iota \sqcap \hat p) \cc \hat N(\alpha(\hat \iota) \sqcap \hat q)$ for all inputs $\hat \iota \in \Inn(\hat P)$.
+
+We say the abstract predicate transformer $\hat M$ refines $\hat N$, denote $\hat M \leq \hat N$, iff $(\top \in \hat P) \cc \, (\top \in \hat Q)$ and $\cc$ is a visible simulation relation between $\hat P$ and $\hat Q$.
+
+% between $\hat M$ and $\hat N$ iff the top of $\hat P$ refines the top of $\hat Q$, i.e. $(\top \in \hat P) \cc \, (\top \in \hat Q)$, and $\hat p \cc \hat q$ implies (1) $\Outt(\hat p) \sqsubseteq \gamma(\Outt(\hat q))$ and (2) $\hat M(\hat \iota \sqcap \hat p) \cc \hat N(\alpha(\hat \iota) \sqcap \hat q)$ for all inputs $\hat \iota \in \Inn(\hat P)$.
 
 \begin{theorem}
 \label{thm:refinement}
