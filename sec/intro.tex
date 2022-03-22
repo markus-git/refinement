@@ -73,11 +73,7 @@ F(s)(p) &= M(\pi_{a}(s) \cap p) \\
 \Phi_{n} = \Stmt{if } (n = 0) \Stmt{ then } (\lambda s \in S : \bot) \Stmt{ else } \mathcal{F}(\Phi_{n-1})
 \end{equation}
 
-\noindent Finally, $M$ \textit{satisfies} a trajectory assertion $A$, denoted by $M \smodels A$, iff:
-
-\begin{equation}
-\forall s \in S : \Phi_{*}(s) \cap \pi_{a}(s) \subseteq \pi_{c}(s)
-\end{equation}
+$M$ \textit{satisfies} a trajectory assertion $A$, denoted by $M \smodels A$, iff $\forall s \in S : \Phi_{*}(s) \cap \pi_{a}(s) \subseteq \pi_{c}(s)$.
 
 \subsection{Lattice-theoretic STE}
 
@@ -161,10 +157,6 @@ For all functions $\hat \Phi \in S \rightarrow \hat P$ and states $s \in S$, def
 \hat \Phi_{n} = \Stmt{if } (n = 0) \Stmt{ then } (\lambda s \in S : \bot) \Stmt{ else } \hat{\mathcal{F}}(\hat \Phi_{n-1})
 \end{equation}
 
-\noindent Finally, $\hat M$ \textit{satisfies} a trajectory assertion $\hat A$\footnotemark, denoted by $\hat M \models \hat A$, iff:
-
-\begin{equation}
-\forall s \in S : \hat \Phi_{*}(s) \sqcap \pi_{\alpha}(s) \sqsubseteq \pi_{c}(s)
-\end{equation}
+$\hat M$ \textit{satisfies} a trajectory assertion $\hat A$\footnotemark, denoted by $\hat M \models \hat A$, iff $\forall s \in S : \hat \Phi_{*}(s) \sqcap \pi_{\alpha}(s) \sqsubseteq \pi_{c}(s)$.
 
 \footnotetext{That $\hat M$ satisfies $\hat A$ implies that a concretisation of $\hat A$ can also be satisfied by the original, set-based model $M$ \cite{chou1999}.}
