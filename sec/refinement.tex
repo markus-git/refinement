@@ -69,15 +69,22 @@ Let $\cc \, \subseteq \hat P \times \hat Q$ be a Galois connection given by mean
 
 We say that $\cc \, \subseteq \hat P \times \hat Q$ is a \textit{visible simulation relation} iff $\hat p \cc \hat q$ implies $\Outt(\hat p) \sqsubseteq \gamma(\Outt(\hat q))$ and $\hat M(\hat \iota \sqcap \hat p) \cc \hat N(\alpha(\hat \iota) \sqcap \hat q)$ for all inputs $\hat \iota \in \Inn(\hat P)$.
 
-We say the abstract predicate transformer $\hat M$ refines $\hat N$, denote $\hat M \leq \hat N$, iff $(\top \in \hat P) \cc \, (\top \in \hat Q)$ and $\cc$ is a visible simulation relation between $\hat P$ and $\hat Q$.
+We say the abstract predicate transformer $\hat M$ refines $\hat N$, denote $\hat M \refine \hat N$, iff $(\top \in \hat P) \cc \, (\top \in \hat Q)$ and $\cc$ is a visible simulation relation between $\hat P$ and $\hat Q$.
 
 % between $\hat M$ and $\hat N$ iff the top of $\hat P$ refines the top of $\hat Q$, i.e. $(\top \in \hat P) \cc \, (\top \in \hat Q)$, and $\hat p \cc \hat q$ implies (1) $\Outt(\hat p) \sqsubseteq \gamma(\Outt(\hat q))$ and (2) $\hat M(\hat \iota \sqcap \hat p) \cc \hat N(\alpha(\hat \iota) \sqcap \hat q)$ for all inputs $\hat \iota \in \Inn(\hat P)$.
 
-\begin{theorem}
-\label{thm:refinement}
+\begin{theorem} \label{thm:refinement}
 If $\hat M$ and $\hat N$ are abstract predicate transformers such that $\hat M \cc \hat N$, and $\hat A_{vis}$ is a visible trajectory assertion for $\hat N$, then:
 
 \begin{equation*}
 \hat N \models \hat A_{vis} \implies \hat M \models \alpha(\hat A_{vis})
+\end{equation*}
+\end{theorem}
+
+\begin{theorem} \label{thm:refinement-impl}
+If $\hat M$ and $\hat N$ are abstract predicate transformers of the circuit models $M$ and $N$, then:
+
+\begin{equation*}
+\hat M \refine \hat N \implies M \srefine N
 \end{equation*}
 \end{theorem}
