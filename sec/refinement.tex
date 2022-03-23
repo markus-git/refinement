@@ -18,8 +18,7 @@ With a slight abuse of notation, we extend $\Out(\cdot)$ to sequences component-
 
 Recall that a trajectory assertion for $N$ is a quintuple $A = (S,s_{0},R,\pi_{a},\pi_{c})$. If $\pi_{a}$ only mention inputs and $\pi_{c}$ outputs, i.e. $\pi_{a}[S] \subseteq \In[\pow(D)]$ and $\pi_{c}[S] \subseteq \Out[\pow(D)]$, then we refer to $A$ as a \textit{visible trajectory assertion} which we denote by $A_{vis}$. Define $\alpha(A) = (S, s_{0}, R, \alpha(\pi_{a}), \alpha(\pi_{c}))$, where $\alpha(\pi_{a}) = \lambda s \in S : \alpha(\pi_{a}(s))$ and $\alpha(\pi_{a}) = \lambda s \in S : \alpha(\pi_{a}(s))$. Note that, if $A$ is an assertion for $N$, then $\alpha(A)$ is an assertion for $M$.
 
-\begin{theorem}
-\label{thm:refinement}
+\begin{theorem} \label{thm:refinement-set}
 If $M$ and $N$ are circuit models such that $M \srefine N$, and $A_{vis}$ is a visible trajectory assertion for $N$, then:
 
 \begin{equation*}
@@ -73,7 +72,7 @@ We say the abstract predicate transformer $\hat M$ refines $\hat N$, denote $\ha
 
 % between $\hat M$ and $\hat N$ iff the top of $\hat P$ refines the top of $\hat Q$, i.e. $(\top \in \hat P) \cc \, (\top \in \hat Q)$, and $\hat p \cc \hat q$ implies (1) $\Outt(\hat p) \sqsubseteq \gamma(\Outt(\hat q))$ and (2) $\hat M(\hat \iota \sqcap \hat p) \cc \hat N(\alpha(\hat \iota) \sqcap \hat q)$ for all inputs $\hat \iota \in \Inn(\hat P)$.
 
-\begin{theorem} \label{thm:refinement}
+\begin{theorem} \label{thm:refinement-lat}
 If $\hat M$ and $\hat N$ are abstract predicate transformers such that $\hat M \cc \hat N$, and $\hat A_{vis}$ is a visible trajectory assertion for $\hat N$, then:
 
 \begin{equation*}
