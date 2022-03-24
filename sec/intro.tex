@@ -56,7 +56,7 @@ M(p) = \{ \langle b_{1}, b_{2}, i_{1} \wedge i_{2} \rangle \in \mathbb{B}^{3} \m
 
 A \textit{trajectory assertion} for $M$ is quintuple $A = (S,s_{0},R,\pi_{a},\pi_{c})$, where $S$ is a finite set of \textit{states}, $s_{0} \in S$ is an \textit{initial state}, $R \subseteq S \times S$ is a \textit{transition relation}, $\pi_{a} \in S \rightarrow \pow(C)$ and $\pi_{c} \in S \rightarrow \pow(C)$ label each state $s$ with an \textit{antecedent} $\pi_{a}(s)$ and a \textit{consequent} $\pi_{c}(s)$. We assume that $(s,s_{0}) \notin S$ for all $s \in S$ without any loss of generality.
 
-The circuit model $M$ intuitively \textit{satisfies} an assertion $A$ if, for every \textit{trajectory} $\tau$ through $M$ and every \textit{run} $\rho$ through $A$, $\tau$ satisfying the antecedents of $\rho$ entails that $\tau$ also satisfies the consequents of $\rho$. To be more specific, a \textit{trajectory} of $M$ is a non-empty sequences of configurations, $\tau \in C^{+}$, such that $\tau_{n} \in M(\{ \tau_{n-1} \})$ for all $n \in \mathbb{N} : 0 < n < | \tau |$. And a \textit{run} of $A$ is a non-empty sequence of states, $\rho \in S^{+}$, such that $\rho_{0} = s_{0}$ and $(\rho_{n-1}, \rho_{n}) \in R$ for all $n \in \mathbb{N} : 0 < n < | \rho |$. We can then say that a $\tau$ satisfies the antecedents of $\rho$, denoted by $\tau \models_{a} \rho$, iff $\tau_{n} \in \pi_{a}(\rho_{n})$ for all $n \in \mathbb{N} : n < | \tau | = | \rho |$; satisfaction of consequents is defined similarly with $\pi_{c}$ instead and denoted by $\tau \models_{c} \rho$. Finally, that $M$ satisfies $A$, denoted by $M \models A$, can be formalized as:
+The circuit model $M$ intuitively \textit{satisfies} an assertion $A$ if, for every \textit{trajectory} $\tau$ through $M$ and every \textit{run} $\rho$ through $A$, $\tau$ satisfying the antecedents of $\rho$ entails that $\tau$ also satisfies the consequents of $\rho$. To be more specific, a \textit{trajectory} of $M$ is a non-empty sequences of configurations, $\tau \in C^{+}$, such that $\tau_{n} \in M(\{ \tau_{n-1} \})$ for all $n \in \mathbb{N} : 0 < n < | \tau |$. And a \textit{run} of $A$ is a non-empty sequence of states, $\rho \in S^{+}$, such that $\rho_{0} = s_{0}$ and $(\rho_{n-1}, \rho_{n}) \in R$ for all $n \in \mathbb{N} : 0 < n < | \rho |$. We can then say that a $\tau$ satisfies the antecedents of $\rho$, denoted by $\tau \models_{a} \rho$, iff $\tau_{n} \in \pi_{a}(\rho_{n})$ for all $n \in \mathbb{N} : n < | \tau | = | \rho |$; satisfaction of consequents is defined similarly with $\pi_{c}$ instead and denoted by $\tau \models_{c} \rho$. Finally, that $M$ satisfies $A$, denoted by $M \models A$, can be formalized as\footnotemark:
 
 % (resp. consequents) (resp. $\tau \models_{c} \rho$)
 
@@ -66,20 +66,22 @@ The circuit model $M$ intuitively \textit{satisfies} an assertion $A$ if, for ev
 
 \noindent where $\Traj(M)$ and $\Runs(A)$ denote the sets of all trajectories of $M$ and runs of $A$, respectively.
 
-\todo{This is equivalent to a DFA formulation~\cite{chou1999}.} For all functions $\Phi \in S \rightarrow \pow(C)$ and states $s \in S$, define $F \in S \rightarrow (\pow(C) \rightarrow \pow(C))$ as follows:
+\footnotetext{\todo{This is equivalent to a DFA formulation~\cite{chou1999}.}}
 
-\begin{align}
-F(s)(p) &= M(\pi_{a}(s) \cap p) \\
-\mathcal{F}(\Phi)(s) &= \Stmt{if } (s = s_{0}) \Stmt{ then } C \Stmt{ else } \cup \{ F(s')(\Phi(s')) \mid (s',s) \in R \}
-\end{align}
+%% For all functions $\Phi \in S \rightarrow \pow(C)$ and states $s \in S$, define $F \in S \rightarrow (\pow(C) \rightarrow \pow(C))$ as follows:
 
-\noindent $F$ preserves $\emptyset$, and both $F$ and $\mathcal{F}$ are montonic; two $\Phi, \Phi' \in S \rightarrow \pow(C)$ are ordered as $\Phi \subseteq \Phi' \iff \forall s \in S : \Phi(s) \subseteq \Phi'(s)$. Let $\Phi_{*} \in S \rightarrow \pow(C)$ be the least fixpoint of the equation $\Phi = \mathcal{F}(\Phi)$~\cite{davey2002}. Since both $S$ and $\pow(C)$ are finite, $\Phi_{*}$ is given by $\lim \, \Phi_{n}(s)$, where $\Phi_{n}$ is defined as follows:
+%% \begin{align}
+%% F(s)(p) &= M(\pi_{a}(s) \cap p) \\
+%% \mathcal{F}(\Phi)(s) &= \Stmt{if } (s = s_{0}) \Stmt{ then } C \Stmt{ else } \cup \{ F(s')(\Phi(s')) \mid (s',s) \in R \}
+%% \end{align}
 
-\begin{equation}
-\Phi_{n} = \Stmt{if } (n = 0) \Stmt{ then } (\lambda s \in S : \bot) \Stmt{ else } \mathcal{F}(\Phi_{n-1})
-\end{equation}
+%% \noindent $F$ preserves $\emptyset$, and both $F$ and $\mathcal{F}$ are montonic; two $\Phi, \Phi' \in S \rightarrow \pow(C)$ are ordered as $\Phi \subseteq \Phi' \iff \forall s \in S : \Phi(s) \subseteq \Phi'(s)$. Let $\Phi_{*} \in S \rightarrow \pow(C)$ be the least fixpoint of the equation $\Phi = \mathcal{F}(\Phi)$~\cite{davey2002}. Since both $S$ and $\pow(C)$ are finite, $\Phi_{*}$ is given by $\lim \, \Phi_{n}(s)$, where $\Phi_{n}$ is defined as follows:
 
-$M$ \textit{satisfies} a trajectory assertion $A$, denoted by $M \smodels A$, iff $\forall s \in S : \Phi_{*}(s) \cap \pi_{a}(s) \subseteq \pi_{c}(s)$.
+%% \begin{equation}
+%% \Phi_{n} = \Stmt{if } (n = 0) \Stmt{ then } (\lambda s \in S : \bot) \Stmt{ else } \mathcal{F}(\Phi_{n-1})
+%% \end{equation}
+
+%% $M$ \textit{satisfies} a trajectory assertion $A$, denoted by $M \smodels A$, iff $\forall s \in S : \Phi_{*}(s) \cap \pi_{a}(s) \subseteq \pi_{c}(s)$.
 
 \subsection{Lattice-theoretic STE}
 
@@ -150,7 +152,7 @@ Note that $\hat M$ does not distribute over arbitrary join because information i
 
 A trajectory assertion for an abstract model $\hat M$ is a quintuple $\hat A = (S, s_{0}, R, \hat{\pi}_{a}, \hat{\pi}_{c})$, where $S$, $s_{0}$, and $R$ are as in section~\ref{sec:set-sat} and $\hat{\pi}_{a} \in S \rightarrow \hat P$ and $\hat{\pi}_{c} \in S \rightarrow \hat P$ label each state $s$ with an abstract predicate for its antecedent and consequent, respectively.
 
-For all functions $\hat \Phi \in S \rightarrow \hat P$ and states $s \in S$, define $\hat F \in S \rightarrow (\hat P \rightarrow \hat P)$ and $\hat{\mathcal{F}} \in (S \rightarrow \hat P) \rightarrow (S \rightarrow \hat P)$ as follows:
+\todo{Here follows the definition in~\cite{chou1999}.} For all functions $\hat \Phi \in S \rightarrow \hat P$ and states $s \in S$, define $\hat F \in S \rightarrow (\hat P \rightarrow \hat P)$ and $\hat{\mathcal{F}} \in (S \rightarrow \hat P) \rightarrow (S \rightarrow \hat P)$ as follows:
 
 \begin{align}
 \hat F(s)(\hat p) &= \hat M(\pi_{a}(s) \sqcap \hat p) \\
@@ -163,6 +165,6 @@ For all functions $\hat \Phi \in S \rightarrow \hat P$ and states $s \in S$, def
 \hat \Phi_{n} = \Stmt{if } (n = 0) \Stmt{ then } (\lambda s \in S : \bot) \Stmt{ else } \hat{\mathcal{F}}(\hat \Phi_{n-1})
 \end{equation}
 
-$\hat M$ \textit{satisfies} a trajectory assertion $\hat A$\footnotemark, denoted by $\hat M \models \hat A$, iff $\forall s \in S : \hat \Phi_{*}(s) \sqcap \pi_{\alpha}(s) \sqsubseteq \pi_{c}(s)$.
+$\hat M$ \textit{satisfies} a trajectory assertion $\hat A$\footnotemark, denoted by $\hat M \lmodels \hat A$, iff $\forall s \in S : \hat \Phi_{*}(s) \sqcap \pi_{\alpha}(s) \sqsubseteq \pi_{c}(s)$.
 
 \footnotetext{That $\hat M$ satisfies $\hat A$ implies that a concretisation of $\hat A$ can also be satisfied by the original, set-based model $M$ \cite{chou1999}.}
