@@ -2,94 +2,16 @@
 
 \subsection{Set-Theoretic refinement}
 
-Consider another fixed, but arbitrary, circuit model $N \in \pow(D) \rightarrow \pow(D)$, where $D$ is a non-empty and finite set of configurations which intersects the earlier set $C$. Exactly what configurations such as $C$ and $D$ are, were not important previously. To reason about refinement, however, we need to make a distinction between their external and internal elements. The rationale is that refinement relates the visible behaviour of circuits. \todo{Unnecessary to assume that internal states can be related.}
+Consider another fixed, but arbitrary, circuit model $N \in \Pow(D) \rightarrow \Pow(D)$, where $D$ is a non-empty and finite set of configurations which intersects the earlier set $C$. Exactly what configurations such as $C$ and $D$ are, were not important previously. To reason about refinement, which relates the visible behaviour of circuits, we make a distinction between their external and internal elements.
 
-% ... intersects the earlier set C, i.e. we assume $C \cap D \neq \emptyset$.
-% ... internal states is of no real significance if their external behaviours match.
-% ... Restricting refinement to models where internal states can be aligned thus seems unnecessary.
+% The rationale is that refinement relates the visible behaviour of circuits.
 
-Let the visible components visible elements of configurations in $D$ be identified by two projection mappings, $\Out \in \pow(D) \rightarrow \pow(D)$ and $\In \in \pow(D) \rightarrow \pow(D)$, identifying its ``inputs'' and ``outputs'', respectively. The set of all possible inputs and outputs in $N$ are given by the images $\In[\pow(D)] = \{ \In(p) \mid p \in \pow(D) \}$ and $\Out[\pow(D)]$. Note that, since models generally cannot control their input signals, transitions in $N$ from a state $d \in \pow(D)$ are driven by its intersection with a chosen input $i \in \In[\pow(D)]$, that is, $N(d \cap i)$ yeilds the next state of $d$ for input $i$. We assume the inputs and outputs of $M$ are contained by $N$, i.e. $\In[\pow(C)] \subseteq \In[\pow(D)]$ and $\Out[\pow(C)] \subseteq \Out[\pow(D)]$.
+Let the visible elements of a configuration in $C$ be identified by two projections, $\In \in C \rightarrow C$ and $\Out \in C \rightarrow C$, where $[c]_{\In}$ denotes the \textit{inputs} and $[c]_{\Out}$ the \textit{outputs} of any $c \in C$. With a slight abuse of notation, we overload both $\In$ and $\Out$ to accept configurations in $D$ and extend them to sequences component-wise. \todo{Doing so allows the following, classical intuition of refinement in terms of trajectories for $M$ and $N$:}
 
-A \textit{driver} $\delta \in \In[\pow(D)]^{+}$ for a circuit $N$ is a non-empty sequences of inputs, which induces a trajectory $\tau \in D^{+}$ for $N$, denoted by $N_{\delta}$, where $\tau_{0} = D$ and $\tau_{n+1} = N(\tau_{n} \cap \delta_{n})$ for all $n \in \mathbb{N} : n < | \delta |$. With a slight abuse of notation, we extend $\Out(\cdot)$ to sequences component-wise and overload it to accept configurations in $C$. We then say the circuit $M$ \textit{refines} the circuit $N$, denoted by $M \refine N$, iff $\forall \delta \in \In[\pow(C)]^{+} : \Out(M_{\delta}) \subseteq \Out(N_{\delta})$.
-
-Recall that a trajectory assertion for $N$ is a quintuple $A = (S,s_{0},R,\pi_{a},\pi_{c})$. If $\pi_{a}$ only mention inputs and $\pi_{c}$ outputs, i.e. $\pi_{a}[S] \subseteq \In[\pow(D)]$ and $\pi_{c}[S] \subseteq \Out[\pow(D)]$, then we refer to $A$ as a \textit{visible trajectory assertion} which we denote by $A_{vis}$. Define $\alpha(A) = (S, s_{0}, R, \alpha(\pi_{a}), \alpha(\pi_{c}))$, where $\alpha(\pi_{a}) = \lambda s \in S : \alpha(\pi_{a}(s))$ and $\alpha(\pi_{a}) = \lambda s \in S : \alpha(\pi_{a}(s))$. Note that, if $A$ is an assertion for $N$, then $\alpha(A)$ is an assertion for $M$.
-
-\begin{theorem} \label{thm:refinement-set}
-If $M$ and $N$ are circuit models such that $M \refine N$, and $A_{vis}$ is a visible trajectory assertion for $N$, then:
+% the sets of all possible inputs and outputs in $M$ are given by the images $\In[\Pow(C)] = \{ [c]_{\In} \mid c \in \Pow(C) \}$ and $\Out[\Pow(C)]$.
 
 \begin{equation*}
-N \models \, A_{vis} \implies M \models \, \alpha(A_{vis})
-\end{equation*}
-\end{theorem}
-
-We say that $\ll \: \subseteq \pow(C) \times \pow(D)$ is a \textit{visible simulation relation} between configurations in $M$ and $N$ iff $c \ll d$ implies that $\Out(c) \subseteq \Out(d)$ and for all inputs $\dot \iota \in \In[\pow(C)]$, their next states are related $M(\dot \iota \cap c) \ll N(\dot \iota \cap d)$. We then say that $M$ \textit{refines} $N$ by \textit{set-theoretic simulation}, denoted by $M \srefine N$, iff their most general states are related $C \ll D$.
-
-\begin{theorem} \label{thm:refinement-set-impl}
-For circuit models $M$ and $N$:
-
-\begin{equation*}
-M \refine N \iff M \srefine N
-\end{equation*}
-\end{theorem}
-
-\subsection{Lattice-Theoretic refinement}
-
-Let $\hat N \in \hat Q \rightarrow \hat Q$ be an abstract interpretation of $N$, where $\hat Q$ is an abstract predicate for which there is a Galois connection to $\pow(D)$.
-
-Let the output of an abstract predicate $\hat Q$ be identified by the idempotent mapping $\Outt \in \hat Q \rightarrow \hat Q$, such that $\Outt(\cdot)$ is monotonic, i.e. $\hat p \sqsubseteq \hat q \implies \Outt(\hat p) \sqsubseteq \Outt(\hat q)$; and the greatest bound for an output, i.e. $\Outt(\hat p) \sqsubseteq \Outt(\hat q) \iff \hat p \sqsubseteq \Outt(\hat q)$. In a similar vein, let the inputs of an abstract predicate $\hat Q$ be identified by the mapping $\Inn \in \hat Q \rightarrow \hat Q$.
-
-% As before, we overload $\Outt(\cdot)$ to accept predicates from $\hat Q$
-
-% The sets of all possible inputs and outputs for $\hat P$ are defined as $\In(\hat P) = \{ \In(\hat p) \mid \hat p \in \hat P \}$ and $\Out(\hat P) = \{ \Out(\hat p) \mid \hat p \in \hat P \}$. 
-
-In the case of an unit-delayed AND gate and its predicates $\langle p_{0}, p_{1}, p_{2} \rangle \in \mathbb{T}_{\bot}^{3}$, for example, $\Inn(\cdot)$ and $\Outt(\cdot)$ can be defined naturally as projections which maps each non-input and non-output element to $\X$, respectively:
-
-\begin{equation*}
-\begin{aligned}[t]
-\Inn(\langle \hat p_{0}, \hat p_{1}, \hat p_{2} \rangle) &= \langle \hat p_{0}, \hat p_{1}, \X \rangle \\
-\Inn(\bot) &= \bot
-\end{aligned}
-\qquad
-\begin{aligned}[t]
-\Outt(\langle \hat p_{0}, \hat p_{1}, \hat p_{2} \rangle) &= \langle \X, \X, p_{2} \rangle \\
-\Outt(\bot) &= \bot
-\end{aligned}
+\forall \tau \in \Traj(M) : \exists v \in \Traj(N) : | \tau | = | v | \wedge [\tau]_{\In} = [v]_{\In} \wedge [\tau]_{\Out} = [v]_{\Out}
 \end{equation*}
 
-\noindent It is easy to see that $\Outt(\cdot)$ is monotonic, and that it produces the greatest bound for any $\mathbb{T}^{3}$ with an output $\sqsubseteq \hat p_{2}$.
-
-Let $\cc \, \subseteq \hat P \times \hat Q$ be a Galois connection given by means of a binary relation between $\hat P$ and $\hat Q$, such that elements of subsets $\hat P^{*} \subseteq \hat P$ and $\hat Q^{*} \subseteq \hat Q$ are related iff their join and meet are related:
-
-\begin{equation*}
-\forall \hat p \in \hat P^{*} : \forall \hat q \in \hat Q^{*} : \hat p \cc \hat q \iff \sqcup \hat P^{*} \cc \sqcap \hat Q^{*}
-\end{equation*}
-
-\noindent where $\hat p \cc \hat q$ reads as ``$\hat p$ refines $\hat q$''. Intuitively, this relation is an extension of the partial orderings inside $\hat P$ and $\hat Q$ to an ordering between $\hat P$ and $\hat Q$. The usual abstraction $\alpha \in \hat P \rightarrow \hat Q$ and concretisation $\gamma \in \hat Q \rightarrow \hat P$ functions can be derived from $\cc$ as follows:
-
-\begin{align*}
-\alpha(p) = \sqcap \{ \hat p \in \hat P \mid \hat q \cc \hat p \} && \gamma(\hat p) = \sqcup \{ \hat q \in \hat Q \mid \hat q \cc \hat p \}
-\end{align*}
-
-\noindent Conversely, the relation $\cc$ can be derived from $\alpha$ and $\gamma$ as: $p \ll \hat p \iff \alpha(p) \sqsubseteq \hat p$ and $p \ll \hat p \iff p \subseteq \gamma(\hat p)$. We note that $\gamma$ is monotone, preserves top and distributes over arbitrary meet, i.e. $\gamma(\sqcap \hat Q) = \sqcap \{ \gamma(\hat q) \in \hat P \mid \hat q \in \hat Q\}$. Similarly, $\alpha$ is monotone, preserves bottom and distributes over arbitrary join.
-
-We say that $\cc \, \subseteq \hat P \times \hat Q$ is a \textit{visible simulation relation} iff $\hat p \cc \hat q$ implies $\Outt(\hat p) \sqsubseteq \gamma(\Outt(\hat q))$ and $\hat M(\hat \iota \sqcap \hat p) \cc \hat N(\alpha(\hat \iota) \sqcap \hat q)$ for all inputs $\hat \iota \in \Inn(\hat P)$.
-
-We say the abstract predicate transformer $\hat M$ refines $\hat N$, denote $\hat M \lrefine \hat N$, iff $(\top \in \hat P) \cc \, (\top \in \hat Q)$ and $\cc$ is a visible simulation relation between $\hat P$ and $\hat Q$.
-
-% between $\hat M$ and $\hat N$ iff the top of $\hat P$ refines the top of $\hat Q$, i.e. $(\top \in \hat P) \cc \, (\top \in \hat Q)$, and $\hat p \cc \hat q$ implies (1) $\Outt(\hat p) \sqsubseteq \gamma(\Outt(\hat q))$ and (2) $\hat M(\hat \iota \sqcap \hat p) \cc \hat N(\alpha(\hat \iota) \sqcap \hat q)$ for all inputs $\hat \iota \in \Inn(\hat P)$.
-
-\begin{theorem} \label{thm:refinement-lat}
-If $\hat M$ and $\hat N$ are abstract predicate transformers such that $\hat M \lrefine \hat N$, and $\hat A_{vis}$ is a visible trajectory assertion for $\hat N$, then:
-
-\begin{equation*}
-\hat N \lmodels \hat A_{vis} \implies \hat M \lmodels \alpha(\hat A_{vis})
-\end{equation*}
-\end{theorem}
-
-\begin{theorem} \label{thm:refinement-impl}
-If $\hat M$ and $\hat N$ are abstract predicate transformers of the circuit models $M$ and $N$, then:
-
-\begin{equation*}
-\hat M \lrefine \hat N \implies M \srefine N
-\end{equation*}
-\end{theorem}
+% The above definition of refinement is equivalent to one expressed as a simulation relation. $\SetRefine \in \pow(C) \times \pow(D)$ iff $p \SetRefine q$ implies that $\Out(p) \subseteq \Out(q)$ and $M(p \cap i) \SetRefine N(q \cap i)$ for all $i \in \In[\pow(C)]$. $M \SetRefine N$ iff $C \SetRefine D$.

@@ -22,27 +22,27 @@ While the truth semantics of an assertion in STE is defined as the satisfaction 
 
 Consider an arbitrary, but fixed, digital circuit $M$ operating in discrete time. A \textit{configuration} of $M$, denoted by $C$, is non-empty and finite set that represents a snapshot of $M$ at a discrete point in time. If the circuit $M$ has $m$ boolean signals, then its set of configurations is typically represented as a sequence $\mathbb{B}^{m}$, where $\mathbb{B} = \{ 0,1 \}$ is the set of boolean values.
 
-\subsubsection{Circuit Model} A simple conceptual model of $M$ is a \textit{transition relation}, $M_{R} \subseteq C \times C$, where $(c,c') \in M_{R}$ means that $M$ can move from $c$ to $c'$ in one step\footnotemark. The power set of $C$, denoted by $\pow(C)$, can be viewed as a the set of \textit{predicates} on configurations, where $\cap$, $\cup$, and $\subseteq$ correspond to conjunction, disjunction and implication, respectively. We denote by $\cap Q$ and $\cup Q$ the intersection and union of all members of any $Q \subseteq \pow(C)$.
+\subsubsection{Circuit Model} A simple conceptual model of $M$ is a \textit{transition relation}, $M_{R} \subseteq C \times C$, where $(c,c') \in M_{R}$ means that $M$ can move from $c$ to $c'$ in one step\footnotemark. The power set of $C$, denoted by $\Pow(C)$, can be viewed as a the set of \textit{predicates} on configurations, where $\cap$, $\cup$, and $\subseteq$ correspond to conjunction, disjunction and implication, respectively. We denote by $\cap Q$ and $\cup Q$ the intersection and union of all members of any $Q \subseteq \Pow(C)$.
 
 \footnotetext{\todo{Mention how this affects circuits with zero-delays?}}
 
-$M_{R}$ induces a \textit{predicate transformer} $M_{F} \in \pow(C) \rightarrow \pow(C)$ using the relational image operation:
+$M_{R}$ induces a \textit{predicate transformer} $M_{F} \in \Pow(C) \rightarrow \Pow(C)$ using the relational image operation:
 
 \begin{equation*}
 M_{F}(p) = \{ c' \in C \mid \exists c \in p : (c,c') \in M_{R} \}
 \end{equation*}
 
-\noindent It is intuitively obvious that if $M$ is in one of the configurations in $p \in \pow(C)$, then in one time step it must be in one of the configurations in $M_{F}(p)$. We also see that $M_{F}$ distributes over arbitrary unions:
+\noindent It is intuitively obvious that if $M$ is in one of the configurations in $p \in \Pow(C)$, then in one time step it must be in one of the configurations in $M_{F}(p)$. We also see that $M_{F}$ distributes over arbitrary unions:
 
 \begin{equation*}
 M_{F}(\cup Q) = \cup \{ M_{F}(q) \mid q \in Q \}
 \end{equation*}
 
-\noindent for all $Q \subseteq \pow(C)$. In general, any $M_{F}$ that satisfies this distributive property also defines a $M_{R}$ through the equivalence $(c,c') \in M_{R} \iff c' \in M_{F}(\{ c \})$, that is to say, there is no loss of information going from $M_{R}$ to $M_{F}$ or vice versa. We adopt this functional model of $M$ and drop its subscript.
+\noindent for all $Q \subseteq \Pow(C)$. In general, any $M_{F}$ that satisfies this distributive property also defines a $M_{R}$ through the equivalence $(c,c') \in M_{R} \iff c' \in M_{F}(\{ c \})$, that is to say, there is no loss of information going from $M_{R}$ to $M_{F}$ or vice versa. We adopt this functional model of $M$ and drop its subscript.
 
-% It follows that $M_{F}$ preserves the empty set of constraints, i.e. $M_{F}(\emptyset) = \emptyset$, and is monotonic, i.e. $p \subseteq q \implies M_{F}(p) \subseteq M_{F}(q)$ for all $p, q \in \pow(C)$.
+% It follows that $M_{F}$ preserves the empty set of constraints, i.e. $M_{F}(\emptyset) = \emptyset$, and is monotonic, i.e. $p \subseteq q \implies M_{F}(p) \subseteq M_{F}(q)$ for all $p, q \in \Pow(C)$.
 
-Exactly what $C$ and its signals are, is not important in this section. In practice, however, signals are typically divided into external, i.e. ``input'' and ``output'', and internal parts. While an input signal is generally controlled by the external environment, and thus unconstrained by $M$ itself, non-input signals are determined by the circuit topology and functionality. For example, supposed $M$ is the earlier example of a unit-delayed two-input AND gate, we could then define its model $M \in \pow(\mathbb{B}^{3}) \rightarrow \pow(\mathbb{B}^{3})$ as follows:
+Exactly what $C$ and its signals are, is not important in this section. In practice, however, signals are typically divided into external, i.e. ``input'' and ``output'', and internal parts. While an input signal is generally controlled by the external environment, and thus unconstrained by $M$ itself, non-input signals are determined by the circuit topology and functionality. For example, supposed $M$ is the earlier example of a unit-delayed two-input AND gate, we could then define its model $M \in \Pow(\mathbb{B}^{3}) \rightarrow \Pow(\mathbb{B}^{3})$ as follows:
 
 % although not required here
 
@@ -54,9 +54,9 @@ M(p) = \{ \langle b_{1}, b_{2}, i_{1} \wedge i_{2} \rangle \in \mathbb{B}^{3} \m
 
 \subsubsection{Assertions and satisfaction} \label{sec:set-sat}
 
-A \textit{trajectory assertion} for $M$ is quintuple $A = (S,s_{0},R,\pi_{a},\pi_{c})$, where $S$ is a finite set of \textit{states}, $s_{0} \in S$ is an \textit{initial state}, $R \subseteq S \times S$ is a \textit{transition relation}, $\pi_{a} \in S \rightarrow \pow(C)$ and $\pi_{c} \in S \rightarrow \pow(C)$ label each state $s$ with an \textit{antecedent} $\pi_{a}(s)$ and a \textit{consequent} $\pi_{c}(s)$. We assume that $(s,s_{0}) \notin S$ for all $s \in S$ without any loss of generality.
+A \textit{trajectory assertion} for $M$ is quintuple $A = (S,s_{0},R,\pi_{a},\pi_{c})$, where $S$ is a finite set of \textit{states}, $s_{0} \in S$ is an \textit{initial state}, $R \subseteq S \times S$ is a \textit{transition relation}, $\pi_{a} \in S \rightarrow \Pow(C)$ and $\pi_{c} \in S \rightarrow \Pow(C)$ label each state $s$ with an \textit{antecedent} $\pi_{a}(s)$ and a \textit{consequent} $\pi_{c}(s)$. We assume that $(s,s_{0}) \notin S$ for all $s \in S$ without any loss of generality.
 
-The circuit model $M$ intuitively \textit{satisfies} an assertion $A$ if, for every \textit{trajectory} $\tau$ through $M$ and every \textit{run} $\rho$ through $A$, $\tau$ satisfying the antecedents of $\rho$ entails that $\tau$ also satisfies the consequents of $\rho$. To be more specific, a \textit{trajectory} of $M$ is a non-empty sequences of configurations, $\tau \in C^{+}$, such that $\tau_{n} \in M(\{ \tau_{n-1} \})$ for all $n \in \mathbb{N} : 0 < n < | \tau |$. And a \textit{run} of $A$ is a non-empty sequence of states, $\rho \in S^{+}$, such that $\rho_{0} = s_{0}$ and $(\rho_{n-1}, \rho_{n}) \in R$ for all $n \in \mathbb{N} : 0 < n < | \rho |$. We can then say that a $\tau$ satisfies the antecedents of $\rho$, denoted by $\tau \models_{a} \rho$, iff $\tau_{n} \in \pi_{a}(\rho_{n})$ for all $n \in \mathbb{N} : n < | \tau | = | \rho |$; satisfaction of consequents is defined similarly with $\pi_{c}$ instead and denoted by $\tau \models_{c} \rho$. Finally, that $M$ satisfies $A$, denoted by $M \models A$, can be formalized as\footnotemark:
+The circuit model $M$ intuitively \textit{satisfies} an assertion $A$ if, for every \textit{trajectory} $\tau$ through $M$ and every \textit{run} $\rho$ through $A$, $\tau$ satisfying the antecedents of $\rho$ entails that $\tau$ also satisfies the consequents of $\rho$. To be more specific, a \textit{trajectory} of $M$ is a non-empty sequences of configurations, $\tau \in C^{+}$, such that $\tau_{n} \in M(\{ \tau_{n-1} \})$ for all $n \in \mathbb{N} : 0 < n < | \tau |$. And a \textit{run} of $A$ is a non-empty sequence of states, $\rho \in S^{+}$, such that $\rho_{0} = s_{0}$ and $(\rho_{n-1}, \rho_{n}) \in R$ for all $n \in \mathbb{N} : 0 < n < | \rho |$. A $\tau$ satisfies the antecedents of $\rho$, denoted by $\tau \models_{a} \rho$, iff $\tau_{n} \in \pi_{a}(\rho_{n})$ for all $n \in \mathbb{N} : n < | \tau | = | \rho |$; satisfaction of consequents is defined similarly with $\pi_{c}$ and denoted by $\tau \models_{c} \rho$. That $M$ satisfies $A$, denoted by $M \models A$, can then formalized\footnotemark as follows:
 
 % (resp. consequents) (resp. $\tau \models_{c} \rho$)
 
@@ -95,19 +95,19 @@ Note that $\mathbb{T}^{m}$ does not quite form a complete lattice because it lac
 
 \subsubsection{Ternary lattices}
 
-Generalising from any specific domain, let $(\hat P,\sqsubseteq)$ be a finite, complete lattice of \textit{abstract predicates} in which the meet $\sqcap$ and join $\sqcup$ of any subset $Q \subseteq \hat P$ exists. Similar to the previous set operations for power sets, $\sqcap$, $\sqcup$ and $\sqsubseteq$ correspond to conjunction, disjunction and implication for abstract predicates, respectively. Furthermore, for any $Q \subseteq \hat P$, we denote by $\sqcap Q$ and $\sqcup Q$ the meet and join of all members of $Q$.
+Generalising from any specific domain, let $(\hat P,\sqsubseteq)$ be a finite, complete lattice of \textit{abstract predicates} in which the meet $\meet$ and join $\join$ of any subset $Q \subseteq \hat P$ exists. Similar to the previous set operations for power sets, $\meet$, $\join$ and $\sqsubseteq$ correspond to conjunction, disjunction and implication for abstract predicates, respectively. Furthermore, for any $Q \subseteq \hat P$, we denote by $\meet Q$ and $\join Q$ the meet and join of all members of $Q$.
 
-Let there be a Galois connection relating ``concrete'' predicates $\pow(C)$ and abstract predicates $\hat P$. The usual definition of a Galois connection is in terms of an \textit{abstraction} $\alpha \in \pow(C) \rightarrow \hat P$ and a \textit{concretisation} $\gamma \in \hat P \rightarrow \pow(C)$ function, such that $\alpha(p) \sqsubseteq \hat p \iff p \subseteq \gamma(\hat p)$ for all $p \in \pow(C)$ and $\hat p \in \hat P$. For example, a Galois connection from $\pow(\mathbb{B}^{m})$ to $\mathbb{T}_{\bot}^{m}$ for any $m \in \mathbb{N}$ can be defined in a natural way by its concretisation function $\gamma \in \mathbb{T}_{\bot}^{m} \rightarrow \pow(\mathbb{B}^{m})$:
+Let there be a Galois connection relating ``concrete'' predicates $\Pow(C)$ and abstract predicates $\hat P$. The usual definition of a Galois connection is in terms of an \textit{abstraction} $\alpha \in \Pow(C) \rightarrow \hat P$ and a \textit{concretisation} $\gamma \in \hat P \rightarrow \Pow(C)$ function, such that $\alpha(p) \sqsubseteq \hat p \iff p \subseteq \gamma(\hat p)$ for all $p \in \Pow(C)$ and $\hat p \in \hat P$. For example, a Galois connection from $\Pow(\mathbb{B}^{m})$ to $\mathbb{T}_{\bot}^{m}$ for any $m \in \mathbb{N}$ can be defined in a natural way by its concretisation function $\gamma \in \mathbb{T}_{\bot}^{m} \rightarrow \Pow(\mathbb{B}^{m})$:
 
 \begin{align*}
 \gamma ( \langle t_{0}, \dots,t_{m-1} \rangle ) &= \{ \langle b_{0}, \dots,b_{m-1} \rangle \in \mathbb{B}^{m} \mid \forall i < m : t_{i} \neq \X \Rightarrow b_{i} = t_{i} \} \\
 \gamma ( \bot ) &= \emptyset
 \end{align*}
 
-\noindent Listing each concrete predicate approximated by a given abstract predicate. Its abstraction function $\alpha \in \pow(\mathbb{B}^{m}) \rightarrow \mathbb{T}_{\bot}^{m}$ instead finds the most precise abstract predicate for a set of concrete predicates:
+\noindent Listing each concrete predicate approximated by a given abstract predicate. Its abstraction function $\alpha \in \Pow(\mathbb{B}^{m}) \rightarrow \mathbb{T}_{\bot}^{m}$ instead finds the most precise abstract predicate for a set of concrete predicates:
 
 \begin{align*}
-\alpha ( p ) &= \sqcup \{ \langle t_{0}, \ldots, t_{m-1} \rangle \in \mathbb{T}_{\bot}^{m} \mid \langle b_{0}, \ldots, b_{m-1} \rangle \in p, \forall i < m : b_{i} = t_{i} \} \\
+\alpha ( p ) &= \join \{ \langle t_{0}, \ldots, t_{m-1} \rangle \in \mathbb{T}_{\bot}^{m} \mid \langle b_{0}, \ldots, b_{m-1} \rangle \in p, \forall i < m : b_{i} = t_{i} \} \\
 \alpha ( \emptyset ) &= \bot
 \end{align*}
 
@@ -117,7 +117,9 @@ Let there be a Galois connection relating ``concrete'' predicates $\pow(C)$ and 
 
 \subsubsection{Abstract circuit model}
 
-An \textit{abstract predicate transformer} $\hat M \in \hat P \rightarrow \hat P$ is an \textit{abstract interpretation}~\cite{cousot1996} of $M \in \pow(C) \rightarrow \pow(C)$ iff: $\hat M$ preserves $\bot$, i.e. $\hat M(\bot) = \bot$; $\hat M$ is monotonic, i.e. $\hat p \sqsubseteq \hat q \Rightarrow \hat M (\hat p) \sqsubseteq \hat M (\hat q)$ for all $\hat p, \hat q \in \hat P$; \todo{and its Galois connection between $\pow(C)$ and $\hat P$ is a \textit{simulation relation}}, i.e. $\alpha(M(p)) \sqsubseteq \hat M(\alpha(p))$ for all $p \in \pow(C)$, or $M(\gamma(\hat p)) \subseteq \gamma(\hat M(\hat p))$ for all $\hat p \in \hat P$.
+An \textit{abstract predicate transformer} $\hat M \in \hat P \rightarrow \hat P$ is an \textit{abstract interpretation}~\cite{cousot1996} of $M \in \Pow(C) \rightarrow \Pow(C)$ iff: $\hat M$ preserves $\bot$, i.e. $\hat M(\bot) = \bot$; $\hat M$ is monotonic, i.e. $\hat p \sqsubseteq \hat q \Rightarrow \hat M (\hat p) \sqsubseteq \hat M (\hat q)$ for all $\hat p, \hat q \in \hat P$; and $\alpha$, or $\gamma$, form a \textit{simulation relation} between $\Pow(C)$ and $\hat P$, i.e. $\alpha(M(p)) \sqsubseteq \hat M(\alpha(p))$ for all $p \in \Pow(C)$, or $M(\gamma(\hat p)) \subseteq \gamma(\hat M(\hat p))$ for all $\hat p \in \hat P$.
+
+% \todo{and its Galois connection between $\pow(C)$ and $\hat P$ is a \textit{simulation relation}}
 
 % and $\ll$ is a \textit{simulation relation} from $\pow(C)$ to $\hat P$, i.e. $p \ll \hat p \Rightarrow M (p) \ll \hat M (\hat p)$ for all $p \in \pow(C)$ and $\hat p \in \hat P$.
 
@@ -141,12 +143,12 @@ Note that $\hat M$ does not distribute over arbitrary join because information i
 
 \begin{equation*}
 \begin{array}{lll}
-  \hat M(\langle 0, 1, \X \rangle \sqcup \langle 1, 0, \X \rangle) &= \hat M(\langle \X, \X, \X \rangle) &= \langle \X, \X, \X \rangle \\
-  \hat M(\langle 0, 1, \X \rangle) \sqcup \hat M(\langle 1, 0, \X \rangle) &= \langle \X, \X, 0 \rangle \sqcup \langle \X, \X, 0 \rangle &= \langle \X, \X, 0 \rangle
+  \hat M(\langle 0, 1, \X \rangle \join \langle 1, 0, \X \rangle) &= \hat M(\langle \X, \X, \X \rangle) &= \langle \X, \X, \X \rangle \\
+  \hat M(\langle 0, 1, \X \rangle) \join \hat M(\langle 1, 0, \X \rangle) &= \langle \X, \X, 0 \rangle \join \langle \X, \X, 0 \rangle &= \langle \X, \X, 0 \rangle
 \end{array}
 \end{equation*}
 
-\noindent The inequality $\sqcup \{ \hat M(\hat q) \mid \hat q \in \hat Q \} \sqsubseteq \hat M(\sqcup \hat Q)$ for all $\hat Q \sqsubseteq \hat P$ does however hold, since it is implied by the monotonicity of $\hat M$.
+\noindent The inequality $\join \{ \hat M(\hat q) \mid \hat q \in \hat Q \} \sqsubseteq \hat M(\join \hat Q)$ for all $\hat Q \sqsubseteq \hat P$ does however hold, since it is implied by the monotonicity of $\hat M$.
 
 \subsubsection{Assertions and satisfaction}
 
@@ -155,8 +157,8 @@ A trajectory assertion for an abstract model $\hat M$ is a quintuple $\hat A = (
 \todo{Here follows the definition in~\cite{chou1999}.} For all functions $\hat \Phi \in S \rightarrow \hat P$ and states $s \in S$, define $\hat F \in S \rightarrow (\hat P \rightarrow \hat P)$ and $\hat{\mathcal{F}} \in (S \rightarrow \hat P) \rightarrow (S \rightarrow \hat P)$ as follows:
 
 \begin{align}
-\hat F(s)(\hat p) &= \hat M(\pi_{a}(s) \sqcap \hat p) \\
-\hat{\mathcal{F}}(\Phi)(s) &= \Stmt{if } (s = s_{0}) \Stmt{ then } \top \Stmt{ else } \sqcup \{ \hat F(s')(\Phi(s')) \mid (s',s) \in R \}
+\hat F(s)(\hat p) &= \hat M(\pi_{a}(s) \meet \hat p) \\
+\hat{\mathcal{F}}(\Phi)(s) &= \Stmt{if } (s = s_{0}) \Stmt{ then } \top \Stmt{ else } \join \{ \hat F(s')(\Phi(s')) \mid (s',s) \in R \}
 \end{align}
 
 \noindent $\hat F$ preserves $\bot$, and both $\hat F$ and $\hat{\mathcal{F}}$ are monotonic; two $\hat \Phi, \hat \Phi' \in S \rightarrow \hat P$ are ordered as $\hat \Phi \sqsubseteq \hat \Phi' \iff \forall s \in S : \hat \Phi(s) \sqsubseteq \hat \Phi'(s)$. Let $\hat \Phi_{*} \in S \rightarrow \hat P$ be the least fixpoint of the equation $\hat \Phi = \hat{\mathcal{F}}(\hat \Phi)$~\cite{davey2002}. Since both $S$ and $\hat P$ are finite, $\hat \Phi_{*}$ is given by $\lim \, \hat \Phi_{n}(s)$, where $\hat \Phi_{n}$ is defined as follows:
@@ -165,6 +167,8 @@ A trajectory assertion for an abstract model $\hat M$ is a quintuple $\hat A = (
 \hat \Phi_{n} = \Stmt{if } (n = 0) \Stmt{ then } (\lambda s \in S : \bot) \Stmt{ else } \hat{\mathcal{F}}(\hat \Phi_{n-1})
 \end{equation}
 
-$\hat M$ \textit{satisfies} a trajectory assertion $\hat A$\footnotemark, denoted by $\hat M \lmodels \hat A$, iff $\forall s \in S : \hat \Phi_{*}(s) \sqcap \pi_{\alpha}(s) \sqsubseteq \pi_{c}(s)$.
+$\hat M$ \textit{satisfies} a trajectory assertion\footnotemark $\hat A$, denoted by $\hat M \LatModels \hat A$, iff $\hat \Phi_{*}(s) \meet \pi_{\alpha}(s) \sqsubseteq \pi_{c}(s)$ for all $s \in S$.
+
+% That is, $\hat M$ satisfies $\hat A$ if, for every state $s$ in the assertion, the information gathered from $\hat M$ through the consequent in every path to $s$ implies the antecedent for $s$.
 
 \footnotetext{That $\hat M$ satisfies $\hat A$ implies that a concretisation of $\hat A$ can also be satisfied by the original, set-based model $M$ \cite{chou1999}.}

@@ -27,10 +27,10 @@
 %% Math preferences & missing stuff.
 \newcommand{\Alpha}{\mathrm{A}}
 \newcommand{\omicron}{\mathrm{o}}
-\newcommand{\pow}[1]{\mathcal{P}#1}
-\newcommand{\comp}{\mkern -2mu \circ}
-\newcommand{\qedb}{\hfill\blacksquare}
-\newcommand{\qedw}{\hfill\ensuremath{\Box}}
+\newcommand{\Pow}[1]{\mathcal{P}#1}
+%\newcommand{\comp}{\mkern -2mu \circ}
+\newcommand{\Qed}{\hfill\blacksquare}
+%\newcommand{\qedw}{\hfill\ensuremath{\Box}}
 \renewcommand{\iff}{\Leftrightarrow}
 \renewcommand{\implies}{\Rightarrow}
 \DeclareMathOperator{\nsqsubseteq}{\not\sqsubseteq}
@@ -43,27 +43,19 @@
 \DeclareMathOperator{\Is}{\mathbin{\textbf{is}}} % comparison.
 \DeclareMathOperator{\Traj}{\textit{Traj}} % set of trajectories
 \DeclareMathOperator{\Runs}{\textit{Runs}} % set of runs
+\DeclareMathOperator{\SetModels}{\models_{\textrm{set}}} %
+\DeclareMathOperator{\LatModels}{\models_{\textrm{lat}}} %
 
 % Refinement ...
-\DeclareMathOperator{\In}{\dot{\iota}}
-\DeclareMathOperator{\Out}{\omicron}
+\newcommand{\In}{\dot{\iota}}
+\newcommand{\Out}{\omicron}
 %
-\DeclareMathOperator{\Inn}{\hat{\iota}}
-\DeclareMathOperator{\Outt}{\hat{\omicron}}
-%
-\DeclareMathOperator{\refine}{\leq}
-\DeclareMathOperator{\srefine}{\refine_{\textrm{set}}}
-\DeclareMathOperator{\smodels}{\models_{\textrm{set}}}
-\DeclareMathOperator{\lrefine}{\refine_{\textrm{lat}}}
-\DeclareMathOperator{\lmodels}{\models_{\textrm{lat}}}
-%
-\DeclareMathOperator{\cc}{\lll} %{\leq} %{\prec\mkern-4mu\prec}
-
-%% Old.
-% \DeclareMathOperator{\enc}{\mathrel{\preceq}} % encodes.
-% \newcommand{\Driv}[2]{\Traj{#1}(#2)} % trajectory induced by driver.
-% \newcommand{\inp}[1]{\llbracket#1\rrbracket} % input mapping
-% \newcommand{\out}[1]{\llbracket#1\rrbracket} % output mapping.
+%\DeclareMathOperator{\Inn}{\hat{\iota}}
+%\DeclareMathOperator{\Outt}{\hat{\omicron}}
+%\DeclareMathOperator{\Refine}{\leq}
+%\DeclareMathOperator{\SetRefine}{\Refine_{\textrm{set}}}
+%\DeclareMathOperator{\LatRefine}{\Refine_{\textrm{lat}}}
+%\DeclareMathOperator{\cc}{\lll} %{\leq} %{\prec\mkern-4mu\prec}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Document
