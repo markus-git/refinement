@@ -24,18 +24,20 @@
 \newcommand{\todo}[1]{\textcolor{red}{#1}}
 \newcommand{\Stmt}[1]{\textrm{\textbf{#1}}}
 
-%% Math preferences & missing stuff.
+%% Math stuff that I think are missing.
 \newcommand{\Alpha}{\mathrm{A}}
 \newcommand{\omicron}{\mathrm{o}}
-\newcommand{\Pow}[1]{\mathcal{P}#1}
-%\newcommand{\comp}{\mkern -2mu \circ}
-\newcommand{\Qed}{\hfill\blacksquare}
-%\newcommand{\qedw}{\hfill\ensuremath{\Box}}
 \renewcommand{\iff}{\Leftrightarrow}
 \renewcommand{\implies}{\Rightarrow}
 \DeclareMathOperator{\nsqsubseteq}{\not\sqsubseteq}
 \DeclareMathOperator{\meet}{\sqcap}
 \DeclareMathOperator{\join}{\sqcup}
+
+%% Math preferences.
+\newcommand{\Pow}[1]{\mathcal{P}#1}
+\newcommand{\Qed}{\hfill\blacksquare}
+%\newcommand{\comp}{\mkern -2mu \circ}
+%\newcommand{\qedw}{\hfill\ensuremath{\Box}}
 
 % STE orig. grammar.
 \newcommand{\X}{\mathrm{X}}
@@ -49,10 +51,11 @@
 % Refinement ...
 \newcommand{\In}{\dot{\iota}}
 \newcommand{\Out}{\omicron}
+\DeclareMathOperator{\Refines}{\leq}
+\DeclareMathOperator{\SetRefines}{\Refines_{\textrm{set}}}
 %
 %\DeclareMathOperator{\Inn}{\hat{\iota}}
 %\DeclareMathOperator{\Outt}{\hat{\omicron}}
-%\DeclareMathOperator{\Refine}{\leq}
 %\DeclareMathOperator{\SetRefine}{\Refine_{\textrm{set}}}
 %\DeclareMathOperator{\LatRefine}{\Refine_{\textrm{lat}}}
 %\DeclareMathOperator{\cc}{\lll} %{\leq} %{\prec\mkern-4mu\prec}
