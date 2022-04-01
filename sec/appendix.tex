@@ -1,5 +1,39 @@
 \section{Appendices}
 
-\subsection{Theorem~\ref{thm:set-equals-sim}}
+\subsection{Theorem~\ref{thm:set-equals-sim}: $M \Refines N \iff M \SetRefines N$}
 
-Text.
+We first prove a few lemmas.
+
+\begin{lemma} \label{lem:traj-part}
+$\tau \in \Traj(M) \iff \tau \in \Traj(M)([\tau]_{\In})$
+\end{lemma}
+
+$\Traj(M)([\tau]_{\In}) = \{ \tau \in C^{+} \mid \tau \in \Traj(M) : [\tau]_{\In} = [\tau]_{\In} \} = \Traj(M)$. $\Qed$
+
+\begin{lemma} \label{lem:ref-1-to-2}
+$M \Refines N \iff M \Refines_{in} N$
+\end{lemma}
+
+We prove each direction seperatly:
+
+$(\Rightarrow)$ : Given $\delta \in \In[C]^{+}$ and $\tau \in \Traj(M)(\delta)$, let $\delta = [\tau]_{\In}$. By lemma~\ref{lem:traj-part}, $\tau \in \Traj(M)([\tau]_{\In})$ implies $\tau \in \Traj(M)$. And by the assumption, there must exist $\upsilon \in \Traj(N)$ such that $| \tau | = | \upsilon |$, $[\tau]_{\In} = [\upsilon]_{\In}$, and $[\tau]_{\Out} = [\upsilon]_{\Out}$. Using lemma~\ref{lem:traj-part} in reverse, $\upsilon \in \Traj(N)$ implies that $\upsilon \in \Traj(N)([\upsilon]_{\In}) = \Traj(N)(\delta)$. $\Qed$
+
+$(\Leftarrow)$ : Given $\tau \in \Traj(M)$, lemma~\ref{lem:traj-part} states that $\tau \in \Traj(M)([\tau]_{\In})$. By the assumption, there must exist $\upsilon \in \Traj(N)([\tau]_{\In})$ such that $[\tau]_{\Out} = [\upsilon]_{\Out}$. By defintion of $\Traj(N)([\tau]_{\In})$, it easy to see that $[\tau]_{\In} = [\upsilon]_{\In}$ and $| \tau | = | \upsilon |$. Using lemma~\ref{lem:traj-part} in reverse again, $\upsilon \in \Traj(N)([\tau]_{\In}) = \Traj(N)([\upsilon]_{\In})$ implies that $\upsilon \in \Traj(N)$. $\Qed$
+
+\begin{lemma} \label{lem:cl-union}
+$c_{1} \ll d_{1} \wedge c_{2} \ll d_{2} \implies (c_{1} \cup c_{2}) \ll (d_{1} \cup d_{2})$
+\end{lemma}
+
+Text. $\Qed$
+
+Finally, we prove each direction of the theorem seperatly:
+
+$(\Rightarrow)$ : We define the relation $\ll \in \Pow(C) \times \Pow(D)$ as follows:
+
+\begin{equation*}
+\{ (\tau_{| \delta |}, \upsilon_{| \delta |}) \mid \forall \delta \in \In[C]^{+} : \forall \tau \in \Traj(M)(\delta) : \forall \upsilon \in \Traj(N)(\delta) : [\tau]_{\Out} = [\upsilon]_{\Out} \}
+\end{equation*}
+
+\noindent Text.
+
+$(\Leftarrow)$ : Text.
