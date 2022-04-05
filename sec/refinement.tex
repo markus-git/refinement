@@ -6,20 +6,20 @@ Consider another fixed, but arbitrary, circuit model $N \in \Pow(D) \rightarrow 
 
 % The rationale is that refinement relates the visible behaviour of circuits.
 
-Let the visible elements of a configuration in $C$ be identified by two projections, $\In \in C \rightarrow C$ and $\Out \in C \rightarrow C$, where $[c]_{\In}$ denotes the \textit{inputs} and $[c]_{\Out}$ the \textit{outputs} of any $c \in C$; the sets of all possible inputs and outputs in $M$ are given by the images $\In[C] = \{ [c]_{\In} \mid c \in C \}$ and $\Out[C]$. With a slight abuse of notation, we overload both $\In$ and $\Out$ to accept configurations in $D$ and extend them to sequences component-wise. Assuming the inputs and outputs of $M$ are contained by $N$, i.e. $\In[C] = \In[D]$ and $\Out[C] = \Out[D]$, we can now formalize an intuition of whether $M$ \textit{refines} $N$, denoted by $M \Refines N$, in terms of trajectories:
+Let the visible elements of a configuration in $C$ be identified by two projections, $\In \in C \rightarrow C$ and $\Out \in C \rightarrow C$, where $\In(c)$ denotes the \textit{inputs} and $\Out(c)$ the \textit{outputs} of any $c \in C$; the sets of all possible inputs and outputs in $M$ are given by the images $\In[C] = \{ [c]_{\In} \mid c \in C \}$ and $\Out[C]$. With a slight abuse of notation, we overload both $\In$ and $\Out$ to accept configurations in $D$ and extend them to sequences component-wise. Assuming the inputs and outputs of $M$ are contained by $N$, i.e. $\In[C] = \In[D]$ and $\Out[C] = \Out[D]$, we can now formalize an intuition of whether $M$ \textit{refines} $N$, denoted by $M \Refines N$, in terms of trajectories:
 
 % Todo: Maybe swap equality for subset-equality between inputs and outputs of C and D?
 
 \begin{equation*}
-\forall \tau \in \Traj(M) : \exists \upsilon \in \Traj(N) : | \tau | = | \upsilon | \wedge [\tau]_{\In} = [\upsilon]_{\In} \wedge [\tau]_{\Out} = [\upsilon]_{\Out}
+\forall \tau \in \Traj(M) : \exists \upsilon \in \Traj(N) : | \tau | = | \upsilon | \wedge \In(\tau) = \In(\upsilon) \wedge \Out(\tau) = \Out(\upsilon)
 \end{equation*}
 
 \noindent where sequences $\langle \tau_{0}, \ldots, \tau_{k} \rangle = \langle \upsilon_{0}, \ldots, \upsilon_{k} \rangle$ iff $\tau_{n} = \upsilon_{n}$ for every $n \in \mathbb{N} : n < k$. In other words, for every sequence of configurations $\tau$ permitted by $M$, there must exist a sequence $\upsilon$ for $N$ which the same input-output behaviour as $\tau$.
 
-Remember that models generally cannot control their inputs, and that these signals are therefore left unconstrained by transitions in $M$ and $N$. A trajectory $\tau \in \Traj(M)$ is thus \textit{driven} by an implicit choice of inputs for each transition. Let $\Traj(M)(\delta) = \{ \tau \in C^{+} \mid \tau \in \Traj(M) : [\tau]_{\In} = \delta \}$ be the set of trajectories driven by a sequence of inputs $\delta \in \In[C]^{+}$. Partitioning trajectories by their inputs allow refinement to be equivalently stated as an output equality for each part in the family of trajectories, denoted by $M \Refines_{in} N$:
+Remember that models generally cannot control their inputs, and that these signals are therefore left unconstrained by transitions in $M$ and $N$. A trajectory $\tau \in \Traj(M)$ is thus \textit{driven} by an implicit choice of inputs for each transition. Let $\Traj(M)(\delta) = \{ \tau \in C^{+} \mid \tau \in \Traj(M) : \In(\tau) = \delta \}$ be the set of trajectories driven by a sequence of inputs $\delta \in \In[C]^{+}$. Partitioning trajectories by their inputs allow refinement to be equivalently stated as an output equality for each part in the family of trajectories, denoted by $M \Refines_{in} N$:
 
 \begin{equation*}
-\forall \delta \in \In[C]^{+} : \forall \tau \in \Traj(M)(\delta) : \exists \upsilon \in \Traj(N)(\delta) : [\tau]_{\Out} \subseteq [\upsilon]_{\Out}
+\forall \delta \in \In[C]^{+} : \forall \tau \in \Traj(M)(\delta) : \exists \upsilon \in \Traj(N)(\delta) : \Out(\tau) = \Out(\upsilon)
 \end{equation*}
 
 \noindent \todo{This leads to the simulation relation.}
@@ -27,6 +27,8 @@ Remember that models generally cannot control their inputs, and that these signa
 % Using drivers to partition trajectories, refinement can be equivalently stated as family of trajectories: $\forall \delta \in \In[C]^{*} : \forall \tau \in \Traj(M)(\delta) : \exists v \in \Traj(N)(\delta) : | \tau | = | v | \wedge [\tau]_{\Out} \subseteq [v]_{\Out}$
 
 % Let $\Traj(M)(\delta) = \{ \tau \in C^{+} \mid \tau \in \Traj(M) : [\tau]_{\In} \subseteq C^{\frown}\delta \}$ be the set of trajectories driven by $\delta$, where $C^{\frown}\delta$ denotes the concatenation of $C$ followed by $\delta$. Using this notion of equivalence for trajectories with common inputs, one can imagine refinement as an equivalent statement about each class of drivers: $\forall \delta \in \In[C]^{*} : \forall \tau \in \Traj(M)(\delta) : \exists v \in \Traj(N)(\delta) : | \tau | = | v | \wedge [\tau]_{\Out} \subseteq [v]_{\Out}$.
+
+\todo{There is quite a bit of magic between the previous statement and a simulation relation over power-sets of configurations in $C$ and $D$. I should make sure to properly explain that.}
 
 \todo{The above definition of refinement can be equivalently expressed as a simulation relation.} Let $\ll \, \in \Pow(C) \times \Pow(D)$ be a \textit{simulation relation} on visible elements, such that $c \ll d$ implies $\Out[c] \subseteq \Out[d]$ and $M(c \cap \{ i \}) \ll N(d \cap \{ i \})$ for all $i \in \In[C]$. We say the circuit $M$ \textit{refines} the circuit $N$ by \textit{set-theoretic visual refinement}, denoted by $M \SetRefines N$, iff $C \ll D$.
 
