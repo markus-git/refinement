@@ -8,7 +8,21 @@ We first prove a few lemmas.
 $\tau \in \Traj(M) \iff \tau \in \Traj(M)([\tau]_{\In})$
 \end{lemma}
 
-$\Traj(M)([\tau]_{\In}) = \{ \tau \in C^{+} \mid \tau \in \Traj(M) : [\tau]_{\In} = [\tau]_{\In} \} = \Traj(M)$. $\Qed$
+\begin{equation*}
+\Traj(M)([\tau]_{\In}) = \{ \tau \in C^{+} \mid \tau \in \Traj(M) : [\tau]_{\In} = [\tau]_{\In} \} = \Traj(M)
+\end{equation*}
+
+$\Qed$
+
+\begin{lemma} \label{lem:traj-all}
+$\bigcup_{i \in \In[C]} \Traj(M)(\langle i \rangle) = \langle C \rangle$
+\end{lemma}
+
+\begin{align*}
+\bigcup_{i \in \In[C]} \Traj(M)(\langle i \rangle) & = \bigcup_{i \in \In[C]} \{ \langle c \rangle \in C^{1} \mid \langle c \rangle \in \Traj(M) : \In(c) = i \} \\ & = \bigcup_{i \in \In[C]} \{ \langle c \rangle \in C^{1} \mid \In(c) = i \} \\ & = \langle C \rangle
+\end{align*}
+
+$\Qed$
 
 \begin{lemma} \label{lem:ref-iff-in}
 $M \Refines N \iff M \Refines_{in} N$
