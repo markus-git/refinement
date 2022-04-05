@@ -5,11 +5,11 @@
 We first prove a few lemmas.
 
 \begin{lemma} \label{lem:traj-part}
-$\tau \in \Traj(M) \iff \tau \in \Traj(M)([\tau]_{\In})$
+$\tau \in \Traj(M) \iff \tau \in \Traj(M)(\In(\tau))$
 \end{lemma}
 
 \begin{equation*}
-\Traj(M)([\tau]_{\In}) = \{ \tau \in C^{+} \mid \tau \in \Traj(M) : [\tau]_{\In} = [\tau]_{\In} \} = \Traj(M)
+\Traj(M)(\In(\tau)) = \{ \tau \in C^{+} \mid \tau \in \Traj(M) : \In(\tau) = \In(\tau) \} = \Traj(M)
 \end{equation*}
 
 $\Qed$
@@ -19,7 +19,7 @@ $\bigcup_{i \in \In[C]} \Traj(M)(\langle i \rangle) = \langle C \rangle$
 \end{lemma}
 
 \begin{align*}
-\bigcup_{i \in \In[C]} \Traj(M)(\langle i \rangle) & = \bigcup_{i \in \In[C]} \{ \langle c \rangle \in C^{1} \mid \langle c \rangle \in \Traj(M) : \In(c) = i \} \\ & = \bigcup_{i \in \In[C]} \{ \langle c \rangle \in C^{1} \mid \In(c) = i \} \\ & = \langle C \rangle
+\bigcup_{i \in \In[C]} \Traj(M)(\langle i \rangle) & = \bigcup_{i \in \In[C]} \{ \langle c \rangle \in C^{1} \mid \forall \langle c \rangle \in \Traj(M) : \In(c) = i \} \\ & = \bigcup_{i \in \In[C]} \{ \langle c \rangle \in C^{1} \mid \forall c \in C : \In(c) = i \} = \langle C \rangle
 \end{align*}
 
 $\Qed$
@@ -30,9 +30,13 @@ $M \Refines N \iff M \Refines_{in} N$
 
 We prove each direction separately:
 
-$(\Rightarrow)$ : Given $\delta \in \In[C]^{+}$ and $\tau \in \Traj(M)(\delta)$, where $\delta = [\tau]_{\In}$. By lemma~\ref{lem:traj-part}, $\tau \in \Traj(M)([\tau]_{\In})$ implies $\tau \in \Traj(M)$. And by the assumption, there must exist $\upsilon \in \Traj(N)$ such that $| \tau | = | \upsilon |$, $[\tau]_{\In} = [\upsilon]_{\In}$, and $[\tau]_{\Out} = [\upsilon]_{\Out}$. Using lemma~\ref{lem:traj-part} in reverse, $\upsilon \in \Traj(N)$ implies that $\upsilon \in \Traj(N)([\upsilon]_{\In}) = \Traj(N)(\delta)$. $\Qed$
+$(\Rightarrow)$ : Given $\delta \in \In[C]^{+}$ and $\tau \in \Traj(M)(\delta)$, where $\delta = [\tau]_{\In}$. By lemma~\ref{lem:traj-part}, $\tau \in \Traj(M)([\tau]_{\In})$ implies $\tau \in \Traj(M)$. And by the assumption, there must exist $\upsilon \in \Traj(N)$ such that $| \tau | = | \upsilon |$, $\In(\tau) = \In(\upsilon)$, and $\Out(\tau) = \Out(\upsilon)$. Using lemma~\ref{lem:traj-part} in reverse, $\upsilon \in \Traj(N)$ implies that $\upsilon \in \Traj(N)([\upsilon]_{\In}) = \Traj(N)(\delta)$.
 
-$(\Leftarrow)$ : Given $\tau \in \Traj(M)$, lemma~\ref{lem:traj-part} states that $\tau \in \Traj(M)([\tau]_{\In})$. By the assumption, there must exist $\upsilon \in \Traj(N)([\tau]_{\In})$ such that $[\tau]_{\Out} = [\upsilon]_{\Out}$. By defintion of $\Traj(N)([\tau]_{\In})$, it easy to see that $[\tau]_{\In} = [\upsilon]_{\In}$ and $| \tau | = | \upsilon |$. Using lemma~\ref{lem:traj-part} in reverse again, $\upsilon \in \Traj(N)([\tau]_{\In}) = \Traj(N)([\upsilon]_{\In})$ implies that $\upsilon \in \Traj(N)$. $\Qed$
+$\Qed$
+
+$(\Leftarrow)$ : Given $\tau \in \Traj(M)$, lemma~\ref{lem:traj-part} states that $\tau \in \Traj(M)([\tau]_{\In})$. By the assumption, there must exist $\upsilon \in \Traj(N)(\In(\tau))$ such that $\Out(\tau) = \Out(\upsilon)$. By defintion of $\Traj(N)(\In(\tau))$, it easy to see that $\In(\tau) = \In(\upsilon)$ and $| \tau | = | \upsilon |$. Using lemma~\ref{lem:traj-part} in reverse, $\upsilon \in \Traj(N)(\In(\tau)) = \Traj(N)(\In(\upsilon))$ implies that $\upsilon \in \Traj(N)$.
+
+$\Qed$
 
 \begin{lemma} \label{lem:cl-union}
 $c_{1} \ll d_{1} \wedge c_{2} \ll d_{2} \implies (c_{1} \cup c_{2}) \ll (d_{1} \cup d_{2})$
