@@ -2,10 +2,10 @@
 
 \subsection{Set-Theoretic refinement}
 
-Consider another fixed, but arbitrary, circuit model $N \in \Pow(D) \rightarrow \Pow(D)$, where $D$ is a non-empty and finite set of configurations. In order to relate configurations $D$ to the previous $C$, let there be a Galois connection $\ll \, \subseteq \Pow(C) \times \Pow(D)$ given by means of a binary relation between $\Pow(P)$ and $\Pow(Q)$ ordered by set inclusion $\subseteq$. The relation $\ll$ acts as an extension of the orderings inside $\Pow(C)$ and $\Pow(D)$ to one between them, such that configurations in any $P \subseteq \Pow(C)$ and $Q \subseteq \Pow(D)$ are related iff their intersection and union are related:
+Consider another fixed, but arbitrary, circuit model $N \in \Pow(D) \rightarrow \Pow(D)$, where $D$ is a non-empty and finite set of configurations. In order to relate $D$ to the previous $C$, let there be a Galois connection $\ll \, \subseteq \Pow(C) \times \Pow(D)$ given by means of a binary relation between $\Pow(P)$ and $\Pow(Q)$ ordered by set inclusion $\subseteq$. The relation $\ll$ acts as an extension of the orderings inside $\Pow(C)$ and $\Pow(D)$ to one between them, such that configurations in any $P \subseteq \Pow(C)$ and $Q \subseteq \Pow(D)$ are related iff their union and intersection are related:
 
 \begin{equation*}
-\forall p \in P : \forall q \in Q : p \ll q \iff \cup P \ll \cap Q
+P \ll Q \iff \forall p \in P : \forall q \in Q : p \ll q \iff \cup P \ll \cap Q
 \end{equation*}
 
 \noindent where $p \ll q$ reads as ``$p$ approximates $q$''. The usual functions for abstraction $\alpha \in \Pow(C) \rightarrow \Pow(D)$ and concretisation $\gamma \in \Pow(D) \rightarrow \Pow(C)$ can be derived from $\ll$ as follows: $\alpha(c) = \cap \{ d \in \Pow(D) \mid c \ll d \}$ and $\gamma(d) = \cup \{ c \in \Pow(C) \mid c \ll d \}$. Conversely, the relation $\ll$ can be derived from $\alpha$ or $\gamma$ as: $c \ll d \iff \alpha(c) \subseteq d$ or $c \ll d \iff c \subseteq \gamma(d)$. \todo{Note properties of $\alpha$ and $\gamma$?}
