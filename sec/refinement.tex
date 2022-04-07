@@ -15,5 +15,10 @@ Exactly what configurations such as $C$ and $D$ are, were not important previous
 We now formalize an intuition of whether $M$ \textit{refines} $N$, denoted by $M \Refines N$, in terms of trajectories:
 
 \begin{equation*}
-\forall \tau \in \Traj(M) : \exists \upsilon \in \Traj(N) : | \tau | = | \upsilon | \wedge \tau \InSim \upsilon \wedge \tau \OutSim \upsilon
+\forall \tau \in \Traj(M) : \exists \upsilon \in \Traj(N) : | \tau | = | \upsilon | \wedge \tau \ll_{\In} \upsilon \wedge \tau \ll_{\Out} \upsilon
 \end{equation*}
+
+\noindent where $\langle \tau_{0}, \ldots \rangle \ll_{\In} \langle \upsilon_{0}, \ldots \rangle$ iff $\In(\tau_{n}) \ll \In(\upsilon_{n})$ for all $n \in \mathbb{N} : n < | \tau | = | \upsilon |$; $\tau \ll_{\Out} \upsilon$ is similarly defined by $\Out(\cdot)$. Intuitively, $M \Refines N$ states that, for every sequence of configurations $\tau$ permitted by $M$, there must exist a sequence $\upsilon$ for $N$ which approximates the input-output behaviour of $\tau$.
+
+% We extend the input and output equivalence relations inside $C$ and $D$ to relations between them and say that $c \ll_{\In} d \iff \In(c) \ll \In(d)$ and $c \ll_{\Out} d \iff \Out(c) \ll \Out(d)$.
+
