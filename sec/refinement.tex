@@ -20,10 +20,21 @@ We now formalize an intuition of whether $M$ \textit{refines} $N$, denoted by $M
 
 \noindent where $\langle \tau_{0}, \ldots \rangle \ll_{\In} \langle \upsilon_{0}, \ldots \rangle$ iff $\In(\tau_{n}) \ll \In(\upsilon_{n})$ for all $n \in \mathbb{N} : n < | \tau | = | \upsilon |$; $\tau \ll_{\Out} \upsilon$ is similarly defined by $\Out(\cdot)$. Intuitively, $M \Refines N$ states that, for every sequence of configurations $\tau$ permitted by $M$, there must exist a sequence $\upsilon$ for $N$ which approximates the input-output behaviour of $\tau$. That is, $N$ must ``cover'' the input-output behaviour of $M$.
 
-\todo{While refinement talks about input behaviours for $M$ and $N$, we should recall that models generally cannot control their inputs, and leave such signals unconstrained for every transition. A trajectory $\tau \in \Traj(M)$ is thus \textit{driven} by an implicit choice of inputs.} Let $\Traj(M)(\delta)$ be the equivalence class of trajectories under a common \textit{driver} $\delta \in \In[C]^{+}$, defined as $\Traj(M)(\delta) = \{ \tau \in \Traj(M) \mid \forall n \in \mathbb{N} : n < | \delta| \implies \In(\tau_{n}) = \delta_{n} \}$.
+\todo{While refinement talks about input behaviours for $M$ and $N$, we should recall that models generally cannot control their inputs, and leave such signals unconstrained for every transition. A trajectory $\tau \in \Traj(M)$ is thus \textit{driven} by an implicit choice of inputs.} Let $I = \Traj(M) / \mkern-5mu\InSim$ be the partition of all trajectories in $M$ with respect to $\InSim$. \todo{Text.}
+
+% Let $\Traj(M)(\delta)$ be the equivalence class of trajectories under a common \textit{driver} $\delta \in \In[C]^{+}$, defined as $\Traj(M)(\delta) = \{ \tau \in \Traj(M) \mid \forall n \in \mathbb{N} : n < | \delta| \implies \In(\tau_{n}) = \delta_{n} \}$.
 
 \begin{equation*}
 \forall \delta \in \In[C]^{+} : \forall \tau \in \Traj(M)(\delta) : \exists \upsilon \in \Traj(N)(\delta) : \tau \ll_{\Out} \upsilon
 \end{equation*}
 
+\noindent \todo{Not sure this, or something like it, is needed/helps anymore.}
+
+% \todo{Refinement can be equivalently expressed as a simulation relation.}
+
+% \todo{$M$ \textit{refines} the circuit $N$ by \textit{set-theoretic visual refinement}, denoted by $M \SetRefines N$, iff $C \ll D$ and the Galois connection $\ll$ is \textit{simulation relation}, such that $c \ll d$ implies $\Out[c] \ll \Out[d]$ and $M(c \cap \{ i \}) \ll N(d \cap \{ i \})$ for all $i \in \In[C]$.}
+
+A Galois connection $ll$ is a \textit{visual simulation relation} between $M$ and $N$ iff $c \ll d$ implies $\Out[c] \subseteq \gamma(\Out[d])$ and $\ldots$.
+
+$M$ refines $N$ by \textit{set-theoretic refinement} iff $C \ll D$ and $\ll$ is a visual simulation relation.
 
