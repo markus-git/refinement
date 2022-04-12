@@ -54,9 +54,9 @@ M(p) = \{ \langle b_{1}, b_{2}, i_{1} \wedge i_{2} \rangle \in \mathbb{B}^{3} \m
 
 \subsubsection{Assertions and satisfaction} \label{sec:set-sat}
 
-A \textit{trajectory assertion} for $M$ is quintuple $A = (S,s_{0},R,\pi_{a},\pi_{c})$, where $S$ is a finite set of \textit{states}, $s_{0} \in S$ is an \textit{initial state}, $R \subseteq S \times S$ is a \textit{transition relation}, $\pi_{a} \in S \rightarrow \Pow(C)$ and $\pi_{c} \in S \rightarrow \Pow(C)$ label each state $s$ with an \textit{antecedent} $\pi_{a}(s)$ and a \textit{consequent} $\pi_{c}(s)$. We assume that $(s,s_{0}) \notin S$ for all $s \in S$ without any loss of generality.
+A \textit{trajectory assertion} for $M$ is quintuple $A = (S,s_{0},R,\Antecedent,\Consequent)$, where $S$ is a finite set of \textit{states}, $s_{0} \in S$ is an \textit{initial state}, $R \subseteq S \times S$ is a \textit{transition relation}, $\Antecedent \in S \rightarrow \Pow(C)$ and $\Consequent \in S \rightarrow \Pow(C)$ label each state $s$ with an \textit{antecedent} $\Antecedent(s)$ and a \textit{consequent} $\Consequent(s)$. We assume that $(s,s_{0}) \notin S$ for all $s \in S$ without any loss of generality.
 
-The circuit model $M$ intuitively \textit{satisfies} an assertion $A$ if, for every \textit{trajectory} $\tau$ through $M$ and every \textit{run} $\rho$ through $A$, $\tau$ satisfying the antecedents of $\rho$ entails that $\tau$ also satisfies the consequents of $\rho$. To be more specific, a \textit{trajectory} of $M$ is a non-empty sequences of configurations, $\tau \in C^{+}$, such that $\tau_{n} \in M(\{ \tau_{n-1} \})$ for all $n \in \mathbb{N} : 0 < n < | \tau |$. And a \textit{run} of $A$ is a non-empty sequence of states, $\rho \in S^{+}$, such that $\rho_{0} = s_{0}$ and $(\rho_{n-1}, \rho_{n}) \in R$ for all $n \in \mathbb{N} : 0 < n < | \rho |$. A $\tau$ satisfies the antecedents of $\rho$, denoted by $\tau \models_{a} \rho$, iff $\tau_{n} \in \pi_{a}(\rho_{n})$ for all $n \in \mathbb{N} : n < | \tau | = | \rho |$; satisfaction of consequents is defined similarly with $\pi_{c}$ and denoted by $\tau \models_{c} \rho$. That $M$ satisfies $A$, denoted by $M \models A$, can then formalized\footnotemark as follows:
+The circuit model $M$ intuitively \textit{satisfies} an assertion $A$ if, for every \textit{trajectory} $\tau$ through $M$ and every \textit{run} $\rho$ through $A$, $\tau$ satisfying the antecedents of $\rho$ entails that $\tau$ also satisfies the consequents of $\rho$. To be more specific, a \textit{trajectory} of $M$ is a non-empty sequences of configurations, $\tau \in C^{+}$, such that $\tau_{n} \in M(\{ \tau_{n-1} \})$ for all $n \in \mathbb{N} : 0 < n < | \tau |$. And a \textit{run} of $A$ is a non-empty sequence of states, $\rho \in S^{+}$, such that $\rho_{0} = s_{0}$ and $(\rho_{n-1}, \rho_{n}) \in R$ for all $n \in \mathbb{N} : 0 < n < | \rho |$. A $\tau$ satisfies the antecedents of $\rho$, denoted by $\tau \models_{a} \rho$, iff $\tau_{n} \in \Antecedent(\rho_{n})$ for all $n \in \mathbb{N} : n < | \tau | = | \rho |$; satisfaction of consequents is defined similarly with $\Consequent$ and denoted by $\tau \models_{c} \rho$. That $M$ satisfies $A$, denoted by $M \models A$, can then formalized\footnotemark as follows:
 
 % (resp. consequents) (resp. $\tau \models_{c} \rho$)
 
@@ -71,7 +71,7 @@ The circuit model $M$ intuitively \textit{satisfies} an assertion $A$ if, for ev
 %% For all functions $\Phi \in S \rightarrow \pow(C)$ and states $s \in S$, define $F \in S \rightarrow (\pow(C) \rightarrow \pow(C))$ as follows:
 
 %% \begin{align}
-%% F(s)(p) &= M(\pi_{a}(s) \cap p) \\
+%% F(s)(p) &= M(\Antecedent(s) \cap p) \\
 %% \mathcal{F}(\Phi)(s) &= \Stmt{if } (s = s_{0}) \Stmt{ then } C \Stmt{ else } \cup \{ F(s')(\Phi(s')) \mid (s',s) \in R \}
 %% \end{align}
 
@@ -81,7 +81,7 @@ The circuit model $M$ intuitively \textit{satisfies} an assertion $A$ if, for ev
 %% \Phi_{n} = \Stmt{if } (n = 0) \Stmt{ then } (\lambda s \in S : \bot) \Stmt{ else } \mathcal{F}(\Phi_{n-1})
 %% \end{equation}
 
-%% $M$ \textit{satisfies} a trajectory assertion $A$, denoted by $M \smodels A$, iff $\forall s \in S : \Phi_{*}(s) \cap \pi_{a}(s) \subseteq \pi_{c}(s)$.
+%% $M$ \textit{satisfies} a trajectory assertion $A$, denoted by $M \smodels A$, iff $\forall s \in S : \Phi_{*}(s) \cap \Antecedent(s) \subseteq \Consequent(s)$.
 
 \subsection{Lattice-theoretic STE}
 
@@ -157,7 +157,7 @@ A trajectory assertion for an abstract model $\hat M$ is a quintuple $\hat A = (
 \todo{Here follows the definition in~\cite{chou1999}.} For all functions $\hat \Phi \in S \rightarrow \hat P$ and states $s \in S$, define $\hat F \in S \rightarrow (\hat P \rightarrow \hat P)$ and $\hat{\mathcal{F}} \in (S \rightarrow \hat P) \rightarrow (S \rightarrow \hat P)$ as follows:
 
 \begin{align}
-\hat F(s)(\hat p) &= \hat M(\pi_{a}(s) \meet \hat p) \\
+\hat F(s)(\hat p) &= \hat M(\Antecedent(s) \meet \hat p) \\
 \hat{\mathcal{F}}(\Phi)(s) &= \Stmt{if } (s = s_{0}) \Stmt{ then } \top \Stmt{ else } \join \{ \hat F(s')(\Phi(s')) \mid (s',s) \in R \}
 \end{align}
 
@@ -167,7 +167,7 @@ A trajectory assertion for an abstract model $\hat M$ is a quintuple $\hat A = (
 \hat \Phi_{n} = \Stmt{if } (n = 0) \Stmt{ then } (\lambda s \in S : \bot) \Stmt{ else } \hat{\mathcal{F}}(\hat \Phi_{n-1})
 \end{equation}
 
-$\hat M$ \textit{satisfies} a trajectory assertion\footnotemark $\hat A$, denoted by $\hat M \LatModels \hat A$, iff $\hat \Phi_{*}(s) \meet \pi_{\alpha}(s) \sqsubseteq \pi_{c}(s)$ for all $s \in S$.
+$\hat M$ \textit{satisfies} a trajectory assertion\footnotemark $\hat A$, denoted by $\hat M \LatModels \hat A$, iff $\hat \Phi_{*}(s) \meet \pi_{\alpha}(s) \sqsubseteq \Consequent(s)$ for all $s \in S$.
 
 % That is, $\hat M$ satisfies $\hat A$ if, for every state $s$ in the assertion, the information gathered from $\hat M$ through the consequent in every path to $s$ implies the antecedent for $s$.
 

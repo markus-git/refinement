@@ -39,6 +39,7 @@
 \newcommand{\Qed}{\hfill\blacksquare}
 %\newcommand{\comp}{\mkern -2mu \circ}
 %\newcommand{\qedw}{\hfill\ensuremath{\Box}}
+\newcommand{\vsep}{\quad\quad\quad\quad}
 
 % STE orig. grammar.
 \newcommand{\X}{\mathrm{X}}
@@ -48,15 +49,19 @@
 \DeclareMathOperator{\Runs}{\textit{Runs}} % set of runs
 \DeclareMathOperator{\SetModels}{\models_{\textrm{set}}} %
 \DeclareMathOperator{\LatModels}{\models_{\textrm{lat}}} %
+\DeclareMathOperator{\Antecedent}{\pi_{\textrm{a}}}
+\DeclareMathOperator{\Consequent}{\pi_{\textrm{c}}}
 
 % Refinement ...
+\newcommand{\Vis}{\pi_{\textrm{v}}}
+%\newcommand{\llv}{\ll_{\textrm{v}}}
+\DeclareMathOperator{\Refines}{\leq}
+\DeclareMathOperator{\SetRefines}{\Refines_{\textrm{set}}}
+%
 \newcommand{\In}{\dot{\iota}}
 \newcommand{\Out}{\omicron}
 \newcommand{\InSim}{\sim_{\In}}
 \newcommand{\OutSim}{\sim_{\Out}}
-%
-\DeclareMathOperator{\Refines}{\leq}
-\DeclareMathOperator{\SetRefines}{\Refines_{\textrm{set}}}
 %
 %\DeclareMathOperator{\Inn}{\hat{\iota}}
 %\DeclareMathOperator{\Outt}{\hat{\omicron}}
