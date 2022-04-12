@@ -2,15 +2,15 @@
 
 \subsection{Set-Theoretic refinement}
 
-Consider another fixed, but arbitrary, circuit model $N \in \Pow(D) \rightarrow \Pow(D)$, where $D$ is a non-empty and finite set of configurations. Further, let there be a Galois connection between predicates $(C, \subseteq)$ and $(D, \subseteq)$ given by means of a binary relation $\ll \, \subseteq \Pow(C) \times \Pow(D)$, where $c \ll d$ is read as ``c can be approximated by d''. We derive $\ll$ from either of the usual functions for abstraction $\alpha \in \Pow(C) \rightarrow \Pow(D)$ and concretisation $\gamma \in \Pow(D) \rightarrow \Pow(C)$ as follows:
+Consider another fixed, but arbitrary, circuit model $N \in \pow(D) \rightarrow \pow(D)$, where $D$ is a non-empty and finite set of configurations. Further, let there be a Galois connection between predicates $(C, \subseteq)$ and $(D, \subseteq)$ given by means of a binary relation $\ll \, \subseteq \pow(C) \times \pow(D)$, where $c \ll d$ is read as ``c can be approximated by d''. We derive $\ll$ from either of the usual functions for abstraction $\alpha \in \pow(C) \rightarrow \pow(D)$ and concretisation $\gamma \in \pow(D) \rightarrow \pow(C)$ as follows:
 
 \begin{equation*}
 c \ll d \iff \alpha(c) \subseteq d \vsep c \ll d \iff c \subseteq \gamma(d)
 \end{equation*}
 
-\noindent Here $\subseteq$ on the $\alpha$-derivation side is the inclusion order of $\Pow(D)$, and on the $\gamma$-derivation side $\subseteq$ is the inclusion order of $\Pow(C)$. Intuitively, the relation $\ll$ acts as an extension of the orderings inside $\Pow(C)$ and $\Pow(D)$ to one between them.
+\noindent Here $\subseteq$ on the $\alpha$-derivation side is the inclusion order of $\pow(D)$, and on the $\gamma$-derivation side $\subseteq$ is the inclusion order of $\pow(C)$. Intuitively, the relation $\ll$ acts as an extension of the orderings inside $\pow(C)$ and $\pow(D)$ to one between them.
 
-Exactly what configurations such as $C$ and $D$ are, were not important previously. To reason about refinement, which relates the visible behaviour of circuits, we make a distinction between their external and internal elements. Let the visible elements of a configuration in $C$ be identified by a function $\Vis \in C \rightarrow \Pow(C)$, where $\Vis(c)$ denotes the configurations which are \textit{visually} equal to a $c \in C$. Further, let $\Vis(\cdot)$ induce an equivalence relation $\sim$ on configurations in $C$, such that $c \sim c' \iff \Vis(c) = \Vis(c')$. With a slight abuse of notation, we extend $\Vis(\cdot)$ to sequences component-wise and overload it to accept configurations in $D$.
+Exactly what configurations such as $C$ and $D$ are, were not important previously. To reason about refinement, which relates the visible behaviour of circuits, we make a distinction between their external and internal elements. Let the visible elements of a configuration in $C$ be identified by a function $\Vis \in C \rightarrow \pow(C)$, where $\Vis(c)$ denotes the configurations which are \textit{visually} equal to a $c \in C$. Further, let $\Vis(\cdot)$ induce an equivalence relation $\sim$ on configurations in $C$, such that $c \sim c' \iff \Vis(c) = \Vis(c')$; the equivalence class of $c$ under $\sim$, denoted by $[c]_{\sim}$, is defined as $\{ c' \in C \mid c' \sim c \}$. With a slight abuse of notation, we extend $\Vis(\cdot)$ to sequences component-wise and overload it to accept configurations in $D$.
 
 We now formalize an intuition of whether $M$ \textit{refines} $N$, denoted by $M \Refines N$:
 
@@ -20,9 +20,14 @@ We now formalize an intuition of whether $M$ \textit{refines} $N$, denoted by $M
 
 \noindent where two sequences $\langle \Vis(\tau_{0}), \ldots \rangle \ll \langle \Vis(\upsilon_{0}), \ldots \rangle$ iff $\Vis(\tau_{n}) \ll \Vis(\upsilon_{n})$ for all $n \in \mathbb{N} : n < | \tau | = | \upsilon |$. In other words, $M \Refines N$ states that, for every sequence of configurations $\tau$ permitted by $M$, there must exist a sequence $\upsilon$ for $N$ which ``covers'' the visual behaviour of $\tau$.
 
-%% Models generally cannot control their inputs, and therefore leave such signals unconstrained in transitions, a trajectory $\tau \in \Traj(M)$ is \textit{driven} by an implicit choice of inputs.
+Recall that a trajectory assertion for $N$ is a quintuple $A = (S, s_{0}, R, \Antecedent, \Consequent)$, where $\Antecedent \in S \rightarrow \pow(D)$ and $\Consequent \in S \rightarrow \pow(D)$ label each $s \in S$ with its antecedents and consequents, respectively. If \todo{\dots} of $\Antecedent$ and $\Consequent$ is limited to \todo{\dots} in $D$, i.e. $d \in \Antecedent(s) \implies [d]_{\sim} \subseteq \Antecedent(s)$ for all $s \in S$, then we refer to $A$ as a \textit{visible trajectory assertion} and denote it by $A_{\textrm{vis}}$. Define $\gamma(A) = (S, s_{0}, R, \gamma(\Antecedent), \gamma(\Consequent))$, where $\gamma(\Antecedent) = \lambda s \in S : \gamma(\Antecedent(s))$ and $\gamma(\Consequent) = \lambda s \in S : \gamma(\Consequent(s))$. We can now state that refinement between $M$ and $N$ entails that satisfaction of any $A_{\textrm{vis}}$ by $N$ implies that $M$ satisfies $\gamma(A_{\textrm{vis}})$ as well:
 
-%% $ll$ is a \textit{visual simulation relation} between $M$ and $N$ iff $c \ll d$ implies $\Out[c] \subseteq \gamma(\Out[d])$ and $\ldots$.
+\begin{theorem} \label{thm:traj-refines}
+$M \Refines N \implies (N \models A_{\textrm{vis}} \implies M \models \gamma(A_{\textrm{vis}}))$
+\end{theorem}
 
-\todo{Text.} $M$ refines $N$ by \textit{set-theoretic refinement} iff $C$ can be approximated by $D$, i.e. $C \ll D$; $\ll$ is a \textit{visual approximation}, i.e. $c \ll d \implies \alpha(\Vis[c]) \subseteq \Vis[d]$; and $\ll$ is a \textit{simulation relation} from $\Pow(C)$ to $\Pow(D)$, i.e. $c \ll d \implies M(c) \ll N(d)$. That $\ll$ is a simulation relation can also be stated in terms of the usual functions for abstraction $\alpha$ and concretisation $\gamma$, as we did in the previous definition of abstract predicate transformers.
+The above definition of refinement can be equivalently formulated as a simulation relation. We say that $M$ refines $N$ by \textit{set-theoretic refinement}, denoted by $M \SetRefines N$, iff $C$ can be approximated by $D$, i.e. $C \ll D$; $\ll$ is a \textit{visual approximation}, i.e. $c \ll d \implies \alpha(\Vis[c]) \subseteq \Vis[d]$; and $\ll$ is a \textit{simulation relation} from $\pow(C)$ to $\pow(D)$, i.e. $c \ll d \implies M(c) \ll N(d)$. That $\ll$ is a simulation relation can also be stated in terms of the usual functions for abstraction $\alpha$ and concretisation $\gamma$, as we did in the previous definition of abstract predicate transformers.
 
+\begin{theorem} \label{thm:traj-equal-set}
+$M \Refines N \iff M \SetRefines N$
+\end{theorem}

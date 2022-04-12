@@ -1,76 +1,76 @@
 \section{Appendices}
 
-\subsection{Theorem~\ref{thm:set-equals-sim}: $M \Refines N \iff M \SetRefines N$}
+%% \subsection{Theorem~\ref{thm:set-equals-sim}: $M \Refines N \iff M \SetRefines N$}
 
-We first prove a few lemmas.
+%% We first prove a few lemmas.
 
-\begin{lemma} \label{lem:traj-part}
-$\tau \in \Traj(M) \iff \tau \in \Traj(M)(\In(\tau))$
-\end{lemma}
+%% \begin{lemma} \label{lem:traj-part}
+%% $\tau \in \Traj(M) \iff \tau \in \Traj(M)(\In(\tau))$
+%% \end{lemma}
 
-\begin{equation*}
-\Traj(M)(\In(\tau)) = \{ \tau \in C^{+} \mid \tau \in \Traj(M) : \In(\tau) = \In(\tau) \} = \Traj(M)
-\end{equation*}
+%% \begin{equation*}
+%% \Traj(M)(\In(\tau)) = \{ \tau \in C^{+} \mid \tau \in \Traj(M) : \In(\tau) = \In(\tau) \} = \Traj(M)
+%% \end{equation*}
 
-\begin{lemma} \label{lem:traj-all-in}
-$\bigcup_{\delta \in \In[C]^{+}} \{ \tau_{0} \mid \tau \in \Traj(M)(\delta) \} = C$
-\end{lemma}
+%% \begin{lemma} \label{lem:traj-all-in}
+%% $\bigcup_{\delta \in \In[C]^{+}} \{ \tau_{0} \mid \tau \in \Traj(M)(\delta) \} = C$
+%% \end{lemma}
 
-\todo{Input equality forms an equivalence class for trajectories, and the union of each class cover $\Traj(M)$. Further, as the initial element of each trajectory is unconstrained, their union must contain every possible configuration.}
+%% \todo{Input equality forms an equivalence class for trajectories, and the union of each class cover $\Traj(M)$. Further, as the initial element of each trajectory is unconstrained, their union must contain every possible configuration.}
 
-%% \begin{align*}
-%% \bigcup_{i \in \In[C]} \Traj(M)(\langle i \rangle) & = \bigcup_{i \in \In[C]} \{ \langle c \rangle \in C^{1} \mid \forall \langle c \rangle \in \Traj(M) : \In(c) = i \} \\ & = \bigcup_{i \in \In[C]} \{ \langle c \rangle \in C^{1} \mid \forall c \in C : \In(c) = i \} = \langle C \rangle
-%% \end{align*}
+%% %% \begin{align*}
+%% %% \bigcup_{i \in \In[C]} \Traj(M)(\langle i \rangle) & = \bigcup_{i \in \In[C]} \{ \langle c \rangle \in C^{1} \mid \forall \langle c \rangle \in \Traj(M) : \In(c) = i \} \\ & = \bigcup_{i \in \In[C]} \{ \langle c \rangle \in C^{1} \mid \forall c \in C : \In(c) = i \} = \langle C \rangle
+%% %% \end{align*}
 
-\begin{lemma} \label{lem:traj-all-out}
-$\bigcup_{\delta \in \In[C]^{+}} \{ \bigcup_{\varepsilon \in \Out[C]^{+}} \{ \tau_{0} \mid \tau \in \Traj(M)(\delta) : \Out(\tau) = \varepsilon \} \} = C$
-\end{lemma}
+%% \begin{lemma} \label{lem:traj-all-out}
+%% $\bigcup_{\delta \in \In[C]^{+}} \{ \bigcup_{\varepsilon \in \Out[C]^{+}} \{ \tau_{0} \mid \tau \in \Traj(M)(\delta) : \Out(\tau) = \varepsilon \} \} = C$
+%% \end{lemma}
 
-\todo{Similar reasoning as above, but partitioned twice.}
+%% \todo{Similar reasoning as above, but partitioned twice.}
 
-\begin{lemma} \label{lem:ref-iff-in}
-$M \Refines N \iff M \Refines_{in} N$
-\end{lemma}
+%% \begin{lemma} \label{lem:ref-iff-in}
+%% $M \Refines N \iff M \Refines_{in} N$
+%% \end{lemma}
 
-We prove each direction separately:
+%% We prove each direction separately:
 
-$(\Rightarrow)$ : Given $\delta \in \In[C]^{+}$ and $\tau \in \Traj(M)(\delta)$, where $\delta = [\tau]_{\In}$. By lemma~\ref{lem:traj-part}, $\tau \in \Traj(M)([\tau]_{\In})$ implies $\tau \in \Traj(M)$. And by the assumption, there must exist $\upsilon \in \Traj(N)$ such that $| \tau | = | \upsilon |$, $\In(\tau) = \In(\upsilon)$, and $\Out(\tau) = \Out(\upsilon)$. Using lemma~\ref{lem:traj-part} in reverse, $\upsilon \in \Traj(N)$ implies that $\upsilon \in \Traj(N)([\upsilon]_{\In}) = \Traj(N)(\delta)$.
+%% $(\Rightarrow)$ : Given $\delta \in \In[C]^{+}$ and $\tau \in \Traj(M)(\delta)$, where $\delta = [\tau]_{\In}$. By lemma~\ref{lem:traj-part}, $\tau \in \Traj(M)([\tau]_{\In})$ implies $\tau \in \Traj(M)$. And by the assumption, there must exist $\upsilon \in \Traj(N)$ such that $| \tau | = | \upsilon |$, $\In(\tau) = \In(\upsilon)$, and $\Out(\tau) = \Out(\upsilon)$. Using lemma~\ref{lem:traj-part} in reverse, $\upsilon \in \Traj(N)$ implies that $\upsilon \in \Traj(N)([\upsilon]_{\In}) = \Traj(N)(\delta)$.
 
-$(\Leftarrow)$ : Given $\tau \in \Traj(M)$, lemma~\ref{lem:traj-part} states that $\tau \in \Traj(M)([\tau]_{\In})$. By the assumption, there must exist $\upsilon \in \Traj(N)(\In(\tau))$ such that $\Out(\tau) = \Out(\upsilon)$. By defintion of $\Traj(N)(\In(\tau))$, it easy to see that $\In(\tau) = \In(\upsilon)$ and $| \tau | = | \upsilon |$. Using lemma~\ref{lem:traj-part} in reverse, $\upsilon \in \Traj(N)(\In(\tau)) = \Traj(N)(\In(\upsilon))$ implies that $\upsilon \in \Traj(N)$.
+%% $(\Leftarrow)$ : Given $\tau \in \Traj(M)$, lemma~\ref{lem:traj-part} states that $\tau \in \Traj(M)([\tau]_{\In})$. By the assumption, there must exist $\upsilon \in \Traj(N)(\In(\tau))$ such that $\Out(\tau) = \Out(\upsilon)$. By defintion of $\Traj(N)(\In(\tau))$, it easy to see that $\In(\tau) = \In(\upsilon)$ and $| \tau | = | \upsilon |$. Using lemma~\ref{lem:traj-part} in reverse, $\upsilon \in \Traj(N)(\In(\tau)) = \Traj(N)(\In(\upsilon))$ implies that $\upsilon \in \Traj(N)$.
 
-\begin{lemma} \label{lem:cl-union}
-$c_{1} \ll d_{1} \wedge c_{2} \ll d_{2} \implies (c_{1} \cup c_{2}) \ll (d_{1} \cup d_{2})$
-\end{lemma}
+%% \begin{lemma} \label{lem:cl-union}
+%% $c_{1} \ll d_{1} \wedge c_{2} \ll d_{2} \implies (c_{1} \cup c_{2}) \ll (d_{1} \cup d_{2})$
+%% \end{lemma}
 
-\todo{Text.}
+%% \todo{Text.}
 
-\begin{lemma} \label{lem:in-iff-sim}
-$M \Refines_{in} N \iff M \SetRefines N$
-\end{lemma}
+%% \begin{lemma} \label{lem:in-iff-sim}
+%% $M \Refines_{in} N \iff M \SetRefines N$
+%% \end{lemma}
 
-We prove each direction of the theorem separately:
+%% We prove each direction of the theorem separately:
 
-$(\Rightarrow)$ : We define the relation $\ll \, \subseteq \Pow(C) \times \Pow(D)$ as follows:
+%% $(\Rightarrow)$ : We define the relation $\ll \, \subseteq \pow(C) \times \pow(D)$ as follows:
 
-\begin{equation*}
-\close{\cup} \{ ( \{ \tau_{| \delta | - 1} \} , \{ \upsilon_{| \delta | - 1} \} ) \mid \forall \delta \in \In[C]^{+} : \forall \tau \in \Traj(M)(\delta) : \forall \upsilon \in \Traj(N)(\delta) : \Out(\tau) = \Out(\upsilon) \}
-\end{equation*}
+%% \begin{equation*}
+%% \close{\cup} \{ ( \{ \tau_{| \delta | - 1} \} , \{ \upsilon_{| \delta | - 1} \} ) \mid \forall \delta \in \In[C]^{+} : \forall \tau \in \Traj(M)(\delta) : \forall \upsilon \in \Traj(N)(\delta) : \Out(\tau) = \Out(\upsilon) \}
+%% \end{equation*}
 
-\noindent where $\tau_{| \delta | - 1}$ and $\upsilon_{| \delta | - 1}$ denote the last element of both sequences.
+%% \noindent where $\tau_{| \delta | - 1}$ and $\upsilon_{| \delta | - 1}$ denote the last element of both sequences.
 
-We show that $\ll$ is a simulation relation on the visible elements in $\Pow(C)$ and $\Pow(D)$. Firstly, for any $c \ll d$, both $c$ and $d$ are unions of a finite number of $\tau \in \Traj(M)(\delta)_{| \delta | - 1}$ and $\upsilon \in \Traj(N)(\delta)_{| \delta | - 1}$ pairs with some common $\delta$. By definition of $\ll$, we know that $[\tau]_{\Out} = [\upsilon]_{\Out}$ for each such $\tau$ and $\upsilon$, and thus $\Out[c] \subseteq \Out[d]$. Secondly, the concatenation of any such $\delta$ and each $i \in \In[C]$ forms another driver $\delta^{\frown} \langle i \rangle \in \In[C]^{+}$. \todo{...}
+%% We show that $\ll$ is a simulation relation on the visible elements in $\pow(C)$ and $\pow(D)$. Firstly, for any $c \ll d$, both $c$ and $d$ are unions of a finite number of $\tau \in \Traj(M)(\delta)_{| \delta | - 1}$ and $\upsilon \in \Traj(N)(\delta)_{| \delta | - 1}$ pairs with some common $\delta$. By definition of $\ll$, we know that $[\tau]_{\Out} = [\upsilon]_{\Out}$ for each such $\tau$ and $\upsilon$, and thus $\Out[c] \subseteq \Out[d]$. Secondly, the concatenation of any such $\delta$ and each $i \in \In[C]$ forms another driver $\delta^{\frown} \langle i \rangle \in \In[C]^{+}$. \todo{...}
 
-% exist a $\upsilon' \in \Traj(N)(\delta^{\frown} \langle i \rangle)_{| \delta |}$ for every $\tau' \in \Traj(M)(\delta^{\frown} \langle i \rangle)_{| \delta |}$ such that $[\tau']_{\Out} = [\upsilon']_{\Out}$.
+%% % exist a $\upsilon' \in \Traj(N)(\delta^{\frown} \langle i \rangle)_{| \delta |}$ for every $\tau' \in \Traj(M)(\delta^{\frown} \langle i \rangle)_{| \delta |}$ such that $[\tau']_{\Out} = [\upsilon']_{\Out}$.
 
-Finally, to show that $M \SetRefines N$ we must show that $C \ll D$. \todo{By lemma~\ref{lem:traj-all-in} and the forall-quantification over drivers, we know that every member of $C$ is considered. Further, as $\Out[C] = \Out[D]$ and every output of $C$ is considered, every member of $D$ must also be considered.}
+%% Finally, to show that $M \SetRefines N$ we must show that $C \ll D$. \todo{By lemma~\ref{lem:traj-all-in} and the forall-quantification over drivers, we know that every member of $C$ is considered. Further, as $\Out[C] = \Out[D]$ and every output of $C$ is considered, every member of $D$ must also be considered.}
 
-% last elements in some pair of trajectories with equal outputs. Thus any union of such elements must have equal outputs as well, which implies that $\Out[c] \subseteq \Out[d]$ holds. Lastly, for every driver used to generate the elements that make out $c$ and $d$, extending them with any input produces another, valid driver. Therefore any 
+%% % last elements in some pair of trajectories with equal outputs. Thus any union of such elements must have equal outputs as well, which implies that $\Out[c] \subseteq \Out[d]$ holds. Lastly, for every driver used to generate the elements that make out $c$ and $d$, extending them with any input produces another, valid driver. Therefore any 
 
-$(\Leftarrow)$ : Text.
+%% $(\Leftarrow)$ : Text.
 
-\begin{corollary}
-$M \Refines N \iff M \SetRefines N$
-\end{corollary}
+%% \begin{corollary}
+%% $M \Refines N \iff M \SetRefines N$
+%% \end{corollary}
 
-Follows immediately from lemma~\ref{lem:ref-iff-in} and~\ref{lem:in-iff-sim}.
+%% Follows immediately from lemma~\ref{lem:ref-iff-in} and~\ref{lem:in-iff-sim}.
 
