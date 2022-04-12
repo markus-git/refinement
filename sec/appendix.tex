@@ -1,6 +1,8 @@
 \section{Appendices}
 
-%% \subsection{Theorem~\ref{thm:set-equals-sim}: $M \Refines N \iff M \SetRefines N$}
+\subsection{Theorem~\ref{thm:traj-refines}}
+
+Given a $\tau \in \Traj(M)$ and $\rho \in \Runs(A)$, such that $| \tau | = | \rho |$ and $\tau \models \rho$, 
 
 %% We first prove a few lemmas.
 
@@ -27,16 +29,6 @@
 %% \end{lemma}
 
 %% \todo{Similar reasoning as above, but partitioned twice.}
-
-%% \begin{lemma} \label{lem:ref-iff-in}
-%% $M \Refines N \iff M \Refines_{in} N$
-%% \end{lemma}
-
-%% We prove each direction separately:
-
-%% $(\Rightarrow)$ : Given $\delta \in \In[C]^{+}$ and $\tau \in \Traj(M)(\delta)$, where $\delta = [\tau]_{\In}$. By lemma~\ref{lem:traj-part}, $\tau \in \Traj(M)([\tau]_{\In})$ implies $\tau \in \Traj(M)$. And by the assumption, there must exist $\upsilon \in \Traj(N)$ such that $| \tau | = | \upsilon |$, $\In(\tau) = \In(\upsilon)$, and $\Out(\tau) = \Out(\upsilon)$. Using lemma~\ref{lem:traj-part} in reverse, $\upsilon \in \Traj(N)$ implies that $\upsilon \in \Traj(N)([\upsilon]_{\In}) = \Traj(N)(\delta)$.
-
-%% $(\Leftarrow)$ : Given $\tau \in \Traj(M)$, lemma~\ref{lem:traj-part} states that $\tau \in \Traj(M)([\tau]_{\In})$. By the assumption, there must exist $\upsilon \in \Traj(N)(\In(\tau))$ such that $\Out(\tau) = \Out(\upsilon)$. By defintion of $\Traj(N)(\In(\tau))$, it easy to see that $\In(\tau) = \In(\upsilon)$ and $| \tau | = | \upsilon |$. Using lemma~\ref{lem:traj-part} in reverse, $\upsilon \in \Traj(N)(\In(\tau)) = \Traj(N)(\In(\upsilon))$ implies that $\upsilon \in \Traj(N)$.
 
 %% \begin{lemma} \label{lem:cl-union}
 %% $c_{1} \ll d_{1} \wedge c_{2} \ll d_{2} \implies (c_{1} \cup c_{2}) \ll (d_{1} \cup d_{2})$

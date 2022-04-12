@@ -35,22 +35,24 @@
 \newcommand{\close}[1]{\textrm{cl}_{\, #1}}
 
 %% Math preferences.
-\newcommand{\pow}[1]{\mathcal{P}#1}
-\newcommand{\Qed}{\hfill\blacksquare}
-%\newcommand{\comp}{\mkern -2mu \circ}
-%\newcommand{\qedw}{\hfill\ensuremath{\Box}}
-\newcommand{\vsep}{\quad\quad\quad\quad}
+\newcommand{\pow}[1]{\mathcal{P}#1} % Powerset symbol
+\newcommand{\qedbox}{\hfill\blacksquare} % QED. White ver.: {\hfill\ensuremath{\Box}}
+\newcommand{\vsep}{\quad\quad\quad\quad} % Big h. sep.
 
 % STE orig. grammar.
-\newcommand{\X}{\mathrm{X}}
+\newcommand{\X}{\mathrm{X}} % "Unknown" value.
 \DeclareMathOperator{\Next}{\textbf{N}} % Next-time.
-\DeclareMathOperator{\Is}{\mathbin{\textbf{is}}} % comparison.
-\DeclareMathOperator{\Traj}{\textit{Traj}} % set of trajectories
-\DeclareMathOperator{\Runs}{\textit{Runs}} % set of runs
-\DeclareMathOperator{\SetModels}{\models_{\textrm{set}}} %
-\DeclareMathOperator{\LatModels}{\models_{\textrm{lat}}} %
+\DeclareMathOperator{\Is}{\mathbin{\textbf{is}}} % Comparison.
+\DeclareMathOperator{\Traj}{\textit{Traj}} % Set of trajectories
+\DeclareMathOperator{\Runs}{\textit{Runs}} % Set of runs
+% 
 \DeclareMathOperator{\Antecedent}{\pi_{\textrm{a}}}
 \DeclareMathOperator{\Consequent}{\pi_{\textrm{c}}}
+\newcommand{\AntModels}{\models_{\textrm{a}}}
+\newcommand{\ConModels}{\models_{\textrm{c}}}
+%
+\DeclareMathOperator{\SetModels}{\models_{\textrm{set}}}
+\DeclareMathOperator{\LatModels}{\models_{\textrm{lat}}}
 
 % Refinement ...
 \newcommand{\Vis}{\pi_{\textrm{v}}}

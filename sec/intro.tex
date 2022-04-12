@@ -54,11 +54,11 @@ M(p) = \{ \langle b_{1}, b_{2}, i_{1} \wedge i_{2} \rangle \in \mathbb{B}^{3} \m
 
 \subsubsection{Assertions and satisfaction} \label{sec:set-sat}
 
-A \textit{trajectory assertion} for $M$ is quintuple $A = (S,s_{0},R,\Antecedent,\Consequent)$, where $S$ is a finite set of \textit{states}, $s_{0} \in S$ is an \textit{initial state}, $R \subseteq S \times S$ is a \textit{transition relation}, $\Antecedent \in S \rightarrow \pow(C)$ and $\Consequent \in S \rightarrow \pow(C)$ label each state $s$ with an \textit{antecedent} $\Antecedent(s)$ and a \textit{consequent} $\Consequent(s)$. We assume that $(s,s_{0}) \notin S$ for all $s \in S$ without any loss of generality.
+A \textit{trajectory assertion} for $M$ is quintuple $A = (S, s_{0}, R, \Antecedent, \Consequent)$, where $S$ is a finite set of \textit{states}, $s_{0} \in S$ is an \textit{initial state}, $R \subseteq S \times S$ is a \textit{transition relation}, $\Antecedent \in S \rightarrow \pow(C)$ and $\Consequent \in S \rightarrow \pow(C)$ label each state $s$ with an \textit{antecedent} $\Antecedent(s)$ and a \textit{consequent} $\Consequent(s)$. We assume that $(s,s_{0}) \notin S$ for all $s \in S$ without any loss of generality.
 
-The circuit model $M$ intuitively \textit{satisfies} an assertion $A$ if, for every \textit{trajectory} $\tau$ through $M$ and every \textit{run} $\rho$ through $A$, $\tau$ satisfying the antecedents of $\rho$ entails that $\tau$ also satisfies the consequents of $\rho$. To be more specific, a \textit{trajectory} of $M$ is a non-empty sequences of configurations, $\tau \in C^{+}$, such that $\tau_{n} \in M(\{ \tau_{n-1} \})$ for all $n \in \mathbb{N} : 0 < n < | \tau |$. And a \textit{run} of $A$ is a non-empty sequence of states, $\rho \in S^{+}$, such that $\rho_{0} = s_{0}$ and $(\rho_{n-1}, \rho_{n}) \in R$ for all $n \in \mathbb{N} : 0 < n < | \rho |$. A $\tau$ satisfies the antecedents of $\rho$, denoted by $\tau \models_{a} \rho$, iff $\tau_{n} \in \Antecedent(\rho_{n})$ for all $n \in \mathbb{N} : n < | \tau | = | \rho |$; satisfaction of consequents is defined similarly with $\Consequent$ and denoted by $\tau \models_{c} \rho$. That $M$ satisfies $A$, denoted by $M \models A$, can then formalized\footnotemark as follows:
+The circuit model $M$ intuitively \textit{satisfies} an assertion $A$ if, for every \textit{trajectory} $\tau$ through $M$ and every \textit{run} $\rho$ through $A$, $\tau$ satisfying the antecedents of $\rho$ entails that $\tau$ also satisfies the consequents of $\rho$. To be more specific, a \textit{trajectory} of $M$ is a non-empty sequences of configurations, $\tau \in C^{+}$, such that $\tau_{n} \in M(\{ \tau_{n-1} \})$ for all $n \in \mathbb{N} : 0 < n < | \tau |$. And a \textit{run} of $A$ is a non-empty sequence of states, $\rho \in S^{+}$, such that $\rho_{0} = s_{0}$ and $(\rho_{n-1}, \rho_{n}) \in R$ for all $n \in \mathbb{N} : 0 < n < | \rho |$. A $\tau$ satisfies the antecedents of $\rho$, denoted by $\tau \AntModels \rho$, iff $\tau_{n} \in \Antecedent(\rho_{n})$ for all $n \in \mathbb{N} : n < | \tau | = | \rho |$; satisfaction of consequents is defined similarly with $\Consequent$ and denoted by $\tau \ConModels \rho$.
 
-% (resp. consequents) (resp. $\tau \models_{c} \rho$)
+That $M$ satisfies $A$, denoted by $M \models A$, can then formalized as follows: % \footnotemark
 
 \begin{equation*}
 \forall \tau \in \Traj(M) : \forall \rho \in \Runs(A) : | \tau | = | \rho | \implies (\tau \models_{a} \rho \implies \tau \models_{c} \rho)
@@ -66,7 +66,7 @@ The circuit model $M$ intuitively \textit{satisfies} an assertion $A$ if, for ev
 
 \noindent where $\Traj(M)$ and $\Runs(A)$ denote the sets of all trajectories of $M$ and runs of $A$, respectively.
 
-\footnotetext{\todo{This is equivalent to a DFA formulation~\cite{chou1999}.}}
+%% \footnotetext{\todo{This is equivalent to a DFA formulation~\cite{chou1999}.}}
 
 %% For all functions $\Phi \in S \rightarrow \pow(C)$ and states $s \in S$, define $F \in S \rightarrow (\pow(C) \rightarrow \pow(C))$ as follows:
 
