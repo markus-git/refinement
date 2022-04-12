@@ -2,7 +2,7 @@
 
 \subsection{Set-Theoretic refinement}
 
-Consider another fixed, but arbitrary, circuit model $N \in \Pow(D) \rightarrow \Pow(D)$, where $D$ is a non-empty and finite set of configurations. Further, let there be a Galois connection between predicates $(C, \subseteq)$ and $(D, \subseteq)$ given by means of a binary relation $\ll \, \subseteq \Pow(C) \times \Pow(D)$. We derive $\ll$ from either of the usual functions for abstraction $\alpha \in \Pow(C) \rightarrow \Pow(D)$ and concretisation $\gamma \in \Pow(D) \rightarrow \Pow(C)$ as follows:
+Consider another fixed, but arbitrary, circuit model $N \in \Pow(D) \rightarrow \Pow(D)$, where $D$ is a non-empty and finite set of configurations. Further, let there be a Galois connection between predicates $(C, \subseteq)$ and $(D, \subseteq)$ given by means of a binary relation $\ll \, \subseteq \Pow(C) \times \Pow(D)$, where $c \ll d$ is read as ``c can be approximated by d''. We derive $\ll$ from either of the usual functions for abstraction $\alpha \in \Pow(C) \rightarrow \Pow(D)$ and concretisation $\gamma \in \Pow(D) \rightarrow \Pow(C)$ as follows:
 
 \begin{equation*}
 c \ll d \iff \alpha(c) \subseteq d \vsep c \ll d \iff c \subseteq \gamma(d)
@@ -10,19 +10,7 @@ c \ll d \iff \alpha(c) \subseteq d \vsep c \ll d \iff c \subseteq \gamma(d)
 
 \noindent Here $\subseteq$ on the $\alpha$-derivation side is the inclusion order of $\Pow(D)$, and on the $\gamma$-derivation side $\subseteq$ is the inclusion order of $\Pow(C)$. Intuitively, the relation $\ll$ acts as an extension of the orderings inside $\Pow(C)$ and $\Pow(D)$ to one between them.
 
-%% In order to relate $D$ to the previous $C$, let there be a Galois connection $\ll \, \subseteq \Pow(C) \times \Pow(D)$ given by means of a binary relation between $\Pow(P)$ and $\Pow(Q)$ ordered by set inclusion $\subseteq$. The relation $\ll$ acts as an extension of the orderings inside $\Pow(C)$ and $\Pow(D)$ to one between them, such that configurations in any $P \subseteq \Pow(C)$ and $Q \subseteq \Pow(D)$ are related iff their union and intersection are related:
-
-%% \begin{equation*}
-%% P \ll Q \iff \forall p \in P : \forall q \in Q : p \ll q \iff \cup P \ll \cap Q
-%% \end{equation*}
-
-%% \noindent where $p \ll q$ reads as ``$p$ approximates $q$''. The usual functions for abstraction $\alpha \in \Pow(C) \rightarrow \Pow(D)$ and concretisation $\gamma \in \Pow(D) \rightarrow \Pow(C)$ can be derived from $\ll$ as follows: $\alpha(c) = \cap \{ d \in \Pow(D) \mid c \ll d \}$ and $\gamma(d) = \cup \{ c \in \Pow(C) \mid c \ll d \}$. Conversely, the relation $\ll$ can be derived from $\alpha$ or $\gamma$ as: $c \ll d \iff \alpha(c) \subseteq d$ or $c \ll d \iff c \subseteq \gamma(d)$. \todo{Note properties of $\alpha$ and $\gamma$?}
-
-Exactly what configurations such as $C$ and $D$ are, were not important previously. To reason about refinement, which relates the visible behaviour of circuits, we make a distinction between their external and internal elements. Let the visible elements of a configuration in $C$ be identified by a function $\Vis \in C \rightarrow \Pow(C)$, where $\Vis(c)$ denotes the configurations which are \textit{visually} equal to a $c \in C$. Further, let $\Vis(\cdot)$ induce an equivalence relation $\sim$ on configurations in $C$, such that $c \sim c' \iff \Vis(c) = \Vis(c')$. With a slight abuse of notation, we extend $\Vis(\cdot)$ to sequences component-wise, and overload it and to accept $D$ as well.
-
-%% $\In \in C \rightarrow \Pow(C)$ and $\Out \in C \rightarrow \Pow(C)$, where $\In(c)$ denotes the configurations with \textit{inputs} equal to a $c \in C$, and $\Out(c)$ denotes configurations with equal \textit{outputs}. With a slight abuse of notation, we overload $\In(\cdot)$ and $\Out(\cdot)$ to accept $D$ as well.
-
-%% Let $\In(\cdot)$ and $\Out(\cdot)$ both induce equivalence relations, $\InSim$ and $\OutSim$, on configurations in $C$, such that $c \InSim c' \iff \In(c) = \In(c')$ and $c \OutSim c' \iff \Out(c) = \Out(c')$.
+Exactly what configurations such as $C$ and $D$ are, were not important previously. To reason about refinement, which relates the visible behaviour of circuits, we make a distinction between their external and internal elements. Let the visible elements of a configuration in $C$ be identified by a function $\Vis \in C \rightarrow \Pow(C)$, where $\Vis(c)$ denotes the configurations which are \textit{visually} equal to a $c \in C$. Further, let $\Vis(\cdot)$ induce an equivalence relation $\sim$ on configurations in $C$, such that $c \sim c' \iff \Vis(c) = \Vis(c')$. With a slight abuse of notation, we extend $\Vis(\cdot)$ to sequences component-wise and overload it to accept configurations in $D$.
 
 We now formalize an intuition of whether $M$ \textit{refines} $N$, denoted by $M \Refines N$:
 
@@ -32,23 +20,9 @@ We now formalize an intuition of whether $M$ \textit{refines} $N$, denoted by $M
 
 \noindent where two sequences $\langle \Vis(\tau_{0}), \ldots \rangle \ll \langle \Vis(\upsilon_{0}), \ldots \rangle$ iff $\Vis(\tau_{n}) \ll \Vis(\upsilon_{n})$ for all $n \in \mathbb{N} : n < | \tau | = | \upsilon |$. In other words, $M \Refines N$ states that, for every sequence of configurations $\tau$ permitted by $M$, there must exist a sequence $\upsilon$ for $N$ which ``covers'' the visual behaviour of $\tau$.
 
-%% where $\langle \tau_{0}, \ldots \rangle \ll_{\In} \langle \upsilon_{0}, \ldots \rangle$ iff $\In(\tau_{n}) \ll \In(\upsilon_{n})$ for all $n \in \mathbb{N} : n < | \tau | = | \upsilon |$; $\tau \ll_{\Out} \upsilon$ is similarly defined by $\Out(\cdot)$.
-
-%% While models generally cannot control their inputs, and therefore leave such signals unconstrained in transitions, a trajectory $\tau \in \Traj(M)$ is \textit{driven} by an implicit choice of inputs.
-
-%% $\Traj(M)(\delta) = \{ \tau \in C^{+} \mid \tau \in \Traj : \tau \InSim \delta \}$ for every driver $\delta \in \In[C]^{+}$, where $\langle \tau_{0}, \ldots \rangle \InSim \langle \delta_{0}, \ldots \rangle$ iff $\tau_{n} \InSim \delta_{n}$.
-
-%% $\Traj(M) / \mkern-5mu\InSim$ is then the partition of all trajectories in $M$ with respect to $\InSim$.
-
-% Let $\Traj(M)(\delta)$ be the equivalence class of trajectories under a common \textit{driver} $\delta \in \In[C]^{+}$, defined as $\Traj(M)(\delta) = \{ \tau \in \Traj(M) \mid \forall n \in \mathbb{N} : n < | \delta| \implies \In(\tau_{n}) = \delta_{n} \}$.
-
-%% \begin{equation*}
-%% \forall \delta \in \In[C]^{+} : \forall \tau \in \Traj(M)(\delta) : \exists \upsilon \in \Traj(N)(\delta) : \tau \ll_{\Out} \upsilon
-%% \end{equation*}
-
-%% \todo{$M$ \textit{refines} the circuit $N$ by \textit{set-theoretic visual refinement}, denoted by $M \SetRefines N$, iff $C \ll D$ and the Galois connection $\ll$ is \textit{simulation relation}, such that $c \ll d$ implies $\Out[c] \ll \Out[d]$ and $M(c \cap \{ i \}) \ll N(d \cap \{ i \})$ for all $i \in \In[C]$.}
+%% Models generally cannot control their inputs, and therefore leave such signals unconstrained in transitions, a trajectory $\tau \in \Traj(M)$ is \textit{driven} by an implicit choice of inputs.
 
 %% $ll$ is a \textit{visual simulation relation} between $M$ and $N$ iff $c \ll d$ implies $\Out[c] \subseteq \gamma(\Out[d])$ and $\ldots$.
 
-$M$ refines $N$ by \textit{set-theoretic refinement} iff $C \ll D$ and $\ll$ is a visual simulation relation.
+\todo{Text.} $M$ refines $N$ by \textit{set-theoretic refinement} iff $C$ can be approximated by $D$, i.e. $C \ll D$; $\ll$ is a \textit{visual approximation}, i.e. $c \ll d \implies \alpha(\Vis[c]) \subseteq \Vis[d]$; and $\ll$ is a \textit{simulation relation} from $\Pow(C)$ to $\Pow(D)$, i.e. $c \ll d \implies M(c) \ll N(d)$. That $\ll$ is a simulation relation can also be stated in terms of the usual functions for abstraction $\alpha$ and concretisation $\gamma$, as we did in the previous definition of abstract predicate transformers.
 
