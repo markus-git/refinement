@@ -2,7 +2,15 @@
 
 \subsection{Theorem~\ref{thm:traj-refines}}
 
-Given a $\tau \in \Traj(M)$ and $\rho \in \Runs(A)$, such that $| \tau | = | \rho |$ and $\tau \models \rho$, 
+\begin{lemma}
+$\langle \tau_{0}, \ldots \rangle \in \Traj(M) \implies \langle \gamma(\tau_{0}), \ldots \rangle \in \Traj(N)$
+\end{lemma}
+
+Given a $\tau \in \Traj(M)$ and $\rho \in \Runs(\gamma(A))$, such that $| \tau | = | \rho |$ and $\tau_{n} \in \gamma(\Antecedent(\rho_{n}))$ for all $n \in \mathbb{N} : n < | \tau |$, we must show that $\tau_{n} \in \gamma(\Consequent(\rho_{n}))$. By the refinement assumption, there must exist a $\upsilon \in \Traj(N)$ such that $| \tau | = | \upsilon | = | \rho |$ and $\Vis(\tau) \ll \Vis(\upsilon)$, so $\Vis(\tau_{n}) \subseteq \gamma(\Vis(\upsilon_{n}))$ for all $n \in \mathbb{N} : n < | \tau |$.
+
+% Since $\tau_{n} \in \gamma(\Antecedent(\rho_{n}))$, $\upsilon_{n} \in \Antecedent(\rho_{n})$.
+
+% Furthermore, by the assumption that $N \models A$, we also know that $\upsilon_{n} \in \Antecedent$
 
 %% We first prove a few lemmas.
 
