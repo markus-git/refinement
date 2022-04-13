@@ -2,11 +2,25 @@
 
 \subsection{Theorem~\ref{thm:traj-refines}}
 
+We first prove a few lemmas.
+
+%% \begin{lemma}
+%% $\upsilon \in \gamma(\Consequent(\rho)) \wedge \Vis(\tau) \ll \Vis(\upsilon) \implies \tau \in \Consequent(\rho)$
+%% \end{lemma}
+
+%% First, $\Vis(\tau) \ll \Vis(\upsilon) \iff \Vis(\tau) \subseteq \gamma(\Vis(\upsilon))$.
+
+%% $\qedbox$
+
 \begin{lemma}
-$\langle \tau_{0}, \ldots \rangle \in \Traj(M) \implies \langle \gamma(\tau_{0}), \ldots \rangle \in \Traj(N)$
+$\tau \in \gamma(\Antecedent(\rho)) \wedge \Vis(\tau) \ll \Vis(\upsilon) \implies \upsilon \in \Antecedent(\rho)$
 \end{lemma}
 
-Given a $\tau \in \Traj(M)$ and $\rho \in \Runs(\gamma(A))$, such that $| \tau | = | \rho |$ and $\tau_{n} \in \gamma(\Antecedent(\rho_{n}))$ for all $n \in \mathbb{N} : n < | \tau |$, we must show that $\tau_{n} \in \gamma(\Consequent(\rho_{n}))$. By the refinement assumption, there must exist a $\upsilon \in \Traj(N)$ such that $| \tau | = | \upsilon | = | \rho |$ and $\Vis(\tau) \ll \Vis(\upsilon)$, so $\Vis(\tau_{n}) \subseteq \gamma(\Vis(\upsilon_{n}))$ for all $n \in \mathbb{N} : n < | \tau |$.
+First, $\Vis(\tau) \ll \Vis(\upsilon) \iff \Vis(\tau) \subseteq \gamma(\Vis(\upsilon))$.
+
+$\qedbox$
+
+Given a $\tau \in \Traj(M)$ and $\rho \in \Runs(\gamma(A))$, such that $| \tau | = | \rho |$ and $\tau_{n} \in \gamma(\Antecedent(\rho_{n}))$ for all $n \in \mathbb{N} : n < | \tau |$, we must show that $\tau_{n} \in \gamma(\Consequent(\rho_{n}))$. By the refinement assumption, there must exist a $\upsilon \in \Traj(N)$ such that $| \tau | = | \upsilon | = | \rho |$ and $\Vis(\tau) \ll \Vis(\upsilon)$, so $\Vis(\tau_{n}) \ll \Vis(\upsilon_{n})$ for all $n \in \mathbb{N} : n < | \tau |$.
 
 % Since $\tau_{n} \in \gamma(\Antecedent(\rho_{n}))$, $\upsilon_{n} \in \Antecedent(\rho_{n})$.
 
