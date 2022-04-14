@@ -28,7 +28,9 @@ Recall that a trajectory assertion for $N$ is a quintuple $\TA = (S, s_{0}, R, \
 $M \Refines N \implies (N \models \ETA \implies M \models \gamma(\ETA))$
 \end{theorem}
 
-The above definition of refinement can be equivalently formulated as a simulation relation. We say that $M$ refines $N$ by \textit{set-theoretic refinement}, denoted by $M \SetRefines N$, iff $\C$ is approximated by $\D$, i.e. $\{ \C \} \ll \{ \D \}$; $\ll$ is a \todo{explanation}, i.e. $C \ll D \implies \bigcup_{c \in C}[c] \ll \bigcup_{d \in D}[d]$; and $\ll$ is a \textit{simulation relation} from $\pow(\C)$ to $\pow(\D)$, i.e. $C \ll D \implies M(C) \ll N(D)$. That $\ll$ is a visual approximation and a simulation relation can also be stated in terms of the usual functions for abstraction $\alpha$ and concretisation $\gamma$.
+The above definition of refinement can be equivalently formulated as a simulation relation. We say that $M$ refines $N$ by \textit{set-theoretic refinement}, denoted by $M \SetRefines N$, iff $\C$ is approximated by $\D$, i.e. $\{ \C \} \ll \{ \D \}$; $\ll$ is a \todo{explanation}, i.e. $C \ll D \implies \bigcup_{c \in C}[c] \ll \bigcup_{d \in D}[d]$; and $\ll$ is a \textit{simulation relation} from $\pow(\C)$ to $\pow(\D)$, i.e. $C \ll D \implies M(C) \ll N(D)$.
+
+%% That $\ll$ is a \todo{explanation} and a simulation relation can also be stated in terms of the usual functions for abstraction $\alpha$ and concretisation $\gamma$.
 
 \begin{theorem} \label{thm:traj-equal-set}
 $M \Refines N \iff M \SetRefines N$
