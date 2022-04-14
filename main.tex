@@ -20,56 +20,51 @@
 % New commands
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%% Editing stuff.
+%% Editing.
 \newcommand{\todo}[1]{\textcolor{red}{#1}}
 \newcommand{\Stmt}[1]{\textrm{\textbf{#1}}}
 
-%% Math stuff that I think are missing.
-\newcommand{\Alpha}{\mathrm{A}}
-\newcommand{\omicron}{\mathrm{o}}
-\renewcommand{\iff}{\Leftrightarrow}
-\renewcommand{\implies}{\Rightarrow}
+%% Math.
 \DeclareMathOperator{\nsqsubseteq}{\not\sqsubseteq}
 \DeclareMathOperator{\meet}{\sqcap}
 \DeclareMathOperator{\join}{\sqcup}
-\newcommand{\close}[1]{\textrm{cl}_{\, #1}}
+%\newcommand{\close}[1]{\textrm{cl}_{\, #1}}
 
-%% Math preferences.
-\newcommand{\pow}[1]{\mathcal{P}#1} % Powerset symbol
-\newcommand{\qedbox}{\hfill\blacksquare} % QED. White ver.: {\hfill\ensuremath{\Box}}
+%% Math - Preferences.
+\renewcommand{\iff}{\Leftrightarrow}
+\renewcommand{\implies}{\Rightarrow}
+\newcommand{\pow}{\wp} % Powerset symbol {mathcal{P}}
+\newcommand{\qedbox}{\hfill\blacksquare} % QED. {\hfill\ensuremath{\Box}}
 \newcommand{\vsep}{\quad\quad\quad\quad} % Big h. sep.
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\PP}{\hat{\mathbb{P}}}
+\newcommand{\Q}{\hat{\mathbb{Q}}}
+% c \in \C
+% C \subseteq \C
+% S \subseteq \pow(\C)
+% \hat p \in \PP
+% \hat S \subseteq \PP
 
-% STE orig. grammar.
+% STE - set-theoretic.
 \newcommand{\X}{\mathrm{X}} % "Unknown" value.
 \DeclareMathOperator{\Next}{\textbf{N}} % Next-time.
 \DeclareMathOperator{\Is}{\mathbin{\textbf{is}}} % Comparison.
 \DeclareMathOperator{\Traj}{\textit{Traj}} % Set of trajectories
 \DeclareMathOperator{\Runs}{\textit{Runs}} % Set of runs
-% 
+\newcommand{\TA}{A}
 \DeclareMathOperator{\Antecedent}{\pi_{\textrm{a}}}
 \DeclareMathOperator{\Consequent}{\pi_{\textrm{c}}}
 \newcommand{\AntModels}{\models_{\textrm{a}}}
 \newcommand{\ConModels}{\models_{\textrm{c}}}
-%
-\DeclareMathOperator{\SetModels}{\models_{\textrm{set}}}
-\DeclareMathOperator{\LatModels}{\models_{\textrm{lat}}}
+\newcommand{\SetModels}{\models_{\textrm{set}}}
+% STE - lattice-theoretic.
+\newcommand{\LatModels}{\models_{\textrm{lat}}}
 
 % Refinement ...
-\newcommand{\Vis}{\pi_{\textrm{v}}}
-%\newcommand{\llv}{\ll_{\textrm{v}}}
+\newcommand{\ETA}{\TA_{\textrm{e}}}
 \DeclareMathOperator{\Refines}{\leq}
 \DeclareMathOperator{\SetRefines}{\Refines_{\textrm{set}}}
-%
-\newcommand{\In}{\dot{\iota}}
-\newcommand{\Out}{\omicron}
-\newcommand{\InSim}{\sim_{\In}}
-\newcommand{\OutSim}{\sim_{\Out}}
-%
-%\DeclareMathOperator{\Inn}{\hat{\iota}}
-%\DeclareMathOperator{\Outt}{\hat{\omicron}}
-%\DeclareMathOperator{\SetRefine}{\Refine_{\textrm{set}}}
-%\DeclareMathOperator{\LatRefine}{\Refine_{\textrm{lat}}}
-%\DeclareMathOperator{\cc}{\lll} %{\leq} %{\prec\mkern-4mu\prec}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Document
@@ -110,7 +105,9 @@ Model refinement such that it preserves symbolic trajectory evalutions.
 \end{abstract}
 
 \input{sec/intro}
-\input{sec/refinement}
+\input{sec/set}
+\input{sec/lattice}
+\input{sec/set-refinement}
 
 \appendix
 \input{sec/appendix}

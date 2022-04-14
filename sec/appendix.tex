@@ -4,27 +4,23 @@
 
 We first prove a few lemmas.
 
-%% \begin{lemma}
-%% $\upsilon \in \gamma(\Consequent(\rho)) \wedge \Vis(\tau) \ll \Vis(\upsilon) \implies \tau \in \Consequent(\rho)$
-%% \end{lemma}
-
-%% First, $\Vis(\tau) \ll \Vis(\upsilon) \iff \Vis(\tau) \subseteq \gamma(\Vis(\upsilon))$.
-
-%% $\qedbox$
-
-\begin{lemma}
-$\tau \in \gamma(\Antecedent(\rho)) \wedge \Vis(\tau) \ll \Vis(\upsilon) \implies \upsilon \in \Antecedent(\rho)$
+\begin{lemma} \label{lem:traj-con}
+$\upsilon \in \Consequent(\rho) \wedge [\tau] \ll [\upsilon] \implies \tau \in \gamma(\Consequent(\rho))$
 \end{lemma}
 
-First, $\Vis(\tau) \ll \Vis(\upsilon) \iff \Vis(\tau) \subseteq \gamma(\Vis(\upsilon))$.
+By property ? of $\Consequent$, $\upsilon \in \Consequent(\rho) \implies [\upsilon] \subseteq \Consequent(\rho)$. By the monotonicity of $\gamma$, $[\upsilon] \subseteq \Consequent(\rho) \implies \gamma([\upsilon]) \subseteq \gamma(\Consequent(\rho))$. By definition, $[\tau] \ll [\upsilon] \implies [\tau] \subseteq \gamma([\upsilon])$, thus $[\tau] \subseteq \gamma(\Consequent(\rho))$.
 
 $\qedbox$
 
-Given a $\tau \in \Traj(M)$ and $\rho \in \Runs(\gamma(A))$, such that $| \tau | = | \rho |$ and $\tau_{n} \in \gamma(\Antecedent(\rho_{n}))$ for all $n \in \mathbb{N} : n < | \tau |$, we must show that $\tau_{n} \in \gamma(\Consequent(\rho_{n}))$. By the refinement assumption, there must exist a $\upsilon \in \Traj(N)$ such that $| \tau | = | \upsilon | = | \rho |$ and $\Vis(\tau) \ll \Vis(\upsilon)$, so $\Vis(\tau_{n}) \ll \Vis(\upsilon_{n})$ for all $n \in \mathbb{N} : n < | \tau |$.
+\begin{lemma} \label{lem:traj-ant}
+$\tau \in \gamma(\Antecedent(\rho)) \wedge [\tau] \ll [\upsilon] \implies \upsilon \in \Antecedent(\rho)$
+\end{lemma}
 
-% Since $\tau_{n} \in \gamma(\Antecedent(\rho_{n}))$, $\upsilon_{n} \in \Antecedent(\rho_{n})$.
+By property ? of $\Antecedent$ and definition of $\gamma(\Antecedent)$, $\tau \in \gamma(\Antecedent(\rho)) \implies [\tau] \subseteq \gamma(\Antecedent(\rho))$. And by the monotonicity of $\alpha$, $\alpha(\tau) \subseteq \alpha(\gamma(\Antecedent(\rho)) \subseteq \Antecedent(\rho)$. By definition, $[\tau] \ll [\upsilon] \implies \alpha([\tau]) \subseteq [\upsilon]$. Because $\forall x \in \alpha([\tau]) : [x] = [\upsilon]$, property ? of $\Antecedent$ and implies that $[\upsilon] \subseteq \Antecedent(\rho) \implies \upsilon \in \Antecedent(\rho)$.
 
-% Furthermore, by the assumption that $N \models A$, we also know that $\upsilon_{n} \in \Antecedent$
+$\qedbox$
+
+Given a $\tau \in \Traj(M)$ and $\rho \in \Runs(\gamma(A))$, such that $| \tau | = | \rho |$ and $\tau_{n} \in \gamma(\Antecedent(\rho_{n}))$ for all $n \in \mathbb{N} : n < | \tau |$, we must show that $\tau_{n} \in \gamma(\Consequent(\rho_{n}))$. By the refinement assumption, there must exist a $\upsilon \in \Traj(N)$ such that $| \tau | = | \upsilon | = | \rho |$ and $[\tau_{n}] \ll [\upsilon_{n}]$. By lemma~\ref{lem:traj-ant}, $\upsilon_{n} \in \Antecedent(\rho_{n})$, and by the assumption, $\upsilon_{n} \in \Consequent(\rho_{n})$. Finally, lemma~\ref{lem:traj-con} then states that $\tau_{n} \in \gamma(\Consequent(\rho_{n}))$.
 
 %% We first prove a few lemmas.
 

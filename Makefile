@@ -1,4 +1,4 @@
-SECTIONS=sec/intro.tex sec/refinement.tex sec/appendix.tex
+SECTIONS=sec/intro.tex sec/set.tex sec/lattice.tex sec/set-refinement.tex sec/appendix.tex
 
 PACKAGE=equiv-ver
 
