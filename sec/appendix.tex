@@ -8,13 +8,13 @@ We first prove a few lemmas.
 $\upsilon \in \Consequent(\rho) \wedge [\tau] \ll [\upsilon] \implies \tau \in \gamma(\Consequent(\rho))$
 \end{lemma}
 
-By property ? of $\Consequent$, $\upsilon \in \Consequent(\rho) \implies [\upsilon] \subseteq \Consequent(\rho)$. By the monotonicity of $\gamma$, $[\upsilon] \subseteq \Consequent(\rho) \implies \gamma([\upsilon]) \subseteq \gamma(\Consequent(\rho))$. By definition, $[\tau] \ll [\upsilon] \implies [\tau] \subseteq \gamma([\upsilon])$, thus $[\tau] \subseteq \gamma(\Consequent(\rho))$. $\qedbox$
+By property \todo{name} of $\Consequent$, $\upsilon \in \Consequent(\rho) \implies [\upsilon] \subseteq \Consequent(\rho)$. By the monotonicity of $\gamma$, $[\upsilon] \subseteq \Consequent(\rho) \implies \gamma([\upsilon]) \subseteq \gamma(\Consequent(\rho))$. By definition, $[\tau] \ll [\upsilon] \implies [\tau] \subseteq \gamma([\upsilon])$, thus $[\tau] \subseteq \gamma(\Consequent(\rho))$. $\qedbox$
 
 \begin{lemma} \label{lem:traj-ant}
 $\tau \in \gamma(\Antecedent(\rho)) \wedge [\tau] \ll [\upsilon] \implies \upsilon \in \Antecedent(\rho)$
 \end{lemma}
 
-By property ? of $\Antecedent$ and definition of $\gamma(\Antecedent)$, $\tau \in \gamma(\Antecedent(\rho)) \implies [\tau] \subseteq \gamma(\Antecedent(\rho))$. And by the monotonicity of $\alpha$, $\alpha(\tau) \subseteq \alpha(\gamma(\Antecedent(\rho)) \subseteq \Antecedent(\rho)$. By definition, $[\tau] \ll [\upsilon] \implies \alpha([\tau]) \subseteq [\upsilon]$. Because $\forall x \in \alpha([\tau]) : [x] = [\upsilon]$, property ? of $\Antecedent$ and implies that $[\upsilon] \subseteq \Antecedent(\rho) \implies \upsilon \in \Antecedent(\rho)$. $\qedbox$
+By property \todo{name} of $\Antecedent$ and the definition of $\gamma(\Antecedent)$, $\tau \in \gamma(\Antecedent(\rho)) \implies [\tau] \subseteq \gamma(\Antecedent(\rho))$. And by the monotonicity of $\alpha$, $\alpha(\tau) \subseteq \alpha(\gamma(\Antecedent(\rho)) \subseteq \Antecedent(\rho)$. By definition, $[\tau] \ll [\upsilon] \implies \alpha([\tau]) \subseteq [\upsilon]$. Because $\forall x \in \alpha([\tau]) : [x] = [\upsilon]$, property \todo{name} of $\Antecedent$ and implies that $[\upsilon] \subseteq \Antecedent(\rho) \implies \upsilon \in \Antecedent(\rho)$. $\qedbox$
 
 Given a $\tau \in \Traj(M)$ and $\rho \in \Runs(\gamma(A))$, such that $| \tau | = | \rho |$ and $\tau_{n} \in \gamma(\Antecedent(\rho_{n}))$ for all $n \in \mathbb{N} : n < | \tau |$, we must show that $\tau_{n} \in \gamma(\Consequent(\rho_{n}))$. By the refinement assumption, there must exist a $\upsilon \in \Traj(N)$ such that $| \tau | = | \upsilon | = | \rho |$ and $[\tau_{n}] \ll [\upsilon_{n}]$. By lemma~\ref{lem:traj-ant}, $\upsilon_{n} \in \Antecedent(\rho_{n})$, and by the assumption, $\upsilon_{n} \in \Consequent(\rho_{n})$. Finally, lemma~\ref{lem:traj-con} then states that $\tau_{n} \in \gamma(\Consequent(\rho_{n}))$. $\qedbox$
 
@@ -24,7 +24,11 @@ We prove each direction separately.
 
 $(\Rightarrow)$ : Text.
 
-$(\Leftarrow)$ : Text.
+$(\Leftarrow)$ : Given some $\tau \in \Traj(M)$, we must show there exists a $\upsilon \in \Traj(N)$ such that $| \tau | = | \upsilon |$ and $[\tau] = [\upsilon]$. We do so by induction on $| \tau |$. For the base case $| \tau | = 1$, it must be that $\tau = \langle C \rangle$. The only choice for $\upsilon$ is $\langle D \rangle$. By property \todo{1} of $\ll$, we know that $\{ C \} \ll \{ D \}$, which implies that $\cup [C] = [C] \ll \cap [D] = [D]$ by property \todo{2}. For the inductive step $| \tau | = n + 1$, we know $\tau = \tau'^{\frown}\langle \tau_{n+1} \rangle$ such that $| \tau' | = n$ and $\tau_{n+1} \in M(\{ \tau'_{n} \})$. Assume there exists a $\upsilon$ such that $| \tau' | = | \upsilon |$ and $[\tau'] \ll [\upsilon]$. We must find a $d \in \D$ such that $d \in N(\{ \upsilon_{n }\})$ and $[\tau_{n+1}] \ll [d]$. First, $[\tau'_{n}] \ll [\upsilon_{n}] \implies M([\tau'_{n}]) \ll N([\upsilon_{n}])$ by property \todo{3} of $\ll$, and then $\cup [M(\tau'_{n})] \ll \cap[N(\upsilon_{n})]$ and by property \todo{2}. By definition of $\cup$ and $\cap$, we know this is equivalent to $\forall c \in M(\tau'_{n}) : \forall d \in N(\upsilon_{n}) : c \ll d$. Since $M$ is monotone and $\sim$ reflexive, we know that $M(\{ \tau'_{n} \}) \subseteq M([ \tau'_{n} ])$. Thus $\tau_{n+1} \in M([ \tau'_{n} ])$ and \todo{\dots}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% OLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% We first prove a few lemmas.
 
