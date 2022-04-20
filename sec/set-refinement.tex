@@ -12,7 +12,11 @@ C \ll D \iff \alpha(C) \subseteq D \vsep C \ll D \iff C \subseteq \gamma(D)
 
 %% Note that $\{ \C \}$ and $\{ \D \}$ represent the ``unknown'' states where nothing is assumed, and we thus require that $\ll$ respects this property, i.e. $\{ \C \} = \gamma(\{ \D \})$.
 
-Exactly what configurations such as $\C$ and $\D$ are, were not important previously. But to reason about refinement, which relates the external behaviour of circuits, we make a distinction between the elements of a configuration. Let $\sim \, \subseteq \C \times \C$ be an equivalence relation on $\C$. The equivalence class of a $c \in \C$ under $\sim$, denoted by $[c]$, is defined as $[c] = \{ c' \in \C | c' \sim c \}$. \todo{Example.} With a slight abuse of notation, we extend $\sim$ and $[\cdot]$ to sequences component-wise and overload both to accept configurations in $\D$.
+Exactly what configurations such as $\C$ and $\D$ are, were not important previously. But to reason about refinement, which relates the external behaviour of circuits, we make a distinction between the elements of a configuration. Let $\sim \, \subseteq \C \times \C$ be an equivalence relation on $\C$. The equivalence class of a $c \in \C$ under $\sim$, denoted by $[c]$, is defined as $[c] = \{ c' \in \C | c' \sim c \}$. With a slight abuse of notation, we extend $[\cdot]$ to sequences component-wise and overload both $\sim$ and $[\cdot]$ to accept configurations in $\D$.
+
+\todo{Example of how equiv. classes are predicates.}
+
+\todo{Equiv. classes to be covered: $\forall P \in \D/\mkern-8mu\sim \, : \exists Q \in \C/\mkern-8mu\sim \, : Q \ll P$.}
 
 %% and identifies the class of configurations which are \textit{visually equivalent} to $c$.
 
@@ -32,7 +36,7 @@ Recall that a trajectory assertion for $N$ is a quintuple $\TA = (S, s_{0}, R, \
 $M \Refines N \implies (N \models \ETA \implies M \models \gamma(\ETA))$
 \end{theorem}
 
-The above definition of refinement can be equivalently formulated as a simulation relation. We say that $M$ refines $N$ by \textit{set-theoretic refinement}, denoted by $M \SetRefines N$, iff $\C$ is approximated by $\D$, i.e. $\{ \C \} \ll \{ \D \}$; $\ll$ is a \todo{name}, i.e. \todo{$C \ll D \implies \cup[C] \ll \cap[D]$}; and $\ll$ is a \textit{simulation relation} from $\pow(\C)$ to $\pow(\D)$, i.e. $C \ll D \implies M(C) \ll N(D)$.
+The above definition of refinement can be equivalently formulated as a simulation relation. We say that $M$ refines $N$ by \textit{set-theoretic refinement}, denoted by $M \SetRefines N$, iff (1) $\C$ is approximated by $\D$, i.e. $\{ \C \} \ll \{ \D \}$; (2) $\ll$ is a \todo{name}, i.e. \todo{$C \ll D \implies \cup \{ [c] \in \pow(\C) \mid c \in C \} \ll \cup \{ [d] \in \pow(\D) \mid d \in D \}$}; and $\ll$ is a \textit{simulation relation} from $\pow(\C)$ to $\pow(\D)$, i.e. $C \ll D \implies M(C) \ll N(D)$.
 
 %% That $\ll$ is a \todo{explanation} and a simulation relation can also be stated in terms of the usual functions for abstraction $\alpha$ and concretisation $\gamma$.
 
