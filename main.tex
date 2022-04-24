@@ -25,10 +25,11 @@
 \newcommand{\Stmt}[1]{\textrm{\textbf{#1}}}
 
 %% Math.
-\DeclareMathOperator{\nsqsubseteq}{\not\sqsubseteq}
-\DeclareMathOperator{\meet}{\sqcap}
-\DeclareMathOperator{\join}{\sqcup}
+\newcommand{\nsqsubseteq}{\not\sqsubseteq}
+\newcommand{\meet}{\sqcap}
+\newcommand{\join}{\sqcup}
 %\newcommand{\close}[1]{\textrm{cl}_{\, #1}}
+\newcommand{\msim}{\mkern-6mu\sim}
 
 %% Math - Preferences.
 \renewcommand{\iff}{\Leftrightarrow}
@@ -106,8 +107,8 @@ Model refinement such that it preserves symbolic trajectory evalutions.
 
 \input{sec/intro}
 \input{sec/set}
-\input{sec/lattice}
 \input{sec/set-refinement}
+\input{sec/lattice}
 
 \appendix
 \input{sec/appendix}
