@@ -29,86 +29,25 @@ For the theorem, we are given $\tau \in \Traj(M)$ and $\rho \in \Runs(\gamma(A))
 
 \subsection{Theorem~\ref{thm:traj-equal-set}}
 
-\begin{lemma} \label{lem:name}
-$C \ll D \implies \forall c \in C: \exists d \in D: \{ c \} \ll \{ d \}$
+\begin{lemma} \label{lem:name2}
+$C \ll D \wedge C' \ll D' \implies (C \cup C') \, \ll (D \cup D')$
 \end{lemma}
 
-Text. $\qedbox$
+As both $\alpha(C) \subseteq D \subseteq (D \cup D')$ and $\alpha(C') \subseteq D' \subseteq (D \cup D')$, it follows from how $\alpha$ distributes over arbitrary union that $\alpha(C) \cup \alpha(C') = \alpha(C \cup C') \subseteq (D \cup D')$. \todo{\dots}
+
+\begin{lemma} \label{lem:name1}
+$C \ll D \wedge D \subseteq D' \implies C \ll D'$
+\end{lemma}
+
+That $C$ is approximated by $D'$ follows immediately: $\alpha(C) \subseteq D \subseteq D'$. The first property of $\ll$ follows from the definition of subset, and the second by the monotonicity of $N$: $\alpha(M(C)) \subseteq N(D) \subseteq N(D')$. $\qedbox$
 \\
 
 We prove each direction of the theorem separately.
 
-$(\Rightarrow)$ : If $C \ll D$, then by definition, $\alpha([C]) \subseteq [D]$. As $\alpha$ distributes over arbitrary union, i.e. $\alpha([C]) = \cup \{ \alpha([c]) \in \pow(\C) \mid c \in C \}$, we know $\alpha([c]) \subseteq [D]$, or $\{ c \} \ll D$, for all $c \in C$. By using the assumption that $M \Refines N$ with one-length trajectories, we know that, for all $c \in C$, there exists $d \in \D$ such that $\{ c \} \ll \{ d \}$, or $\alpha([c]) \subseteq [d]$. Since $\alpha([c]) \neq \emptyset$, we thus have $[d] \cap [D] \neq \emptyset$. By lemma~\ref{lem:class-sub} then, we know $[d] \subseteq [D]$ and thus $d \in D$. Considering all two-length trajectories starting in $c \in C$, refinement states that $M(\{ c \}) \ll N(\{ d \})$, or $\alpha(M(\{ c \})) \subseteq N(\{ d \}) \subseteq N(D)$ by the monotonicity of $N$. As both $\alpha$ and $M$ distributes over arbitrary union, we must have that $\alpha(M(C)) \subseteq N(D)$, that is, $M(C) \ll N(D)$. $\qedbox$
+$(\Rightarrow)$ : If $C \ll D$, then by definition $\alpha([C]) \subseteq [D]$. As $\alpha$ distributes over arbitrary union, it follows that $\alpha([c]) \subseteq [D]$ for all $c \in C$. Furthermore, applying the assumption $M \Refines N$ to one-length trajectories starting in $c$, there must also exist $d \in \D$ such that $\{ c \} \ll \{ d \}$, or $\alpha([c]) \subseteq [d]$ by definition of $\ll$. Since $\alpha([c]) \neq \emptyset$, it must be that $[d] \cap [D] \neq \emptyset$. By lemma~\ref{lem:class-sub} then, we know $[d] \subseteq [D]$ and thus $d \in D$. This shows that the first property of $\ll$ is implied. For the second property, that $\ll$ is a simulation relation, consider all two-length trajectories from $C$. For any $c' \in M(C)$, there exists a $d' \in N(D)$ such that $\{ c' \} \ll \{ d' \}$, or $\alpha([c']) \subseteq [d']$. \todo{\dots}
+
+% i.e. $\alpha([C]) = \cup \{ \alpha([c]) \in \pow(\C) \mid c \in C \}$
+
+% By considering the union of all such orderings, we get $\alpha(M(C)) \subseteq N(D)$, that is, $M(C) \ll N(D)$. $\qedbox$
 
 $(\Leftarrow)$ : We argue that, for any $\tau \in \Traj(M)$, there exists a $\upsilon \in \Traj(N)$, such that $| \tau | = | \upsilon |$ and $\tau \ll \upsilon$, by induction on the length of $\tau$. \todo{\dots}
-
-%% As $\gamma$ preserves the most abstract state, we know that $\gamma(\D) = \C$. Because $[\C] = \cup \{ [c] \in \pow(\C) \mid c \in \C \} = \C$ and $[\D] = \D$, we must also have that $\gamma([\D]) = [\C]$, which in turn implies that $\C \ll \D$. It then follows from the simulation property of $\ll$ that $M(\C) \ll N(\D)$, and $M(M(\C)) \ll N(N(\D))$, and so on. Let $\Tau \in \pow(\C)^{+}$ be this sequence of $M$ applied iteratively to $\C$, and let $\Upsilon \in \pow(\D)^{+}$ be the corresponding sequence of $N$ applied to $\D$. For any $\tau \in \Traj(M)$ and $\upsilon \in \Traj(N)$ such that $| \tau | = | \upsilon |$, it must be that $\tau_{n} \in \Tau_{n}$ and $\upsilon_{n} \in \Upsilon_{n}$ for all $n \in \mathbb{N} : n < | \tau |$. $\qedbox$
-
-%% Given some $\tau \in \Traj(M)$, we must show there exists a $\upsilon \in \Traj(N)$ such that $| \tau | = | \upsilon |$ and $[\tau] = [\upsilon]$. We do so by induction on $| \tau |$. For the base case $| \tau | = 1$, it must be that $\tau = \langle C \rangle$. The only choice for $\upsilon$ is $\langle D \rangle$. By property \todo{1} of $\ll$, we know that $\{ C \} \ll \{ D \}$, which implies that $\cup [C] = [C] \ll \cap [D] = [D]$ by property \todo{2}. For the inductive step $| \tau | = n + 1$, we know $\tau = \tau'^{\frown}\langle \tau_{n+1} \rangle$ such that $| \tau' | = n$ and $\tau_{n+1} \in M(\{ \tau'_{n} \})$. Assume there exists a $\upsilon$ such that $| \tau' | = | \upsilon |$ and $[\tau'] \ll [\upsilon]$. We must find a $d \in \D$ such that $d \in N(\{ \upsilon_{n }\})$ and $[\tau_{n+1}] \ll [d]$. First, $[\tau'_{n}] \ll [\upsilon_{n}] \implies M([\tau'_{n}]) \ll N([\upsilon_{n}])$ by property \todo{3} of $\ll$, and then $\cup [M(\tau'_{n})] \ll \cap[N(\upsilon_{n})]$ and by property \todo{2}. By definition of $\cup$ and $\cap$, we know this is equivalent to $\forall c \in M(\tau'_{n}) : \forall d \in N(\upsilon_{n}) : c \ll d$. Since $M$ is monotone and $\sim$ reflexive, we know that $M(\{ \tau'_{n} \}) \subseteq M([ \tau'_{n} ])$. Thus $\tau_{n+1} \in M([ \tau'_{n} ])$ and \todo{\dots}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% OLD
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%% We first prove a few lemmas.
-
-%% \begin{lemma} \label{lem:traj-part}
-%% $\tau \in \Traj(M) \iff \tau \in \Traj(M)(\In(\tau))$
-%% \end{lemma}
-
-%% \begin{equation*}
-%% \Traj(M)(\In(\tau)) = \{ \tau \in C^{+} \mid \tau \in \Traj(M) : \In(\tau) = \In(\tau) \} = \Traj(M)
-%% \end{equation*}
-
-%% \begin{lemma} \label{lem:traj-all-in}
-%% $\bigcup_{\delta \in \In[C]^{+}} \{ \tau_{0} \mid \tau \in \Traj(M)(\delta) \} = C$
-%% \end{lemma}
-
-%% \todo{Input equality forms an equivalence class for trajectories, and the union of each class cover $\Traj(M)$. Further, as the initial element of each trajectory is unconstrained, their union must contain every possible configuration.}
-
-%% %% \begin{align*}
-%% %% \bigcup_{i \in \In[C]} \Traj(M)(\langle i \rangle) & = \bigcup_{i \in \In[C]} \{ \langle c \rangle \in C^{1} \mid \forall \langle c \rangle \in \Traj(M) : \In(c) = i \} \\ & = \bigcup_{i \in \In[C]} \{ \langle c \rangle \in C^{1} \mid \forall c \in C : \In(c) = i \} = \langle C \rangle
-%% %% \end{align*}
-
-%% \begin{lemma} \label{lem:traj-all-out}
-%% $\bigcup_{\delta \in \In[C]^{+}} \{ \bigcup_{\varepsilon \in \Out[C]^{+}} \{ \tau_{0} \mid \tau \in \Traj(M)(\delta) : \Out(\tau) = \varepsilon \} \} = C$
-%% \end{lemma}
-
-%% \todo{Similar reasoning as above, but partitioned twice.}
-
-%% \begin{lemma} \label{lem:cl-union}
-%% $c_{1} \ll d_{1} \wedge c_{2} \ll d_{2} \implies (c_{1} \cup c_{2}) \ll (d_{1} \cup d_{2})$
-%% \end{lemma}
-
-%% \todo{Text.}
-
-%% \begin{lemma} \label{lem:in-iff-sim}
-%% $M \Refines_{in} N \iff M \SetRefines N$
-%% \end{lemma}
-
-%% We prove each direction of the theorem separately:
-
-%% $(\Rightarrow)$ : We define the relation $\ll \, \subseteq \pow(C) \times \pow(D)$ as follows:
-
-%% \begin{equation*}
-%% \close{\cup} \{ ( \{ \tau_{| \delta | - 1} \} , \{ \upsilon_{| \delta | - 1} \} ) \mid \forall \delta \in \In[C]^{+} : \forall \tau \in \Traj(M)(\delta) : \forall \upsilon \in \Traj(N)(\delta) : \Out(\tau) = \Out(\upsilon) \}
-%% \end{equation*}
-
-%% \noindent where $\tau_{| \delta | - 1}$ and $\upsilon_{| \delta | - 1}$ denote the last element of both sequences.
-
-%% We show that $\ll$ is a simulation relation on the visible elements in $\pow(C)$ and $\pow(D)$. Firstly, for any $c \ll d$, both $c$ and $d$ are unions of a finite number of $\tau \in \Traj(M)(\delta)_{| \delta | - 1}$ and $\upsilon \in \Traj(N)(\delta)_{| \delta | - 1}$ pairs with some common $\delta$. By definition of $\ll$, we know that $[\tau]_{\Out} = [\upsilon]_{\Out}$ for each such $\tau$ and $\upsilon$, and thus $\Out[c] \subseteq \Out[d]$. Secondly, the concatenation of any such $\delta$ and each $i \in \In[C]$ forms another driver $\delta^{\frown} \langle i \rangle \in \In[C]^{+}$. \todo{...}
-
-%% % exist a $\upsilon' \in \Traj(N)(\delta^{\frown} \langle i \rangle)_{| \delta |}$ for every $\tau' \in \Traj(M)(\delta^{\frown} \langle i \rangle)_{| \delta |}$ such that $[\tau']_{\Out} = [\upsilon']_{\Out}$.
-
-%% Finally, to show that $M \SetRefines N$ we must show that $C \ll D$. \todo{By lemma~\ref{lem:traj-all-in} and the forall-quantification over drivers, we know that every member of $C$ is considered. Further, as $\Out[C] = \Out[D]$ and every output of $C$ is considered, every member of $D$ must also be considered.}
-
-%% % last elements in some pair of trajectories with equal outputs. Thus any union of such elements must have equal outputs as well, which implies that $\Out[c] \subseteq \Out[d]$ holds. Lastly, for every driver used to generate the elements that make out $c$ and $d$, extending them with any input produces another, valid driver. Therefore any 
-
-%% $(\Leftarrow)$ : Text.
-
-%% \begin{corollary}
-%% $M \Refines N \iff M \SetRefines N$
-%% \end{corollary}
-
-%% Follows immediately from lemma~\ref{lem:ref-iff-in} and~\ref{lem:in-iff-sim}.
-
