@@ -46,7 +46,7 @@ $M \Refines N \implies (N \models \ETA \implies M \models \gamma(\ETA))$
 
 \subsubsection{Refinement by simulation}
 
-Refinement can be equivalently formulated as $\ll$ being a simulation relation. More specifically, we say that $M$ refines $N$ by \textit{set-theoretic \todo{name} refinement}, denoted by $M \SetRefines N$, iff (1) $\ll$ is a \todo{name}, i.e. $C \ll D \implies \forall c \in C: \exists d \in D: \{ c \} \ll \{ d \}$; and (2) $\ll$ is a \textit{simulation relation} from $\pow(\C)$ to $\pow(\D)$, i.e. $C \ll D \implies M(C) \ll N(D)$. \todo{That $\ll$ is a simulation relation can also be stated directly in terms of the usual abstraction function: $\alpha([M(C)]) \subseteq N(\alpha([C]))$ for all $[C] \in \pow(\C/\msim)$, or the concretisation function: $M(\gamma([D]) \subseteq \gamma(N([D]))$ for all $[D] \in \pow(\D/\msim)$}.
+Refinement can be equivalently formulated as $\ll$ being a simulation relation. More specifically, we say that $M$ refines $N$ by \textit{set-theoretic \todo{name} refinement}, denoted by $M \SetRefines N$, iff (1) $\ll$ is a \todo{name}, i.e. $C \ll D \implies \forall c \in C: \exists d \in D: \{ c \} \ll \{ d \}$; and (2) $\ll$ is a \textit{simulation relation} from $\pow(\C)$ to $\pow(\D)$, i.e. $C \ll D \implies M(C) \ll N(D)$. \todo{That $\ll$ is a simulation relation can also be stated directly in terms of the usual abstraction function: $\alpha([M(C)]) \subseteq N(\alpha([C]))$ for all $C \in \pow(\C)$, or the concretisation function: $M(\gamma([D]) \subseteq \gamma(N([D]))$ for all $D \in \pow(\D)$}.
 
 % (1) $\ll$ is a \todo{name}, i.e. \todo{$C \ll D \implies \cup \{ [c] \in \pow(\C) \mid c \in C \} \ll \cup \{ [d] \in \pow(\D) \mid d \in D \}$}; and (2) 
 
