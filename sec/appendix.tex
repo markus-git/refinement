@@ -29,13 +29,13 @@ For the theorem, we are given $\tau \in \Traj(M)$ and $\rho \in \Runs(\gamma(A))
 
 \subsection{Theorem~\ref{thm:traj-equal-set}}
 
-\begin{lemma} \label{lem:name2}
-$C \ll D \wedge C' \ll D' \implies (C \cup C') \, \ll (D \cup D')$
-\end{lemma}
+%% \begin{lemma} \label{lem:name2}
+%% $C \ll D \wedge C' \ll D' \implies (C \cup C') \, \ll (D \cup D')$
+%% \end{lemma}
 
-As both $\alpha(C) \subseteq D \subseteq (D \cup D')$ and $\alpha(C') \subseteq D' \subseteq (D \cup D')$, it follows from how $\alpha$ distributes over arbitrary union that $\alpha(C) \cup \alpha(C') = \alpha(C \cup C') \subseteq (D \cup D')$. \todo{\dots}
+%% As both $\alpha(C) \subseteq D \subseteq (D \cup D')$ and $\alpha(C') \subseteq D' \subseteq (D \cup D')$, it follows from how $\alpha$ distributes over arbitrary union that $\alpha(C) \cup \alpha(C') = \alpha(C \cup C') \subseteq (D \cup D')$. \todo{\dots}
 
-\begin{lemma} \label{lem:name1}
+\begin{lemma} \label{lem:ll-sub}
 $C \ll D \wedge D \subseteq D' \implies C \ll D'$
 \end{lemma}
 
@@ -44,10 +44,10 @@ That $C$ is approximated by $D'$ follows immediately: $\alpha(C) \subseteq D \su
 
 We prove each direction of the theorem separately.
 
-$(\Rightarrow)$ : If $C \ll D$, then by definition $\alpha([C]) \subseteq [D]$. As $\alpha$ distributes over arbitrary union, it follows that $\alpha([c]) \subseteq [D]$ for all $c \in C$. Furthermore, applying the assumption $M \Refines N$ to one-length trajectories starting in $c$, there must also exist $d \in \D$ such that $\{ c \} \ll \{ d \}$, or $\alpha([c]) \subseteq [d]$ by definition of $\ll$. Since $\alpha([c]) \neq \emptyset$, it must be that $[d] \cap [D] \neq \emptyset$. By lemma~\ref{lem:class-sub} then, we know $[d] \subseteq [D]$ and thus $d \in D$. This shows that the first property of $\ll$ is implied. For the second property, that $\ll$ is a simulation relation, consider all two-length trajectories from $C$. For any $c' \in M(C)$, there exists a $d' \in N(D)$ such that $\{ c' \} \ll \{ d' \}$, or $\alpha([c']) \subseteq [d']$. \todo{\dots}
+$(\Rightarrow)$ : If $C \ll D$, then by definition $\alpha([C]) \subseteq [D]$. As $\alpha$ distributes over arbitrary union, it follows that $\alpha([c]) \subseteq [D]$ for all $c \in C$. Furthermore, applying the assumption $M \Refines N$ to one-length trajectories starting in $c$, there must also exist $d \in \D$ such that $\{ c \} \ll \{ d \}$, or $\alpha([c]) \subseteq [d]$ by definition of $\ll$. Since $\alpha([c]) \neq \emptyset$, it must be that $[d] \cap [D] \neq \emptyset$. By lemma~\ref{lem:class-sub} then, we know $[d] \subseteq [D]$ and thus $d \in D$. This shows that the first property of $\ll$ is implied. For the second property, that $\ll$ is a simulation relation, consider all two-length trajectories from $C$. For any $c' \in M(C)$, there exists a $d' \in N(D)$ such that $\{ c' \} \ll \{ d' \}$, which implies that $\{ c' \} \ll N(D)$ by lemma~\ref{lem:ll-sub}. Combining all such orderings, we have the desired $M(C) \ll N(D)$. $\qedbox$
 
 % i.e. $\alpha([C]) = \cup \{ \alpha([c]) \in \pow(\C) \mid c \in C \}$
 
-% By considering the union of all such orderings, we get $\alpha(M(C)) \subseteq N(D)$, that is, $M(C) \ll N(D)$. $\qedbox$
+$(\Leftarrow)$ : We show this claim by induction on the length of $\tau$. For the base case, when $| \tau | = 1$, we are given $\tau = \langle \tau_{1} \rangle$ where $\tau_{1}$ is unconstrained, i.e. we only know that $\tau_{1} \in \C$. But a Galois connection always relates the most general states of $\C$ and $\D$, so $\alpha(\C) \subseteq \D$. As $[\C] = \C$ and $[\D] = \D$, we also know that $\alpha([\C]) \subseteq [\D]$, or $\C \ll \D$. Using the first property of $\ll$ then tells us that there exists $d \in \D$ such that $\{ \tau_{1} \} \ll \{ d \}$. For the inductive step, when $| \tau | = n + 1$, we are given $\tau = \langle \dots , \tau_{n} \rangle$ and assume there exists $\upsilon = \langle \dots , \upsilon_{n} \rangle$ such that $\tau \ll \upsilon$. By the simulation property of $\ll$, we have that $M(\tau_{n}) \ll N(\upsilon_{n})$. Applying the first property of $\ll$ then states that there exists $d \in N(\upsilon_{n})$ such that $\{ \tau_{n+1} \} \ll \{ d \}$ for any $\tau_{n+1} \in M(\tau_{n})$. The concatenation of $\upsilon$ and $d$, denoted $\upsilon^{\frown}\langle d \rangle$, thus forms a valid trajectory in $\Traj(N)$ such that $| \tau | = | \upsilon^{\frown}\langle d \rangle |$ and $\tau \ll \upsilon^{\frown}\langle d \rangle$. $\qedbox$
 
-$(\Leftarrow)$ : We argue that, for any $\tau \in \Traj(M)$, there exists a $\upsilon \in \Traj(N)$, such that $| \tau | = | \upsilon |$ and $\tau \ll \upsilon$, by induction on the length of $\tau$. \todo{\dots}
+% We claim that, for all $\tau \in \Traj(M)$, there exists a $\upsilon \in \Traj(N)$, such that $| \tau | = | \upsilon |$ and $\tau \ll \upsilon$.
