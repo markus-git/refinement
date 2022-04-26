@@ -30,23 +30,21 @@ We can now formalize that $M$ \textit{refines} $N$, denoted by $M \Refines N$, a
 
 \subsubsection{Refinement \& assertions}
 
-\todo{Recall that} a trajectory assertion for $N$ is a quintuple $\TA = (S, s_{0}, R, \Antecedent, \Consequent)$, where $\Antecedent \in S \rightarrow \pow(\D)$ and $\Consequent \in S \rightarrow \pow(\D)$ label each $s \in S$ with its antecedents and consequents, respectively. If $\Antecedent$ and $\Consequent$ accept equivalence classes in $\D / \msim$, i.e. $d \in \Antecedent(s) \iff [d] \subseteq \Antecedent(s)$ for all $s \in S$ and \todo{similarly for $\Consequent$}, then we refer to $\TA$ as an \textit{\todo{name} trajectory assertion} and suffix it as $\ETA$. Furthermore, we define $\gamma(\TA) = (S, s_{0}, R, \gamma(\Antecedent), \gamma(\Consequent))$, where $\gamma(\Antecedent) = \lambda s \in S : \gamma(\Antecedent(s))$ and $\gamma(\Consequent) = \lambda s \in S : \gamma(\Consequent(s))$.
+\todo{Recall that} a trajectory assertion for $N$ is a quintuple $\TA = (S, s_{0}, R, \Antecedent, \Consequent)$, where $\Antecedent \in S \rightarrow \pow(\D)$ and $\Consequent \in S \rightarrow \pow(\D)$ label each $s \in S$ with its antecedents and consequents, respectively. If $\Antecedent$ and $\Consequent$ are class invariant under $\sim$, i.e. $d \in \Antecedent(s) \iff [d] \subseteq \Antecedent(s)$ for all $s \in S$ and \todo{similarly for $\Consequent$}, then we refer to $\TA$ as an \textit{\todo{name} trajectory assertion} and suffix it as $\ETA$. Furthermore, we define $\gamma(\TA) = (S, s_{0}, R, \gamma(\Antecedent), \gamma(\Consequent))$, where $\gamma(\Antecedent) = \lambda s \in S : \gamma(\Antecedent(s))$ and $\gamma(\Consequent) = \lambda s \in S : \gamma(\Consequent(s))$.
 
 %% $d \in \Consequent(s) \iff [d] \subseteq \Consequent(s)$
 
 %% If the co-domain of $\Antecedent$ and $\Consequent$ is limited to partitions of visible elements in $D$, i.e. $\pow(D / \mkern-8mu\sim)$,
 
-We are now ready to state that, if $M$ refines $N$, then a concretisation of every \todo{name} trajectory assertion satisfied in $N$ can also be satisfied in $M$:
+We are now ready to state that, if $M$ refines $N$ and $\ETA$ is satisfied in $N$, then a concretisation of $\ETA$ can also be satisfied in $M$:
 
 \begin{theorem} \label{thm:traj-refines}
 $M \Refines N \implies (N \models \ETA \implies M \models \gamma(\ETA))$
 \end{theorem}
 
-\noindent \todo{Text.}
+%% \subsubsection{Refinement by simulation}
 
-\subsubsection{Refinement by simulation}
-
-Refinement can be equivalently formulated as $\ll$ being a simulation relation. More specifically, we say that $M$ refines $N$ by \textit{set-theoretic \todo{name} refinement}, denoted by $M \SetRefines N$, iff (1) $\ll$ is a \todo{name}, i.e. $C \ll D \implies \forall c \in C: \exists d \in D: \{ c \} \ll \{ d \}$; and (2) $\ll$ is a \textit{simulation relation} from $\pow(\C)$ to $\pow(\D)$, i.e. $C \ll D \implies M(C) \ll N(D)$. \todo{That $\ll$ is a simulation relation can also be stated directly in terms of the usual abstraction function: $\alpha([M(C)]) \subseteq N(\alpha([C]))$ for all $C \in \pow(\C)$, or the concretisation function: $M(\gamma([D]) \subseteq \gamma(N([D]))$ for all $D \in \pow(\D)$}.
+Refinement can be equivalently formulated as $\ll$ being a simulation relation. More specifically, we say that $M$ refines $N$ by \textit{set-theoretic simulation}, denoted by $M \SetRefines N$, iff (1) $\ll$ is a \todo{name}, i.e. $C \ll D \implies \forall c \in C: \exists d \in D: \{ c \} \ll \{ d \}$; and (2) $\ll$ is a \textit{simulation relation} from $\pow(\C)$ to $\pow(\D)$, i.e. $C \ll D \implies M(C) \ll N(D)$. \todo{That $\ll$ is a simulation relation can also be stated directly in terms of the usual abstraction function: $\alpha([M(C)]) \subseteq N(\alpha([C]))$ for all $C \in \pow(\C)$, or the concretisation function: $M(\gamma([D]) \subseteq \gamma(N([D]))$ for all $D \in \pow(\D)$}.
 
 % (1) $\ll$ is a \todo{name}, i.e. \todo{$C \ll D \implies \cup \{ [c] \in \pow(\C) \mid c \in C \} \ll \cup \{ [d] \in \pow(\D) \mid d \in D \}$}; and (2) 
 
@@ -57,3 +55,5 @@ Refinement can be equivalently formulated as $\ll$ being a simulation relation. 
 \begin{theorem} \label{thm:traj-equal-set}
 $M \Refines N \iff M \SetRefines N$
 \end{theorem}
+
+\noindent \todo{Text.}

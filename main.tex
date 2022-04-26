@@ -42,11 +42,6 @@
 \newcommand{\D}{\mathbb{D}}
 \newcommand{\PP}{\hat{\mathbb{P}}}
 \newcommand{\Q}{\hat{\mathbb{Q}}}
-% c \in \C
-% C \subseteq \C
-% S \subseteq \pow(\C)
-% \hat p \in \PP
-% \hat S \subseteq \PP
 
 % STE - set-theoretic.
 \newcommand{\X}{\mathrm{X}} % "Unknown" value.
@@ -55,18 +50,16 @@
 \DeclareMathOperator{\Traj}{\textit{Traj}} % Set of trajectories
 \DeclareMathOperator{\Runs}{\textit{Runs}} % Set of runs
 \newcommand{\TA}{A}
+\newcommand{\ETA}{\TA_{\todo{n}}}
 \DeclareMathOperator{\Antecedent}{\pi_{\textrm{a}}}
 \DeclareMathOperator{\Consequent}{\pi_{\textrm{c}}}
 \newcommand{\AntModels}{\models_{\textrm{a}}}
 \newcommand{\ConModels}{\models_{\textrm{c}}}
 \newcommand{\SetModels}{\models_{\textrm{set}}}
-% STE - lattice-theoretic.
 \newcommand{\LatModels}{\models_{\textrm{lat}}}
-
-% Refinement ...
-\newcommand{\ETA}{\TA_{\todo{n}}}
-\DeclareMathOperator{\Refines}{\leq}
-\DeclareMathOperator{\SetRefines}{\Refines_{\textrm{set}}}
+\newcommand{\Refines}{\leq}
+\newcommand{\SetRefines}{\Refines_{\textrm{set}}}
+\newcommand{\LatRefines}{\Refines_{\textrm{lat}}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Document
@@ -109,7 +102,8 @@ Model refinement such that it preserves symbolic trajectory evalutions.
 \input{sec/intro}
 \input{sec/set}
 \input{sec/set-refinement}
-%\input{sec/lattice}
+\input{sec/lattice}
+\input{sec/lattice-refinement}
 
 \appendix
 \input{sec/appendix}

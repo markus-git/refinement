@@ -1,0 +1,25 @@
+\subsection{Refinement}
+
+Let the abstract predicate transformer $\hat N \in \Q \rightarrow \Q$ be an abstract interpretation of the earlier circuit model $N$, where $\Q$ is an abstract predicate for which there exists a Galois connection to $\pow(\D)$.
+
+Let the ``equivalent'' abstract predicates be identified by a idempotent function $\llbracket \cdot \rrbracket \in \PP \rightarrow \PP$, such that $\llbracket \cdot \rrbracket$ is monotonic, i.e. $\hat p \sqsubseteq \hat q \implies \llbracket \hat p \rrbracket \sqsubseteq \llbracket \hat q \rrbracket$; and \todo{name}, i.e. $\llbracket \hat p \rrbracket \sqsubseteq \llbracket \hat q \rrbracket \iff \hat p \sqsubseteq \llbracket \hat q \rrbracket$.
+
+Let there exist a Galois connection between $\PP$ and $\Q$, given by the usual functions for abstraction $\hat \alpha \in \PP \rightarrow \Q$ and concretisation $\hat \gamma \in \Q \rightarrow \PP$, such that $\hat \alpha(\hat p) \sqsubseteq \hat q \iff \hat p \subseteq \hat \gamma(\hat q)$ for all $\hat p \in \PP$ and $\hat q \in \Q$.
+
+Let the binary relation $\lll \, \subseteq \PP \times \Q$ be derived from the above $\hat \alpha$ or $\hat \gamma$:
+
+\begin{equation*}
+\hat p \lll \hat q \iff \hat \alpha(\llbracket \hat p \rrbracket) \sqsubseteq \llbracket \hat q \rrbracket \vsep \hat p \lll \hat q \iff \llbracket \hat p \rrbracket \sqsubseteq \hat \gamma(\llbracket \hat q \rrbracket)
+\end{equation*}
+
+\noindent Here $\sqsubseteq$ on $\hat \alpha$-derivation side is the partial order of $\Q$, and on the $\hat \gamma$-derivation side $\sqsubseteq$ is the partial order of $\PP$.
+
+Finally, we say that $\hat M$ refines $\hat N$ by \textit{lattice-theoretic simulation}, denoted by $\hat M \LatRefines \hat N$, iff (1) $\lll$ is a simulation relation, i.e. $\hat p \lll \hat q \implies \hat M(\hat p) \lll \hat N(\hat q)$.
+
+\begin{theorem}
+$\hat M \LatRefines \hat N \implies (\hat N \LatModels \hat \ETA \implies \hat M \LatModels \hat \gamma(\hat \ETA))$
+\end{theorem}
+
+\begin{theorem}
+$\hat M \LatRefines \hat N \implies M \SetRefines N$
+\end{theorem}
