@@ -2,24 +2,24 @@
 
 Let the abstract predicate transformer $\hat N \in \Q \rightarrow \Q$ be an abstract interpretation of the earlier circuit model $N$, where $\Q$ is an abstract predicate for which there exists a Galois connection to $\pow(\D)$.
 
-Let the ``equivalent'' abstract predicates be identified by a idempotent function $\llbracket \cdot \rrbracket \in \PP \rightarrow \PP$, such that $\llbracket \cdot \rrbracket$ is monotonic, i.e. $\hat p \sqsubseteq \hat q \implies \llbracket \hat p \rrbracket \sqsubseteq \llbracket \hat q \rrbracket$; and \todo{name}, i.e. $\llbracket \hat p \rrbracket \sqsubseteq \llbracket \hat q \rrbracket \iff \hat p \sqsubseteq \llbracket \hat q \rrbracket$.
+Let the equivalence in $\PP$ be identified by a function $\lb \cdot \rb \in \PP \rightarrow \PP$, such that $\lb \cdot \rb$ (?) preserves bottom, i.e. $\lb \bot \rb = \bot$; (1) is idempotent, i.e. $\lb ( \lb \hat p \rb ) \rb = \lb \hat p \rb$; (2) is monotonic, i.e. $\hat p \sqsubseteq \hat q \implies \lb \hat p \rb \sqsubseteq \lb \hat q \rb$; and (3) \todo{name}, i.e. $\lb \hat p \rb \sqsubseteq \lb \hat q \rb \iff \hat p \sqsubseteq \lb \hat q \rb$.
 
 Let there exist a Galois connection between $\PP$ and $\Q$, given by the usual functions for abstraction $\hat \alpha \in \PP \rightarrow \Q$ and concretisation $\hat \gamma \in \Q \rightarrow \PP$, such that $\hat \alpha(\hat p) \sqsubseteq \hat q \iff \hat p \subseteq \hat \gamma(\hat q)$ for all $\hat p \in \PP$ and $\hat q \in \Q$.
 
 Let the binary relation $\lll \, \subseteq \PP \times \Q$ be derived from the above $\hat \alpha$ or $\hat \gamma$:
 
 \begin{equation*}
-\hat p \lll \hat q \iff \hat \alpha(\llbracket \hat p \rrbracket) \sqsubseteq \llbracket \hat q \rrbracket \vsep \hat p \lll \hat q \iff \llbracket \hat p \rrbracket \sqsubseteq \hat \gamma(\llbracket \hat q \rrbracket)
+\hat p \lll \hat q \iff \hat \alpha(\lb \hat p \rb) \sqsubseteq \lb \hat q \rb \vsep \hat p \lll \hat q \iff \lb \hat p \rb \sqsubseteq \hat \gamma(\lb \hat q \rb)
 \end{equation*}
 
 \noindent Here $\sqsubseteq$ on $\hat \alpha$-derivation side is the partial order of $\Q$, and on the $\hat \gamma$-derivation side $\sqsubseteq$ is the partial order of $\PP$.
 
 Finally, we say that $\hat M$ refines $\hat N$ by \textit{lattice-theoretic simulation}, denoted by $\hat M \LatRefines \hat N$, iff (1) $\lll$ is a simulation relation, i.e. $\hat p \lll \hat q \implies \hat M(\hat p) \lll \hat N(\hat q)$.
 
-\begin{theorem}
+\begin{theorem} \label{thm:lat-refines}
 $\hat M \LatRefines \hat N \implies (\hat N \LatModels \hat \ETA \implies \hat M \LatModels \hat \gamma(\hat \ETA))$
 \end{theorem}
 
-\begin{theorem}
+\begin{theorem} \label{thm:lat-imply-set}
 $\hat M \LatRefines \hat N \implies M \SetRefines N$
 \end{theorem}

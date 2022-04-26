@@ -8,32 +8,26 @@ We first prove a few lemmas.
 $[d] \cap \Antecedent(\rho) \neq \emptyset \implies [d] \subseteq \Antecedent(\rho)$
 \end{lemma}
 
-Since they intersect, there must exist $d' \in [d]$ such that $d' \in \Antecedent(\rho)$. By property \todo{name} of $\Antecedent(\rho)$, it must be that $[d'] = [d] \subseteq \Antecedent(\rho)$. $\qedbox$
+Since they intersect, there must exist $d' \in [d]$ such that $d' \in \Antecedent(\rho)$. By the invariance of $\Antecedent(\rho)$, it must be that $[d'] = [d] \subseteq \Antecedent(\rho)$. $\qedbox$
 
 \begin{lemma} \label{lem:traj-con}
 $d \in \Consequent(\rho) \wedge \{ c \} \ll \{ d \} \implies c \in \gamma(\Consequent(\rho))$
 \end{lemma}
 
-By property \todo{name} of $\Consequent$, $d \in \Consequent(\rho) \implies [d] \subseteq \Consequent(\rho)$ which, by the monotonicity of $\gamma$, implies $\gamma([d]) \subseteq \gamma(\Consequent(\rho))$. By definition of $\{ c \} \ll \{ d \}$, we know $[c] \subseteq \gamma([d])$, thus $[c] \subseteq \gamma(\Consequent(\rho))$. $\qedbox$
+By the invariance of $\Consequent$, $d \in \Consequent(\rho) \implies [d] \subseteq \Consequent(\rho)$ which, by the monotonicity of $\gamma$, implies $\gamma([d]) \subseteq \gamma(\Consequent(\rho))$. By definition of $\{ c \} \ll \{ d \}$, we know $[c] \subseteq \gamma([d])$, thus $[c] \subseteq \gamma(\Consequent(\rho))$. $\qedbox$
 
 \begin{lemma} \label{lem:traj-ant}
 $c \in \gamma(\Antecedent(\rho)) \wedge \{ c \} \ll \{ d \} \implies d \in \Antecedent(\rho)$
 \end{lemma}
 
-By property \todo{name} of $\Antecedent$ and the definition of $\gamma(\Antecedent)$, $c \in \gamma(\Antecedent(\rho))$ states that $[c] \subseteq \gamma(\Antecedent(\rho))$. And thus $\alpha([c]) \subseteq \alpha(\gamma(\Antecedent(\rho)) \subseteq \Antecedent(\rho)$ by the monotonicity of $\alpha$. By definition $\{ c \} \ll \{ d \}$, we also have that $\alpha([c]) \subseteq [d]$. Since $\alpha([c]) \neq \emptyset$, it must be that $[d] \cap \Antecedent(\rho) \neq \emptyset$, and thus $[d] \subseteq \Antecedent(\rho)$ by lemma~\ref{lem:class-sub}. Then, by property \todo{name} of $\Antecedent$, we must have that $d \in \Antecedent(\rho)$. $\qedbox$
+By the invariance of $\Antecedent$ and the definition of $\gamma(\Antecedent)$, $c \in \gamma(\Antecedent(\rho))$ states that $[c] \subseteq \gamma(\Antecedent(\rho))$. And thus $\alpha([c]) \subseteq \alpha(\gamma(\Antecedent(\rho)) \subseteq \Antecedent(\rho)$ by the monotonicity of $\alpha$. By definition $\{ c \} \ll \{ d \}$, we also have that $\alpha([c]) \subseteq [d]$. Since $\alpha([c]) \neq \emptyset$, it must be that $[d] \cap \Antecedent(\rho) \neq \emptyset$, and thus $[d] \subseteq \Antecedent(\rho)$ by lemma~\ref{lem:class-sub}. Then, by the invariance of $\Antecedent$, we must have that $d \in \Antecedent(\rho)$. $\qedbox$
 \\
-
-%% Because $\forall x \in \alpha([c]) : [x] = [d]$, property \todo{name} of $\Antecedent$ and implies that $[d] \subseteq \Antecedent(\rho) \implies d \in \Antecedent(\rho)$. 
 
 For the theorem, we are given $\tau \in \Traj(M)$ and $\rho \in \Runs(\gamma(A))$, such that $| \tau | = | \rho |$ and $\tau_{n} \in \gamma(\Antecedent(\rho_{n}))$ for all $n \in \mathbb{N} : n < | \tau |$. We must then show that $\tau_{n} \in \gamma(\Consequent(\rho_{n}))$. By the refinement assumption, there must exist a $\upsilon \in \Traj(N)$ such that $| \tau | = | \upsilon | = | \rho |$ and $\{ \tau_{n} \} \ll \{ \upsilon_{n} \}$. By lemma~\ref{lem:traj-ant}, we know $\upsilon_{n} \in \Antecedent(\rho_{n})$ and thus $\upsilon_{n} \in \Consequent(\rho_{n})$. Lemma~\ref{lem:traj-con} then states that $\tau_{n} \in \gamma(\Consequent(\rho_{n}))$. $\qedbox$
 
 \subsection{Theorem~\ref{thm:traj-equal-set}}
 
-%% \begin{lemma} \label{lem:name2}
-%% $C \ll D \wedge C' \ll D' \implies (C \cup C') \, \ll (D \cup D')$
-%% \end{lemma}
-
-%% As both $\alpha(C) \subseteq D \subseteq (D \cup D')$ and $\alpha(C') \subseteq D' \subseteq (D \cup D')$, it follows from how $\alpha$ distributes over arbitrary union that $\alpha(C) \cup \alpha(C') = \alpha(C \cup C') \subseteq (D \cup D')$. \todo{\dots}
+We first show a lemma.
 
 \begin{lemma} \label{lem:ll-sub}
 $C \ll D \wedge D \subseteq D' \implies C \ll D'$
@@ -48,6 +42,29 @@ $(\Rightarrow)$ : If $C \ll D$, then by definition $\alpha([C]) \subseteq [D]$. 
 
 % i.e. $\alpha([C]) = \cup \{ \alpha([c]) \in \pow(\C) \mid c \in C \}$
 
-$(\Leftarrow)$ : We show this claim by induction on the length of $\tau$. For the base case, when $| \tau | = 1$, we are given $\tau = \langle \tau_{1} \rangle$ where $\tau_{1}$ is unconstrained, i.e. we only know that $\tau_{1} \in \C$. But a Galois connection always relates the most general states of its two partially ordered sets, so $\alpha(\{ \C \}) \subseteq \{ \D \}$. As $[\{ \C \}] = \{ \C \}$ and $[\{ \D \}] = \{ \D \}$, we also know that $\alpha([\{ \C \}]) \subseteq [\{ \D \}]$, or $\{ \C \} \ll \{ \D \}$. Using the first property of $\ll$ then tells us that there exists $d \in \D$ such that $\{ \tau_{1} \} \ll \{ d \}$. For the inductive step, when $| \tau | = n + 1$, we are given $\tau = \langle \dots , \tau_{n} \rangle$ and assume there exists $\upsilon = \langle \dots , \upsilon_{n} \rangle$ such that $\tau \ll \upsilon$. By the simulation property of $\ll$, we have that $M(\tau_{n}) \ll N(\upsilon_{n})$. Applying the first property of $\ll$ then states that there exists $d \in N(\upsilon_{n})$ such that $\{ \tau_{n+1} \} \ll \{ d \}$ for any $\tau_{n+1} \in M(\tau_{n})$. The concatenation of $\upsilon$ and $d$, denoted $\upsilon^{\frown}\langle d \rangle$, thus forms a valid trajectory in $\Traj(N)$ such that $| \tau | = | \upsilon^{\frown}\langle d \rangle |$ and $\tau \ll \upsilon^{\frown}\langle d \rangle$. $\qedbox$
+$(\Leftarrow)$ : We show this claim by induction on the length of $\tau$. For the base case, when $| \tau | = 1$, we are given $\tau = \langle \tau_{1} \rangle$ where $\tau_{1}$ is unconstrained, i.e. we only know that $\tau_{1} \in \C$. But a Galois connection always relates the most general states of its two partially ordered sets, so $\alpha(\{ \C \}) \subseteq \{ \D \}$. As $[\{ \C \}] = \{ \C \}$ and $[\{ \D \}] = \{ \D \}$, we also know that $\alpha([\{ \C \}]) \subseteq [\{ \D \}]$, or $\{ \C \} \ll \{ \D \}$. Using the first property of $\ll$ then tells us that there exists $d \in \D$ such that $\{ \tau_{1} \} \ll \{ d \}$. For the inductive step, when $| \tau | = n + 1$, we are given $\tau = \langle \dots , \tau_{n} \rangle$ and assume there exists $\upsilon = \langle \dots , \upsilon_{n} \rangle$ such that $\tau \ll \upsilon$. By the simulation property of $\ll$, we have that $M(\tau_{n}) \ll N(\upsilon_{n})$. Applying the first property of $\ll$ then states that there exists $d \in N(\upsilon_{n})$ such that $\{ \tau_{n+1} \} \ll \{ d \}$ for any $\tau_{n+1} \in M(\tau_{n})$. The concatenation of $\upsilon$ and $d$, denoted $\upsilon^{\frown}\langle d \rangle$, thus forms a valid trajectory in $\Traj(N)$ which satisfies the properties $| \tau | = | \upsilon^{\frown}\langle d \rangle |$ and $\tau \ll \upsilon^{\frown}\langle d \rangle$. $\qedbox$
 
 % We claim that, for all $\tau \in \Traj(M)$, there exists a $\upsilon \in \Traj(N)$, such that $| \tau | = | \upsilon |$ and $\tau \ll \upsilon$.
+
+\subsection{Theorem~\ref{thm:lat-refines}}
+
+We first show a few lemmas.
+
+\begin{lemma} \label{lem:bot-refine-bot}
+$\bot \lll \bot$
+\end{lemma}
+
+A Galois connection always relates the two bottoms, $\hat \alpha(\bot) \subseteq \bot$, which implies that $\hat \alpha(\lb \bot \rb) \subseteq \lb \bot \rb$, or $\bot \lll \bot$, since $\lb \cdot \rb$ preserves bottom. As $\hat M$ and $\hat N$ also preserves bottom, it follows that $\hat M(\bot) = \bot \lll \bot = \hat N(\bot)$. $\qedbox$
+
+\begin{lemma} \label{lem:closed-join}
+$\hat p \lll \hat q \wedge \hat r \lll \hat s \implies (\hat p \sqcup \hat r) \lll (\hat q \sqcup \hat s)$
+\end{lemma}
+
+By definition of $\lll$ and the monotonicity of $\lb \cdot \rb$, we both have $\hat \alpha(\lb \hat p \rb) \sqsubseteq \lb \hat q \rb \sqsubseteq (\lb \hat q \sqcup \hat s \rb)$ and $\hat \alpha(\lb \hat r \rb) \sqsubseteq \lb \hat s \rb \sqsubseteq (\lb \hat q \sqcup \hat s \rb)$. \todo{Because join produces the least upper bound}, it follows that $(\lb \hat p \sqcup \hat r \rb) \sqsubseteq \hat \gamma(\lb \hat q \sqcup \hat s \rb)$, or $(\hat p \sqcup \hat r) \lll (\hat q \sqcup \hat s)$
+\\
+
+Text.
+
+\subsection{Theorem~\ref{thm:lat-imply-set}}
+
+Text.
