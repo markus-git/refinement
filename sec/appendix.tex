@@ -14,14 +14,16 @@ Since they intersect, there must exist $d' \in [d]$ such that $d' \in \Anteceden
 $d \in \Consequent(\rho) \wedge \{ c \} \ll \{ d \} \implies c \in \gamma(\Consequent(\rho))$
 \end{lemma}
 
-By the invariance of $\Consequent$, $d \in \Consequent(\rho)$ implies that $[d] \subseteq \Consequent(\rho)$, which in turn implies $\gamma([d]) \subseteq \gamma(\Consequent(\rho))$ by the monotonicity of $\gamma$. By definition of $\{ c \} \ll \{ d \}$, we know $[c] \subseteq \gamma([d])$, and thus $[c] \subseteq \gamma(\Consequent(\rho))$. That $c \in \gamma(\Consequent(\rho))$ then follows immediately. $\qedbox$
+By the invariance of $\Consequent$, $d \in \Consequent(\rho)$ implies that $[d] \subseteq \Consequent(\rho)$, which in turn implies $\gamma([d]) \subseteq \gamma(\Consequent(\rho))$ by the monotonicity of $\gamma$. By definition of $\{ c \} \ll \{ d \}$, we know $[c] \subseteq \gamma([d])$, and thus $[c] \subseteq \gamma(\Consequent(\rho))$. That $c \in \gamma(\Consequent(\rho))$ then follows. $\qedbox$
 
 \begin{lemma} \label{lem:traj-ant}
 $c \in \gamma(\Antecedent(\rho)) \wedge \{ c \} \ll \{ d \} \implies d \in \Antecedent(\rho)$
 \end{lemma}
 
-Given that $c \in \gamma(\Antecedent(\rho))$, there must exists $a \in \Antecedent(\rho)$ such that $\{ c \} \subseteq \gamma(\{ a \})$, or $\alpha(\{ c \}) \subseteq \{ a \}$. By definition of $\{ c \} \ll \{ d \}$, we also have that $[c] \subseteq \gamma([d])$, which implies that $\{ c \} \subseteq \gamma([d])$, or $\alpha(\{ c \}) \subseteq [d]$. Since $\alpha([c]) \neq \emptyset$, it must be that $\{ a \} \cap [d] \neq \emptyset$. We therefore know that $a \in [d]$ and thus $a \sim d$. By the invariance of $\Antecedent$, and that $a \in \Antecedent(\rho)$, it follows that $d \in \Antecedent(\rho)$ as well. $\qedbox$
+\todo{Text}.
 \\
+
+%Given that $c \in \gamma(\Antecedent(\rho))$, there exists an $\textrm{a} \in \Antecedent(\rho)$ such that $\{ c \} \subseteq \gamma(\{ \textrm{a} \})$, or $\alpha(\{ c \}) \subseteq \{ \textrm{a} \}$. By definition of $\{ c \} \ll \{ d \}$, we also have that $[c] \subseteq \gamma([d])$, which implies that $\{ c \} \subseteq \gamma([d])$, or $\alpha(\{ c \}) \subseteq [d]$. Since $\alpha([c]) \neq \emptyset$, it must be that $\{ \textrm{a} \} \cap [d] \neq \emptyset$, thus $\textrm{a} \sim d$. By the invariance of $\Antecedent$, it follows that $d \in \Antecedent(\rho)$. $\qedbox$
 
 % By the invariance of $\Antecedent$ and definition of $\gamma(\Antecedent)$, $c \in \gamma(\Antecedent(\rho))$ implies that $[c] \subseteq \gamma(\Antecedent(\rho))$. And thus $\alpha([c]) \subseteq \alpha(\gamma(\Antecedent(\rho)) \subseteq \Antecedent(\rho)$ by the monotonicity of $\alpha$. By definition of $\{ c \} \ll \{ d \}$, we also have that $\alpha([c]) \subseteq [d]$. Since $\alpha([c]) \neq \emptyset$, it must be that $[d] \cap \Antecedent(\rho) \neq \emptyset$, and thus $[d] \subseteq \Antecedent(\rho)$ by lemma~\ref{lem:class-sub}. That $d \in \Antecedent(\rho)$ then follows immediately. $\qedbox$
 
