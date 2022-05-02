@@ -63,19 +63,19 @@ Note that $\hat M$, unlike its concrete model $M$ it interprets, does not distri
 
 A trajectory assertion for an abstract model $\hat M$ is a quintuple $\hat \TA = (S, s_{0}, R, \hat{\pi}_{a}, \hat{\pi}_{c})$, where $S$, $s_{0}$, and $R$ are as in section~\ref{sec:set-ste-sat} and $\hat{\pi}_{a} \in S \rightarrow \PP$ and $\hat{\pi}_{c} \in S \rightarrow \PP$ label each state $s \in S$ with an abstract predicate for its antecedent and consequent, respectively. \todo{$\hat M$ satisfies $\hat \TA$ intuitively if, for every state $s \in S$, the information gathered from $\hat M$ when restricted by the antecedents in states before $s$, implies the consequent for $s$. Before we can formalize this intuition, however, we must introduce a few functions.}
 
-For all functions $\hat \Phi \in S \rightarrow \PP$ and states $s \in S$, define $\hat F \in S \rightarrow (\PP \rightarrow \PP)$ and $\hat{\mathcal{F}} \in (S \rightarrow \PP) \rightarrow (S \rightarrow \PP)$ as follows:
+For all functions $\Phi \in S \rightarrow \PP$ and states $s \in S$, define $\hat F \in S \rightarrow (\PP \rightarrow \PP)$ and $\hat{\mathcal{F}} \in (S \rightarrow \PP) \rightarrow (S \rightarrow \PP)$ as follows:
 
 \begin{align}
 \hat F(s)(\hat p) &= \hat M(\Antecedent(s) \meet \hat p) \\
 \hat{\mathcal{F}}(\Phi)(s) &= \Stmt{if } (s = s_{0}) \Stmt{ then } \top \Stmt{ else } \join \{ \hat F(s')(\Phi(s')) \mid (s',s) \in R \}
 \end{align}
 
-\noindent We see that $\hat F$ preserves $\bot$, and both $\hat F$ and $\hat{\mathcal{F}}$ are monotonic; two $\hat \Phi, \hat \Phi' \in S \rightarrow \PP$ are ordered as $\hat \Phi \sqsubseteq \hat \Phi' \iff \forall s \in S : \hat \Phi(s) \sqsubseteq \hat \Phi'(s)$. Let $\hat \Phi_{*} \in S \rightarrow \PP$ be the least fixpoint of the equation $\hat \Phi = \hat{\mathcal{F}}(\hat \Phi)$~\cite{davey2002}. Since both $S$ and $\PP$ are finite, $\hat \Phi_{*}$ is given by $\lim \, \hat \Phi_{n}(s)$, where $\hat \Phi_{n}$ is defined as follows:
+\noindent We see that $\hat F$ preserves $\bot$, and both $\hat F$ and $\hat{\mathcal{F}}$ are monotonic; two $\Phi, \Phi' \in S \rightarrow \PP$ are ordered as $\Phi \sqsubseteq \Phi' \iff \forall s \in S : \Phi(s) \sqsubseteq \Phi'(s)$. Let $\Phi_{*} \in S \rightarrow \PP$ be the least fixpoint of the equation $\Phi = \hat{\mathcal{F}}(\Phi)$~\cite{davey2002}. Since both $S$ and $\PP$ are finite, $\Phi_{*}$ is given by $\lim \, \Phi_{n}(s)$, where $\Phi_{n}$ is defined as follows:
 
 \begin{equation}
-\hat \Phi_{n} = \Stmt{if } (n = 0) \Stmt{ then } (\lambda s \in S : \bot) \Stmt{ else } \hat{\mathcal{F}}(\hat \Phi_{n-1})
+\Phi_{n} = \Stmt{if } (n = 0) \Stmt{ then } (\lambda s \in S : \bot) \Stmt{ else } \hat{\mathcal{F}}(\Phi_{n-1})
 \end{equation}
 
-\noindent \todo{We can now adopt the definition of satisfaction from~\cite{chou1999}}, and say that $\hat M$ \textit{satisfies} a trajectory assertion $\hat \TA$, denoted by $\hat M \LatModels \hat \TA$, iff $\hat \Phi_{*}(s) \meet \pi_{\alpha}(s) \sqsubseteq \Consequent(s)$ for all $s \in S$. That $\hat M$ satisfies $\hat \TA$ implies that a concretisation of $\hat \TA$ can also be satisfied by the original, set-based model $M$.
+\noindent \todo{We can now adopt the definition of satisfaction from~\cite{chou1999}}, and say that $\hat M$ \textit{satisfies} a trajectory assertion $\hat \TA$, denoted by $\hat M \LatModels \hat \TA$, iff $\Phi_{*}(s) \meet \pi_{\alpha}(s) \sqsubseteq \Consequent(s)$ for all $s \in S$. That $\hat M$ satisfies $\hat \TA$ implies that a concretisation of $\hat \TA$ can also be satisfied by the original, set-based model $M$.
 
 % That is, $\hat M$ satisfies $\hat A$ if, for every state $s$ in the assertion, the information gathered from $\hat M$ through the consequent in every path to $s$ implies the antecedent for $s$.
