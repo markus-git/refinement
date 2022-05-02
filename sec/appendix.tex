@@ -2,7 +2,7 @@
 
 \subsection{Theorem~\ref{thm:traj-refines}}
 
-We first prove a few lemmas.
+We use freely the fact that $[\{ c \}] = [c]$. We first prove a few lemmas.
 
 \begin{lemma} \label{lem:class-sub}
 $[d] \cap \Antecedent(\rho) \neq \emptyset \implies [d] \subseteq \Antecedent(\rho)$
@@ -20,8 +20,10 @@ By the invariance of $\Consequent$, $d \in \Consequent(\rho)$ implies that $[d] 
 $c \in \gamma(\Antecedent(\rho)) \wedge \{ c \} \ll \{ d \} \implies d \in \Antecedent(\rho)$
 \end{lemma}
 
-By the invariance of $\Antecedent$ and definition of $\gamma(\Antecedent)$, $c \in \gamma(\Antecedent(\rho))$ implies that $[c] \subseteq \gamma(\Antecedent(\rho))$. And thus $\alpha([c]) \subseteq \alpha(\gamma(\Antecedent(\rho)) \subseteq \Antecedent(\rho)$ by the monotonicity of $\alpha$. By definition of $\{ c \} \ll \{ d \}$, we also have that $\alpha([c]) \subseteq [d]$. Since $\alpha([c]) \neq \emptyset$, it must be that $[d] \cap \Antecedent(\rho) \neq \emptyset$, and thus $[d] \subseteq \Antecedent(\rho)$ by lemma~\ref{lem:class-sub}. That $d \in \Antecedent(\rho)$ then follows immediately. $\qedbox$
+Given that $c \in \gamma(\Antecedent(\rho))$, there must exists $a \in \Antecedent(\rho)$ such that $\{ c \} \subseteq \gamma(\{ a \})$, or $\alpha(\{ c \}) \subseteq \{ a \}$. By definition of $\{ c \} \ll \{ d \}$, we also have that $[c] \subseteq \gamma([d])$, which implies that $\{ c \} \subseteq \gamma([d])$, or $\alpha(\{ c \}) \subseteq [d]$. Since $\alpha([c]) \neq \emptyset$, it must be that $\{ a \} \cap [d] \neq \emptyset$. We therefore know that $a \in [d]$ and thus $a \sim d$. By the invariance of $\Antecedent$, and that $a \in \Antecedent(\rho)$, it follows that $d \in \Antecedent(\rho)$ as well. $\qedbox$
 \\
+
+% By the invariance of $\Antecedent$ and definition of $\gamma(\Antecedent)$, $c \in \gamma(\Antecedent(\rho))$ implies that $[c] \subseteq \gamma(\Antecedent(\rho))$. And thus $\alpha([c]) \subseteq \alpha(\gamma(\Antecedent(\rho)) \subseteq \Antecedent(\rho)$ by the monotonicity of $\alpha$. By definition of $\{ c \} \ll \{ d \}$, we also have that $\alpha([c]) \subseteq [d]$. Since $\alpha([c]) \neq \emptyset$, it must be that $[d] \cap \Antecedent(\rho) \neq \emptyset$, and thus $[d] \subseteq \Antecedent(\rho)$ by lemma~\ref{lem:class-sub}. That $d \in \Antecedent(\rho)$ then follows immediately. $\qedbox$
 
 For the theorem, we are given $\tau \in \Traj(M)$ and $\rho \in \Runs(\gamma(A))$, such that $| \tau | = | \rho |$ and $\tau_{n} \in \gamma(\Antecedent(\rho_{n}))$ for all $n \in \mathbb{N} : n < | \tau |$. We must then show that $\tau_{n} \in \gamma(\Consequent(\rho_{n}))$. By the refinement assumption, there must exist a $\upsilon \in \Traj(N)$ such that $| \tau | = | \upsilon | = | \rho |$ and $\{ \tau_{n} \} \ll \{ \upsilon_{n} \}$. By lemma~\ref{lem:traj-ant}, we know $\upsilon_{n} \in \Antecedent(\rho_{n})$ and thus $\upsilon_{n} \in \Consequent(\rho_{n})$. Lemma~\ref{lem:traj-con} then states that $\tau_{n} \in \gamma(\Consequent(\rho_{n}))$. $\qedbox$
 
