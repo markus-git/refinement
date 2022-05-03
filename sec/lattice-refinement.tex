@@ -1,25 +1,25 @@
 \subsection{Refinement}
 
-Let the abstract predicate transformer $\hat N \in \Q \rightarrow \Q$ be an abstract interpretation of the earlier circuit model $N$, where $\Q$ is an abstract predicate for which there exists a Galois connection to $\pow(\D)$.
+Let the abstract predicate transformer $\hat N \in \lQ \rightarrow \lQ$ be an abstract interpretation of the earlier circuit model $N$, where $\lQ$ is an abstract predicate for which there exists a Galois connection to $\pow(\sD)$.
 
-Let equivalent predicates in $\PP$ be identified by a function $\veq{\cdot} \in \PP \rightarrow \PP$, such that $\veq{\cdot}$ (?) preserves bottom, i.e. $\veq{\bot} = \bot$; (1) is idempotent, i.e. $\veq{(\veq{\hat p})} = \veq{\hat p}$; (2) is monotonic, i.e. $\hat p \sqsubseteq \hat q \implies \veq{\hat p} \sqsubseteq \veq{\hat q}$; and (3) \todo{name}, i.e. $\veq{\hat p} \sqsubseteq \veq{\hat q} \iff \hat p \sqsubseteq \veq{\hat q}$.
+Let equivalent predicates in $\lP$ be identified by a function $\lEq{\cdot} \in \lP \rightarrow \lP$, such that $\lEq{\cdot}$ (?) preserves bottom, i.e. $\lEq{\bot} = \bot$; (1) is idempotent, i.e. $\lEq{(\lEq{\hat p})} = \lEq{\hat p}$; (2) is monotonic, i.e. $\hat p \sqsubseteq \hat q \implies \lEq{\hat p} \sqsubseteq \lEq{\hat q}$; and (3) \todo{increasing}, i.e. $\hat p \sqsubseteq \lEq{\hat p}$.
 
-Let there exist a Galois connection between $\PP$ and $\Q$, given by the usual functions for abstraction $\hat \alpha \in \PP \rightarrow \Q$ and concretisation $\hat \gamma \in \Q \rightarrow \PP$, such that $\hat \alpha(\hat p) \sqsubseteq \hat q \iff \hat p \subseteq \hat \gamma(\hat q)$ for all $\hat p \in \PP$ and $\hat q \in \Q$.
+Let there exist a Galois connection between $\lP$ and $\lQ$, given by the usual functions for abstraction $\hat \alpha \in \lP \rightarrow \lQ$ and concretisation $\hat \gamma \in \lQ \rightarrow \lP$, such that $\hat \alpha(\hat p) \sqsubseteq \hat q \iff \hat p \subseteq \hat \gamma(\hat q)$ for all $\hat p \in \lP$ and $\hat q \in \lQ$.
 
-Let the binary relation $\lll \, \subseteq \PP \times \Q$ be derived from the above $\hat \alpha$ or $\hat \gamma$:
+Let the binary relation $\lll \, \subseteq \lP \times \lQ$ be derived from the above $\hat \alpha$ or $\hat \gamma$:
 
 \begin{equation*}
-\hat p \lll \hat q \iff \hat \alpha(\veq{\hat p}) \sqsubseteq \veq{\hat q} \vsep \hat p \lll \hat q \iff \veq{\hat p} \sqsubseteq \hat \gamma(\veq{\hat q})
+\hat p \lll \hat q \iff \hat \alpha(\lEq{\hat p}) \sqsubseteq \lEq{\hat q} \vsep \hat p \lll \hat q \iff \lEq{\hat p} \sqsubseteq \hat \gamma(\lEq{\hat q})
 \end{equation*}
 
-\noindent Here $\sqsubseteq$ on $\hat \alpha$-derivation side is the partial order of $\Q$, and on the $\hat \gamma$-derivation side $\sqsubseteq$ is the partial order of $\PP$.
+\noindent Here $\sqsubseteq$ on $\hat \alpha$-derivation side is the partial order of $\lQ$, and on the $\hat \gamma$-derivation side $\sqsubseteq$ is the partial order of $\lP$.
 
-Finally, we say that $\hat M$ refines $\hat N$ by \textit{lattice-theoretic simulation}, denoted by $\hat M \LatRefines \hat N$, iff (1) $\lll$ is a simulation relation, i.e. $\hat p \lll \hat q \implies \hat M(\hat p) \lll \hat N(\hat q)$. That $\lll$ is a simulation relation can also be stated directly in terms of the usual functions for abstraction, $\hat \alpha(\veq{\hat M(\hat p)}) \sqsubseteq \veq{\hat N(\hat \alpha(\hat p))}$ for all $\hat p \in \PP$, or concretisation, $\veq{\hat M(\hat \gamma(\hat q))} \sqsubseteq \hat \gamma(\veq{\hat N(\hat q)})$ for all $\hat q \in \Q$.
+Finally, we say that $\hat M$ refines $\hat N$ by \textit{lattice-theoretic simulation}, denoted by $\hat M \lRefines \hat N$, iff (1) $\lll$ is a simulation relation, i.e. $\hat p \lll \hat q \implies \hat M(\hat p) \lll \hat N(\hat q)$. That $\lll$ is a simulation relation can also be stated directly in terms of the usual functions for abstraction, $\hat \alpha(\lEq{\hat M(\hat p)}) \sqsubseteq \lEq{\hat N(\hat \alpha(\hat p))}$ for all $\hat p \in \lP$, or concretisation, $\lEq{\hat M(\hat \gamma(\hat q))} \sqsubseteq \hat \gamma(\lEq{\hat N(\hat q)})$ for all $\hat q \in \lQ$.
 
 \begin{theorem} \label{thm:lat-refines}
-$\hat M \LatRefines \hat N \implies (\hat N \LatModels \hat \ETA \implies \hat M \LatModels \hat \gamma(\hat \ETA))$
+$\hat M \lRefines \hat N \implies (\hat N \lModels \hat{A}_{\todo{n}} \implies \hat M \lModels \hat \gamma(\hat{A}_{\todo{n}}))$
 \end{theorem}
 
 \begin{theorem} \label{thm:lat-imply-set}
-$\hat M \LatRefines \hat N \implies M \SetRefines N$
+$\hat M \lRefines \hat N \implies M \sRefines N$
 \end{theorem}

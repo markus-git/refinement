@@ -24,43 +24,46 @@
 \newcommand{\todo}[1]{\textcolor{red}{#1}}
 \newcommand{\Stmt}[1]{\textrm{\textbf{#1}}}
 
-%% Math.
+%% Math
+\newcommand{\Tau}{\mathrm{T}}
 \newcommand{\nsqsubseteq}{\not\sqsubseteq}
 \newcommand{\meet}{\sqcap}
 \newcommand{\join}{\sqcup}
-%\newcommand{\close}[1]{\textrm{cl}_{\, #1}}
-\newcommand{\msim}{\mkern-6mu\sim}
-\newcommand{\veq}[1]{\llbracket #1 \rrbracket}
-
-%% Math - Preferences.
-\newcommand{\Tau}{\mathrm{T}}
 \renewcommand{\iff}{\Leftrightarrow}
 \renewcommand{\implies}{\Rightarrow}
 \newcommand{\pow}{\wp} % Powerset symbol {mathcal{P}}
 \newcommand{\qedbox}{\hfill\ensuremath{\Box}} % QED. {\hfill\blacksquare} or {\hfill\ensuremath{\Box}}
 \newcommand{\vsep}{\quad\quad\quad\quad} % Big h. sep.
-\newcommand{\C}{\mathbb{C}}
-\newcommand{\D}{\mathbb{D}}
-\newcommand{\PP}{\hat{\mathbb{P}}}
-\newcommand{\Q}{\hat{\mathbb{Q}}}
+%\newcommand{\close}[1]{\textrm{cl}_{\, #1}}
+%\newcommand{\msim}{\mkern-6mu\sim}
 
-% STE - set-theoretic.
+% Orig. STE.
 \newcommand{\X}{\mathrm{X}} % "Unknown" value.
 \DeclareMathOperator{\Next}{\textbf{N}} % Next-time.
 \DeclareMathOperator{\Is}{\mathbin{\textbf{is}}} % Comparison.
 \DeclareMathOperator{\Traj}{\textit{Traj}} % Set of trajectories
 \DeclareMathOperator{\Runs}{\textit{Runs}} % Set of runs
-\newcommand{\TA}{A}
-\newcommand{\ETA}{\TA_{\todo{n}}}
 \DeclareMathOperator{\Antecedent}{\pi_{\textrm{a}}}
 \DeclareMathOperator{\Consequent}{\pi_{\textrm{c}}}
-\newcommand{\AntModels}{\models_{\textrm{a}}}
-\newcommand{\ConModels}{\models_{\textrm{c}}}
-\newcommand{\SetModels}{\models_{\textrm{set}}}
-\newcommand{\LatModels}{\models_{\textrm{lat}}}
+\newcommand{\aModels}{\models_{\textrm{a}}}
+\newcommand{\cModels}{\models_{\textrm{c}}}
+%\newcommand{\sModels}{\models_{\textrm{set}}}
+
+% STE - set-theoretic.
+\newcommand{\sC}{\mathbb{C}}
+\newcommand{\sD}{\mathbb{D}}
 \newcommand{\Refines}{\leq}
-\newcommand{\SetRefines}{\Refines_{\textrm{set}}}
-\newcommand{\LatRefines}{\Refines_{\textrm{lat}}}
+\newcommand{\sRefines}{\Refines_{\textrm{set}}}
+\newcommand{\sEq}[1]{[#1]}
+
+% STE - lattice-theoretic simulation.
+\newcommand{\lP}{\hat{\mathbb{P}}}
+\newcommand{\lQ}{\hat{\mathbb{Q}}}
+\DeclareMathOperator{\lAntecedent}{\hat{\pi}_{\textrm{a}}}
+\DeclareMathOperator{\lConsequent}{\hat{\pi}_{\textrm{c}}}
+\newcommand{\lModels}{\models_{\textrm{lat}}}
+\newcommand{\lRefines}{\Refines_{\textrm{lat}}}
+\newcommand{\lEq}[1]{\llbracket #1 \rrbracket}
 
 %% \usepackage{textgreek}
 %% \DeclareRobustCommand{\pihat}{%
