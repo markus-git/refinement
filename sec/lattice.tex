@@ -1,18 +1,18 @@
 \section{Lattice-theoretic STE} \label{sec:lat-ste}
 
-Manipulating subsets of $\mathbb{B}^{m}$ is impractical for even moderately large $m$, which leads us to one of the key insights of STE. Namely, instead of manipulating subsets of $\mathbb{B}^{m}$ directly, one can use sequences of ternary values $\mathbb{T} = \mathbb{B} \cup \{ \X \} $ to approximate them, whose sizes are only linear in $m$. Here the $1$ and $0$ from $\mathbb{B}$ denotes specific, defined values whereas $\X$ denotes an ``unknown'' value that could be either $1$ or $0$. This intuition induces a partial order $\sqsubseteq$ on $\mathbb{T}$, where $0 \sqsubseteq \X$ and $1 \sqsubseteq \X$\footnotemark. For any $m \in \mathbb{N}$, this ordering on $\mathbb{T}$ is lifted component-wise to $\mathbb{T}^{m}$.
+Manipulating subsets of $\mathbb{B}^{m}$ is impractical for even moderately large $m$, which leads us to one of the key insights of STE. Namely, instead of manipulating subsets of $\mathbb{B}^{m}$ directly, one can use sequences of ternary values $\mathbb{T} = \mathbb{B} \cup \{ \X \} $ to approximate them, whose sizes are only linear in $m$. Here the $1$ and $0$ from $\mathbb{B}$ denotes specific, defined values whereas $\X$ denotes an ``unknown'' value that could be either $1$ or $0$. This intuition induces a partial order $\ordered$ on $\mathbb{T}$, where $0 \ordered \X$ and $1 \ordered \X$\footnotemark. For any $m \in \mathbb{N}$, this ordering on $\mathbb{T}$ is lifted component-wise to $\mathbb{T}^{m}$.
 
-% As an example, we have that $\langle 1,1,0 \rangle$ and $\langle 1,0,0 \rangle$ are both $\sqsubseteq \langle 1,X,0 \rangle \in \mathbb{T}^{3}$ because they all agree on their first and third element and $X$ can be both $0$ and $1$.
+% As an example, we have that $\langle 1,1,0 \rangle$ and $\langle 1,0,0 \rangle$ are both $\ordered \langle 1,X,0 \rangle \in \mathbb{T}^{3}$ because they all agree on their first and third element and $X$ can be both $0$ and $1$.
 
-\footnotetext{\todo{We use the reverse ordering of what is originally used in STE to make the abstraction-correspondence clear between $\cap$ and $\sqcap$, $\cup$ and $\sqcup$, and $\subseteq$ and $\sqsubseteq$.}}
+\footnotetext{\todo{We use the reverse ordering of what is originally used in STE to make the abstraction-correspondence clear between $\cap$ and $\meet$, $\cup$ and $\join$, and $\subseteq$ and $\ordered$.}}
 
-Note that $\mathbb{T}^{m}$ does not quite form a complete lattice because it lacks a bottom: both $0 \sqsubseteq \X$ and $1 \sqsubseteq \X$ but $0$ and $1$ are equally defined. A special bottom element $\bot$ is therefore introduced, such that $\bot \sqsubseteq t$ and $\bot \neq t$ for all $t \in \mathbb{T}^{m}$. The extended $\mathbb{T}_{\bot}^{m} = \mathbb{T}^{m} \cup \{ \bot \}$ then becomes a complete lattice. We denote the top element $\langle \X, \dots, \X \rangle$ of $\mathbb{T}_{\bot}^{m}$ by $\top$.
+Note that $\mathbb{T}^{m}$ does not quite form a complete lattice because it lacks a bottom: both $0 \ordered \X$ and $1 \ordered \X$ but $0$ and $1$ are equally defined. A special bottom element $\bot$ is therefore introduced, such that $\bot \ordered t$ and $\bot \neq t$ for all $t \in \mathbb{T}^{m}$. The extended $\mathbb{T}_{\bot}^{m} = \mathbb{T}^{m} \cup \{ \bot \}$ then becomes a complete lattice. We denote the top element $\langle \X, \dots, \X \rangle$ of $\mathbb{T}_{\bot}^{m}$ by $\top$.
 
 \subsubsection{Ternary lattices} \label{sec:lat-ste-intro}
 
-Generalising from any specific domain, let $(\lP, \sqsubseteq)$ be a finite, complete lattice of \textit{abstract predicates} in which the meet $\meet$ and join $\join$ of any subset $\hat S \subseteq \lP$ exists. Similar to the previous set operations for power sets, $\meet$, $\join$ and $\sqsubseteq$ correspond to conjunction, disjunction and implication for abstract predicates, respectively. Furthermore, for any $\hat S \subseteq \lP$, we denote by $\meet \hat S$ and $\join \hat S$ the meet and join of all members of $\hat S$.
+Generalising from any specific domain, let $(\lP, \ordered)$ be a finite, complete lattice of \textit{abstract predicates} in which the meet $\meet$ and join $\join$ of any subset $\hat S \subseteq \lP$ exists. Similar to the previous set operations for power sets, $\meet$, $\join$ and $\ordered$ correspond to conjunction, disjunction and implication for abstract predicates, respectively. Furthermore, for any $\hat S \subseteq \lP$, we denote by $\meet \hat S$ and $\join \hat S$ the meet and join of all members of $\hat S$.
 
-Let there be a Galois connection relating ``concrete'' predicates $\pow(\sC)$ and abstract predicates $\lP$. As before, the Galois connection is defined in terms of an \textit{abstraction} $\hat \alpha \in \pow(\sC) \rightarrow \lP$ and a \textit{concretisation} $\hat \gamma \in \lP \rightarrow \pow(\sC)$ function, such that $\hat \alpha(C) \sqsubseteq \hat p \iff C \subseteq \hat \gamma(\hat p)$ for all $C \in \pow(\sC)$ and $\hat p \in \lP$. For example, a Galois connection from $\pow(\mathbb{B}^{m})$ to $\mathbb{T}_{\bot}^{m}$ for any $m \in \mathbb{N}$ can be defined in a natural way through its concretisation function $\hat \gamma \in \mathbb{T}_{\bot}^{m} \rightarrow \pow(\mathbb{B}^{m})$:
+Let there be a Galois connection relating ``concrete'' predicates $\pow(\sC)$ and abstract predicates $\lP$. As before, the Galois connection is defined in terms of an \textit{abstraction} $\hat \alpha \in \pow(\sC) \rightarrow \lP$ and a \textit{concretisation} $\hat \gamma \in \lP \rightarrow \pow(\sC)$ function, such that $\hat \alpha(C) \ordered \hat p \iff C \subseteq \hat \gamma(\hat p)$ for all $C \in \pow(\sC)$ and $\hat p \in \lP$. For example, a Galois connection from $\pow(\mathbb{B}^{m})$ to $\mathbb{T}_{\bot}^{m}$ for any $m \in \mathbb{N}$ can be defined in a natural way through its concretisation function $\hat \gamma \in \mathbb{T}_{\bot}^{m} \rightarrow \pow(\mathbb{B}^{m})$:
 
 \begin{align*}
 \hat \gamma ( \langle t_{0}, \dots,t_{m-1} \rangle ) &= \{ \langle b_{0}, \dots,b_{m-1} \rangle \in \mathbb{B}^{m} \mid \forall i < m : t_{i} \neq \X \Rightarrow b_{i} = t_{i} \} \\
@@ -30,9 +30,9 @@ Let there be a Galois connection relating ``concrete'' predicates $\pow(\sC)$ an
 
 \subsubsection{Abstract circuit model} \label{sec:lat-ste-model}
 
-An \textit{abstract predicate transformer} $\hat M \in \lP \rightarrow \hat P$ is an \textit{abstract interpretation}~\cite{chou1999,cousot1996} of $M \in \pow(\sC) \rightarrow \pow(\sC)$ iff (1) $\hat M$ preserves $\bot$, i.e. $\hat M(\bot) = \bot$; (2) $\hat M$ is monotonic, i.e. $\hat p \sqsubseteq \hat q \Rightarrow \hat M (\hat p) \sqsubseteq \hat M (\hat q)$ for all $\hat p, \hat q \in \lP$; and (3) $\alpha$, or $\gamma$, form a \textit{simulation relation} between the predicates $\pow(\sC)$ and $\hat P$, i.e. $\alpha(M(C)) \sqsubseteq \hat M(\alpha(C))$ for all $C \in \pow(\sC)$, or $M(\gamma(\hat p)) \subseteq \gamma(\hat M(\hat p))$ for all $\hat p \in \lP$.
+An \textit{abstract predicate transformer} $\hat M \in \lP \rightarrow \hat P$ is an \textit{abstract interpretation}~\cite{chou1999,cousot1996} of $M \in \pow(\sC) \rightarrow \pow(\sC)$ iff (1) $\hat M$ preserves $\bot$, i.e. $\hat M(\bot) = \bot$; (2) $\hat M$ is monotonic, i.e. $\hat p \ordered \hat q \Rightarrow \hat M (\hat p) \ordered \hat M (\hat q)$ for all $\hat p, \hat q \in \lP$; and (3) $\alpha$, or $\gamma$, form a \textit{simulation relation} between the predicates $\pow(\sC)$ and $\hat P$, i.e. $\alpha(M(C)) \ordered \hat M(\alpha(C))$ for all $C \in \pow(\sC)$, or $M(\gamma(\hat p)) \subseteq \gamma(\hat M(\hat p))$ for all $\hat p \in \lP$.
 
-% That $\ll$ is a simulation relation can also be stated in terms of its abstraction $\alpha$ and concretisation $\gamma$ functions: $\alpha(M(p)) \sqsubseteq \hat M(\alpha(p))$ for all $p \in \pow(C)$, and $M(\gamma(\hat p)) \subseteq \gamma(\hat M(\hat p))$ for all $\hat p \in \hat P$.
+% That $\ll$ is a simulation relation can also be stated in terms of its abstraction $\alpha$ and concretisation $\gamma$ functions: $\alpha(M(p)) \ordered \hat M(\alpha(p))$ for all $p \in \pow(C)$, and $M(\gamma(\hat p)) \subseteq \gamma(\hat M(\hat p))$ for all $\hat p \in \hat P$.
 
 Note that $\hat M$, unlike its concrete model $M$ it interprets, does not distribute over arbitrary join; information is potentially discarded by the ternary logic that would have been kept in binary logic. As an example, let the following $\hat M$ abstract the previous model of an unit-delayed two-input AND gate:
 
@@ -57,25 +57,25 @@ Note that $\hat M$, unlike its concrete model $M$ it interprets, does not distri
 \end{array}
 \end{equation*}
 
-\noindent The inequality $\join \{ \hat M(\hat p) \mid \hat p \in \hat S \} \sqsubseteq \hat M(\join \hat S)$ for all $\hat S \sqsubseteq \hat P$ does however hold, since it is implied by the monotonicity of $\hat M$.
+\noindent The inequality $\join \{ \hat M(\hat p) \mid \hat p \in \hat S \} \ordered \hat M(\join \hat S)$ for all $\hat S \ordered \hat P$ does however hold, since it is implied by the monotonicity of $\hat M$.
 
 \subsubsection{Assertions and satisfaction} \label{sec:lat-ste-sat}
 
 A trajectory assertion for an abstract model $\hat M$ is a quintuple $\hat{A} = (S, s_{0}, R, \hat{\pi}_{a}, \hat{\pi}_{c})$, where $S$, $s_{0}$, and $R$ are as in section~\ref{sec:set-ste-sat} and $\hat{\pi}_{a} \in S \rightarrow \lP$ and $\hat{\pi}_{c} \in S \rightarrow \lP$ label each state $s \in S$ with an abstract predicate for its antecedent and consequent, respectively. \todo{$\hat M$ satisfies $\hat{A}$ intuitively if, for every state $s \in S$, the information gathered from $\hat M$ when restricted by the antecedents in states before $s$, implies the consequent for $s$. Before we can formalize this intuition, however, we must introduce a few functions.}
 
-For all functions $\Phi \in S \rightarrow \lP$ and states $s \in S$, define $\hat F \in S \rightarrow (\lP \rightarrow \lP)$ and $\hat{\mathcal{F}} \in (S \rightarrow \lP) \rightarrow (S \rightarrow \lP)$ as follows:
+For all functions $\Phi \in S \rightarrow \lP$ and states $s \in S$, define $F \in S \rightarrow (\lP \rightarrow \lP)$ and $\mathcal{F} \in (S \rightarrow \lP) \rightarrow (S \rightarrow \lP)$ as follows:
 
 \begin{align}
-\hat F(s)(\hat p) &= \hat M(\Antecedent(s) \meet \hat p) \\
-\hat{\mathcal{F}}(\Phi)(s) &= \Stmt{if } (s = s_{0}) \Stmt{ then } \top \Stmt{ else } \join \{ \hat F(s')(\Phi(s')) \mid (s',s) \in R \}
+F(s)(\hat p) &= \hat M(\Antecedent(s) \meet \hat p) \\
+\mathcal{F}(\Phi)(s) &= \Stmt{if } (s = s_{0}) \Stmt{ then } \top \Stmt{ else } \join \{ F(s')(\Phi(s')) \mid (s',s) \in R \}
 \end{align}
 
-\noindent We see that $\hat F$ preserves $\bot$, and both $\hat F$ and $\hat{\mathcal{F}}$ are monotonic; two $\Phi, \Phi' \in S \rightarrow \lP$ are ordered as $\Phi \sqsubseteq \Phi' \iff \forall s \in S : \Phi(s) \sqsubseteq \Phi'(s)$. Let $\Phi_{*} \in S \rightarrow \lP$ be the least fixpoint of the equation $\Phi = \hat{\mathcal{F}}(\Phi)$~\cite{davey2002}. Since both $S$ and $\lP$ are finite, $\Phi_{*}$ is given by $\lim \, \Phi_{n}(s)$, where $\Phi_{n}$ is defined as follows:
+\noindent We see that $F$ preserves $\bot$, and both $F$ and $\mathcal{F}$ are monotonic; two $\Phi, \Phi' \in S \rightarrow \lP$ are ordered as $\Phi \ordered \Phi' \iff \forall s \in S : \Phi(s) \ordered \Phi'(s)$. Let $\Phi_{*} \in S \rightarrow \lP$ be the least fixpoint of the equation $\Phi = \mathcal{F}(\Phi)$~\cite{davey2002}. Since both $S$ and $\lP$ are finite, $\Phi_{*}$ is given by $\lim \, \Phi_{n}(s)$, where $\Phi_{n}$ is defined as follows:
 
 \begin{equation}
-\Phi_{n} = \Stmt{if } (n = 0) \Stmt{ then } (\lambda s \in S : \bot) \Stmt{ else } \hat{\mathcal{F}}(\Phi_{n-1})
+\Phi_{n} = \Stmt{if } (n = 0) \Stmt{ then } (\lambda s \in S : \bot) \Stmt{ else } \mathcal{F}(\Phi_{n-1})
 \end{equation}
 
-\noindent \todo{We can now adopt the definition of satisfaction from~\cite{chou1999}}, and say that $\hat M$ \textit{satisfies} a trajectory assertion $\hat{A}$, denoted by $\hat M \lModels \hat{A}$, iff $\Phi_{*}(s) \meet \pi_{\alpha}(s) \sqsubseteq \Consequent(s)$ for all $s \in S$. That $\hat M$ satisfies $\hat{A}$ implies that a concretisation of $\hat{A}$ can also be satisfied by the original, set-based model $M$.
+\noindent \todo{We can now adopt the definition of satisfaction from~\cite{chou1999}}, and say that $\hat M$ \textit{satisfies} a trajectory assertion $\hat{A}$, denoted by $\hat M \lModels \hat{A}$, iff $\Phi_{*}(s) \meet \pi_{\alpha}(s) \ordered \Consequent(s)$ for all $s \in S$. That $\hat M$ satisfies $\hat{A}$ implies that a concretisation of $\hat{A}$ can also be satisfied by the original, set-based model $M$.
 
 % That is, $\hat M$ satisfies $\hat A$ if, for every state $s$ in the assertion, the information gathered from $\hat M$ through the consequent in every path to $s$ implies the antecedent for $s$.

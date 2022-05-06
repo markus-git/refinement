@@ -2,7 +2,7 @@
 
 \subsection{Theorem~\ref{thm:traj-refines}}
 
-We use freely the fact that $[\{ c \}] = [c]$. We first prove a few lemmas.
+We use freely the fact that $[\{ c \}] = [c]$ and first prove a few lemmas.
 
 \begin{lemma} \label{lem:class-sub}
 $[d] \cap \Antecedent(\rho) \neq \emptyset \implies [d] \subseteq \Antecedent(\rho)$
@@ -50,46 +50,74 @@ $(\Leftarrow)$ : We show this claim by induction on the length of $\tau$. For th
 
 \subsection{Theorem~\ref{thm:lat-refines}}
 
-We first show a few lemmas.
+First a lemma that shows $\lEq{\hat p \meet \lAntecedent(s)} \iff \lEq{\hat p} \meet \lAntecedent(s)$ is a reasonable assumption.
+
+\begin{lemma}
+$\sEq{D} = D \implies (\sEq{C \cap D} \iff \sEq{C} \cap D)$
+\end{lemma}
+
+That $x \in \sEq{C \cap D}$ can be stated as $\exists y : x \sim y \wedge y \in C \wedge y \in D$. That $y \in D$ implies that $x \in [D] = D$ since $x \sim y$, and we can therefore restate $x \in \sEq{C \cap D}$ as $\exists y : x \sim y \wedge y \in C \wedge x \in D \iff x \in \sEq{C} \wedge x \in D \iff x \in \sEq{C} \cap D$. $\qedbox$
+\\
+
+%% \begin{align*}
+%% x \in \sEq{C \cap D} & \iff \exists y : x \sim y \wedge y \in C \wedge y \in D \\
+%%                      & \iff \exists y : x \sim y \wedge y \in C \wedge x \in D \\
+%%                      & \iff x \in \sEq{C} \wedge x \in D \\
+%%                      & \iff x \in \sEq{C} \cap D
+%% \end{align*}
+
+Secondly, we show a few helpful lemmas that regard the fix-points and functions used to determine satisfaction with $\hat M$ and $\hat N$. To clarify which definitions are used with $\hat N$ and which are used with $\hat N$, we will duplicate some earlier definitions. Specifically, let $G$, $\mathcal{G}$ and $\Psi$ be equivalent operations for $\hat N$, as $F$, $\mathcal{F}$ and $\Phi$ are for $\hat M$:
+
+\begin{align*}
+G(s)(\hat q) &= \hat N(\lalpha(\pi_{a}(s)) \sqcap \hat q) \\
+\mathcal{G}(\Psi)(s) &= \Stmt{if } (s = s_{0}) \Stmt{ then } \top \Stmt{ else } \sqcup \{ G(s')(\Psi(s')) \mid (s',s) \in R \} \\
+\Psi_{n} &= \Stmt{if } (n = 0) \Stmt{ then } (\lambda s \in S : \bot) \Stmt{ else } \mathcal{G}(\Psi_{n-1}) \\
+\end{align*}
+
+\noindent Furthermore, let $\Psi_{*}$ be the least fixpoint of $\Psi = \mathcal{G}(\Psi)$ and given by $\lim \, \Psi_{n}(s)$.
 
 \begin{lemma} \label{lem:bot-refine-bot}
-$\bot \lll \bot$
+$\bot \lll \bot$ \& $\top \lll \top$
 \end{lemma}
 
-A Galois connection always relates the two bottoms, $\hat \alpha(\bot) \subseteq \bot$, which implies that $\hat \alpha(\lEq{\bot}) \subseteq \lEq{\bot}$, or $\bot \lll \bot$, since $\lEq{\cdot}$ preserves bottom. As $\hat M$ and $\hat N$ also preserves bottom, it follows that $\hat M(\bot) = \bot \lll \bot = \hat N(\bot)$. $\qedbox$
+A Galois connection always relates the two tops and bottoms, i.e. $\lalpha(\top) \ordered \top$ and $\lalpha(\bot) \ordered \bot$. Because $\lEq{\cdot}$ preserves both tops and bottoms, it follows that both $\lalpha(\lEq{\top}) \ordered \lEq{\top}$, or $\top \lll \top$, and $\lalpha(\lEq{\bot}) \ordered \lEq{\bot}$, or $\bot \lll \bot$, holds as well.
 
-\begin{lemma} \label{lem:closed-join}
-$\hat p \lll \hat q \wedge \hat r \lll \hat s \implies (\hat p \sqcup \hat r) \lll (\hat q \sqcup \hat s)$
-\end{lemma}
+%% \begin{lemma} \label{lem:closed-join}
+%% $\hat p \lll \hat q \wedge \hat r \lll \hat s \implies (\hat p \join \hat r) \lll (\hat q \join \hat s)$
+%% \end{lemma}
 
-By definition of $\lll$ and the monotonicity of $\lEq{\cdot}$, we both have $\hat \alpha(\lEq{\hat p}) \sqsubseteq \lEq{\hat q} \sqsubseteq (\lEq{\hat q \sqcup \hat s})$ and $\hat \alpha(\lEq{\hat r}) \sqsubseteq \lEq{\hat s} \sqsubseteq (\lEq{\hat q \sqcup \hat s})$. \todo{Because join produces the least upper bound}, it follows that $(\lEq{\hat p \sqcup \hat r}) \sqsubseteq \hat \gamma(\lEq{\hat q \sqcup \hat s})$, or $(\hat p \sqcup \hat r) \lll (\hat q \sqcup \hat s)$
+%% Expanding $\lll$, we have $\hat \alpha(\lEq{\hat p}) \ordered \lEq{\hat q} \ordered \lEq{\hat q \join \hat s}$ and $\hat \alpha(\lEq{\hat r}) \ordered \lEq{\hat s} \ordered \lEq{\hat q \join \hat s}$ by the monotonicity of $\lEq{\cdot}$. Hence $\hat \alpha(\lEq{\hat p}) \join \hat \alpha(\lEq{\hat r}) = \hat \alpha(\lEq{\hat p \join \hat r}) \ordered \lEq{\hat q \join \hat s}$ as $\lEq{\cdot}$ and $\hat \alpha$ distribute over arbitrary union. \todo{Similarly}, $\hat \alpha(\hat M(\hat p)) \ordered \hat N(\hat q) \ordered \hat N(\hat q \join \hat s)$ and $\hat \alpha(\hat M(\hat r)) \ordered \hat N(\hat s) \ordered \hat N(\hat q \join \hat s)$. \todo{Thus} $\hat \alpha(\hat M(\hat p)) \join \hat \alpha(\hat M(\hat r)) = \hat \alpha(\hat M(\hat p) \join \hat M(\hat r)) \ordered \hat N(\hat q \join \hat s)$.
 
 \begin{lemma} \label{lem:1}
-$\dots \implies \forall s \in S : \hat{F}(s)(\hat p) \lll \hat{G}(s)(\hat q)$
+$\hat p \lll \hat q \implies \forall s \in S : F(s)(\hat p) \lll G(s)(\hat q)$
 \end{lemma}
 
-Text.
+\todo{Is the required step $\lgamma(\hat q) \rordered \hat p$ implied by $\hat p \lll \hat q$ or no?}
 
-\begin{lemma} \label{lem:2}
-$\dots \implies \forall s \in S : \hat{\mathcal{F}}(\Phi)(s) \lll \hat{\mathcal{G}}(\Psi)(s)$
-\end{lemma}
-
-Text.
+\begin{align*}
+\lgamma(\lEq{G(s)(\hat q)})
+  & =         \lgamma(\lEq{\hat N(\lAntecedent(s) \meet \hat q)}) \\
+  & \rordered \lEq{\hat M(\lgamma(\lAntecedent(s) \meet \hat q))} \\
+  & =         \lEq{\hat M(\lgamma(\lAntecedent(s)) \meet \lgamma(\hat q)))} \\
+  & \rordered \lEq{\hat M(\lgamma(\lAntecedent(s)) \meet \hat p))} \\
+  & =         \lEq{F(s)(\hat p)}
+\end{align*}
 
 \begin{lemma} \label{lem:3}
 $\dots \implies \forall s \in S : \Phi_{*}(s) \lll \Psi_{*}(s)$
 \end{lemma}
 
-Text.
+Since $\Phi_{*}(s) = \lim \, \Phi_{n}(s)$ and $\Psi_{*}(s) = \lim \, \Psi_{n}(s)$, it suffices to prove that $\Phi_{n}(s) \lll \Psi_{n}(s)$ for all $s \in S$ and $n \in \mathbb{N}$. We do so by induction on $n$. The base case, where $\Phi_{0}(s) = \bot$ and $\Psi_{0}(s) = \bot$, follows from lemma~\ref{lem:bot-refine-bot}. For the inductive step, assume that $\Phi_{n}(s) \lll \Psi_{n}(s)$ for all $s \in S$. For $s = s_{0}$, we have that $\Phi_{n+1}(s_{0}) = \top$ and $\Psi_{n+1}(s_{0}) = \top$, which also follows from lemma~\ref{lem:bot-refine-bot}. For any $s \neq s_{0}$, we have:
+
+\begin{align*}
+\lgamma(\lEq{\Psi_{n+1}})
+  & =         \lgamma(\lEq{\mathcal{F}(\Psi_{n})(s)}) \\
+  & =         \lgamma(\lEq{\join \{ F(s')(\Psi_{n}(s')) \mid (s',s) \in R \}}) \\
+  & \rordered \dots
+\end{align*}
 \\
 
-Assuming $\Psi_{*}(s) \sqcap \lAntecedent(s) \sqsubseteq \lConsequent(s)$, we must show $\Phi_{*}(s) \sqcap \hat{\gamma}(\lAntecedent(s)) \sqsubseteq \hat{\gamma}(\lConsequent(s))$ for all $s \in S$. From lemma~\ref{lem:3} we know that $\Phi_{*}(s) \lll \Psi_{*}(s)$, or $\lEq{\Phi_{*}(s)} \sqsubseteq \hat{\gamma}(\lEq{\Psi_{*}(s)})$. And by the invariance of $\hat{\gamma}(\lAntecedent)$, any $\hat p \in \Phi_{*}(s) \sqcap \hat{\gamma}(\lAntecedent)$ 
-
-% This goal is equivalent to $\forall \hat p \in \Phi_{*}(s) : \hat p \in \hat{\gamma}(\lAntecedent(s)) \implies \hat p \in \hat{\gamma}(\lConsequent(s))$. So we assume 
-
-% From lemma~\ref{lem:3} we know that $\Phi_{*}(s) \lll \Psi_{*}(s)$ for all $s \in S$.
-
-% $\lEq{\Phi_{*}(s)} \sqsubseteq \hat{\gamma}(\lEq{\Psi_{*}(s)})$
+Consider an arbitrary $s \in S$ and let $\hat p = \Phi_{*}(s) \meet \lgamma(\lAntecedent(s))$, where $\hat p \ordered \Phi_{*}(s)$ and $\hat p \ordered \lgamma(\lAntecedent(s))$, or $\lalpha(\hat p) \ordered \lAntecedent(s)$. From lemma~\ref{lem:3} we know $\Phi_{*}(s) \lll \Psi_{*}(s)$, and thus $\lalpha(\hat p) \ordered \lalpha(\lEq{\hat p}) \ordered \lalpha(\lEq{\Phi_{*}(s)}) \ordered \lEq{\Psi_{*}(s)}$ by the monotonicity of $\lEq{\cdot}$ and $\lalpha$. Using the invariance of $\lAntecedent(s)$ and property \todo{name} of $\lEq{\cdot}$, we note that the assumption can be restated as $\lConsequent(s) \rordered \Psi_{*}(s) \meet \lAntecedent(s) = \lEq{\Psi_{*}(s) \meet \lAntecedent(s)} = \lEq{\Psi_{*}(s)} \meet \lAntecedent(s)$. It then follows that $\alpha(\hat p) \ordered \lConsequent(s)$, or $\hat p \ordered \lgamma(\lConsequent(s))$ as desired. $\qedbox$
 
 \subsection{Theorem~\ref{thm:lat-imply-set}}
 
