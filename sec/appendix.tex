@@ -51,7 +51,7 @@ We first show a lemma.
 $C \ll D \wedge D \subseteq D' \implies C \ll D'$
 \end{lemma}
 
-That $C$ is approximated by $D'$ follows immediately: $\alpha(C) \subseteq D \subseteq D'$. The \todo{name} property of $\ll$ follows from the definition of subset, and the second by the monotonicity of $N$: $\alpha(M(C)) \subseteq N(D) \subseteq N(D')$. %$\qedbox$
+That $C$ is approximated by $D'$ follows immediately: $\alpha(C) \subseteq D \subseteq D'$. The simulation property of $\ll$ follows from monotonicity of $N$: $\alpha(M(C)) \subseteq N(D) \subseteq N(D')$; and \todo{name} by subset: if $\exists d \in D : \{ c \} \ll \{ d \}$ for all $c \in C$, then $d \in D'$. %$\qedbox$
 \\
 
 We prove each direction of the theorem separately.
@@ -77,12 +77,11 @@ $(\sEq{D} = D) \implies (\sEq{C \cap D} \iff \sEq{C} \cap D)$
 \begin{align*}
 x \in \sEq{C \cap D} & \iff \exists y : x \sim y \wedge y \in C \wedge y \in D & (\textrm{definition of } \sEq{\cdot} \textrm{ and } \cap) \\
                      & \iff \exists y : x \sim y \wedge y \in C \wedge x \in D & (x \sim y \textrm{ and } D = \sEq{D}) \\
-                     & \iff x \in \sEq{C} \wedge x \in D                       & (\textrm{definition of } \sEq{\cdot}) \\
-                     & \iff x \in \sEq{C} \cap D                               & (\textrm{definition of } \cap)
+                     & \iff x \in \sEq{C} \cap D                               & (\textrm{definition of } \sEq{\cdot} \textrm { and } \cap)
 \end{align*}
 
 Secondly we show a few helpful lemmas that regard the fix-points and functions used to determine satisfaction with $\hat M$ and $\hat N$. Before that, we duplicate the earlier definitions of $F$, $\mathcal{F}$ and $\Phi$ to differentiate between those used with $\hat M$ and those with $\hat N$. Specifically, let $G$, $\mathcal{G}$ and $\Psi$ be equivalent operations for $\hat N$, as $F$, $\mathcal{F}$ and $\Phi$ are for $\hat M$:
-%
+
 \begin{align*}
 G(s)(\hat q) &= \hat N(\pi_{a}(s) \sqcap \hat q) \\
 \mathcal{G}(\Psi)(s) &= \Stmt{if } (s = s_{0}) \Stmt{ then } \top \Stmt{ else } \sqcup \{ G(s')(\Psi(s')) \mid (s',s) \in R \} \\
@@ -97,12 +96,6 @@ $\bot \lll \bot \wedge \top \lll \top$
 
 A Galois connection always relates the two tops and bottoms, i.e. $\lalpha(\top) \ordered \top$ and $\lalpha(\bot) \ordered \bot$. Because $\lEq{\cdot}$ preserves both tops and bottoms, it then follows that both $\lalpha(\lEq{\top}) \ordered \lEq{\top}$, or $\top \lll \top$, and $\lalpha(\lEq{\bot}) \ordered \lEq{\bot}$, or $\bot \lll \bot$, holds as well.
 
-%% \begin{lemma} \label{lem:closed-join}
-%% $\hat p \lll \hat q \wedge \hat r \lll \hat s \implies (\hat p \join \hat r) \lll (\hat q \join \hat s)$
-%% \end{lemma}
-
-%% Expanding $\lll$, we have $\hat \alpha(\lEq{\hat p}) \ordered \lEq{\hat q} \ordered \lEq{\hat q \join \hat s}$ and $\hat \alpha(\lEq{\hat r}) \ordered \lEq{\hat s} \ordered \lEq{\hat q \join \hat s}$ by the monotonicity of $\lEq{\cdot}$. Hence $\hat \alpha(\lEq{\hat p}) \join \hat \alpha(\lEq{\hat r}) = \hat \alpha(\lEq{\hat p \join \hat r}) \ordered \lEq{\hat q \join \hat s}$ as $\lEq{\cdot}$ and $\hat \alpha$ distribute over arbitrary union. \todo{Similarly}, $\hat \alpha(\hat M(\hat p)) \ordered \hat N(\hat q) \ordered \hat N(\hat q \join \hat s)$ and $\hat \alpha(\hat M(\hat r)) \ordered \hat N(\hat s) \ordered \hat N(\hat q \join \hat s)$. \todo{Thus} $\hat \alpha(\hat M(\hat p)) \join \hat \alpha(\hat M(\hat r)) = \hat \alpha(\hat M(\hat p) \join \hat M(\hat r)) \ordered \hat N(\hat q \join \hat s)$.
-
 \begin{lemma} \label{lem:f-refine-g}
 $\hat p \lll \hat q \implies \forall s \in S : F(s)(\hat p) \lll G(s)(\hat q)$
 \end{lemma}
@@ -115,8 +108,6 @@ $\hat p \lll \hat q \implies \forall s \in S : F(s)(\hat p) \lll G(s)(\hat q)$
   & \rordered \lEq{\hat M(\lgamma(\lAntecedent(s)) \meet \hat p))}          & (\textrm{\todo{?}}) \\
   & =         \lEq{F(s)(\hat p)}                                            & (\textrm{definition of } F)
 \end{align*}
-
-% \todo{Is the required step $\lgamma(\hat q) \rordered \hat p$ implied by $\hat p \lll \hat q$ or no?}
 
 \begin{lemma} \label{lem:phi-refine-psi}
 $\forall s \in S : \Phi_{*}(s) \lll \Psi_{*}(s)$
@@ -135,7 +126,7 @@ Since $\Phi_{*}(s) = \lim \, \Phi_{n}(s)$ and $\Psi_{*}(s) = \lim \, \Psi_{n}(s)
 \end{align*}
 \\
 
-Consider an arbitrary $s \in S$ and let $\hat p = \Phi_{*}(s) \meet \lgamma(\lAntecedent(s))$, where $\hat p \ordered \Phi_{*}(s)$ and $\hat p \ordered \lgamma(\lAntecedent(s))$, or $\lalpha(\hat p) \ordered \lAntecedent(s)$. From lemma~\ref{lem:phi-refine-psi} we know $\Phi_{*}(s) \lll \Psi_{*}(s)$, and thus $\lalpha(\hat p) \ordered \lalpha(\lEq{\hat p}) \ordered \lalpha(\lEq{\Phi_{*}(s)}) \ordered \lEq{\Psi_{*}(s)}$ by the monotonicity of $\lEq{\cdot}$ and $\lalpha$. Using the invariance of $\lAntecedent(s)$ and property \todo{name} of $\lEq{\cdot}$, we note that the assumption can be restated as $\lConsequent(s) \rordered \Psi_{*}(s) \meet \lAntecedent(s) = \lEq{\Psi_{*}(s) \meet \lAntecedent(s)} = \lEq{\Psi_{*}(s)} \meet \lAntecedent(s)$. It then follows that $\alpha(\hat p) \ordered \lConsequent(s)$, or $\hat p \ordered \lgamma(\lConsequent(s))$ as desired. %$\qedbox$
+Consider an arbitrary $s \in S$ and let $\hat p = \Phi_{*}(s) \meet \lgamma(\lAntecedent(s))$, where $\hat p \ordered \Phi_{*}(s)$ and $\hat p \ordered \lgamma(\lAntecedent(s))$, or $\lalpha(\hat p) \ordered \lAntecedent(s)$. Lemma~\ref{lem:phi-refine-psi} tells us $\Phi_{*}(s) \lll \Psi_{*}(s)$, and thus $\lalpha(\hat p) \ordered \lalpha(\lEq{\hat p}) \ordered \lalpha(\lEq{\Phi_{*}(s)}) \ordered \lEq{\Psi_{*}(s)}$ by the monotonicity of $\lEq{\cdot}$ and $\lalpha$. Using the invariance of $\lAntecedent(s)$ and property \todo{name} of $\lEq{\cdot}$, we note that the assumption can be restated as $\lConsequent(s) \rordered \Psi_{*}(s) \meet \lAntecedent(s) = \lEq{\Psi_{*}(s) \meet \lAntecedent(s)} = \lEq{\Psi_{*}(s)} \meet \lAntecedent(s)$. It then follows that $\alpha(\hat p) \ordered \lConsequent(s)$, or $\hat p \ordered \lgamma(\lConsequent(s))$ as desired. %$\qedbox$
 
 \subsection{Theorem~\ref{thm:lat-imply-set}}
 
