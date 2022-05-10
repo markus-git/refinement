@@ -51,18 +51,18 @@ We first show a lemma.
 $C \ll D \wedge D \subseteq D' \implies C \ll D'$
 \end{lemma}
 
-That $C$ is approximated by $D'$ follows immediately: $\alpha(C) \subseteq D \subseteq D'$. The first property of $\ll$ follows from the definition of subset, and the second by the monotonicity of $N$: $\alpha(M(C)) \subseteq N(D) \subseteq N(D')$. %$\qedbox$
+That $C$ is approximated by $D'$ follows immediately: $\alpha(C) \subseteq D \subseteq D'$. The \todo{name} property of $\ll$ follows from the definition of subset, and the second by the monotonicity of $N$: $\alpha(M(C)) \subseteq N(D) \subseteq N(D')$. %$\qedbox$
 \\
 
 We prove each direction of the theorem separately.
 
-$(\Rightarrow)$ : If $C \ll D$, then by definition $\alpha([C]) \subseteq [D]$. As $\alpha$ distributes over arbitrary union, it follows that $\alpha([c]) \subseteq [D]$ for all $c \in C$. We note that every such $c \in C$ is also the start of some trajectories in $M$, and it therefore follows from the refinement assumption that there exist a trajectory in $N$ with a start $d \in \sD$ such that $\{ c \} \ll \{ d \}$, or $\alpha([c]) \subseteq [d]$. By the requirement that $\alpha([c]) \neq \emptyset$, it must be that $[d] \cap [D] \neq \emptyset$. By lemma~\ref{lem:class-sub} then, we know $[d] \subseteq [D]$ and thus $d \in D$, which is the first property required of $\ll$. For the second property, that $\ll$ is a simulation relation, consider any ``next-step'' of these trajectories starting in $c$ and $d$, i.e. $c' \in M(\{ c \})$ and $d' \in N(\{ d \})$. From the refinement assumption we know that $\{ c' \} \ll \{ d' \}$, or $\alpha([c']) \subseteq [d'] \subseteq [N(\{ d \})] \subseteq [N(D)]$. Taking the union of every such ordering for $c' \in M(\{ c \})$, we see that $M(\{ c \}) \ll N(D)$ for all $c \in C$, or $M(C) \ll N(D)$, as required.
+$(\Rightarrow)$ : If $C \ll D$, then by definition $\alpha([C]) \subseteq [D]$. As $\alpha$ distributes over arbitrary union, it follows that $\alpha([c]) \subseteq [D]$ for all $c \in C$. We note that every such $c \in C$ is also the start of some trajectories in $M$, and it therefore follows from the refinement assumption that there exist a trajectory in $N$ with a start $d \in \sD$ such that $\{ c \} \ll \{ d \}$, or $\alpha([c]) \subseteq [d]$. By the requirement that $\alpha([c]) \neq \emptyset$, it must be that $[d] \cap [D] \neq \emptyset$. By lemma~\ref{lem:class-sub} then, we know $[d] \subseteq [D]$ and thus $d \in D$, which is the \todo{name} property required of $\ll$. To show that $\ll$ is a simulation relation, consider any ``next-step'' of these trajectories starting in $c$ and $d$, i.e. $c' \in M(\{ c \})$ and $d' \in N(\{ d \})$. From the refinement assumption we know that $\{ c' \} \ll \{ d' \}$, or $\alpha([c']) \subseteq [d'] \subseteq [N(\{ d \})] \subseteq [N(D)]$. Taking the union of every such ordering for $c' \in M(\{ c \})$, we see that $M(\{ c \}) \ll N(D)$ for all $c \in C$, or $M(C) \ll N(D)$, as required.
 
 % there exists a $d' \in N(D)$ such that $\{ c' \} \ll \{ d' \}$, which implies that $\{ c' \} \ll N(D)$ by lemma~\ref{lem:ll-sub}. Combining all such orderings, we have the desired $M(C) \ll N(D)$. $\qedbox$
 
 % i.e. $\alpha([C]) = \cup \{ \alpha([c]) \in \pow(\C) \mid c \in C \}$
 
-$(\Leftarrow)$ : We show this claim by induction on the length of $\tau$. For the base case, $| \tau | = 1$, we are given $\tau = \langle \tau_{1} \rangle$ where $\tau_{1}$ is unconstrained, i.e. we only know that $\tau_{1} \in \sC$. But a Galois connection always relates the most general states of its two partially ordered sets, so $\alpha(\{ \sC \}) \subseteq \{ \sD \}$. As $[\{ \sC \}] = \{ \sC \}$ and $[\{ \sD \}] = \{ \sD \}$, we also have $\alpha([\{ \sC \}]) \subseteq [\{ \sD \}]$, or $\{ \sC \} \ll \{ \sD \}$. Using the first property of $\ll$ then tells us that there exists $d \in \sD$ such that $|\langle \tau_{1} \rangle| = |\langle d \rangle|$ and $\{ \tau_{1} \} \ll \{ d \}$. For the inductive step, $| \tau | = n + 1$, we are given a sequence $\langle \dots, \tau_{n}, \tau_{n+1} \rangle$ and assume there exists another sequence $\langle \dots, \upsilon_{n} \rangle$ such that $|\langle \dots, \tau_{n} \rangle| = |\langle \dots, \upsilon_{n} \rangle|$ and $\langle \dots, \tau_{n} \rangle \ll \langle \dots, \upsilon_{n} \rangle$. From the simulation property of $\ll$, we know that $M(\tau_{n}) \ll N(\upsilon_{n})$ and, by the definition of trajectories, that $\tau_{n+1} \in M(\tau_{n})$. Applying the first property of $\ll$ then states that there exists $d \in N(\upsilon_{n})$ such that $\{ \tau_{n+1} \} \ll \{ d \}$. The concatenation of $\langle \dots, \upsilon_{n+1} \rangle$ and $\langle d \rangle$, i.e. $\langle \dots, \upsilon_{n}, d \rangle$, forms a valid trajectory in $\Traj(N)$ and satisfies the properties $| \langle \dots, \tau_{n}, \tau_{n+1} \rangle | = | \langle \dots, \upsilon_{n}, d \rangle |$ and $\langle \dots, \tau_{n}, \tau_{n+1} \rangle \ll \langle \dots, \upsilon_{n}, d \rangle$. %$\qedbox$
+$(\Leftarrow)$ : We show this claim by induction on the length of $\tau$. For the base case, $| \tau | = 1$, we are given $\tau = \langle \tau_{1} \rangle$ where $\tau_{1}$ is unconstrained, i.e. we only know that $\tau_{1} \in \sC$. But a Galois connection always relates the most general states of its two partially ordered sets, so $\alpha(\{ \sC \}) \subseteq \{ \sD \}$. As $[\{ \sC \}] = \{ \sC \}$ and $[\{ \sD \}] = \{ \sD \}$, we also have $\alpha([\{ \sC \}]) \subseteq [\{ \sD \}]$, or $\{ \sC \} \ll \{ \sD \}$. \todo{Name} property of $\ll$ then tells us that there exists $d \in \sD$ such that $|\langle \tau_{1} \rangle| = |\langle d \rangle|$ and $\{ \tau_{1} \} \ll \{ d \}$. For the inductive step, $| \tau | = n + 1$, we are given a sequence $\langle \dots, \tau_{n}, \tau_{n+1} \rangle$ and assume there exists another sequence $\langle \dots, \upsilon_{n} \rangle$ such that $|\langle \dots, \tau_{n} \rangle| = |\langle \dots, \upsilon_{n} \rangle|$ and $\langle \dots, \tau_{n} \rangle \ll \langle \dots, \upsilon_{n} \rangle$. From the simulation property of $\ll$, we know that $M(\tau_{n}) \ll N(\upsilon_{n})$ and, by the definition of trajectories, that $\tau_{n+1} \in M(\tau_{n})$. Applying \todo{name} property of $\ll$ then states that there exists $d \in N(\upsilon_{n})$ such that $\{ \tau_{n+1} \} \ll \{ d \}$. The concatenation of $\langle \dots, \upsilon_{n+1} \rangle$ and $\langle d \rangle$, i.e. $\langle \dots, \upsilon_{n}, d \rangle$, forms a valid trajectory in $\Traj(N)$ as $d \in N(\upsilon_{n})$, and it satisfies the properties $| \langle \dots, \tau_{n}, \tau_{n+1} \rangle | = | \langle \dots, \upsilon_{n}, d \rangle |$ and $\langle \dots, \tau_{n}, \tau_{n+1} \rangle \ll \langle \dots, \upsilon_{n}, d \rangle$. %$\qedbox$
 
 % We claim that, for all $\tau \in \Traj(M)$, there exists a $\upsilon \in \Traj(N)$, such that $| \tau | = | \upsilon |$ and $\tau \ll \upsilon$.
 
@@ -75,10 +75,10 @@ $(\sEq{D} = D) \implies (\sEq{C \cap D} \iff \sEq{C} \cap D)$
 \end{lemma}
 %
 \begin{align*}
-x \in \sEq{C \cap D} & \iff \exists y : x \sim y \wedge y \in C \wedge y \in D & (\textrm{def. of } \sEq{\cdot} \textrm{ and } \cap) \\
+x \in \sEq{C \cap D} & \iff \exists y : x \sim y \wedge y \in C \wedge y \in D & (\textrm{definition of } \sEq{\cdot} \textrm{ and } \cap) \\
                      & \iff \exists y : x \sim y \wedge y \in C \wedge x \in D & (x \sim y \textrm{ and } D = \sEq{D}) \\
-                     & \iff x \in \sEq{C} \wedge x \in D                       & (\textrm{def. of } \sEq{\cdot}) \\
-                     & \iff x \in \sEq{C} \cap D                               & (\textrm{def. of } \cap)
+                     & \iff x \in \sEq{C} \wedge x \in D                       & (\textrm{definition of } \sEq{\cdot}) \\
+                     & \iff x \in \sEq{C} \cap D                               & (\textrm{definition of } \cap)
 \end{align*}
 
 Secondly we show a few helpful lemmas that regard the fix-points and functions used to determine satisfaction with $\hat M$ and $\hat N$. Before that, we duplicate the earlier definitions of $F$, $\mathcal{F}$ and $\Phi$ to differentiate between those used with $\hat M$ and those with $\hat N$. Specifically, let $G$, $\mathcal{G}$ and $\Psi$ be equivalent operations for $\hat N$, as $F$, $\mathcal{F}$ and $\Phi$ are for $\hat M$:
@@ -92,7 +92,7 @@ G(s)(\hat q) &= \hat N(\pi_{a}(s) \sqcap \hat q) \\
 \noindent Furthermore, let $\Psi_{*}$ be the least fixpoint of $\Psi = \mathcal{G}(\Psi)$ and given by $\lim \, \Psi_{n}(s)$.
 
 \begin{lemma} \label{lem:bot-refine-bot}
-$\bot \lll \bot$ \& $\top \lll \top$
+$\bot \lll \bot \wedge \top \lll \top$
 \end{lemma}
 
 A Galois connection always relates the two tops and bottoms, i.e. $\lalpha(\top) \ordered \top$ and $\lalpha(\bot) \ordered \bot$. Because $\lEq{\cdot}$ preserves both tops and bottoms, it then follows that both $\lalpha(\lEq{\top}) \ordered \lEq{\top}$, or $\top \lll \top$, and $\lalpha(\lEq{\bot}) \ordered \lEq{\bot}$, or $\bot \lll \bot$, holds as well.
@@ -109,11 +109,11 @@ $\hat p \lll \hat q \implies \forall s \in S : F(s)(\hat p) \lll G(s)(\hat q)$
 %
 \begin{align*}
 \lgamma(\lEq{G(s)(\hat q)})
-  & =         \lgamma(\lEq{\hat N(\lAntecedent(s) \meet \hat q)})           & (\textrm{def. of } G) \\
-  & \rordered \lEq{\hat M(\lgamma(\lAntecedent(s) \meet \hat q))}           & (\textrm{simulation rel.}) \\
-  & =         \lEq{\hat M(\lgamma(\lAntecedent(s)) \meet \lgamma(\hat q)))} & (\lgamma \textrm{ dist. over } \meet) \\
+  & =         \lgamma(\lEq{\hat N(\lAntecedent(s) \meet \hat q)})           & (\textrm{definition of } G) \\
+  & \rordered \lEq{\hat M(\lgamma(\lAntecedent(s) \meet \hat q))}           & (\textrm{simulation relation}) \\
+  & =         \lEq{\hat M(\lgamma(\lAntecedent(s)) \meet \lgamma(\hat q)))} & (\lgamma \textrm{ distributes over } \meet) \\
   & \rordered \lEq{\hat M(\lgamma(\lAntecedent(s)) \meet \hat p))}          & (\textrm{\todo{?}}) \\
-  & =         \lEq{F(s)(\hat p)}                                            & (\textrm{def. of } F)
+  & =         \lEq{F(s)(\hat p)}                                            & (\textrm{definition of } F)
 \end{align*}
 
 % \todo{Is the required step $\lgamma(\hat q) \rordered \hat p$ implied by $\hat p \lll \hat q$ or no?}
@@ -126,14 +126,12 @@ Since $\Phi_{*}(s) = \lim \, \Phi_{n}(s)$ and $\Psi_{*}(s) = \lim \, \Psi_{n}(s)
 %
 \begin{align*}
 \lgamma(\lEq{\Psi_{n+1}(s)})
-  & =         \lgamma(\lEq{\mathcal{G}(\Psi_{n})(s)})                          & (\textrm{def. of } \Psi_{n+1}) \\
-  & =         \lgamma(\lEq{\join \{ G(s')(\Psi_{n}(s')) \mid (s',s) \in R \}}) & (\textrm{def. of } \mathcal{G}) \\
-  & =         \lgamma(\join \{ \lEq{G(s')(\Psi_{n}(s'))} \mid (s',s) \in R \}) & (\lEq{\cdot} \textrm{ dist. over } \join) \\
+  & =         \lgamma(\lEq{\join \{ G(s')(\Psi_{n}(s')) \mid (s',s) \in R \}}) & (\textrm{definition of } \Psi_{n+1} \textrm { and } \mathcal{G}) \\
+  & =         \lgamma(\join \{ \lEq{G(s')(\Psi_{n}(s'))} \mid (s',s) \in R \}) & (\lEq{\cdot} \textrm{ distributes over } \join) \\
   & \rordered \join \{ \lgamma(\lEq{G(s')(\Psi_{n}(s'))}) \mid (s',s) \in R \} & (\lgamma \textrm{ is monotone}) \\
-  & \rordered \join \{ \lEq{F(s')(\Phi_{n}(s')} \mid (s',s) \in R \}           & (\textrm{I.H and lemma~\ref{lem:f-refine-g}}) \\
-  & =         \lEq{\join \{ F(s')(\Phi_{n}(s') \mid (s',s) \in R \}}           & (\lEq{\cdot} \textrm{ dist. over } \join) \\
-  & =         \lEq{\mathcal{F}(\Phi_{n})(s)}                                   & (\textrm{def. of } \mathcal{F}) \\
-  & =         \lEq{\Phi_{n+1}(s)}                                              & (\textrm{def. of } \Phi_{n+1})
+  & \rordered \join \{ \lEq{F(s')(\Phi_{n}(s')} \mid (s',s) \in R \}           & (\textrm{\todo{I.H and lemma~\ref{lem:f-refine-g}}}) \\
+  & =         \lEq{\join \{ F(s')(\Phi_{n}(s') \mid (s',s) \in R \}}           & (\lEq{\cdot} \textrm{ distributes over } \join) \\
+  & =         \lEq{\Phi_{n+1}(s)}                                              & (\textrm{definition of } \Phi_{n+1} \textrm{ and } \mathcal{F})
 \end{align*}
 \\
 
