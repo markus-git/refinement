@@ -2,28 +2,40 @@
 
 \subsection{Theorem~\ref{thm:traj-refines}}
 
-We use freely the fact that $[\{ c \}] = [c]$ and first prove a few lemmas.
+We use freely the fact that $\{ c \} \ll \{ d \} \iff \alpha(\sEq{c}) \subseteq \sEq{d}$ and $[\{ c \}] = [c]$. Also, we first prove a few useful lemmas.
 
 \begin{lemma} \label{lem:class-sub}
-$[d] \cap \Antecedent(\rho) \neq \emptyset \implies [d] \subseteq \Antecedent(\rho)$
+$[d] \cap \Antecedent(s) \neq \emptyset \implies [d] \subseteq \Antecedent(s)$
 \end{lemma}
 
-Since they intersect, there must exist $d' \in [d]$ such that $d' \in \Antecedent(\rho)$. By the invariance of $\Antecedent(\rho)$, it must be that $[d'] = [d] \subseteq \Antecedent(\rho)$. $\qedbox$
+Since they intersect, there must exist $d' \in [d]$ such that $d' \in \Antecedent(s)$. By the invariance of $\Antecedent$, it must then be that $[d] = [d'] \subseteq \Antecedent(s)$. %$\qedbox$
 
 \begin{lemma} \label{lem:traj-con}
-$d \in \Consequent(\rho) \wedge \{ c \} \ll \{ d \} \implies c \in \gamma(\Consequent(\rho))$
+$d \in \Consequent(s) \wedge \{ c \} \ll \{ d \} \implies c \in \gamma(\Consequent(s))$
 \end{lemma}
+%
+\begin{align*}
+d \in \Consequent(s) & \iff     \sEq{d} \subseteq \Consequent(s)         & (\textrm{invariance of } \Consequent) \\
+                     & \implies \alpha(\sEq{c}) \subseteq \Consequent(s) & (\alpha(\sEq{c}) \subseteq \sEq{d} \textrm{ assumption}) \\
+                     & \implies \alpha(\{ c \}) \subseteq \Consequent(s) & (\alpha \textrm{ distributes over } \cup) \\
+                     & \iff     c \in \gamma(\Consequent(s))             & (\textrm{Galois connection})
+\end{align*}
 
-By the invariance of $\Consequent$, $d \in \Consequent(\rho)$ implies that $[d] \subseteq \Consequent(\rho)$, which in turn implies $\gamma([d]) \subseteq \gamma(\Consequent(\rho))$ by the monotonicity of $\gamma$. By definition of $\{ c \} \ll \{ d \}$, we know $[c] \subseteq \gamma([d])$, and thus $[c] \subseteq \gamma(\Consequent(\rho))$. That $c \in \gamma(\Consequent(\rho))$ then follows. $\qedbox$
+%% By the invariance of $\Consequent$, $d \in \Consequent(s)$ implies that $[d] \subseteq \Consequent(s)$. By definition of $\{ c \} \ll \{ d \}$, then, we know $\alpha([c]) \subseteq [d] \subseteq \Consequent(s)$. Further, $\alpha$ distributes over arbitrary ... That $c \in \gamma(\Consequent(\rho))$ then follows. $\qedbox$
 
 \begin{lemma} \label{lem:traj-ant}
-$c \in \gamma(\Antecedent(\rho)) \wedge \{ c \} \ll \{ d \} \implies d \in \Antecedent(\rho)$
+$c \in \gamma(\Antecedent(s)) \wedge \{ c \} \ll \{ d \} \implies d \in \Antecedent(s)$
 \end{lemma}
+%
+\begin{align}
+c \in \gamma(\Antecedent(s))      & \iff     \alpha(\{ c \}) \subseteq \Antecedent(s) \label{eq:1} & (\textrm{Galois connection}) \\
+\alpha(\sEq{c}) \subseteq \sEq{d} & \implies \alpha(\{ c \}) \subseteq \sEq{d}        \nonumber    & (\alpha \textrm{ distributes over } \cup) \\
+                                  & \implies \sEq{d} \subseteq \Antecedent(s)         \nonumber    & (\textrm{lemma~\ref{lem:class-sub} and equation } \ref{eq:1})
+\end{align}
 
-By the invariance of $\Antecedent$, and the preservation of it by $\gamma$, $c \in \gamma(\Antecedent(\rho))$ implies that $[c] \subseteq \gamma(\Antecedent(\rho))$. And thus $\alpha([c]) \subseteq \alpha(\gamma(\Antecedent(\rho)) \subseteq \Antecedent(\rho)$ by the monotonicity of $\alpha$. By definition of $\{ c \} \ll \{ d \}$, we also have that $\alpha([c]) \subseteq [d]$. Since $\alpha([c]) \neq \emptyset$, it must be that $[d] \cap \Antecedent(\rho) \neq \emptyset$, and thus $[d] \subseteq \Antecedent(\rho)$ by lemma~\ref{lem:class-sub}. That $d \in \Antecedent(\rho)$ then follows immediately. $\qedbox$
-\\
+% By the invariance of $\Antecedent$, and the preservation of it by $\gamma$, $c \in \gamma(\Antecedent(\rho))$ implies that $[c] \subseteq \gamma(\Antecedent(\rho))$. And thus $\alpha([c]) \subseteq \alpha(\gamma(\Antecedent(\rho)) \subseteq \Antecedent(\rho)$ by the monotonicity of $\alpha$. By definition of $\{ c \} \ll \{ d \}$, we also have that $\alpha([c]) \subseteq [d]$. Since $\alpha([c]) \neq \emptyset$, it must be that $[d] \cap \Antecedent(\rho) \neq \emptyset$, and thus $[d] \subseteq \Antecedent(\rho)$ by lemma~\ref{lem:class-sub}. That $d \in \Antecedent(\rho)$ then follows immediately. %$\qedbox$ \\
 
-For the theorem, we are given $\tau \in \Traj(M)$ and $\rho \in \Runs(\gamma(A))$, such that $| \tau | = | \rho |$ and $\tau_{n} \in \gamma(\Antecedent(\rho_{n}))$ for all $n \in \mathbb{N} : n < | \tau |$. We must then show that $\tau_{n} \in \gamma(\Consequent(\rho_{n}))$. By the refinement assumption, there must exist a $\upsilon \in \Traj(N)$ such that $| \tau | = | \upsilon | = | \rho |$ and $\{ \tau_{n} \} \ll \{ \upsilon_{n} \}$. Lemma~\ref{lem:traj-ant} then shows that $\upsilon_{n} \in \Antecedent(\rho_{n})$ and, by the assumption, we have $\upsilon_{n} \in \Consequent(\rho_{n})$. Lemma~\ref{lem:traj-con} then shows that $\tau_{n} \in \gamma(\Consequent(\rho_{n}))$. $\qedbox$
+For the theorem, we are given $\tau \in \Traj(M)$ and $\rho \in \Runs(\gamma(A))$, such that $| \tau | = | \rho |$ and $\tau_{n} \in \gamma(\Antecedent(\rho_{n}))$ for all $n \in \mathbb{N} : n < | \tau |$. We must then show that $\tau_{n} \in \gamma(\Consequent(\rho_{n}))$. By the refinement assumption, there must exist a $\upsilon \in \Traj(N)$ such that $| \tau | = | \upsilon | = | \rho |$ and $\{ \tau_{n} \} \ll \{ \upsilon_{n} \}$. Lemma~\ref{lem:traj-ant} then shows that $\upsilon_{n} \in \Antecedent(\rho_{n})$ and, by the assumption, we have $\upsilon_{n} \in \Consequent(\rho_{n})$. Lemma~\ref{lem:traj-con} then shows that $\tau_{n} \in \gamma(\Consequent(\rho_{n}))$. %$\qedbox$
 
 \subsection{Theorem~\ref{thm:traj-equal-set}}
 
@@ -33,7 +45,7 @@ We first show a lemma.
 $C \ll D \wedge D \subseteq D' \implies C \ll D'$
 \end{lemma}
 
-That $C$ is approximated by $D'$ follows immediately: $\alpha(C) \subseteq D \subseteq D'$. The first property of $\ll$ follows from the definition of subset, and the second by the monotonicity of $N$: $\alpha(M(C)) \subseteq N(D) \subseteq N(D')$. $\qedbox$
+That $C$ is approximated by $D'$ follows immediately: $\alpha(C) \subseteq D \subseteq D'$. The first property of $\ll$ follows from the definition of subset, and the second by the monotonicity of $N$: $\alpha(M(C)) \subseteq N(D) \subseteq N(D')$. %$\qedbox$
 \\
 
 We prove each direction of the theorem separately.
@@ -44,7 +56,7 @@ $(\Rightarrow)$ : If $C \ll D$, then by definition $\alpha([C]) \subseteq [D]$. 
 
 % i.e. $\alpha([C]) = \cup \{ \alpha([c]) \in \pow(\C) \mid c \in C \}$
 
-$(\Leftarrow)$ : We show this claim by induction on the length of $\tau$. For the base case, $| \tau | = 1$, we are given $\tau = \langle \tau_{1} \rangle$ where $\tau_{1}$ is unconstrained, i.e. we only know that $\tau_{1} \in \sC$. But a Galois connection always relates the most general states of its two partially ordered sets, so $\alpha(\{ \sC \}) \subseteq \{ \sD \}$. As $[\{ \sC \}] = \{ \sC \}$ and $[\{ \sD \}] = \{ \sD \}$, we also have $\alpha([\{ \sC \}]) \subseteq [\{ \sD \}]$, or $\{ \sC \} \ll \{ \sD \}$. Using the first property of $\ll$ then tells us that there exists $d \in \sD$ such that $|\langle \tau_{1} \rangle| = |\langle d \rangle|$ and $\{ \tau_{1} \} \ll \{ d \}$. For the inductive step, $| \tau | = n + 1$, we are given a sequence $\langle \dots, \tau_{n}, \tau_{n+1} \rangle$ and assume there exists another sequence $\langle \dots, \upsilon_{n} \rangle$ such that $|\langle \dots, \tau_{n} \rangle| = |\langle \dots, \upsilon_{n} \rangle|$ and $\langle \dots, \tau_{n} \rangle \ll \langle \dots, \upsilon_{n} \rangle$. From the simulation property of $\ll$, we know that $M(\tau_{n}) \ll N(\upsilon_{n})$ and, by the definition of trajectories, that $\tau_{n+1} \in M(\tau_{n})$. Applying the first property of $\ll$ then states that there exists $d \in N(\upsilon_{n})$ such that $\{ \tau_{n+1} \} \ll \{ d \}$. The concatenation of $\langle \dots, \upsilon_{n+1} \rangle$ and $\langle d \rangle$, i.e. $\langle \dots, \upsilon_{n}, d \rangle$, forms a valid trajectory in $\Traj(N)$ and satisfies the properties $| \langle \dots, \tau_{n}, \tau_{n+1} \rangle | = | \langle \dots, \upsilon_{n}, d \rangle |$ and $\langle \dots, \tau_{n}, \tau_{n+1} \rangle \ll \langle \dots, \upsilon_{n}, d \rangle$. $\qedbox$
+$(\Leftarrow)$ : We show this claim by induction on the length of $\tau$. For the base case, $| \tau | = 1$, we are given $\tau = \langle \tau_{1} \rangle$ where $\tau_{1}$ is unconstrained, i.e. we only know that $\tau_{1} \in \sC$. But a Galois connection always relates the most general states of its two partially ordered sets, so $\alpha(\{ \sC \}) \subseteq \{ \sD \}$. As $[\{ \sC \}] = \{ \sC \}$ and $[\{ \sD \}] = \{ \sD \}$, we also have $\alpha([\{ \sC \}]) \subseteq [\{ \sD \}]$, or $\{ \sC \} \ll \{ \sD \}$. Using the first property of $\ll$ then tells us that there exists $d \in \sD$ such that $|\langle \tau_{1} \rangle| = |\langle d \rangle|$ and $\{ \tau_{1} \} \ll \{ d \}$. For the inductive step, $| \tau | = n + 1$, we are given a sequence $\langle \dots, \tau_{n}, \tau_{n+1} \rangle$ and assume there exists another sequence $\langle \dots, \upsilon_{n} \rangle$ such that $|\langle \dots, \tau_{n} \rangle| = |\langle \dots, \upsilon_{n} \rangle|$ and $\langle \dots, \tau_{n} \rangle \ll \langle \dots, \upsilon_{n} \rangle$. From the simulation property of $\ll$, we know that $M(\tau_{n}) \ll N(\upsilon_{n})$ and, by the definition of trajectories, that $\tau_{n+1} \in M(\tau_{n})$. Applying the first property of $\ll$ then states that there exists $d \in N(\upsilon_{n})$ such that $\{ \tau_{n+1} \} \ll \{ d \}$. The concatenation of $\langle \dots, \upsilon_{n+1} \rangle$ and $\langle d \rangle$, i.e. $\langle \dots, \upsilon_{n}, d \rangle$, forms a valid trajectory in $\Traj(N)$ and satisfies the properties $| \langle \dots, \tau_{n}, \tau_{n+1} \rangle | = | \langle \dots, \upsilon_{n}, d \rangle |$ and $\langle \dots, \tau_{n}, \tau_{n+1} \rangle \ll \langle \dots, \upsilon_{n}, d \rangle$. %$\qedbox$
 
 % We claim that, for all $\tau \in \Traj(M)$, there exists a $\upsilon \in \Traj(N)$, such that $| \tau | = | \upsilon |$ and $\tau \ll \upsilon$.
 
@@ -55,9 +67,7 @@ First a lemma that shows $\lEq{\hat p \meet \lAntecedent(s)} \iff \lEq{\hat p} \
 \begin{lemma}
 $(\sEq{D} = D) \implies (\sEq{C \cap D} \iff \sEq{C} \cap D)$
 \end{lemma}
-
-%% That $x \in \sEq{C \cap D}$ can be stated as $\exists y : x \sim y \wedge y \in C \wedge y \in D$. That $y \in D$ implies that $x \in [D] = D$ since $x \sim y$, and we can therefore restate $x \in \sEq{C \cap D}$ as $\exists y : x \sim y \wedge y \in C \wedge x \in D \iff x \in \sEq{C} \wedge x \in D \iff x \in \sEq{C} \cap D$. $\qedbox$
-
+%
 \begin{align*}
 x \in \sEq{C \cap D} & \iff \exists y : x \sim y \wedge y \in C \wedge y \in D & (\textrm{def. of } \sEq{\cdot} \textrm{ and } \cap) \\
                      & \iff \exists y : x \sim y \wedge y \in C \wedge x \in D & (x \sim y \textrm{ and } D = \sEq{D}) \\
@@ -66,7 +76,7 @@ x \in \sEq{C \cap D} & \iff \exists y : x \sim y \wedge y \in C \wedge y \in D &
 \end{align*}
 
 Secondly we show a few helpful lemmas that regard the fix-points and functions used to determine satisfaction with $\hat M$ and $\hat N$. Before that, we duplicate the earlier definitions of $F$, $\mathcal{F}$ and $\Phi$ to differentiate between those used with $\hat M$ and those with $\hat N$. Specifically, let $G$, $\mathcal{G}$ and $\Psi$ be equivalent operations for $\hat N$, as $F$, $\mathcal{F}$ and $\Phi$ are for $\hat M$:
-
+%
 \begin{align*}
 G(s)(\hat q) &= \hat N(\pi_{a}(s) \sqcap \hat q) \\
 \mathcal{G}(\Psi)(s) &= \Stmt{if } (s = s_{0}) \Stmt{ then } \top \Stmt{ else } \sqcup \{ G(s')(\Psi(s')) \mid (s',s) \in R \} \\
@@ -90,7 +100,7 @@ A Galois connection always relates the two tops and bottoms, i.e. $\lalpha(\top)
 \begin{lemma} \label{lem:f-refine-g}
 $\hat p \lll \hat q \implies \forall s \in S : F(s)(\hat p) \lll G(s)(\hat q)$
 \end{lemma}
-
+%
 \begin{align*}
 \lgamma(\lEq{G(s)(\hat q)})
   & =         \lgamma(\lEq{\hat N(\lAntecedent(s) \meet \hat q)})           & (\textrm{def. of } G) \\
@@ -107,7 +117,7 @@ $\forall s \in S : \Phi_{*}(s) \lll \Psi_{*}(s)$
 \end{lemma}
 
 Since $\Phi_{*}(s) = \lim \, \Phi_{n}(s)$ and $\Psi_{*}(s) = \lim \, \Psi_{n}(s)$, it suffices to prove that $\Phi_{n}(s) \lll \Psi_{n}(s)$ for all $s \in S$ and $n \in \mathbb{N}$. We do so by induction on $n$. The base case, where $\Phi_{0}(s) = \bot$ and $\Psi_{0}(s) = \bot$, follows from lemma~\ref{lem:bot-refine-bot}. For the inductive step, assume that $\Phi_{n}(s) \lll \Psi_{n}(s)$ for all $s \in S$. For $s = s_{0}$, we have that $\Phi_{n+1}(s_{0}) = \top$ and $\Psi_{n+1}(s_{0}) = \top$, which also follows from lemma~\ref{lem:bot-refine-bot}. For any $s \neq s_{0}$, we have:
-
+%
 \begin{align*}
 \lgamma(\lEq{\Psi_{n+1}(s)})
   & =         \lgamma(\lEq{\mathcal{G}(\Psi_{n})(s)})                          & (\textrm{def. of } \Psi_{n+1}) \\
@@ -121,7 +131,7 @@ Since $\Phi_{*}(s) = \lim \, \Phi_{n}(s)$ and $\Psi_{*}(s) = \lim \, \Psi_{n}(s)
 \end{align*}
 \\
 
-Consider an arbitrary $s \in S$ and let $\hat p = \Phi_{*}(s) \meet \lgamma(\lAntecedent(s))$, where $\hat p \ordered \Phi_{*}(s)$ and $\hat p \ordered \lgamma(\lAntecedent(s))$, or $\lalpha(\hat p) \ordered \lAntecedent(s)$. From lemma~\ref{lem:phi-refine-psi} we know $\Phi_{*}(s) \lll \Psi_{*}(s)$, and thus $\lalpha(\hat p) \ordered \lalpha(\lEq{\hat p}) \ordered \lalpha(\lEq{\Phi_{*}(s)}) \ordered \lEq{\Psi_{*}(s)}$ by the monotonicity of $\lEq{\cdot}$ and $\lalpha$. Using the invariance of $\lAntecedent(s)$ and property \todo{name} of $\lEq{\cdot}$, we note that the assumption can be restated as $\lConsequent(s) \rordered \Psi_{*}(s) \meet \lAntecedent(s) = \lEq{\Psi_{*}(s) \meet \lAntecedent(s)} = \lEq{\Psi_{*}(s)} \meet \lAntecedent(s)$. It then follows that $\alpha(\hat p) \ordered \lConsequent(s)$, or $\hat p \ordered \lgamma(\lConsequent(s))$ as desired. $\qedbox$
+Consider an arbitrary $s \in S$ and let $\hat p = \Phi_{*}(s) \meet \lgamma(\lAntecedent(s))$, where $\hat p \ordered \Phi_{*}(s)$ and $\hat p \ordered \lgamma(\lAntecedent(s))$, or $\lalpha(\hat p) \ordered \lAntecedent(s)$. From lemma~\ref{lem:phi-refine-psi} we know $\Phi_{*}(s) \lll \Psi_{*}(s)$, and thus $\lalpha(\hat p) \ordered \lalpha(\lEq{\hat p}) \ordered \lalpha(\lEq{\Phi_{*}(s)}) \ordered \lEq{\Psi_{*}(s)}$ by the monotonicity of $\lEq{\cdot}$ and $\lalpha$. Using the invariance of $\lAntecedent(s)$ and property \todo{name} of $\lEq{\cdot}$, we note that the assumption can be restated as $\lConsequent(s) \rordered \Psi_{*}(s) \meet \lAntecedent(s) = \lEq{\Psi_{*}(s) \meet \lAntecedent(s)} = \lEq{\Psi_{*}(s)} \meet \lAntecedent(s)$. It then follows that $\alpha(\hat p) \ordered \lConsequent(s)$, or $\hat p \ordered \lgamma(\lConsequent(s))$ as desired. %$\qedbox$
 
 \subsection{Theorem~\ref{thm:lat-imply-set}}
 

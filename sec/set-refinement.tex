@@ -30,11 +30,9 @@ We can now formalize that $M$ \textit{refines} $N$, denoted by $M \Refines N$, a
 
 \subsubsection{Refinement \& assertions}
 
-\todo{Recall that} a trajectory assertion for $N$ is a quintuple $A = (S, s_{0}, R, \Antecedent, \Consequent)$, where $\Antecedent \in S \rightarrow \pow(\sD)$ and $\Consequent \in S \rightarrow \pow(\sD)$ label each $s \in S$ with its antecedents and consequents, respectively. If $\Antecedent$ and $\Consequent$ are class invariant under $\sim$, i.e. $d \in \Antecedent(s) \iff [d] \subseteq \Antecedent(s)$ for all $s \in S$ and \todo{similarly for $\Consequent$}, then we refer to $A$ as an \textit{\todo{name} trajectory assertion} and suffix it as $A_{\todo{n}}$. Furthermore, we define $\gamma(A) = (S, s_{0}, R, \gamma(\Antecedent), \gamma(\Consequent))$, where $\gamma(\Antecedent) = \lambda s \in S : \gamma(\Antecedent(s))$ and $\gamma(\Consequent) = \lambda s \in S : \gamma(\Consequent(s))$. \todo{We require that $\gamma$ preserves the invariance of $\Antecedent$ and $\Consequent$, i.e. $c \in \gamma(\Antecedent(s)) \iff [c] \subseteq \gamma(\Antecedent(s))$ and similarily for $\Consequent$.}
+\todo{Recall that} a trajectory assertion for $N$ is a quintuple $A = (S, s_{0}, R, \Antecedent, \Consequent)$, where $\Antecedent \in S \rightarrow \pow(\sD)$ and $\Consequent \in S \rightarrow \pow(\sD)$ label each $s \in S$ with its antecedents and consequents, respectively. If $\Antecedent$ and $\Consequent$ are class invariant under $\sim$, i.e. $\Antecedent(s) = \sEq{\Antecedent(s)}$ for all $s \in S$ and \todo{similarly for $\Consequent$}, then we refer to $A$ as an \textit{\todo{name} trajectory assertion} and suffix it as $A_{\todo{n}}$. Furthermore, we define $\gamma(A) = (S, s_{0}, R, \gamma(\Antecedent), \gamma(\Consequent))$, where $\gamma(\Antecedent) = \lambda s \in S : \gamma(\Antecedent(s))$ and $\gamma(\Consequent) = \lambda s \in S : \gamma(\Consequent(s))$.
 
 %% $d \in \Consequent(s) \iff [d] \subseteq \Consequent(s)$
-
-%% If the co-domain of $\Antecedent$ and $\Consequent$ is limited to partitions of visible elements in $D$, i.e. $\pow(D / \mkern-8mu\sim)$,
 
 We are now ready to state that, if $M$ refines $N$ and $A_{\todo{n}}$ is satisfied in $N$, then a concretisation of $A_{\todo{n}}$ can also be satisfied in $M$:
 
