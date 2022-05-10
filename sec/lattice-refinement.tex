@@ -14,7 +14,9 @@ Let the binary relation $\lll \, \subseteq \lP \times \lQ$ be derived from the a
 
 \noindent Here $\ordered$ on $\hat \alpha$-derivation side is the partial order of $\lQ$, and on the $\hat \gamma$-derivation side $\ordered$ is the partial order of $\lP$.
 
-Finally, we say that $\hat M$ refines $\hat N$ by \textit{lattice-theoretic simulation}, denoted by $\hat M \lRefines \hat N$, iff (1) $\lll$ is a simulation relation, i.e. $\hat p \lll \hat q \implies \hat M(\hat p) \lll \hat N(\hat q)$. That $\lll$ is a simulation relation can also be stated directly in terms of the usual functions for abstraction, $\hat \alpha(\lEq{\hat M(\hat p)}) \ordered \lEq{\hat N(\hat \alpha(\hat p))}$ for all $\hat p \in \lP$, or concretisation, $\lEq{\hat M(\hat \gamma(\hat q))} \ordered \hat \gamma(\lEq{\hat N(\hat q)})$ for all $\hat q \in \lQ$.
+Finally, we say that $\hat M$ refines $\hat N$ by \textit{lattice-theoretic simulation}, denoted by $\hat M \lRefines \hat N$, iff (1) $\lll$ is a simulation relation, i.e. $\hat p \lll \hat q \implies \hat M(\hat p) \lll \hat N(\hat q)$; and (2) \todo{???}
+
+%% That $\lll$ is a simulation relation can also be stated directly in terms of the usual functions for abstraction, $\hat \alpha(\lEq{\hat M(\hat p)}) \ordered \lEq{\hat N(\hat \alpha(\hat p))}$ for all $\hat p \in \lP$, or concretisation, $\lEq{\hat M(\hat \gamma(\hat q))} \ordered \hat \gamma(\lEq{\hat N(\hat q)})$ for all $\hat q \in \lQ$.
 
 \begin{theorem} \label{thm:lat-refines}
 $\hat M \lRefines \hat N \implies (\hat N \lModels \hat{A}_{\todo{n}} \implies \hat M \lModels \hat \gamma(\hat{A}_{\todo{n}}))$
