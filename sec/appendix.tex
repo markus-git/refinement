@@ -2,13 +2,19 @@
 
 \subsection{Theorem~\ref{thm:traj-refines}}
 
-We use freely the fact that $\{ c \} \ll \{ d \} \iff \alpha(\sEq{c}) \subseteq \sEq{d}$ and $[\{ c \}] = [c]$. Also, we first prove a few useful lemmas.
+We use freely the fact that $\{ c \} \ll \{ d \} \iff \alpha(\sEq{c}) \subseteq \sEq{d}$ and $\sEq{\{ c \}} = \sEq{c}$. \todo{Also, we first prove a few useful lemmas}.
 
 \begin{lemma} \label{lem:class-sub}
-$[d] \cap \Antecedent(s) \neq \emptyset \implies [d] \subseteq \Antecedent(s)$
+$C = \sEq{C} \wedge \sEq{d} \cap C \neq \emptyset \implies \sEq{d} \subseteq C$
 \end{lemma}
+%
+\begin{align*}
+\sEq{d} \cap C \neq \emptyset & \implies \exists x : x \in \sEq{d} \wedge x \in C             & (\textrm{definition of } \cap) \\
+                              & \iff     \exists x : x \in \sEq{d} \wedge \sEq{x} \subseteq C & (\textrm{invariance of } C) \\
+                              & \implies \sEq{d} \subseteq C                                  & (\sEq{x} = \sEq{d})
+\end{align*}
 
-Since they intersect, there must exist $d' \in [d]$ such that $d' \in \Antecedent(s)$. By the invariance of $\Antecedent$, it must then be that $[d] = [d'] \subseteq \Antecedent(s)$. %$\qedbox$
+%% Since they intersect, there must exist $d' \in [d]$ such that $d' \in \Antecedent(s)$. By the invariance of $\Antecedent$, it must then be that $[d] = [d'] \subseteq \Antecedent(s)$. %$\qedbox$
 
 \begin{lemma} \label{lem:traj-con}
 $d \in \Consequent(s) \wedge \{ c \} \ll \{ d \} \implies c \in \gamma(\Consequent(s))$
