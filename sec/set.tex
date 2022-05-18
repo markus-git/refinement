@@ -7,13 +7,13 @@ Consider an arbitrary, but fixed, digital circuit $M$ operating in discrete time
 \footnotetext{\todo{Mention how this affects circuits with zero-delays?}}
 
 $M_{R}$ induces a \textit{predicate transformer} $M_{F} \in \pow(\sC) \rightarrow \pow(\sC)$ using the relational image operation:
-
+%
 \begin{equation*}
 M_{F}(C) = \{ c' \in \sC \mid \exists c \in C : (c,c') \in M_{R} \}
 \end{equation*}
 
 \noindent It is intuitively obvious that if $M$ is in one of the configurations in $C \in \pow(\sC)$, then in one time step it must be in one of the configurations in $M_{F}(p)$. We also see that $M_{F}$ distributes over arbitrary unions:
-
+%
 \begin{equation*}
 M_{F}(\cup S) = \cup \{ M_{F}(C) \mid C \in S \}
 \end{equation*}
@@ -23,29 +23,26 @@ M_{F}(\cup S) = \cup \{ M_{F}(C) \mid C \in S \}
 % It follows that $M_{F}$ preserves the empty set of constraints, i.e. $M_{F}(\emptyset) = \emptyset$, and is monotonic, i.e. $p \subseteq q \implies M_{F}(p) \subseteq M_{F}(q)$ for all $p, q \in \pow(C)$.
 
 Exactly what $\sC$ and its signals are, is not important in this section. In practice, however, signals are typically divided into external, such as ``inputs'' and ``outputs'', and internal parts. While an input signal is generally controlled by the external environment, and thus unconstrained by $M$ itself, non-input signals are determined by the circuit topology and functionality. For example, supposed $M$ is the earlier example of a unit-delayed two-input AND gate, we could then define its model $M \in \pow(\mathbb{B}^{3}) \rightarrow \pow(\mathbb{B}^{3})$ as follows:
-
-% although not required here
-
+%
 \begin{equation*}
 M(C) = \{ \langle b_{1}, b_{2}, i_{1} \wedge i_{2} \rangle \in \mathbb{B}^{3} \mid \langle i_{1}, i_{2}, o \rangle \in C \}
 \end{equation*}
 
 \noindent Here $i_{1}$ and $i_{2}$ refer to the two inputs of the AND gate, $o$ the ignored output, and $b_{1}$ and $b_{2}$ are unconstrained inputs for the new configurations.
 
-\subsubsection{Assertions and satisfaction} \label{sec:set-ste-sat}
+\subsubsection{Assertions and Satisfaction} \label{sec:set-ste-sat}
 
 A \textit{trajectory assertion} for $M$ is quintuple $A = (S, s_{0}, R, \Antecedent, \Consequent)$, where $S$ is a finite set of \textit{states}, $s_{0} \in S$ is an \textit{initial state}, $R \subseteq S \times S$ is a \textit{transition relation}, $\Antecedent \in S \rightarrow \pow(\sC)$ and $\Consequent \in S \rightarrow \pow(\sC)$ label each state $s$ with an \textit{antecedent} $\Antecedent(s)$ and a \textit{consequent} $\Consequent(s)$. We assume that $(s,s_{0}) \notin S$ for all $s \in S$ without any loss of generality.
 
-The circuit model $M$ intuitively \textit{satisfies} an assertion $A$ if, for every \textit{trajectory} $\tau$ through $M$ and every \textit{run} $\rho$ through $A$, $\tau$ satisfying the antecedents of $\rho$ entails that $\tau$ also satisfies the consequents of $\rho$. To be specific, a \textit{trajectory} of $M$ is a non-empty sequences of configurations, $\tau \in \sC^{+}$, such that $\tau_{n} \in M(\{ \tau_{n-1} \})$ for all $n \in \mathbb{N} : 0 < n < | \tau |$. And a \textit{run} of $A$ is a non-empty sequence of states, $\rho \in S^{+}$, such that $\rho_{0} = s_{0}$ and $(\rho_{n-1}, \rho_{n}) \in R$ for all $n \in \mathbb{N} : 0 < n < | \rho |$. A $\tau$ satisfies the antecedents of $\rho$, denoted by $\tau \aModels \rho$, iff $\tau_{n} \in \Antecedent(\rho_{n})$ for all $n \in \mathbb{N} : n < | \tau | = | \rho |$; satisfaction of consequents is defined similarly with $\Consequent$ and denoted by $\tau \cModels \rho$.
-
+The circuit model $M$ intuitively \textit{satisfies} an assertion $A$ if, for every \textit{trajectory} $\tau$ through $M$ and every \textit{run} $\rho$ through $A$, $\tau$ satisfying the antecedents of $\rho$ entails that $\tau$ also satisfies the consequents of $\rho$. To be specific, a \textit{trajectory} of $M$ is a non-empty sequences of configurations, $\tau \in \sC^{+}$, such that $\tau_{n} \in M(\{ \tau_{n-1} \})$ for all $n \in \mathbb{N} : 0 < n < | \tau |$. And a \textit{run} of $A$ is a non-empty sequence of states, $\rho \in S^{+}$, such that $\rho_{0} = s_{0}$ and $(\rho_{n-1}, \rho_{n}) \in R$ for all $n \in \mathbb{N} : 0 < n < | \rho |$. A finite trajectory $\tau$ satisfies the antecedents of a finite run $\rho$, denoted by $\tau \aModels \rho$, iff $\tau_{n} \in \Antecedent(\rho_{n})$ for all $n \in \mathbb{N} : n < | \tau | = | \rho |$; satisfaction of consequents is defined similarly with $\Consequent$ and denoted by $\tau \cModels \rho$.
 
 That $M$ satisfies $A$, denoted by $M \models A$, can then be formalized as follows: % \footnotemark
-
+%
 \begin{equation*}
-\forall \tau \in \Traj(M) : \forall \rho \in \Runs(A) : | \tau | = | \rho | \implies (\tau \aModels \rho \implies \tau \cModels \rho)
+\forall \tau \in \TrajFin{M} : \forall \rho \in \RunsFin{A} : | \tau | = | \rho | \implies (\tau \aModels \rho \implies \tau \cModels \rho)
 \end{equation*}
 
-\noindent where $\Traj(M)$ and $\Runs(A)$ denote the sets of all trajectories of $M$ and runs of $A$, respectively. \todo{This satisfaction can be formulated equivalently as a problem for deterministic finite automaton.}
+\noindent where $\TrajFin{M}$ and $\RunsFin{A}$ denote the sets of all finite trajectories of $M$ and runs of $A$, respectively. \todo{This satisfaction can be formulated equivalently as a problem for deterministic finite automaton.}
 
 %% \footnotetext{\todo{This is equivalent to a DFA formulation~\cite{chou1999}.}}
 
