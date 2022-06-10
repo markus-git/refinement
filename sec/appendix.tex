@@ -2,7 +2,7 @@
 
 \subsection{Proof of Theorem~\ref{thm:traj-refines}}
 
-We freely expand the relation $\ll$ into its standard Galois form and use the facts that $\sEq{\emptyset} = \emptyset$, $\sEq{\{ c \}} = \sEq{c}$, and $\sEq{\sC} = \sC$ (similar facts hold for $\sD$).
+We freely expand the definition of $\sEq{\cdot}$ for $\emptyset$, singletons $\{ c \in \sC \}$, and $\sC$.
 
 \begin{lemma} \label{lem:class-sub}
 $C = \sEq{C} \wedge \sEq{d} \cap C \neq \emptyset \implies \sEq{d} \subseteq C$
@@ -15,7 +15,7 @@ $C = \sEq{C} \wedge \sEq{d} \cap C \neq \emptyset \implies \sEq{d} \subseteq C$
 \end{align*}
 
 \begin{lemma} \label{lem:traj-con}
-$d \in \Consequent(s) \wedge \{ c \} \ll \{ d \} \implies c \in \gamma(\Consequent(s))$
+$d \in \Consequent(s) \wedge \alpha(\sEq{c}) \subseteq \sEq{d} \implies c \in \gamma(\Consequent(s))$
 \end{lemma}%
 %
 \begin{align*}
@@ -26,7 +26,7 @@ d \in \Consequent(s) & \iff     \sEq{d} \subseteq \Consequent(s)         & (\tex
 \end{align*}
 
 \begin{lemma} \label{lem:traj-ant}
-$c \in \gamma(\Antecedent(s)) \wedge \{ c \} \ll \{ d \} \implies d \in \Antecedent(s)$
+$c \in \gamma(\Antecedent(s)) \wedge \alpha(\sEq{c}) \subseteq \sEq{d} \implies d \in \Antecedent(s)$
 \end{lemma}%
 %
 \begin{align}
@@ -35,44 +35,57 @@ c \in \gamma(\Antecedent(s))      & \iff     \alpha(\{ c \}) \subseteq \Antecede
                                   & \implies \sEq{d} \subseteq \Antecedent(s)         \nonumber    & (\textrm{lemma~\ref{lem:class-sub} and equation } \ref{eq:1})
 \end{align}
 
+\begin{lemma} \label{lem:traj-fin-inf}
+$\tau \in \TrajFin{M} \iff \exists \upsilon \in \TrajInf{M} : \tau \prec \upsilon$
+\end{lemma}
+%
+\todo{Proof of lemma.}
+
 \begin{proof}
-We are given $\tau \in \Traj(M)$ and $\rho \in \Runs(\gamma(A))$, such that $| \tau | = | \rho |$ and $\tau_{n} \in \gamma(\Antecedent(\rho_{n}))$ for all $n \in \mathbb{N} : n < | \tau |$. We must then show that $\tau_{n} \in \gamma(\Consequent(\rho_{n}))$. By the refinement assumption, there must exist $\tau' \in \TrajInf{M}$ and $\upsilon' \in \TrajInf{N}$ such that $\tau \prec \tau'$ and $\tau' \ll \upsilon'$. Let $\upsilon \prec \upsilon'$ such that $| \upsilon | = | \tau |$, which implies that $\tau \ll \upsilon$. Lemma~\ref{lem:traj-ant} then shows that $\upsilon_{n} \in \Antecedent(\rho_{n})$ and, by the assumption, we have $\upsilon_{n} \in \Consequent(\rho_{n})$. Lemma~\ref{lem:traj-con} then shows that $\tau_{n} \in \gamma(\Consequent(\rho_{n}))$.
+We are given $\tau \in \Traj(M)$ and $\rho \in \Runs(\gamma(A))$, such that $| \tau | = | \rho |$ and $\tau_{n} \in \gamma(\Antecedent(\rho_{n}))$ for all $n \in \mathbb{N} : n < | \tau |$. We must then show that $\tau_{n} \in \gamma(\Consequent(\rho_{n}))$. By the refinement assumption, there must exist $\tau' \in \TrajInf{M}$ and $\upsilon' \in \TrajInf{N}$ such that $\tau \prec \tau'$ and $\alpha(\sEq{\tau'}) \subseteq \sEq{\upsilon'}$. Let $\upsilon \prec \upsilon'$ such that $| \upsilon | = | \tau |$, which implies that $\alpha(\sEq{\tau}) \subseteq \sEq{\upsilon}$. Lemma~\ref{lem:traj-ant} then shows that $\upsilon_{n} \in \Antecedent(\rho_{n})$ and, by the assumption, we have $\upsilon_{n} \in \Consequent(\rho_{n})$. Lemma~\ref{lem:traj-con} then shows that $\tau_{n} \in \gamma(\Consequent(\rho_{n}))$.
 \end{proof}
 
 \subsection{Proof of Theorem~\ref{thm:traj-equal-set}}
 
-\begin{lemma} \label{lem:ll-closed-union}
-$C \ll D \wedge C' \ll D' \implies (C \cup C') \ll (D \cup D')$
-\end{lemma}%
+We first define a short-hand for $n$ repeated applications of $M$, denoted by $M^{n}(C)$, such that $M^{0}(C) = C$ and $M^{n+1}(C) = M(M^{n}(C))$ for all $n \in \mathbb{N} : n > 0$; the same short-hand for $N$ is defined similarly.
+
+\begin{lemma} \label{lem:mn-traj}
+$\tau \in \TrajInf{M} \implies \forall n \in \mathbb{N} : \tau_{n} \in M^{n}(\sC)$
+\end{lemma}
 %
-\begin{proof}
-Text.
-\end{proof}
+The lemma follows by induction on $n$. By definition, $\tau_{0} \in \sC = M^{0}(\sC)$ and, assuming that $\tau_{n} \in M^{n}(\sC)$, then $\tau_{n+1} \in M(\{ \tau_{n} \}) \subseteq M(M^{n}(\sC)) = M^{n+1}(\sC)$.
+
+\begin{lemma} \label{lem:mn-galois}
+$M \sRefines N \wedge \alpha(C) \subseteq D \implies \forall n \in \mathbb{N} : \alpha(M^{n}(C)) \subseteq N^{n}(D)$
+\end{lemma}
+%
+The lemma follows by induction on $n$. The base case, $\alpha(M^{0}(C)) \subseteq N^{0}(D)$, follows from the assumption. For the inductive step, assume $\alpha(M^{n}(C)) \subseteq N^{n}(D)$. That $\alpha$ is a simulation relation then shows that $\alpha(M(M^{n}(C))) \subseteq N(N^{n}(D)$, or $\alpha(M^{n+1}(C)) \subseteq N^{n+1}(D)$.
 
 \begin{proof}
 We show each direction of the theorem separately.
 
 % M Refines N => M SetRefines N
-$\Rightarrow$: We define a relation $R^{n} \subseteq \pow(\sC) \times \pow(\sD)$ as follows:
-%
-\begin{equation*}
-R^{n} \; = \cup \{ (\{ \tau_{n} \}, \{ \upsilon_{n} \}) \mid \tau \in \TrajInf{M}: \upsilon \in \TrajInf{N}: \alpha(\sEq{\tau}) \subseteq \sEq{\upsilon} \}
-\end{equation*}
+$\Rightarrow$ \todo{Proof.}
 
-\noindent where the union of two pairs $R^{n}(C, D)$ and $R^{n}(C', D')$ is given by the union of its two parts $R^{n}(C \cup C', D \cup D')$. We then define $\ll \; = R^{0} \cup R^{1} \cup \dots$ and show that it satisfies the desired conditions.
-
-%
-%% For any $C$ and $D$ such that $\alpha(C) \subseteq D$, it follows that $\alpha(\{ c \}) \subseteq D$ for all $c \in C$ since $\alpha$ distributes over arbitrary union. We note that every such $c$ is the start of an infinite trajectory in $M$ and, from the refinement assumption, we know there exist an infinite trajectory in $N$ with a start $d \in \sD$ such that $\{ c \} \ll \{ d \}$, or $\alpha([c]) \subseteq [d]$. By the requirement that $\alpha([c]) \neq \emptyset$, it must be that $[d] \cap [D] \neq \emptyset$. By lemma~\ref{lem:class-sub} then, we know $[d] \subseteq [D]$ and thus $d \in D$. $\dots$
+%% For any $C$ and $D$ such that $\alpha(C) \subseteq D$, it follows that $\alpha(\{ c \}) \subseteq D$ for all $c \in C$ since $\alpha$ distributes over arbitrary union. Every such $c$ is the start of some trajectories in $M$ and, by the assumption, it exists a trajectory in $N$ with start $d \in \sD$ such that $\alpha(\sEq{c}) \subseteq \sEq{d}$. Using the distributivity of $\alpha$ and $c \in \sEq{c}$, we thus also have $\alpha(\{ c \}) \subseteq \sEq{d}$ and hence $D \cap \sEq{d} \neq \emptyset$ because $\alpha(\{ c \}) \neq \emptyset$ \todo{(prop. 3)}. Lemma~\ref{lem:class-sub} then states that $\sEq{d} \subseteq \sEq{D}$ since $\sEq{\cdot}$ is idempotent, and so $\alpha(\sEq{c}) \subseteq \sEq{D}$ and $\alpha(\sEq{C}) \subseteq \sEq{D}$ \todo{(prop. 1)}. \todo{hmm \dots}
 %
 %% Consider a trajectory $\langle \tau_{0}, \ldots, \tau_{n} \rangle$ in $M$. By the refinement assumption, we know there exists a trajectory $\langle \upsilon_{0}, \ldots, \upsilon_{n} \rangle$ in $N$, such that $\{ \tau_{k} \} \ll \{ \upsilon_{k} \}$ for all $k \in \mathbb{N} : k \leq n$. And if we append any $c \in M(\{ \tau_{n} \})$ to the end of $\langle \tau_{0}, \ldots, \tau_{n} \rangle$, the refinement assumption again tells us there exists another trajectory $\langle \tilde{\upsilon}_{0}, \ldots, \tilde{\upsilon}_{n}, d \rangle$ in $N$ such that $\{ \tau_{k} \} \ll \{ \tilde{\upsilon}_{k} \}$ and $\{ c \} \ll \{ d \}$. As $\alpha(\sEq{\tau_{k}}) \neq \emptyset$, it must be that $\sEq{\upsilon_{k}} = \sEq{\tilde{\upsilon}_{k}}$, and thus $d \in N(\{ \tilde{\upsilon}_{n} \})$ implies $d \in N(\sEq{\upsilon_{n}})$.
+%
+%% To show that $\ll$ is a simulation relation, consider any ``next-step'' of these trajectories starting in $c$ and $d$, i.e. $c' \in M(\{ c \})$ and $d' \in N(\{ d \})$. From the refinement assumption we know that $\{ c' \} \ll \{ d' \}$, or $\alpha([c']) \subseteq [d'] \subseteq [N(\{ d \})] \subseteq [N(D)]$. Taking the union of every such ordering for $c' \in M(\{ c \})$, we see that $M(\{ c \}) \ll N(D)$ for all $c \in C$, or $M(C) \ll N(D)$, as required.
 
 % M SetRefines N => M Refines N
-$\Leftarrow$: $\dots$
+$\Leftarrow$ \todo{Proof.}
 %
-%% $(\Rightarrow)$ : If $C \ll D$, then by definition $\alpha([C]) \subseteq [D]$. As $\alpha$ distributes over arbitrary union, it follows that $\alpha([c]) \subseteq [D]$ for all $c \in C$. We note that every such $c \in C$ is also the start of some trajectories in $M$, and it therefore follows from the refinement assumption that there exist a trajectory in $N$ with a start $d \in \sD$ such that $\{ c \} \ll \{ d \}$, or $\alpha([c]) \subseteq [d]$. By the requirement that $\alpha([c]) \neq \emptyset$, it must be that $[d] \cap [D] \neq \emptyset$. By lemma~\ref{lem:class-sub} then, we know $[d] \subseteq [D]$ and thus $d \in D$, which is the \todo{name} property required of $\ll$. To show that $\ll$ is a simulation relation, consider any ``next-step'' of these trajectories starting in $c$ and $d$, i.e. $c' \in M(\{ c \})$ and $d' \in N(\{ d \})$. From the refinement assumption we know that $\{ c' \} \ll \{ d' \}$, or $\alpha([c']) \subseteq [d'] \subseteq [N(\{ d \})] \subseteq [N(D)]$. Taking the union of every such ordering for $c' \in M(\{ c \})$, we see that $M(\{ c \}) \ll N(D)$ for all $c \in C$, or $M(C) \ll N(D)$, as required.
-%
-%% $(\Leftarrow)$ : We show this claim by induction on the length of $\tau$. For the base case, $| \tau | = 1$, we are given $\tau = \langle \tau_{1} \rangle$ where $\tau_{1}$ is unconstrained, i.e. we only know that $\tau_{1} \in \sC$. But a Galois connection always relates the most general states of its two partially ordered sets, so $\alpha(\{ \sC \}) \subseteq \{ \sD \}$. As $[\{ \sC \}] = \{ \sC \}$ and $[\{ \sD \}] = \{ \sD \}$, we also have $\alpha([\{ \sC \}]) \subseteq [\{ \sD \}]$, or $\{ \sC \} \ll \{ \sD \}$. \todo{Name} property of $\ll$ then tells us that there exists $d \in \sD$ such that $|\langle \tau_{1} \rangle| = |\langle d \rangle|$ and $\{ \tau_{1} \} \ll \{ d \}$. For the inductive step, $| \tau | = n + 1$, we are given a sequence $\langle \dots, \tau_{n}, \tau_{n+1} \rangle$ and assume there exists another sequence $\langle \dots, \upsilon_{n} \rangle$ such that $|\langle \dots, \tau_{n} \rangle| = |\langle \dots, \upsilon_{n} \rangle|$ and $\langle \dots, \tau_{n} \rangle \ll \langle \dots, \upsilon_{n} \rangle$. From the simulation property of $\ll$, we know that $M(\tau_{n}) \ll N(\upsilon_{n})$ and, by the definition of trajectories, that $\tau_{n+1} \in M(\tau_{n})$. Applying \todo{name} property of $\ll$ then states that there exists $d \in N(\upsilon_{n})$ such that $\{ \tau_{n+1} \} \ll \{ d \}$. The concatenation of $\langle \dots, \upsilon_{n+1} \rangle$ and $\langle d \rangle$, i.e. $\langle \dots, \upsilon_{n}, d \rangle$, forms a valid trajectory in $\Traj(N)$ as $d \in N(\upsilon_{n})$, and it satisfies the properties $| \langle \dots, \tau_{n}, \tau_{n+1} \rangle | = | \langle \dots, \upsilon_{n}, d \rangle |$ and $\langle \dots, \tau_{n}, \tau_{n+1} \rangle \ll \langle \dots, \upsilon_{n}, d \rangle$.
+%% We show this claim by induction on the length of $\tau$. For the base case, $| \tau | = 1$, we are given $\tau = \langle \tau_{1} \rangle$ where $\tau_{1}$ is unconstrained, i.e. we only know that $\tau_{1} \in \sC$. But a Galois connection always relates the most general states of its two partially ordered sets, so $\alpha(\{ \sC \}) \subseteq \{ \sD \}$. As $[\{ \sC \}] = \{ \sC \}$ and $[\{ \sD \}] = \{ \sD \}$, we also have $\alpha([\{ \sC \}]) \subseteq [\{ \sD \}]$, or $\{ \sC \} \ll \{ \sD \}$. \todo{Name} property of $\ll$ then tells us that there exists $d \in \sD$ such that $|\langle \tau_{1} \rangle| = |\langle d \rangle|$ and $\{ \tau_{1} \} \ll \{ d \}$. For the inductive step, $| \tau | = n + 1$, we are given a sequence $\langle \dots, \tau_{n}, \tau_{n+1} \rangle$ and assume there exists another sequence $\langle \dots, \upsilon_{n} \rangle$ such that $|\langle \dots, \tau_{n} \rangle| = |\langle \dots, \upsilon_{n} \rangle|$ and $\langle \dots, \tau_{n} \rangle \ll \langle \dots, \upsilon_{n} \rangle$. From the simulation property of $\ll$, we know that $M(\tau_{n}) \ll N(\upsilon_{n})$ and, by the definition of trajectories, that $\tau_{n+1} \in M(\tau_{n})$. Applying \todo{name} property of $\ll$ then states that there exists $d \in N(\upsilon_{n})$ such that $\{ \tau_{n+1} \} \ll \{ d \}$. The concatenation of $\langle \dots, \upsilon_{n+1} \rangle$ and $\langle d \rangle$, i.e. $\langle \dots, \upsilon_{n}, d \rangle$, forms a valid trajectory in $\Traj(N)$ as $d \in N(\upsilon_{n})$, and it satisfies the properties $| \langle \dots, \tau_{n}, \tau_{n+1} \rangle | = | \langle \dots, \upsilon_{n}, d \rangle |$ and $\langle \dots, \tau_{n}, \tau_{n+1} \rangle \ll \langle \dots, \upsilon_{n}, d \rangle$.
 \end{proof}
+
+%% We define a relation $R^{n} \subseteq \pow(\sC) \times \pow(\sD)$ as follows:
+%% %
+%% \begin{equation*}
+%% R^{n} \; = \cup \{ (\{ \tau_{n} \}, \{ \upsilon_{n} \}) \mid \tau \in \TrajInf{M}: \upsilon \in \TrajInf{N}: \alpha(\sEq{\tau}) \subseteq \sEq{\upsilon} \}
+%% \end{equation*}
+
+%% \noindent where the union of two pairs $R^{n}(C, D)$ and $R^{n}(C', D')$ is given by the union of its two parts $R^{n}(C \cup C', D \cup D')$. We then define $\ll \; = R^{0} \cup R^{1} \cup \dots$ and show that it satisfies the desired conditions.
 
 \subsection{Proof of Theorem~\ref{thm:lat-refines}}
 
