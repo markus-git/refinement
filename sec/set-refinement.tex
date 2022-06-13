@@ -1,10 +1,10 @@
 \subsection{Refinement}
 
-Consider another fixed, but arbitrary, circuit model $N \in \pow(\sD) \rightarrow \pow(\sD)$, where $\sD$ is a non-empty and finite set of configurations. Exactly what configurations such as $\sC$ and $\sD$ are, were not important previously. But to reason about refinement, which relates the visible behaviour of circuits, we make a distinction between their external and internal elements. Let ${\sim} \subseteq \sC \times \sC$ be an equivalence relation on $\sC$. The equivalence class of a $c \in \sC$ under $\sim$, denoted by $\sEq{c}$, is defined as $\sEq{c} = \{ c' \in \sC \mid c' \sim c \}$. With a slight abuse of notation, we overload both $\sim$ and $\sEq{\cdot}$ to accept configurations in $\sD$. Furthermore, we extend $\sEq{\cdot}$ to sets $C \subseteq \sC$ by taking the union of its image, i.e. $[C] = \cup\{[c] \in \pow(\sC) \mid c \in C \}$.
+Consider another fixed, but arbitrary, circuit model $N \in \pow(\sD) \rightarrow \pow(\sD)$, where $\sD$ is a non-empty and finite set of configurations. Exactly what configurations such as $\sC$ and $\sD$ are, were not important previously. But to reason about refinement, which relates the visible behaviour of circuits, we make a distinction between their elements. Let ${\sim} \subseteq \sC \times \sC$ be an equivalence relation on $\sC$. The equivalence class of a $c \in \sC$ under $\sim$, denoted by $\sEq{c}$, is defined as $\sEq{c} = \{ c' \in \sC \mid c' \sim c \}$. With a slight abuse of notation, we overload both $\sim$ and $\sEq{\cdot}$ to accept configurations in $\sD$. Furthermore, we extend $\sEq{\cdot}$ to sets $C \subseteq \sC$ by taking the union of its image, i.e. $[C] = \cup\{[c] \in \pow(\sC) \mid c \in C \}$.
 
 %% todo: Example of how equiv. classes are predicates.
 
-Let there be a Galois connection between the predicates $\pow(\sC)$ and $\pow(\sD)$ ordered by set inclusion, given in terms of two monotone functions: an \textit{abstraction} $\alpha \in \pow(\sC) \rightarrow \pow(\sD)$ and a \textit{concretisation} $\gamma \in \pow(\sD) \rightarrow \pow(\sC)$ function, such that for all $C \in \pow(\sC)$ and $D \in \pow(\sD)$, we have $\alpha(C) \subseteq D \iff C \subseteq \gamma(D)$. \todo{Every configuration must have an abstraction: $\alpha([\{c\}]) \neq \emptyset$ for all $c \in \sC$.}
+Let there be a Galois connection between the predicates $\pow(\sC)$ and $\pow(\sD)$ ordered by set inclusion, given in terms of two monotone functions: an \textit{abstraction} $\alpha \in \pow(\sC) \rightarrow \pow(\sD)$ and a \textit{concretisation} $\gamma \in \pow(\sD) \rightarrow \pow(\sC)$ function. An essential property of a Galois connection is that, for all $C \in \pow(\sC)$ and $D \in \pow(\sD)$, the pair $\alpha$ and $\gamma$ satisfy the equality: $\alpha(C) \subseteq D \iff C \subseteq \gamma(D)$. Intuitively, this relation is an extension of the partial orderings inside $\pow(\sC)$ and $\pow(\sD)$ to an ordering between them. \todo{Every configuration must have an abstraction: $\alpha([\{c\}]) \neq \emptyset$ for all $c \in \sC$.}
 
 %% todo: Example of a Galois connection.
 
@@ -14,19 +14,19 @@ We can now formalize that $M$ \textit{refines} $N$, denoted by $M \Refines N$, a
 \forall \tau \in \TrajInf{M} : \exists \upsilon \in \TrajInf{N} : \alpha(\sEq{\tau}) \subseteq \sEq{\upsilon}
 \end{equation*}
 
-\noindent where $\TrajInf{M}$ and $\TrajInf{N}$ denotes the sets of all \textit{infinite} trajectories in $M$ and $N$, and $\alpha(\sEq{\tau}) \subseteq \sEq{\upsilon}$ implies that $\alpha(\sEq{\tau_{n}}) \subseteq \sEq{\upsilon_{n}}$ for all $n \in \mathbb{N}$. \todo{The sets of finite and infinite trajectories are related: $\tau \in \TrajFin{M} \iff \exists \rho \in \TrajInf{M} : \tau \prec \rho$.} \todo{$M$ cannot get stuck: $M(\{ c \}) \neq \emptyset$ for all $c \in \sC$.}
+\noindent where $\TrajInf{M}$ and $\TrajInf{N}$ denotes the sets of all \textit{infinite} trajectories in $M$ and $N$, respectively, and $\alpha(\sEq{\tau}) \subseteq \sEq{\upsilon}$ implies that $\alpha(\sEq{\tau_{n}}) \subseteq \sEq{\upsilon_{n}}$ for all $n \in \mathbb{N}$. \todo{The sets of finite and infinite trajectories are related: $\tau \in \TrajFin{M} \iff \exists \rho \in \TrajInf{M} : \tau \prec \rho$.} \todo{This is true if $M$ cannot get stuck: $M(\{ c \}) \neq \emptyset$ for all $c \in \sC$.}
 
 %% That is, for every infinite sequence of configurations $\tau$ permitted by $M$, there must exist a sequence $\upsilon$ for $N$ which approximates the behaviour of $\tau$ according to their equivalence relations.
 
-Recall that a trajectory assertion for $N$ is a quintuple $A = (S, s_{0}, R, \Antecedent, \Consequent)$, where $\Antecedent \in S \rightarrow \pow(\sD)$ and $\Consequent \in S \rightarrow \pow(\sD)$ label each $s \in S$ with its antecedents and consequents, respectively. If $\Antecedent$ and $\Consequent$ are invariant under the equivalence class $\sim$ of $\sD$, i.e. $\Antecedent(s) = \sEq{\Antecedent(s)}$ and $\Consequent(s) = \sEq{\Consequent(s)}$ for all $s \in S$, then we refer to $A$ as an \textit{\todo{name} trajectory assertion} and suffix it as $A_{\todo{n}}$. Furthermore, we define $\gamma(A) = (S, s_{0}, R, \gamma(\Antecedent), \gamma(\Consequent))$, where $\gamma(\Antecedent) = \lambda s \in S : \gamma(\Antecedent(s))$ and similarly $\gamma(\Consequent) = \lambda s \in S : \gamma(\Consequent(s))$.
+Recall that a trajectory assertion for $N$ is a quintuple $A = (S, s_{0}, R, \Antecedent, \Consequent)$, where $\Antecedent \in S \rightarrow \pow(\sD)$ and $\Consequent \in S \rightarrow \pow(\sD)$ label each $s \in S$ with its antecedents and consequents, respectively. If $\Antecedent$ and $\Consequent$ are invariant under the equivalence class $\sim$ of $\sD$, i.e. $\Antecedent(s) = \sEq{\Antecedent(s)}$ and $\Consequent(s) = \sEq{\Consequent(s)}$ for all $s \in S$, then we refer to $A$ as an \textit{trajectory class assertion} and suffix it as $A_{c}$. Furthermore, we define $\gamma(A) = (S, s_{0}, R, \gamma(\Antecedent), \gamma(\Consequent))$, where $\gamma(\Antecedent) = \lambda s \in S : \gamma(\Antecedent(s))$ and similarly $\gamma(\Consequent) = \lambda s \in S : \gamma(\Consequent(s))$.
 %
 \begin{theorem} \label{thm:traj-refines}
-$M \Refines N \implies (N \models A_{\todo{n}} \implies M \models \gamma(A_{\todo{n}}))$
+$M \Refines N \implies (N \models A_{c} \implies M \models \gamma(A_{c}))$
 \end{theorem}
 
-Let ${\ll} \subseteq \pow(\sC) \times \pow(\sD)$ be a \textit{simulation relation} between predicates $\sC$ and $\sD$ ordered by set inclusion, such that, if $C \ll D$ for all $C \in \sC$ and $D \in \sD$, then the following conditions hold: $\alpha(\sEq{C}) \subseteq \sEq{D}$, and $M(C) \ll N(D)$.
+Let ${\ll} \subseteq \pow(\sC) \times \pow(\sD)$ be a \textit{simulation relation} between predicates $\sC$ and $\sD$ ordered by set inclusion, such that, if $C \ll D$ for all $C \in \sC$ and $D \in \sD$, then the following conditions hold: $\alpha(\sEq{C}) \subseteq \sEq{D}$, and $M(C) \ll N(D)$. \todo{...}
 
-We say that $M$ refines $N$ by \textit{set-theoretic simulation}, denoted by $M \sRefines N$, if there exists a simulation relation $\ll$ such that $\sC \ll \sD$.
+We say that $M$ refines $N$ by \textit{set-theoretic simulation}, denoted by $M \sRefines N$, if there exists a simulation relation $\ll$ such that $\sC \ll \sD$. \todo{...}
 %
 \begin{theorem} \label{thm:traj-equal-set}
 $M \Refines N \iff M \sRefines N$
