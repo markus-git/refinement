@@ -39,7 +39,7 @@ c \in \gamma(\Antecedent(s))      & \iff     \alpha(\{ c \}) \subseteq \Antecede
 $\tau \in \TrajFin{M} \iff \exists \upsilon \in \TrajInf{M} : \tau \prec \upsilon$
 \end{lemma}
 %
-\todo{Proof of lemma.}
+Every finite prefix of an infinite trajectory satisfy the conditions necessary for it to be a trajectory as well. Also, as $M$ cannot get stuck, every finite trajectory can be extended into an infinite one.
 
 \begin{proof}
 We are given $\tau \in \Traj(M)$ and $\rho \in \Runs(\gamma(A))$, such that $| \tau | = | \rho |$ and $\tau_{n} \in \gamma(\Antecedent(\rho_{n}))$ for all $n \in \mathbb{N} : n < | \tau |$. We must then show that $\tau_{n} \in \gamma(\Consequent(\rho_{n}))$. By the refinement assumption, there must exist $\tau' \in \TrajInf{M}$ and $\upsilon' \in \TrajInf{N}$ such that $\tau \prec \tau'$ and $\alpha(\sEq{\tau'}) \subseteq \sEq{\upsilon'}$. Let $\upsilon \prec \upsilon'$ such that $| \upsilon | = | \tau |$, which implies that $\alpha(\sEq{\tau}) \subseteq \sEq{\upsilon}$. Lemma~\ref{lem:traj-ant} then shows that $\upsilon_{n} \in \Antecedent(\rho_{n})$ and, by the assumption, we have $\upsilon_{n} \in \Consequent(\rho_{n})$. Lemma~\ref{lem:traj-con} then shows that $\tau_{n} \in \gamma(\Consequent(\rho_{n}))$.
