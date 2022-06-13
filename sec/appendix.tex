@@ -47,20 +47,6 @@ We are given $\tau \in \Traj(M)$ and $\rho \in \Runs(\gamma(A))$, such that $| \
 
 \subsection{Proof of Theorem~\ref{thm:traj-equal-set}}
 
-We first define a short-hand for $n$ repeated applications of $M$, denoted by $M^{n}(C)$, such that $M^{0}(C) = C$ and $M^{n+1}(C) = M(M^{n}(C))$ for all $n \in \mathbb{N} : n > 0$; the same short-hand for $N$ is defined similarly.
-
-\begin{lemma} \label{lem:mn-traj}
-$\tau \in \TrajInf{M} \implies \forall n \in \mathbb{N} : \tau_{n} \in M^{n}(\sC)$
-\end{lemma}
-%
-The lemma follows by induction on $n$. By definition, $\tau_{0} \in \sC = M^{0}(\sC)$ and, assuming that $\tau_{n} \in M^{n}(\sC)$, then $\tau_{n+1} \in M(\{ \tau_{n} \}) \subseteq M(M^{n}(\sC)) = M^{n+1}(\sC)$.
-
-\begin{lemma} \label{lem:mn-galois}
-$M \sRefines N \wedge \alpha(C) \subseteq D \implies \forall n \in \mathbb{N} : \alpha(M^{n}(C)) \subseteq N^{n}(D)$
-\end{lemma}
-%
-The lemma follows by induction on $n$. The base case, $\alpha(M^{0}(C)) \subseteq N^{0}(D)$, follows from the assumption. For the inductive step, assume $\alpha(M^{n}(C)) \subseteq N^{n}(D)$. That $\alpha$ is a simulation relation then shows that $\alpha(M(M^{n}(C))) \subseteq N(N^{n}(D)$, or $\alpha(M^{n+1}(C)) \subseteq N^{n+1}(D)$.
-
 \begin{proof}
 We show each direction of the theorem separately.
 

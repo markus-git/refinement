@@ -24,7 +24,9 @@ Recall that a trajectory assertion for $N$ is a quintuple $A = (S, s_{0}, R, \An
 $M \Refines N \implies (N \models A_{\todo{n}} \implies M \models \gamma(A_{\todo{n}}))$
 \end{theorem}
 
-Let ${\ll} \subseteq \pow(\sC) \times \pow(\sD)$ be the greatest \textit{simulation relation} between predicates $\sC$ and $\sD$ ordered by set inclusion, such that, if $C \ll D$ for all $C \in \sC$ and $D \in \sD$, then the following conditions hold: $\alpha(\sEq{C}) \subseteq \sEq{D}$, and $M(C) \ll N(D)$. We say that $M$ refines $N$ by \textit{set-theoretic simulation}, denoted by $M \sRefines N$, if there exists a relation $\ll$ such that $\sC \ll \sD$.
+Let ${\ll} \subseteq \pow(\sC) \times \pow(\sD)$ be a \textit{simulation relation} between predicates $\sC$ and $\sD$ ordered by set inclusion, such that, if $C \ll D$ for all $C \in \sC$ and $D \in \sD$, then the following conditions hold: $\alpha(\sEq{C}) \subseteq \sEq{D}$, and $M(C) \ll N(D)$.
+
+We say that $M$ refines $N$ by \textit{set-theoretic simulation}, denoted by $M \sRefines N$, if there exists a simulation relation $\ll$ such that $\sC \ll \sD$.
 %
 \begin{theorem} \label{thm:traj-equal-set}
 $M \Refines N \iff M \sRefines N$
