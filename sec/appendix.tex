@@ -1,5 +1,11 @@
 \section{Appendices}
 
+\begin{lemma} \label{lem:class-unique}
+$M \Refines N \implies (c_{1} \sim c_{2} \implies (\alpha(c_{1}) \subseteq \sEq{d} \implies \alpha(c_{2}) \subseteq \sEq{d}))$
+\end{lemma}
+
+Suppose $c_{1} \sim c_{2}$ and $\alpha(c_{1}) \subseteq \sEq{d}$ but $\alpha(c_{2}) \nsubseteq \sEq{d}$. Because $\sim$ is a partitioning of $\sD$, there exists no $d_{2} \sim d$ such that both $\alpha(c_{1}) \subseteq \sEq{d_{2}}$ and $\alpha(c_{2}) \subseteq \sEq{d_{2}}$. But refinement states that such a $d_{2}$ must exist, hence a contradiction.
+
 \subsection{Proof of Theorem~\ref{thm:traj-refines}}
 
 We freely expand the definition of $\sEq{\cdot}$ for $\emptyset$, singletons $\{ c \in \sC \}$, and $\sC$.
@@ -35,11 +41,11 @@ c \in \gamma(\Antecedent(s))      & \iff     \alpha(\{ c \}) \subseteq \Antecede
                                   & \implies \sEq{d} \subseteq \Antecedent(s)         \nonumber    & (\textrm{lemma~\ref{lem:class-sub} and equation } \ref{eq:1})
 \end{align}
 
-\begin{lemma} \label{lem:traj-fin-inf}
-$\tau \in \TrajFin{M} \iff \exists \upsilon \in \TrajInf{M} : \tau \prec \upsilon$
-\end{lemma}
-%
-Every finite prefix of an infinite trajectory satisfy the conditions necessary for it to be a trajectory as well. Also, as $M$ cannot get stuck, every finite trajectory can be extended into an infinite one.
+%% \begin{lemma} \label{lem:traj-fin-inf}
+%% $\tau \in \TrajFin{M} \iff \exists \upsilon \in \TrajInf{M} : \tau \prec \upsilon$
+%% \end{lemma}
+%% %
+%% Every finite prefix of an infinite trajectory satisfy the conditions necessary for it to be a trajectory as well. Also, as $M$ cannot get stuck, every finite trajectory can be extended into an infinite one.
 
 \begin{proof}
 We are given $\tau \in \Traj(M)$ and $\rho \in \Runs(\gamma(A))$, such that $| \tau | = | \rho |$ and $\tau_{n} \in \gamma(\Antecedent(\rho_{n}))$ for all $n \in \mathbb{N} : n < | \tau |$. We must then show that $\tau_{n} \in \gamma(\Consequent(\rho_{n}))$. By the refinement assumption, there must exist $\tau' \in \TrajInf{M}$ and $\upsilon' \in \TrajInf{N}$ such that $\tau \prec \tau'$ and $\alpha(\sEq{\tau'}) \subseteq \sEq{\upsilon'}$. Let $\upsilon \prec \upsilon'$ such that $| \upsilon | = | \tau |$, which implies that $\alpha(\sEq{\tau}) \subseteq \sEq{\upsilon}$. Lemma~\ref{lem:traj-ant} then shows that $\upsilon_{n} \in \Antecedent(\rho_{n})$ and, by the assumption, we have $\upsilon_{n} \in \Consequent(\rho_{n})$. Lemma~\ref{lem:traj-con} then shows that $\tau_{n} \in \gamma(\Consequent(\rho_{n}))$.
@@ -51,8 +57,8 @@ We are given $\tau \in \Traj(M)$ and $\rho \in \Runs(\gamma(A))$, such that $| \
 We show each direction of the theorem separately.
 
 % M Refines N => M SetRefines N
-$\Rightarrow$ \todo{Proof.}
-
+% $\Rightarrow$ \todo{Proof.}
+%
 %% For any $C$ and $D$ such that $\alpha(C) \subseteq D$, it follows that $\alpha(\{ c \}) \subseteq D$ for all $c \in C$ since $\alpha$ distributes over arbitrary union. Every such $c$ is the start of some trajectories in $M$ and, by the assumption, it exists a trajectory in $N$ with start $d \in \sD$ such that $\alpha(\sEq{c}) \subseteq \sEq{d}$. Using the distributivity of $\alpha$ and $c \in \sEq{c}$, we thus also have $\alpha(\{ c \}) \subseteq \sEq{d}$ and hence $D \cap \sEq{d} \neq \emptyset$ because $\alpha(\{ c \}) \neq \emptyset$ \todo{(prop. 3)}. Lemma~\ref{lem:class-sub} then states that $\sEq{d} \subseteq \sEq{D}$ since $\sEq{\cdot}$ is idempotent, and so $\alpha(\sEq{c}) \subseteq \sEq{D}$ and $\alpha(\sEq{C}) \subseteq \sEq{D}$ \todo{(prop. 1)}. \todo{hmm \dots}
 %
 %% Consider a trajectory $\langle \tau_{0}, \ldots, \tau_{n} \rangle$ in $M$. By the refinement assumption, we know there exists a trajectory $\langle \upsilon_{0}, \ldots, \upsilon_{n} \rangle$ in $N$, such that $\{ \tau_{k} \} \ll \{ \upsilon_{k} \}$ for all $k \in \mathbb{N} : k \leq n$. And if we append any $c \in M(\{ \tau_{n} \})$ to the end of $\langle \tau_{0}, \ldots, \tau_{n} \rangle$, the refinement assumption again tells us there exists another trajectory $\langle \tilde{\upsilon}_{0}, \ldots, \tilde{\upsilon}_{n}, d \rangle$ in $N$ such that $\{ \tau_{k} \} \ll \{ \tilde{\upsilon}_{k} \}$ and $\{ c \} \ll \{ d \}$. As $\alpha(\sEq{\tau_{k}}) \neq \emptyset$, it must be that $\sEq{\upsilon_{k}} = \sEq{\tilde{\upsilon}_{k}}$, and thus $d \in N(\{ \tilde{\upsilon}_{n} \})$ implies $d \in N(\sEq{\upsilon_{n}})$.
@@ -60,7 +66,7 @@ $\Rightarrow$ \todo{Proof.}
 %% To show that $\ll$ is a simulation relation, consider any ``next-step'' of these trajectories starting in $c$ and $d$, i.e. $c' \in M(\{ c \})$ and $d' \in N(\{ d \})$. From the refinement assumption we know that $\{ c' \} \ll \{ d' \}$, or $\alpha([c']) \subseteq [d'] \subseteq [N(\{ d \})] \subseteq [N(D)]$. Taking the union of every such ordering for $c' \in M(\{ c \})$, we see that $M(\{ c \}) \ll N(D)$ for all $c \in C$, or $M(C) \ll N(D)$, as required.
 
 % M SetRefines N => M Refines N
-$\Leftarrow$ \todo{Proof.}
+% $\Leftarrow$ \todo{Proof.}
 %
 %% We show this claim by induction on the length of $\tau$. For the base case, $| \tau | = 1$, we are given $\tau = \langle \tau_{1} \rangle$ where $\tau_{1}$ is unconstrained, i.e. we only know that $\tau_{1} \in \sC$. But a Galois connection always relates the most general states of its two partially ordered sets, so $\alpha(\{ \sC \}) \subseteq \{ \sD \}$. As $[\{ \sC \}] = \{ \sC \}$ and $[\{ \sD \}] = \{ \sD \}$, we also have $\alpha([\{ \sC \}]) \subseteq [\{ \sD \}]$, or $\{ \sC \} \ll \{ \sD \}$. \todo{Name} property of $\ll$ then tells us that there exists $d \in \sD$ such that $|\langle \tau_{1} \rangle| = |\langle d \rangle|$ and $\{ \tau_{1} \} \ll \{ d \}$. For the inductive step, $| \tau | = n + 1$, we are given a sequence $\langle \dots, \tau_{n}, \tau_{n+1} \rangle$ and assume there exists another sequence $\langle \dots, \upsilon_{n} \rangle$ such that $|\langle \dots, \tau_{n} \rangle| = |\langle \dots, \upsilon_{n} \rangle|$ and $\langle \dots, \tau_{n} \rangle \ll \langle \dots, \upsilon_{n} \rangle$. From the simulation property of $\ll$, we know that $M(\tau_{n}) \ll N(\upsilon_{n})$ and, by the definition of trajectories, that $\tau_{n+1} \in M(\tau_{n})$. Applying \todo{name} property of $\ll$ then states that there exists $d \in N(\upsilon_{n})$ such that $\{ \tau_{n+1} \} \ll \{ d \}$. The concatenation of $\langle \dots, \upsilon_{n+1} \rangle$ and $\langle d \rangle$, i.e. $\langle \dots, \upsilon_{n}, d \rangle$, forms a valid trajectory in $\Traj(N)$ as $d \in N(\upsilon_{n})$, and it satisfies the properties $| \langle \dots, \tau_{n}, \tau_{n+1} \rangle | = | \langle \dots, \upsilon_{n}, d \rangle |$ and $\langle \dots, \tau_{n}, \tau_{n+1} \rangle \ll \langle \dots, \upsilon_{n}, d \rangle$.
 \end{proof}
@@ -73,12 +79,10 @@ $\Leftarrow$ \todo{Proof.}
 
 %% \noindent where the union of two pairs $R^{n}(C, D)$ and $R^{n}(C', D')$ is given by the union of its two parts $R^{n}(C \cup C', D \cup D')$. We then define $\ll \; = R^{0} \cup R^{1} \cup \dots$ and show that it satisfies the desired conditions.
 
-\subsection{Proof of Theorem~\ref{thm:lat-refines}}
+\subsection{Proof of Theorem~\ref{thm:sim-refines}}
 
-First a lemma that shows $\lEq{\hat p \meet \lAntecedent(s)} \iff \lEq{\hat p} \meet \lAntecedent(s)$ is a reasonable assumption.
-
-\begin{lemma}
-$(\sEq{D} = D) \implies (\sEq{C \cap D} \iff \sEq{C} \cap D)$
+\begin{lemma} \label{lem:class-inv-meet}
+$\sEq{D} = D \implies (\sEq{C \cap D} \iff \sEq{C} \cap D)$
 \end{lemma}
 %
 \begin{align*}
@@ -87,54 +91,93 @@ x \in \sEq{C \cap D} & \iff \exists y : x \sim y \wedge y \in C \wedge y \in D &
                      & \iff x \in \sEq{C} \cap D                               & (\textrm{definition of } \sEq{\cdot} \textrm { and } \cap)
 \end{align*}
 
-Secondly we show a few helpful lemmas that regard the fix-points and functions used to determine satisfaction with $\hat M$ and $\hat N$. Before that, we duplicate the earlier definitions of $F$, $\mathcal{F}$ and $\Phi$ to differentiate between those used with $\hat M$ and those with $\hat N$. Specifically, let $G$, $\mathcal{G}$ and $\Psi$ be equivalent operations for $\hat N$, as $F$, $\mathcal{F}$ and $\Phi$ are for $\hat M$:
-
-\begin{align*}
-G(s)(\hat q) &= \hat N(\pi_{a}(s) \sqcap \hat q) \\
-\mathcal{G}(\Psi)(s) &= \Stmt{if } (s = s_{0}) \Stmt{ then } \top \Stmt{ else } \sqcup \{ G(s')(\Psi(s')) \mid (s',s) \in R \} \\
-\Psi_{n} &= \Stmt{if } (n = 0) \Stmt{ then } (\lambda s \in S : \bot) \Stmt{ else } \mathcal{G}(\Psi_{n-1}) \\
-\end{align*}
-
-\noindent Furthermore, let $\Psi_{*}$ be the least fixpoint of $\Psi = \mathcal{G}(\Psi)$ and given by $\lim \, \Psi_{n}(s)$.
-
-\begin{lemma} \label{lem:bot-refine-bot}
-$\bot \lll \bot \wedge \top \lll \top$
+\begin{lemma} \label{lem:G-refines-F}
+$c \ll d \implies M(\gamma(\Antecedent(\rho)) \cap c) \ll N(\Antecedent(\rho) \cap d)$
 \end{lemma}
 
-A Galois connection always relates the two tops and bottoms, i.e. $\lalpha(\top) \ordered \top$ and $\lalpha(\bot) \ordered \bot$. Because $\lEq{\cdot}$ preserves both tops and bottoms, it then follows that both $\lalpha(\lEq{\top}) \ordered \lEq{\top}$, or $\top \lll \top$, and $\lalpha(\lEq{\bot}) \ordered \lEq{\bot}$, or $\bot \lll \bot$, holds as well.
+\todo{Thought this could be useful for the next lemma.}
 
-\begin{lemma} \label{lem:f-refine-g}
-$\hat p \lll \hat q \implies \forall s \in S : F(s)(\hat p) \lll G(s)(\hat q)$
+\begin{lemma} \label{lem:phi-refines-psi}
+$\forall s \in S : \Phi_{*}(s) \ll \Psi_{*}(s)$
 \end{lemma}
+
+Since $\Phi_{*}(s) = \lim \, \Phi_{n}(s)$ and $\Psi_{*}(s) = \lim \, \Psi_{n}(s)$, it suffices to prove that $\Phi_{n}(s) \ll \Psi_{n}(s)$ for all $s \in S$ and $n \in \mathbb{N}$. We do so by induction on $n$. The base case, where $\Phi_{0}(s) = \bot$ and $\Psi_{0}(s) = \bot$, follows from \todo{???}. For the inductive step, assume that $\Phi_{n}(s) \ll \Psi_{n}(s)$ for all $s \in S$. For $s = s_{0}$, we have that $\Phi_{n+1}(s_{0}) = \top$ and $\Psi_{n+1}(s_{0}) = \top$, which follows from \todo{???}. For any $s \neq s_{0}$, we have:
 %
+\todo{%
 \begin{align*}
-\lgamma(\lEq{G(s)(\hat q)})
-  & =         \lgamma(\lEq{\hat N(\lAntecedent(s) \meet \hat q)})           & (\textrm{definition of } G) \\
-  & \rordered \lEq{\hat M(\lgamma(\lAntecedent(s) \meet \hat q))}           & (\textrm{\todo{simulation relation?}}) \\
-  & =         \lEq{\hat M(\lgamma(\lAntecedent(s)) \meet \lgamma(\hat q))}  & (\lgamma \textrm{ distributes over } \meet) \\
-  & \rordered \lEq{\hat M(\lgamma(\lAntecedent(s)) \meet \hat p)}           & (\textrm{\todo{Galois connection?}}) \\
-  & =         \lEq{F(s)(\hat p)}                                            & (\textrm{definition of } F)
+\Psi_{n}&(s) \ll \Phi_{n}(s) \\
+& \implies \Psi_{n+1}(s) \ll \Phi_{n+1}(s) \\
+& = \cup \{ G(s')(\Psi_{n}(s')) \mid (s',s) \in R \} \ll \cup \{ F(s')(\Phi_{n}(s')) \mid (s',s) \in R \} \\
+& = \cup \{ M(\gamma(\Antecedent(s')) \cap \Psi_{n}(s')) \mid (s',s) \in R \} \ll \cup \{ N(\Antecedent(s') \cap \Phi_{n}(s')) \mid (s',s) \in R \}
 \end{align*}
+}
 
-\begin{lemma} \label{lem:phi-refine-psi}
-$\forall s \in S : \Phi_{*}(s) \lll \Psi_{*}(s)$
-\end{lemma}
+\begin{proof}
+Consider an arbitrary $s \in S$ and let $p = \Phi_{*}(s) \cap \gamma(\Antecedent(s))$, thus $p \subseteq \Phi_{*}(s)$ and $p \subseteq \gamma(\Antecedent(s))$ or $\alpha(p) \subseteq \Antecedent(s)$. \todo{Lemma~\ref{lem:phi-refines-psi}} implies that $\alpha(\sEq{\Phi_{*}(s)}) \subseteq \sEq{\Psi_{*}(s)}$ and, by the monotonicity of $\alpha$ and $\sEq{\cdot}$, $\alpha(\sEq{p}) \subseteq \alpha(\sEq{\Phi_{*}(s)}) \subseteq \sEq{\Psi_{*}(s)}$. Using the invariance of $\Consequent$ and lemma~\ref{lem:class-inv-meet}, the satisfaction of $\Consequent(s)$ by $N$ can be restated as $\Consequent(s) \supseteq \sEq{\Psi_{*}(s) \cap \Antecedent(s)} = \sEq{\Psi_{*}(s)} \cap \Antecedent(s)$. Since $\alpha(p)$ is $\subseteq \sEq{\Psi_{*}(s)}$ and $\subseteq \Antecedent(s)$, we see that $\alpha(p) \subseteq \Consequent(s)$, or $p \subseteq \gamma(\Consequent(s))$ as desired.
+\end{proof}
 
-Since $\Phi_{*}(s) = \lim \, \Phi_{n}(s)$ and $\Psi_{*}(s) = \lim \, \Psi_{n}(s)$, it suffices to prove that $\Phi_{n}(s) \lll \Psi_{n}(s)$ for all $s \in S$ and $n \in \mathbb{N}$. We do so by induction on $n$. The base case, where $\Phi_{0}(s) = \bot$ and $\Psi_{0}(s) = \bot$, follows from lemma~\ref{lem:bot-refine-bot}. For the inductive step, assume that $\Phi_{n}(s) \lll \Psi_{n}(s)$ for all $s \in S$. For $s = s_{0}$, we have that $\Phi_{n+1}(s_{0}) = \top$ and $\Psi_{n+1}(s_{0}) = \top$, which also follows from lemma~\ref{lem:bot-refine-bot}. For any $s \neq s_{0}$, we have:
-%
-\begin{align*}
-\lgamma(\lEq{\Psi_{n+1}(s)})
-  & =         \lgamma(\lEq{\join \{ G(s')(\Psi_{n}(s')) \mid (s',s) \in R \}}) & (\textrm{definition of } \Psi_{n+1} \textrm { and } \mathcal{G}) \\
-  & =         \lgamma(\join \{ \lEq{G(s')(\Psi_{n}(s'))} \mid (s',s) \in R \}) & (\lEq{\cdot} \textrm{ distributes over } \join) \\
-  & \rordered \join \{ \lgamma(\lEq{G(s')(\Psi_{n}(s'))}) \mid (s',s) \in R \} & (\lgamma \textrm{ is monotone}) \\
-  & \rordered \join \{ \lEq{F(s')(\Phi_{n}(s')} \mid (s',s) \in R \}           & (\textrm{\todo{I.H and lemma~\ref{lem:f-refine-g}}}) \\
-  & =         \lEq{\join \{ F(s')(\Phi_{n}(s') \mid (s',s) \in R \}}           & (\lEq{\cdot} \textrm{ distributes over } \join) \\
-  & =         \lEq{\Phi_{n+1}(s)}                                              & (\textrm{definition of } \Phi_{n+1} \textrm{ and } \mathcal{F})
-\end{align*}
-\\
+%% \subsection{Proof of Theorem~\ref{thm:lat-refines}}
 
-Consider an arbitrary $s \in S$ and let $\hat p = \Phi_{*}(s) \meet \lgamma(\lAntecedent(s))$, where $\hat p \ordered \Phi_{*}(s)$ and $\hat p \ordered \lgamma(\lAntecedent(s))$, or $\lalpha(\hat p) \ordered \lAntecedent(s)$. Lemma~\ref{lem:phi-refine-psi} tells us $\Phi_{*}(s) \lll \Psi_{*}(s)$, and thus $\lalpha(\hat p) \ordered \lalpha(\lEq{\hat p}) \ordered \lalpha(\lEq{\Phi_{*}(s)}) \ordered \lEq{\Psi_{*}(s)}$ by the monotonicity of $\lEq{\cdot}$ and $\lalpha$. Using the invariance of $\lAntecedent(s)$ and property \todo{name} of $\lEq{\cdot}$, we note that the assumption can be restated as $\lConsequent(s) \rordered \Psi_{*}(s) \meet \lAntecedent(s) = \lEq{\Psi_{*}(s) \meet \lAntecedent(s)} = \lEq{\Psi_{*}(s)} \meet \lAntecedent(s)$. It then follows that $\alpha(\hat p) \ordered \lConsequent(s)$, or $\hat p \ordered \lgamma(\lConsequent(s))$ as desired. %$\qedbox$
+%% First a lemma that shows $\lEq{\hat p \meet \lAntecedent(s)} \iff \lEq{\hat p} \meet \lAntecedent(s)$ is a reasonable assumption.
 
-\subsection{Proof of Theorem~\ref{thm:lat-imply-set}}
+%% \begin{lemma}
+%% $(\sEq{D} = D) \implies (\sEq{C \cap D} \iff \sEq{C} \cap D)$
+%% \end{lemma}
+%% %
+%% \begin{align*}
+%% x \in \sEq{C \cap D} & \iff \exists y : x \sim y \wedge y \in C \wedge y \in D & (\textrm{definition of } \sEq{\cdot} \textrm{ and } \cap) \\
+%%                      & \iff \exists y : x \sim y \wedge y \in C \wedge x \in D & (x \sim y \textrm{ and } D = \sEq{D}) \\
+%%                      & \iff x \in \sEq{C} \cap D                               & (\textrm{definition of } \sEq{\cdot} \textrm { and } \cap)
+%% \end{align*}
 
-Text.
+%% Secondly we show a few helpful lemmas that regard the fix-points and functions used to determine satisfaction with $\hat M$ and $\hat N$. Before that, we duplicate the earlier definitions of $F$, $\mathcal{F}$ and $\Phi$ to differentiate between those used with $\hat M$ and those with $\hat N$. Specifically, let $G$, $\mathcal{G}$ and $\Psi$ be equivalent operations for $\hat N$, as $F$, $\mathcal{F}$ and $\Phi$ are for $\hat M$:
+
+%% \begin{align*}
+%% G(s)(\hat q) &= \hat N(\pi_{a}(s) \sqcap \hat q) \\
+%% \mathcal{G}(\Psi)(s) &= \Stmt{if } (s = s_{0}) \Stmt{ then } \top \Stmt{ else } \sqcup \{ G(s')(\Psi(s')) \mid (s',s) \in R \} \\
+%% \Psi_{n} &= \Stmt{if } (n = 0) \Stmt{ then } (\lambda s \in S : \bot) \Stmt{ else } \mathcal{G}(\Psi_{n-1}) \\
+%% \end{align*}
+
+%% \noindent Furthermore, let $\Psi_{*}$ be the least fixpoint of $\Psi = \mathcal{G}(\Psi)$ and given by $\lim \, \Psi_{n}(s)$.
+
+%% \begin{lemma} \label{lem:bot-refine-bot}
+%% $\bot \lll \bot \wedge \top \lll \top$
+%% \end{lemma}
+
+%% A Galois connection always relates the two tops and bottoms, i.e. $\lalpha(\top) \ordered \top$ and $\lalpha(\bot) \ordered \bot$. Because $\lEq{\cdot}$ preserves both tops and bottoms, it then follows that both $\lalpha(\lEq{\top}) \ordered \lEq{\top}$, or $\top \lll \top$, and $\lalpha(\lEq{\bot}) \ordered \lEq{\bot}$, or $\bot \lll \bot$, holds as well.
+
+%% \begin{lemma} \label{lem:f-refine-g}
+%% $\hat p \lll \hat q \implies \forall s \in S : F(s)(\hat p) \lll G(s)(\hat q)$
+%% \end{lemma}
+%% %
+%% \begin{align*}
+%% \lgamma(\lEq{G(s)(\hat q)})
+%%   & =         \lgamma(\lEq{\hat N(\lAntecedent(s) \meet \hat q)})           & (\textrm{definition of } G) \\
+%%   & \rordered \lEq{\hat M(\lgamma(\lAntecedent(s) \meet \hat q))}           & (\textrm{\todo{simulation relation?}}) \\
+%%   & =         \lEq{\hat M(\lgamma(\lAntecedent(s)) \meet \lgamma(\hat q))}  & (\lgamma \textrm{ distributes over } \meet) \\
+%%   & \rordered \lEq{\hat M(\lgamma(\lAntecedent(s)) \meet \hat p)}           & (\textrm{\todo{Galois connection?}}) \\
+%%   & =         \lEq{F(s)(\hat p)}                                            & (\textrm{definition of } F)
+%% \end{align*}
+
+%% \begin{lemma} \label{lem:phi-refine-psi}
+%% $\forall s \in S : \Phi_{*}(s) \lll \Psi_{*}(s)$
+%% \end{lemma}
+
+%% Since $\Phi_{*}(s) = \lim \, \Phi_{n}(s)$ and $\Psi_{*}(s) = \lim \, \Psi_{n}(s)$, it suffices to prove that $\Phi_{n}(s) \lll \Psi_{n}(s)$ for all $s \in S$ and $n \in \mathbb{N}$. We do so by induction on $n$. The base case, where $\Phi_{0}(s) = \bot$ and $\Psi_{0}(s) = \bot$, follows from lemma~\ref{lem:bot-refine-bot}. For the inductive step, assume that $\Phi_{n}(s) \lll \Psi_{n}(s)$ for all $s \in S$. For $s = s_{0}$, we have that $\Phi_{n+1}(s_{0}) = \top$ and $\Psi_{n+1}(s_{0}) = \top$, which also follows from lemma~\ref{lem:bot-refine-bot}. For any $s \neq s_{0}$, we have:
+%% %
+%% \begin{align*}
+%% \lgamma(\lEq{\Psi_{n+1}(s)})
+%%   & =         \lgamma(\lEq{\join \{ G(s')(\Psi_{n}(s')) \mid (s',s) \in R \}}) & (\textrm{definition of } \Psi_{n+1} \textrm { and } \mathcal{G}) \\
+%%   & =         \lgamma(\join \{ \lEq{G(s')(\Psi_{n}(s'))} \mid (s',s) \in R \}) & (\lEq{\cdot} \textrm{ distributes over } \join) \\
+%%   & \rordered \join \{ \lgamma(\lEq{G(s')(\Psi_{n}(s'))}) \mid (s',s) \in R \} & (\lgamma \textrm{ is monotone}) \\
+%%   & \rordered \join \{ \lEq{F(s')(\Phi_{n}(s')} \mid (s',s) \in R \}           & (\textrm{\todo{I.H and lemma~\ref{lem:f-refine-g}}}) \\
+%%   & =         \lEq{\join \{ F(s')(\Phi_{n}(s') \mid (s',s) \in R \}}           & (\lEq{\cdot} \textrm{ distributes over } \join) \\
+%%   & =         \lEq{\Phi_{n+1}(s)}                                              & (\textrm{definition of } \Phi_{n+1} \textrm{ and } \mathcal{F})
+%% \end{align*}
+%% \\
+
+%% Consider an arbitrary $s \in S$ and let $\hat p = \Phi_{*}(s) \meet \lgamma(\lAntecedent(s))$, where $\hat p \ordered \Phi_{*}(s)$ and $\hat p \ordered \lgamma(\lAntecedent(s))$, or $\lalpha(\hat p) \ordered \lAntecedent(s)$. Lemma~\ref{lem:phi-refine-psi} tells us $\Phi_{*}(s) \lll \Psi_{*}(s)$, and thus $\lalpha(\hat p) \ordered \lalpha(\lEq{\hat p}) \ordered \lalpha(\lEq{\Phi_{*}(s)}) \ordered \lEq{\Psi_{*}(s)}$ by the monotonicity of $\lEq{\cdot}$ and $\lalpha$. Using the invariance of $\lAntecedent(s)$ and property \todo{name} of $\lEq{\cdot}$, we note that the assumption can be restated as $\lConsequent(s) \rordered \Psi_{*}(s) \meet \lAntecedent(s) = \lEq{\Psi_{*}(s) \meet \lAntecedent(s)} = \lEq{\Psi_{*}(s)} \meet \lAntecedent(s)$. It then follows that $\alpha(\hat p) \ordered \lConsequent(s)$, or $\hat p \ordered \lgamma(\lConsequent(s))$ as desired. %$\qedbox$
+
+%% \subsection{Proof of Theorem~\ref{thm:lat-imply-set}}
+
+%% Text.

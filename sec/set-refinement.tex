@@ -4,7 +4,7 @@ Consider another fixed, but arbitrary, circuit model $N \in \pow(\sD) \rightarro
 
 %% todo: Example of how equiv. classes are predicates.
 
-Let there be a Galois connection between the predicates $\pow(\sC)$ and $\pow(\sD)$ ordered by set inclusion, given in terms of two monotone functions: an \textit{abstraction} $\alpha \in \pow(\sC) \rightarrow \pow(\sD)$ and a \textit{concretisation} $\gamma \in \pow(\sD) \rightarrow \pow(\sC)$ function. An essential property of a Galois connection is that, for all $C \in \pow(\sC)$ and $D \in \pow(\sD)$, the pair $\alpha$ and $\gamma$ satisfy the equality: $\alpha(C) \subseteq D \iff C \subseteq \gamma(D)$. Intuitively, this relation is an extension of the partial orderings inside $\pow(\sC)$ and $\pow(\sD)$ to an ordering between them. \todo{Every configuration must have an abstraction: $\alpha([\{c\}]) \neq \emptyset$ for all $c \in \sC$.}
+Let there be a Galois connection between the predicates $\pow(\sC)$ and $\pow(\sD)$ ordered by set inclusion, given in terms of two monotone functions: an \textit{abstraction} $\alpha \in \pow(\sC) \rightarrow \pow(\sD)$ and a \textit{concretisation} $\gamma \in \pow(\sD) \rightarrow \pow(\sC)$ function. An essential property of a Galois connection is that, for all $C \in \pow(\sC)$ and $D \in \pow(\sD)$, the pair $\alpha$ and $\gamma$ satisfy the equality: $\alpha(C) \subseteq D \iff C \subseteq \gamma(D)$. Intuitively, this relation is an extension of the partial orderings inside $\pow(\sC)$ and $\pow(\sD)$ to an ordering between them. \todo{$\forall c \in \sC : \alpha([\{c\}]) \neq \emptyset$.} \todo{$c_{1} \sim c_{2} \implies (\alpha(c_{1}) \subseteq [d] \implies \alpha(c_{2}) \subseteq [d])$.}
 
 %% todo: Example of a Galois connection.
 
@@ -14,7 +14,9 @@ We can now formalize that $M$ \textit{refines} $N$, denoted by $M \Refines N$, a
 \forall \tau \in \TrajInf{M} : \exists \upsilon \in \TrajInf{N} : \alpha(\sEq{\tau}) \subseteq \sEq{\upsilon}
 \end{equation*}
 
-\noindent where $\TrajInf{M}$ and $\TrajInf{N}$ denotes the sets of all \textit{infinite} trajectories in $M$ and $N$, respectively, and $\alpha(\sEq{\tau}) \subseteq \sEq{\upsilon}$ implies that $\alpha(\sEq{\tau_{n}}) \subseteq \sEq{\upsilon_{n}}$ for all $n \in \mathbb{N}$. \todo{The sets of finite and infinite trajectories are related: $\tau \in \TrajFin{M} \iff \exists \rho \in \TrajInf{M} : \tau \prec \rho$.} \todo{This is true if $M$ cannot get stuck: $M(\{ c \}) \neq \emptyset$ for all $c \in \sC$.}
+\noindent where $\TrajInf{M}$ and $\TrajInf{N}$ denotes the sets of all \textit{infinite} trajectories in $M$ and $N$, respectively, and $\alpha(\sEq{\tau}) \subseteq \sEq{\upsilon}$ implies that $\alpha(\sEq{\tau_{n}}) \subseteq \sEq{\upsilon_{n}}$ for all $n \in \mathbb{N}$. We note that trajectories are prefix-closed and, hence, every prefix of an infinite trajectory is a finite trajectory. The reverse, that every finite trajectory can be extended into an infinite trajectory, follows from how there are no ``stuck'' configurations in $M$. \todo{$\forall c \in \sC : M(\{ c \}) \neq \emptyset$.}
+%
+% \todo{The sets of finite and infinite trajectories are related: $\tau \in \TrajFin{M} \iff \exists \rho \in \TrajInf{M} : \tau \prec \rho$.} \todo{This is true if $M$ cannot get stuck: }
 
 %% That is, for every infinite sequence of configurations $\tau$ permitted by $M$, there must exist a sequence $\upsilon$ for $N$ which approximates the behaviour of $\tau$ according to their equivalence relations.
 
@@ -26,10 +28,14 @@ $M \Refines N \implies (N \models A_{c} \implies M \models \gamma(A_{c}))$
 
 Let ${\ll} \subseteq \pow(\sC) \times \pow(\sD)$ be a \textit{simulation relation} between predicates $\sC$ and $\sD$ ordered by set inclusion, such that, if $C \ll D$ for all $C \in \sC$ and $D \in \sD$, then the following conditions hold: $\alpha(\sEq{C}) \subseteq \sEq{D}$, and $M(C) \ll N(D)$. \todo{...}
 
-We say that $M$ refines $N$ by \textit{set-theoretic simulation}, denoted by $M \sRefines N$, if there exists a simulation relation $\ll$ such that $\sC \ll \sD$. \todo{...}
+We say that $M$ refines $N$ by \textit{set-theoretic simulation}, denoted by $M \sRefines N$, if there exists a simulation relation $\ll$ such that $\sC \ll \sD$, \todo{$c_{1} \sim c_{2} \implies (\alpha(c_{1}) \subseteq \sEq{d} \implies \alpha(c_{2}) \subseteq \sEq{d})$}, \todo{...}
 %
 \begin{theorem} \label{thm:traj-equal-set}
 $M \Refines N \iff M \sRefines N$
+\end{theorem}
+
+\begin{theorem} \label{thm:sim-refines}
+$M \sRefines N \implies (N \models A_{c} \implies M \models \gamma(A_{c}))$
 \end{theorem}
 
 %% -- cannot use 'alpha' for the simulation relation because, for certain circuits, not all 'alpha's are valid refinements.
